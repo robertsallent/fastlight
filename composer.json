@@ -1,0 +1,22 @@
+{
+	"type" : "project",
+	"license" : "proprietary",
+	"name" : "robertsallent/fastlight",
+	"description" : "Fast and light framework for develop PHP applications",
+	"require" : {
+		"php" : ">=8.0"
+	},
+	"homepage" : "http://robertsallent.com",
+	"authors" : [{
+			"name" : "Robert Sallent",
+			"email" : "robert@juegayestudia.com",
+			"homepage" : "https://robertsallent.com",
+			"role" : "God"
+		}
+	],
+	"keywords" : [
+		"framework",
+		"php",
+		"web"
+	]
+}
