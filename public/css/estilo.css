@@ -1,0 +1,27 @@
+
+	*{
+		box-sizing: border-box;
+	}
+	
+	form{
+		padding: 5px;
+		border-radius: 5px;
+		margin: 5px;
+	}
+	
+	body{
+		font-family: arial, verdana, helvetica;
+		width: 85%;
+		padding: 20px;
+	}
+	
+	label{
+	  display: inline-block;
+	  min-width: 100px; 
+	  margin: 6px;
+	}
+	
+	input{
+		padding: 2px;
+	}
+
