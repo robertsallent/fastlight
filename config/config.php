@@ -6,7 +6,7 @@
     $classmap = ['../controller','../model', '../libraries']; 
     
     // TÍTULO DE LA APP
-    define('APP_TITLE','');
+    define('APP_TITLE','FastLight Framework');
 
     // PARÁMETROS DE CONFIGURACION DE LA BDD   
     define('DB_HOST','localhost');  // host

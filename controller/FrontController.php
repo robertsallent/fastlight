@@ -6,10 +6,15 @@
         // método principal del controlador frontal
         public static function main(){
             try{
+                
+                // detección del usuario identificado
+                Login::init();
+                
                 // GESTIÓN DE PETICIONES 
                 // mira la url que llega por el parámetro url y la descompone en un array
                 // por ejemplo: /libro/show/3 se convierte en ['libro','show','3']
-                $url = explode('/', $_GET['url'] ?? '');
+                $url = $_GET['url'] ?? '';
+                $url = explode('/', rtrim($url, '/'));
                 
 
                 // recupera el controlador a usar (primera posición del array)
@@ -18,7 +23,7 @@
                 $c = empty($url[0]) ? 
                     DEFAULT_CONTROLLER :  ucfirst(strtolower(array_shift($url))).'Controller';
          
-                // recupera el método (segundo parámetro a usar)
+                // recupera el método (segunda posición del array)
                 // si no existe, el método es index (el indicado en config.php)
                 // EJ: si llega create, el método a invocar es create()
                 $m = empty($url[0]) ? 
@@ -48,7 +53,7 @@
                     $mensaje .= "<h3>Información adicional para depuración:</h3>";
                     $mensaje .= "<p>Ruta: <b>".$_GET['url']."</b></p>";
                     $mensaje .= $c ? "<p>Controlador: <b>$c</b></p>" : '';
-                    $mensaje .= $m ? "<p>Método: <b>$m</b></p>" : '';
+                    $mensaje .= $m ? "<p>Método: <b>$m()</b></p>" : '';
                     $mensaje .= $url ? "<p>Parámetros: <b>".implode(', ',$url)."</b></p>" : '';
                     
                     $mensaje .= "<p>En fichero: <b>".$e->getFile()."</b></p>";

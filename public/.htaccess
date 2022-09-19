@@ -7,12 +7,11 @@ RewriteEngine on
 # Base para todas las peticiones (ubicación de index.php respecto al DocumentRoot)
 RewriteBase /
 
-# Si se solicita un fichero, que no la reescriba
+# Si se solicita un fichero, que no reescriba la URL
 RewriteCond %{REQUEST_FILENAME} !-f
 
 # Reescribe cualquier petición, convirtiéndola de la siguiente forma:
 # si llega /libro/show/5 reescribe a  index.php?url=libro/show/5
 # el controlador frontal tomará ese parámetro url y lo descompodrá en partes
+
 RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
-
-

@@ -9,8 +9,9 @@
 		<h1>Portada</h1>
 		<?php include '../views/components/menu.php';?>
 		
-		<h2>Bienvenido a nuestra aplicación</h2>
-		<p>Esta es una aplicación de prueba para comprender el MVC.</p>
+		<h2>FastLight Framework</h2>
+		<p>Framework de clase para desarrollar aplicaciones web</p>
+		<p>Desarrollado por <a href="https://robertsallent.com">Robert Sallent</a>.</p>
 	</body>
 </html>
 
