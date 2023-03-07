@@ -13,7 +13,7 @@
         
         // muestra el formulario de login
         public function index(){
-            require '/views/login.php';        
+            require '../views/login.php';        
         }
         
         // método que gestiona la identificación y da acceso o no
@@ -24,7 +24,7 @@
                 throw new LoginException('No se recibió el formulario de LogIn.');
             
             // recuperar usuario (o email) y clave
-            $user = DB::escape($_POST['usuario']);
+            $user = DB::escape($_POST['user']);
             $password = md5($_POST['password']);    // la clave va en MD5
             
             $identificado = (USER_PROVIDER)::identificar($user, $password); // recuperar el usuario
@@ -34,8 +34,10 @@
         
             Login::set($identificado); // vincula el usuario a la sesión
             
-            // nos lleva a la página con sus datos
-            URL::redirect("/User/home");
+            // nos lleva a la home del usuario
+            //URL::redirect("/User/home");
+            
+            URL::redirect("/");
         }
     }
     

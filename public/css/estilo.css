@@ -1,27 +1,130 @@
 
 	*{
 		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
 	}
 	
+	/* para el flex */
+	.flex-container{
+		display: flex;
+		flex-wrap: wrap;
+	}
+	
+	.flex1{flex:1}
+	.flex2{flex:2}
+	.flex3{flex:3}
+	.flex4{flex:4}
+	
+	
+	/* éxito y error */
+	.success{
+		background-color: #efe;
+		color: #060;
+	}
+	
+	.warning{
+		background-color: #ffe;
+		color: #660;
+	}
+	
+	.error{
+		background-color: #fee;
+		color: #600;
+	}
+	
+	/* alineación del texto */
+	.centrado{ text-align: center;}
+	.justificado{ text-align: justify;}
+	.izquierda{ text-align: left;}
+	.derecha{ text-align: right;}
+	
+	/* distintos elementos */
+	div{
+		padding: 10px;
+		margin: 10px;
+	}
+	
+	h1, h2, h3, p, ul, ol{
+		margin-bottom: 1.5rem;
+	}
+	
+	
+	/* estructura de la páginax */
+	body{
+		padding: 20px;
+		font-family: arial, verdana, helvetica;
+		width: 85%;	
+		margin: 20px auto;
+	}
+	
+	a{
+		color: blue;
+		text-decoration: none;
+	}
+	
+	.button, a{
+		font-size: 1rem;
+	}
+	
+	/* formularios */
 	form{
 		padding: 5px;
-		border-radius: 5px;
-		margin: 5px;
+		margin: 5px auto;
 	}
 	
-	body{
-		font-family: arial, verdana, helvetica;
-		width: 85%;
-		padding: 20px;
+	form.filtro{
+		background-color: #eee;
+		padding: 10px;
 	}
 	
 	label{
 	  display: inline-block;
-	  min-width: 100px; 
-	  margin: 6px;
+	  min-width: 80px; 
+	  margin: 10px;
 	}
 	
-	input{
-		padding: 2px;
+	input, select, textarea{
+		padding: 5px;
 	}
+	
+	.button{
+		color: #669;
+		border: solid 2px #9af;
+		padding: 12px 24px;
+		margin: 6px;
+		border-radius: 5px;
+		background-color: #eef;
+		white-space: nowrap;
+		display: inline-block;
+	}
+
+	.button:hover{
+		color: white;
+		background-color: #9af;
+	}
+	
+	/* tablas */
+	table{
+		border: solid 1px grey;
+		width: 100%;
+		margin: 5px auto;
+	}
+	
+	table tr:nth-of-type(odd){
+		background-color: white;
+	}
+	table tr:nth-of-type(even){
+		background-color: lightgrey;
+	}
+	table tr, table td{
+		padding: 8px;
+	}
+	
+	/* listas */
+	li{
+		margin-left: 30px;
+	}
+	
+	
 

@@ -15,11 +15,12 @@
         '../models',
         '../libraries',
         '../interfaces',
+        '../templates',
         '../exceptions'
     ];
  
     // título de la aplicación
-    define('APP_TITLE','FastLight Framework');
+    define('APP_NAME','FastLight Framework');
 
     // controlador y método por defecto
     define('DEFAULT_CONTROLLER', 'Welcome');

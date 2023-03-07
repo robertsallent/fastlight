@@ -2,16 +2,18 @@
 <html lang="es">
 	<head>
 		<meta charset="UTF-8">
-		<title>Portada - <?=APP_TITLE?></title>
+		<title>Portada - <?= APP_NAME ?></title>
 		<link rel="stylesheet" type="text/css" href="css/estilo.css">
 	</head>
 	<body>
-		<h1>Portada</h1>
-		<?php include '../views/components/menu.php';?>
+		<?= Template::getLogin() ?>
+		<?= Template::getHeader('Portada') ?>
+		<?= Template::getMenu() ?>
 		
 		<h2>FastLight Framework</h2>
 		<p>Framework de clase para desarrollar aplicaciones web</p>
-		<p>Desarrollado por <a href="https://robertsallent.com">Robert Sallent</a>.</p>
+		
+		<?= Template::getFooter() ?>
 	</body>
 </html>
 
