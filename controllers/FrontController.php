@@ -1,11 +1,22 @@
 <?php
 
-    // CONTROLADOR FRONTAL
+/* Clase: FrontController
+ *
+ * Controlador frontal para la aplicación
+ *
+ * Autor: Robert Sallent
+ * Última revisión: 07/02/2022
+ * 
+ */
+ 
     class FrontController{
         
         // método principal del controlador frontal
         public static function main(){
             try{
+                
+                // inicia el trabajo con sesiones
+                session_start();
                 
                 // detección del usuario identificado
                 Login::init();
@@ -59,7 +70,7 @@
                     $mensaje .= "<p>En fichero: <b>".$e->getFile()."</b></p>";
                     $mensaje .= "<p>En la línea: <b>".$e->getLine()."</b></p>";
                 }          
-                include '../views/error.php';    // carga la vista de error
+                require '../views/error.php';    // carga la vista de error
             } 
         }  
     }

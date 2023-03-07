@@ -1,13 +1,13 @@
 <?php
      
-    /* Clase DBPDO que trabaja con PDO
-     * 
-     * Simplifica la tarea de conexión y realización de consultas con la BDD
-     * 
-     * autor: Robert Sallent
-     * última revisión: 04/09/2022
-     * 
-     */
+/* Clase DBPDO que trabaja con PDO
+ * 
+ * Simplifica la tarea de conexión y realización de consultas con la BDD
+ * 
+ * autor: Robert Sallent
+ * última revisión: 04/09/2022
+ * 
+ */
     
     class DBPDO{ 
         

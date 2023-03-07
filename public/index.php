@@ -1,14 +1,23 @@
 <?php
 
+/* Fichero: idnex.php
+ *
+ * Punto de entrada para todas las peticiones
+ * 
+ * - Carga el fichero de configuración.
+ * - Carga el autoload.
+ * - Invoca al controlador frontal.
+ *
+ * Autor: Robert Sallent
+ * Última revisión: 07/03/2023
+ *
+ */
+
     // Fichero index.php
     // por aquí pasan todas las peticiones
-    
-    // para cuando trabajemos con sesiones
-    session_start();
-
     // cargar recursos
-    require_once '../config/config.php';
-    require_once '../libraries/autoload.php';
+    require '../config/config.php';
+    require '../libraries/autoload.php';
     
     // invocar al controlador frontal
     FrontController::main();

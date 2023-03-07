@@ -1,7 +1,15 @@
 <?php 
 
-    // clase que nos facilitará la tarea de subir ficheros
-    // haciendo todas las comprobaciones necesarias
+/*
+    Clase: Upload
+    Autor: Robert Sallent
+    Última mofidicación: 23/02/2023
+
+    Nos facilitará la tarea de subir ficheros
+    haciendo todas las comprobaciones necesarias
+
+*/
+        
     class Upload{
         
         // método para comprobar si llega un fichero
@@ -10,7 +18,7 @@
         }
         
         // método que genera nombres únicos
-        private static function uniqueName(
+        public static function uniqueName(
             string $extension='',    // extensión del fichero
             string $prefix=''       // prefijo para el nombre único
         ):string{
@@ -27,22 +35,23 @@
             bool $unique = true,   // generar nombre único?
             int $max = 0,          // tamaño max del fichero (0 ilimitado)
             string $mime = '.',    // tipo MIME (image/jpeg, image/*, etc)
-            string $prefix = ''    // prefijo para el nombre del fichero
+            string $prefix = '',   // prefijo para el nombre del fichero
+            bool $returnFullRoute = false  // retorna la ruta final completa o solo el nombre del fichero
         ):string{
             
             // comprobar que llega algo con la clave indicada
             if(!self::arrive($key))
-                throw new Exception("No se recibió fichero con la clave $key");
+                throw new UploadException("No se recibió fichero con la clave $key");
                 
             $file = $_FILES[$key]; // recupera la info del fichero
             
             // comprobar que no se ha producido un error en la subida
             if($e = $file['error'])
-                throw new Exception("Error en la subida del fichero con código $e");
+                throw new UploadException("Error en la subida del fichero con código $e");
     
             // comprobar que el fichero no supera el tamaño máximo    
             if($max && $file['size']>$max)
-                throw new Exception("El fichero supera los $max bytes");
+                throw new UploadException("El fichero supera los $max bytes");
                 
             $rutaTmp = $file['tmp_name']; // ruta temporal
             
@@ -56,21 +65,25 @@
             
             // comprobación del tipo mediante regexp
             if(!preg_match("/^$mimetmp/i",$tipo)) 
-                throw new Exception("El fichero no es de tipo $mime");
+                throw new UploadException("El fichero no es de tipo $mime");
     
-            // Calcular la ruta final, dependiendo de si el nombre del fichero 
-            // tiene que ser único o no
-            $ruta = $unique ?
-                $folder."/".self::uniqueName(pathinfo($file['name'], PATHINFO_EXTENSION), $prefix):
-                $folder."/".$file['name'];
+            // calcular el nombre del fichero, dependiendo de si tiene que ser único o no
+            $nombreFichero = $unique ? 
+                             self::uniqueName(pathinfo($file['name'], PATHINFO_EXTENSION), $prefix) :
+                             $file['name'];
+            
+            // calcular la ruta final 
+            $ruta = $folder."/".$nombreFichero;
                         
             // MOVER EL FICHERO A DESTINO
             if(!move_uploaded_file($rutaTmp, $ruta)) 
-                throw new Exception("Error al mover de $rutaTmp a $ruta");
+                throw new UploadException("Error al mover de $rutaTmp a $ruta");
             
-            return $ruta;
+            return $returnFullRoute ? $ruta : $nombreFichero;
         }   
     }
     
-
-    
+    // tipo de excepción personalizada (útil para el control de errores)
+    class UploadException extends Exception{
+        // Vacía
+    }

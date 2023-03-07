@@ -1,21 +1,30 @@
 <?php
 
-    //FICHERO autoload.php
-
-    //función que usaremos para buscar las clases
-    function load($clase){ 
-        global $classmap; //indicamos que use la variable global
+/*
+ Fichero: autoload.php
+ Autor: Robert Sallent
+ Última mofidicación: 24/02/2023
+ 
+ Permitirá la carga de clases automática a partir de un listado de directorios
+  
+ */
     
-        //para cada directorio de la lista
-        foreach($classmap as $directorio){
-           $ruta = "$directorio/$clase.php"; //calcula la ruta
+    // función usada para buscar las clases
+    function load(string $clase){ 
+        global $autoloadDirectories; // variable global
+    
+        // para cada directorio de la lista
+        foreach($autoloadDirectories as $directorio){
+            
+           $ruta="$directorio/$clase.php";  // calcula la ruta
           
-           if(is_readable($ruta)){  //si es legible...
-                require_once $ruta; //carga la clase
-                break;              //ahorra iteraciones
+           if(is_readable($ruta)){          // si es legible...
+                require_once $ruta;         // carga la clase
+                break;                      // ahorra iteraciones
            }
         }
     }
     
-    spl_autoload_register("load");  //registrar la función de autoload
-
+    // registrar la función de autoload anterior
+    spl_autoload_register("load");  
+    

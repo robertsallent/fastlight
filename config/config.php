@@ -1,31 +1,50 @@
 <?php
 
-    // FICHERO config.php
+    /* Fichero: config.php
+     * 
+     * Parámetros de configuración del proyecto
+     * 
+     * Autor: Robert Sallent
+     * Última revisión: 07/03/2023
+     * 
+     */
     
-    // PARÁMETROS DE CONFIGURACIÓN DEL AUTOLOAD
-    $classmap = ['../controller','../model', '../libraries']; 
-    
-    // TÍTULO DE LA APP
+    // directorios para el autoload (que no usa namespaces)
+    $autoloadDirectories = [
+        '../controllers',
+        '../models',
+        '../libraries',
+        '../interfaces',
+        '../exceptions'
+    ];
+ 
+    // título de la aplicación
     define('APP_TITLE','FastLight Framework');
 
-    // PARÁMETROS DE CONFIGURACION DE LA BDD   
-    define('DB_HOST','localhost');  // host
-    define('DB_USER','');       // usuario
-    define('DB_PASS','');           // password
-    define('DB_NAME',''); // base de datos
-    define('DB_CHARSET','utf8');    // codificación
-
-    // conector que debe usar PDO,solamente si hemos visto PDO además de mysqli
-    // (dependerá del curso)
-    define('DB_CLASS','DBPDO'); // clase que usará el modelo (DB o DBPDO)
-    define('SGDB','mysql');     // driver que debe usar PDO (solo para DBPDO)
-  
-    // CONTROLADOR Y METODO POR DEFECTO
+    // controlador y método por defecto
     define('DEFAULT_CONTROLLER', 'Welcome');
     define('DEFAULT_METHOD', 'index');
     
-    // OTROS PARAMETROS
+    // modo debug
     define('DEBUG', true); // para depuración
+    
+    // parámetros de configuración de la base de datos
+    define('DB_HOST','localhost');  // host
+    define('DB_USER','root');       // usuario
+    define('DB_PASS','');           // password
+    define('DB_NAME','fastlight');  // base de datos
+    define('DB_PORT',  3306);       // puerto
+    define('DB_CHARSET','utf8');    // codificación
+
+    // clase para la conexión
+    define('DB_CLASS','DB');    // DB o DBPDO
+    define('SGDB','mysql');     // driver que debe usar PDO (solo para DBPDO)
+      
+    // clase para los usuarios
+    // la clase indicada debe implementar Autenticable y Autorizable
+    define('USER_PROVIDER', 'User');
+    
+    
     
     
     

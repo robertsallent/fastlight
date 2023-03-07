@@ -1,26 +1,32 @@
 <?php
 
-/** Clase Email para simplificar el envío de emails
- * @author Robert Sallent
+/* Clase: Email
+ * 
+ * Nos facilitará la tarea de enviar emails
+ * 
+ * Autor: Robert Sallent
+ * Última mofidicación: 24/02/2023
+ * 
  */
+
 class Email{
     
     // PROPIEDADES
-    public $date, $to, $from, $name, $subject, $message, $headers;
+    public string $date, $to, $from, $name, $subject, $message, $headers;
     
     // CONSTRUCTOR
     public function __construct(
-        string $t, // destinatario
-        string $f, // remitente
-        string $n, // nombre
-        string $s, // asunto
-        string $m  // mensaje
+        string $to,         // destinatario
+        string $from,       // remitente
+        string $name,       // nombre
+        string $subject,    // asunto
+        string $message     // mensaje
     ){
         $this->date = date('d/m/y H:i:s');
-        $this->to = $t;
-        $this->from = $f;
-        $this->name = $n;
-        $this->subject = $s;
+        $this->to = $to;
+        $this->from = $from;
+        $this->name = $name;
+        $this->subject = $subject;
         
         // el mensaje será con formato HTML
         $this->headers = "MIME-Version: 1.0\r\n";
@@ -33,12 +39,17 @@ class Email{
         $this->message .= "<p>De $this->name ($this->from).";
         $this->message .= "Recibido el $this->date.</p>"; 
         $this->message .= "<h3>$this->subject</h3>";
-        $this->message .= "<p>$m</p>"; 
+        $this->message .= "<p>$message</p>"; 
     }
       
-    // Método que envía el email
+    // método que envía el email usando la función mail() de PHP
     public function enviar():bool{
-        return mail($this->to, $this->subject, $this->message, $this->headers);
+        return mail(
+            $this->to, 
+            $this->subject, 
+            $this->message, 
+            $this->headers
+        );
     }     
 }
 
