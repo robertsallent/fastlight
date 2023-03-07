@@ -42,8 +42,15 @@ EOT;
         $name = APP_NAME;
         
         return <<<EOT
-            <header>
-            	<h1>$titulo en $name</h1>
+            <header id='primaryHeader'>
+                <figure>
+                    <a href='/'>
+                        <img style='width:100%;' src='images/template/logo.png'>
+                    </a>
+                </figure>
+                <hgroup>
+            	   <h1>$titulo en $name</h1>
+                </hgroup>  
             </header>
 EOT;}
     
@@ -52,7 +59,7 @@ EOT;}
     // retorna el menú principal
     public static function getMenu(){ 
         return <<<EOT
-            <ul>
+            <ul class='navBar'>
             	<li><a href="/">Inicio</a></li>
             </ul>
 EOT;} 
@@ -62,8 +69,10 @@ EOT;}
     // retorna el footer
     public static function getFooter(){
         return <<<EOT
-        <p>Desarrollado por <a href="https://robertsallent.com">
-            Robert Sallent</a> para los cursos de desarrollo de aplicaciones web.
-        </p>
+        <footer id='primaryFooter'>
+            <p>Desarrollado por <a href="https://robertsallent.com">
+                Robert Sallent</a> para los cursos de desarrollo de aplicaciones web.
+            </p>
+        </footer>
 EOT;} 
 }

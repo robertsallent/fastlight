@@ -10,10 +10,13 @@
 		<?= Template::getHeader('Éxito') ?>
 		<?= Template::getMenu() ?>
 		
-		<h2>Éxito en la operación solicitada</h2>
-
-		<p class='success'><?= $mensaje ?></p>
-		
+		<main>
+    		<h2>Éxito en la operación solicitada</h2>
+    
+    		<div class='success'>
+    			<?= $mensaje ?>
+			</div>
+		</main>
 		<?= Template::getFooter() ?>
 	</body>
 </html>

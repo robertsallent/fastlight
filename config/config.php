@@ -21,6 +21,9 @@
  
     // título de la aplicación
     define('APP_NAME','FastLight Framework');
+    
+    // carpeta raíz respecto al DocumentRoot
+    define('APP_ROOT','/');
 
     // controlador y método por defecto
     define('DEFAULT_CONTROLLER', 'Welcome');

@@ -10,10 +10,13 @@
 		<?= Template::getHeader('Error') ?>
 		<?= Template::getMenu() ?>
 		
-		<h2>Error en la operación solicitada</h2>
-
-		<p class='error'><?= $mensaje ?></p>
-		
+		<main>
+    		<h2>Error en la operación solicitada</h2>
+    
+    		<div class='error'>
+    			<?= $mensaje ?>
+			</div>
+    	</main>
 		<?= Template::getFooter() ?>
 	</body>
 </html>

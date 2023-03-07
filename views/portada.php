@@ -10,9 +10,10 @@
 		<?= Template::getHeader('Portada') ?>
 		<?= Template::getMenu() ?>
 		
-		<h2>FastLight Framework</h2>
-		<p>Framework de clase para desarrollar aplicaciones web</p>
-		
+		<main>
+    		<h2>FastLight Framework</h2>
+    		<p>Framework de clase para desarrollar aplicaciones web</p>
+		</main>
 		<?= Template::getFooter() ?>
 	</body>
 </html>
