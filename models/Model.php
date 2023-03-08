@@ -245,9 +245,11 @@ class Model{
         
         $texto = '';
         
-        foreach($this as $propiedad=>$valor)
-            $texto .= "$propiedad: <b>$valor</b>, ";
-            
+        foreach($this as $propiedad => $valor){
+            $texto .= is_array($valor) ? 
+                "$propiedad: [ ".implode(', ',$valor)." ]" :
+                "$propiedad: <b>$valor</b>, ";
+        }
         return rtrim($texto, ', '); // quita la última coma
     }
 }

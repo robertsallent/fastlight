@@ -1,17 +1,16 @@
 -- Base de datos vacía para fastlight
--- solamente se incluye la tabla para los usuarios y unos pocos usuarios de prueba
+-- se incluye:
+--  la tabla para usuarios, con algunos usuarios para pruebas.
+--  una tabla products para pruebas (POSIBLE EJERCICIO: implementar un CRUD de productos).
 
 DROP DATABASE IF EXISTS fastlight;
-
 CREATE DATABASE fastlight DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-
 USE fastlight;
 
--- tabla usuarios
+-- tabla users
 -- podéis crear los campos adicionales que necesitéis.
-
 CREATE TABLE users(
-	id INT(11) NOT NULL PRIMARY KEY auto_increment,
+	id INT NOT NULL PRIMARY KEY auto_increment,
 	displayname VARCHAR(32) NOT NULL,
 	email VARCHAR(128) NOT NULL UNIQUE KEY,
 	phone VARCHAR(32) NOT NULL UNIQUE KEY,
@@ -22,11 +21,29 @@ CREATE TABLE users(
 	updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 );
 
--- algunos usuarios para las pruebas
--- podéis crear tantos como necesitéis
-
+-- algunos usuarios para las pruebas, podéis crear tantos como necesitéis
 INSERT INTO users(displayname, email, phone, password, roles) VALUES 
 	('admin', 'admin@fastlight.com', '666666666', md5('1234'), '["ROLE_USER", "ROLE_ADMIN"]'),
 	('editor', 'editor@fastlight.com', '666666665', md5('1234'), '["ROLE_USER", "ROLE_EDITOR"]'),
 	('user', 'user@fastlight.com', '666666664', md5('1234'), '["ROLE_USER"]')
+;
+
+-- tabla products
+-- para realizar pruebas y tests
+CREATE TABLE products(
+	id INT NOT NULL PRIMARY KEY auto_increment,
+	name VARCHAR(32) NOT NULL,
+	vendor VARCHAR(128) NOT NULL,
+	price FLOAT NOT NULL,
+	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- algunos productos para las pruebas, podéis crear tantos como necesitéis
+INSERT INTO products(name, vendor, price) VALUES 
+	('Computer', 'Apple', 2000),
+    ('Folder', 'Cambridge', 10),
+    ('Pen', 'Bic', 2),
+    ('Pendrive', 'Kingston', 15),
+    ('Desk', 'Ikea', 150)
 ;

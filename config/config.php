@@ -21,9 +21,6 @@
  
     // título de la aplicación
     define('APP_NAME','FastLight Framework');
-    
-    // carpeta raíz respecto al DocumentRoot
-    define('APP_ROOT','/');
 
     // controlador y método por defecto
     define('DEFAULT_CONTROLLER', 'Welcome');
@@ -31,6 +28,10 @@
     
     // modo debug
     define('DEBUG', true); // para depuración
+    
+    // detalles a mostrar en la info de debug tras una petada
+    // OPCIONES: ['user', 'trace', 'post', 'get', 'session', 'cookie']
+    $errorDetail = ['user', 'trace', 'post', 'get', 'session', 'cookie'];
     
     // parámetros de configuración de la base de datos
     define('DB_HOST','localhost');  // host

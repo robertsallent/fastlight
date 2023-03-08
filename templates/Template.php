@@ -61,6 +61,8 @@ EOT;}
         return <<<EOT
             <ul class='navBar'>
             	<li><a href="/">Inicio</a></li>
+                <li><a href="/">Foo</a></li>
+                <li><a href="/">Bar</a></li>
             </ul>
 EOT;} 
         

@@ -5,8 +5,8 @@
     include 'roles.php';
     include 'login.php';  
     
-    // TODO: modificar los siguientes test usando una nueva tabla en la BDD por defecto de FastLight
-    include 'db.php';       // requiere la base de datos de la biblioteca
-    include 'dbpdo.php';    // requiere la base de datos de la biblioteca
+    // Pruebas de las clases que trabajan con la BDD
+    include 'db.php';       
+    include 'dbpdo.php';   
     
     // ...

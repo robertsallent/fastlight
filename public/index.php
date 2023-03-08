@@ -15,9 +15,9 @@
 
     // Fichero index.php
     // por aquí pasan todas las peticiones
-    // cargar recursos
-    require '../config/config.php';
-    require '../libraries/autoload.php';
+    require '../config/config.php';         // carga el config
+    require '../libraries/autoload.php';    // carga el autoload
+    require '../helpers/helpers.php';       // carga las funciones helper globales
     
     // invocar al controlador frontal
     FrontController::main();

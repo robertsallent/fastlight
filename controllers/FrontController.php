@@ -59,19 +59,12 @@
                 }
  
             // si se produce algún error...
-            }catch(Throwable $e){ 
-                $mensaje = $e->getMessage();   // recupera el mensaje del error
-                
-                if(DEBUG){  // si estamos en modo DEBUG, añade información al mensaje
-                    $mensaje .= "<h3>Información adicional para depuración:</h3>";
-                    $mensaje .= "<p>Ruta: <b>".$_GET['url']."</b></p>";
-                    $mensaje .= $c ? "<p>Controlador: <b>$c</b></p>" : '';
-                    $mensaje .= $m ? "<p>Método: <b>$m()</b></p>" : '';
-                    $mensaje .= $url ? "<p>Parámetros: <b>".implode(', ',$url)."</b></p>" : '';
-                    
-                    $mensaje .= "<p>En fichero: <b>".$e->getFile()."</b></p>";
-                    $mensaje .= "<p>En la línea: <b>".$e->getLine()."</b></p>";
-                }          
+            }catch(Throwable $error){ 
+                // en modo DEBUG, añade información adicional al mensaje
+                $mensaje = DEBUG ?
+                    Debug::prepareErrorInformation($error, $c, $m, $url):
+                    $error->getMessage();
+   
                 require '../views/error.php';    // carga la vista de error
             } 
         }  
