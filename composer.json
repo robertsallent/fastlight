@@ -1,6 +1,6 @@
 {
 	"type" : "project",
-	"license" : "propietary",
+	"license" : "proprietary",
 	"name" : "robertsallent/fastlight",
 	"description" : "Fast and light framework for PHP web applications",
 	"require" : {
