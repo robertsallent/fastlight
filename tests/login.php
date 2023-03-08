@@ -1,5 +1,7 @@
 <?php
 
+    echo "<h1>Test de login</h1>";
+
     // recupera un usuario
     $u = (USER_PROVIDER)::identificar('admin@fastlight.com', md5('1234'));
     
@@ -12,7 +14,7 @@
     // recupera el usuario logueado y muéstralo
     echo "<p>Resultado del login:</p>";
     echo "<pre>";
-    echo var_dump(Login::user());
+    var_dump(Login::user());
     echo "</pre>";
    
     

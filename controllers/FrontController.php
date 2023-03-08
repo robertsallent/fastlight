@@ -38,7 +38,8 @@
                 // si no existe, el método es index (el indicado en config.php)
                 // EJ: si llega create, el método a invocar es create()
                 $m = empty($url[0]) ? 
-                    DEFAULT_METHOD :  strtolower(array_shift($url));
+                    DEFAULT_METHOD :  
+                    strtolower(array_shift($url));
                             
                 // crea una instancia del controlador correspondiente
                 $controlador = new $c();
@@ -50,12 +51,13 @@
                 // tras sacar controlador y método, lo que queda en $url son los parámetros.
                 // llamaremos al método del controlador pasando hasta tres parámetros
                 // (podemos poner más), los que no se necesiten serán omitidos.
-                $controlador->$m(
-                    $url[0] ?? false, 
-                    $url[1] ?? false, 
-                    $url[2] ?? false
-                );
-            
+                switch(sizeof($url)){
+                    case 0 : $controlador->$m(); break;
+                    case 1 : $controlador->$m($url[0]); break;
+                    case 2 : $controlador->$m($url[0], $url[1]); break;
+                    case 3 : $controlador->$m($url[0], $url[1], $url[2]); break;
+                }
+ 
             // si se produce algún error...
             }catch(Throwable $e){ 
                 $mensaje = $e->getMessage();   // recupera el mensaje del error

@@ -1,6 +1,6 @@
 <?php
 
-/* Fichero: idnex.php
+/* Fichero: index.php
  *
  * Punto de entrada para todas las peticiones
  * 
