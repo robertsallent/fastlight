@@ -5,11 +5,11 @@
  * Simplifica la tarea de conexión y realización de consultas con la BDD
  * 
  * autor: Robert Sallent
- * última revisión: 04/09/2022
+ * última revisión: 08/03/2023
  * 
  */
     
-    class DBPDO{ 
+    class DBPDO implements DatabaseConnection{ 
         
         // propiedad que guardará la conexión con BDD (objeto PDO)  
         private static $conexion = null; 
@@ -21,7 +21,7 @@
             if(!self::$conexion){ 
                 
                 //conecta con la BDD, si no puede lanzará una PDOException
-                $dsn=SGDB.':host='.DB_HOST.';dbname='.DB_NAME.';charset='.DB_CHARSET;
+                $dsn = SGDB.':host='.DB_HOST.':'.DB_PORT.';dbname='.DB_NAME.';charset='.DB_CHARSET;
                 self::$conexion = new PDO($dsn, DB_USER, DB_PASS);
                 
             }
@@ -35,8 +35,9 @@
                 // recupera la conexión y realiza la consulta
                 $resultado = self::get()->query($consulta);
                 
-                // lanza excepción si algo falla
-                if($resultado === false) throw new Exception();
+                // compatibilidad con PHP<8.1 lanza excepción si algo falla
+                if($resultado === false) 
+                    throw new SQLException();
                 
                 return $resultado; // si todo fue bien, retorna el resultado de la consulta
                 
@@ -44,26 +45,44 @@
             }catch(Exception $e){
                 if(DEBUG){
                     // error detallado (muestra la consulta y el mensaje que viene de la BDD)
-                    $mensaje = "ERROR EN LA OPERACIÓN: "; 
-                    $mensaje .= "<b>$consulta</b> ";    // mostrará la consulta
-                    $mensaje .= self::get()->errorInfo()[2];  // mostrará el mensaje de error
-                    throw new Exception($mensaje);
+                    $mensaje = "ERROR EN LA CONSULTA: "; 
+                    $mensaje .= "<p><b>$consulta</b></p>";    // mostrará la consulta
+                    $mensaje .= "<p>".(self::get()->errorInfo()[2])."</p>";  // mostrará el mensaje de error
+                    throw new SQLException($mensaje);
                 }else
                     // muestra un error genérico (para no mostrar detalles en producción)
-                    throw new Exception('ERROR al realizar la operación.');
+                    throw new SQLException('ERROR al realizar la operación.');
             }
         }
                 
         // Método para realizar consultas SELECT de un solo resultado
-        public static function select(string $consulta, string $class='stdClass'){
+        public static function select(
+            string $consulta, 
+            string $class='stdClass'
+        ):?object{
+            
             $resultado = self::query($consulta); // lanza la consulta
 
             $objeto = $resultado->fetchObject($class); // convertir el resultado a objeto
-            return $objeto === false ? null : $objeto; // retorna el objeto (o null)
+            
+            return $objeto === false ? NULL : $objeto; // retorna el objeto (o null)
         }
         
+        
+        // alias de select()
+        public static function selectOne(
+            string $consulta,
+            string $class='stdClass'
+        ):?object{
+            return self::select($consulta);
+        }
+        
+        
         // Método para realizar consultas SELECT de múltiples resultados
-        public static function selectAll(string $consulta, string $class='stdClass'):array{
+        public static function selectAll(
+            string $consulta, 
+            string $class='stdClass'
+        ):array{
             $resultados = self::query($consulta); // lanza la consulta
             $objetos = []; // preparamos un array 
             
@@ -103,6 +122,18 @@
         ){
             $consulta = "SELECT $operacion($campo) AS total FROM $tabla";
             return self::select($consulta)->total;
+        }
+        
+        
+        // escapa los caracteres especiales
+        public static function escape(
+            string $texto,
+            bool $entities = true
+        ):string{
+            
+            $texto = self::get()->quote($texto);
+            $texto = substr($texto, 1, strlen($texto)-2);
+            return $entities? htmlspecialchars($texto) : $texto;
         }
     }
 

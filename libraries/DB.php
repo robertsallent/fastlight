@@ -9,7 +9,8 @@
  * 
  */
     
-    class DB{ 
+    class DB implements DatabaseConnection{ 
+        
         // Propiedad que guardará la conexión con BDD (objeto mysqli)  
         private static $conexion = null; 
           
