@@ -20,5 +20,5 @@
     require '../helpers/helpers.php';       // carga las funciones helper globales
     
     // invocar al controlador frontal
-    FrontController::main();
+    (new FrontController())->start();
     

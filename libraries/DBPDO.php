@@ -132,7 +132,7 @@
         ):string{
             
             $texto = self::get()->quote($texto);
-            $texto = substr($texto, 1, strlen($texto)-2);
+            $texto = trim($texto, '\'');
             return $entities? htmlspecialchars($texto) : $texto;
         }
     }

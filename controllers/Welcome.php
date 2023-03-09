@@ -9,9 +9,12 @@
  *
  */
 
-    class Welcome{
+    class Welcome extends Controller{
+        
+        // método responsable de mostrar la portada
         public function index(){
-            require '../views/portada.php';
+            $this->loadView('portada');
         }
+        
     }
 

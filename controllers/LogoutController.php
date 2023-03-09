@@ -9,7 +9,7 @@
  *
  */
     
-    class LogoutController{
+    class LogoutController extends Controller{
         
         // método que gestiona la salida del usuario de la aplicación
         public function index(){

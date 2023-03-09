@@ -79,43 +79,43 @@
 	}
 	
 	/* header y footer principales */
-	#primaryHeader{
+	header.primary{
 		display: flex;
 		flex-wrap:wrap;
 		padding: 10px;
 	}
 	
-	#primaryHeader figure{
+	header.primary figure{
 		max-width: 100px;
 	}
 	
-	#primaryHeader img{
+	header.primary img{
 		width: 100%;
 		vertical-align: middle;
 	}
 	
-	#primaryHeader hgroup{
+	header.primary hgroup{
 		margin: auto 0;
 		padding: 0 2%;
 	}
 	
-	#primaryHeader h1{
+	header.primary h1{
 		color: rgb(160, 160, 160);
 		font-size: 2.8rem;
 	}
 
-	#primaryFooter{
+	footer.primary{
 		text-align: right;
 		padding: 20px;
 	}
 	
-	#primaryFooter a{
+	footer.primary a{
 		font-style: italic;
 		font-size: 1.05rem;
 		color: rgb(60, 100, 160);
 	}
 	
-	#primaryHeader, #primaryFooter{
+	header.primary, footer.primary{
 		border-bottom: solid 2px lightgrey;
 		border-top: solid 2px lightgrey;
 	}

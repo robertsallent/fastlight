@@ -1,5 +1,14 @@
 <?php
-    // FUNCIONES HELPER PARA DEPURACIÓN
+
+/* Funciones helper para simplificar tareas habituales
+ *
+ *
+ * autor: Robert Sallent
+ * última revisión: 09/03/2023
+ *
+ */
+
+    // FUNCIONES PARA DEPURACIÓN
     // dump
     function dump($thing){
         echo "<pre>";
@@ -12,19 +21,26 @@
         dump($thing);
         die($message);
     }
+
     
-    // array to string
+    
+    // FUNCIONES PARA ARRAYS Y STRINGS
     function arrayToString(array $lista):string{
         $texto = '';
         
         foreach($lista as $clave => $valor)
             $texto .= "$clave => $valor, ";
            
-        return '[ '.substr($texto, 0, strlen($texto)-2).' ]';
+        return '[ '.rtrim($texto, ', ').' ]';
     }
+    
+    
     
     // REDIRECCIONES Y URLS
     // redirect
     function redirect(string $url = '/', int $delay = 0){
         URL::redirect($url, $delay);
     }
+    
+    
+    

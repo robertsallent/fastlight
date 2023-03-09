@@ -26,8 +26,13 @@
     define('DEFAULT_CONTROLLER', 'Welcome');
     define('DEFAULT_METHOD', 'index');
     
-    // modo debug
-    define('DEBUG', true); // para depuración
+    // carpeta para las vistas
+    define('VIEWS_FOLDER', '../views');
+    
+    // modo debug y depuración
+    define('DEBUG', true);                          // para depuración
+    define('LOG_ERRORS', true);                      // guardar fichero de log en errores
+    define('ERROR_LOG_FILE', '../logs/error.log');  // nombre del fichero de log
     
     // detalles a mostrar en la info de debug tras una petada
     // OPCIONES: ['user', 'trace', 'post', 'get', 'session', 'cookie']

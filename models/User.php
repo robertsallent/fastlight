@@ -19,7 +19,8 @@ class User extends Model implements Autenticable, Autorizable{
         $usuario = parent::getById($id);
         
         // convierte los roles a array
-        $usuario->roles = json_decode($usuario->roles);
+        if($usuario)
+            $usuario->roles = json_decode($usuario->roles);
         
         // retorna el usuario recuperado
         return $usuario;
@@ -45,7 +46,8 @@ class User extends Model implements Autenticable, Autorizable{
         $usuario = DB::select($consulta, self::class);
         
         // hay que pasar los roles a array
-        $usuario->roles = json_decode($usuario->roles);
+        if($usuario)
+            $usuario->roles = json_decode($usuario->roles);
         
         return $usuario;
     }

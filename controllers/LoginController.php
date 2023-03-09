@@ -9,11 +9,11 @@
  *
  */
 
-    class LoginController{
+    class LoginController extends Controller{
         
         // muestra el formulario de login
         public function index(){
-            require '../views/login.php';        
+            $this->loadView('login');        
         }
         
         // método que gestiona la identificación y da acceso o no
@@ -30,14 +30,15 @@
             $identificado = (USER_PROVIDER)::identificar($user, $password); // recuperar el usuario
             
             if(!$identificado)
-                throw new LoginException('Los datos de identificación no son correctos.');
+                throw new LoginException("Los datos de identificación no son correctos para $user.");
         
             Login::set($identificado); // vincula el usuario a la sesión
             
             // nos lleva a la home del usuario
-            //URL::redirect("/User/home");
+            // URL::redirect("/User/home");
             
-            URL::redirect("/");
+            // como aún no tenemos la home de usuario redirigiremos a la portada
+            URL::redirect("/"); 
         }
     }
     

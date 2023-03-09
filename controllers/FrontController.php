@@ -5,14 +5,14 @@
  * Controlador frontal para la aplicación
  *
  * Autor: Robert Sallent
- * Última revisión: 07/02/2022
+ * Última revisión: 09/03/2022
  * 
  */
  
-    class FrontController{
+    class FrontController extends Controller{
         
         // método principal del controlador frontal
-        public static function main(){
+        public function start(){
             try{
                 
                 // inicia el trabajo con sesiones
@@ -60,12 +60,18 @@
  
             // si se produce algún error...
             }catch(Throwable $error){ 
+                
                 // en modo DEBUG, añade información adicional al mensaje
                 $mensaje = DEBUG ?
                     Debug::prepareErrorInformation($error, $c, $m, $url):
                     $error->getMessage();
-   
-                require '../views/error.php';    // carga la vista de error
+                
+                // si está activado el LOG de errores:
+                if(LOG_ERRORS)
+                    Log::addMessage(ERROR_LOG_FILE, 'ERROR', $error->getMessage());
+                    
+                // carga la vista de error y le pasa los datos a mostrar
+                $this->loadView('error', ['mensaje' => $mensaje]);    
             } 
         }  
     }

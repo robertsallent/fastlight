@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Éxito - <?= APP_NAME ?></title>
-		<link rel="stylesheet" type="text/css" href="css/estilo.css">
+		<link rel="stylesheet" type="text/css" href="/css/estilo.css">
 	</head>
 	<body>
 		<?= Template::getLogin() ?>

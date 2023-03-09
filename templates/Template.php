@@ -6,6 +6,7 @@ class Template{
     // retorna los enlaces a login/logout
     public static function getLogin(){
         
+        // si el usuario no está identificado, retorna el botón de LogIn
         if(Login::guest())
             return <<<EOT
                <div class='derecha'>
@@ -13,8 +14,9 @@ class Template{
                </div>
 EOT;
         
-        $user = Login::user();
-            
+        $user = Login::user(); // recupera el usuario identificado
+          
+        // si el usuario es administrador...
         if(Login::isAdmin())
             return <<<EOT
                  <div class='derecha'>
@@ -23,7 +25,8 @@ EOT;
                     <a class='button' href='/Logout'>LogOut</a>
                  </div>
 EOT;  
-            
+        
+        // si el usuario no es administrador...
         if(Login::check())
             return <<<EOT
                  <div class='derecha'>
@@ -42,10 +45,10 @@ EOT;
         $name = APP_NAME;
         
         return <<<EOT
-            <header id='primaryHeader'>
+            <header class='primary'>
                 <figure>
                     <a href='/'>
-                        <img style='width:100%;' src='images/template/logo.png'>
+                        <img style='width:100%;' src='/images/template/logo.png'>
                     </a>
                 </figure>
                 <hgroup>
@@ -71,7 +74,7 @@ EOT;}
     // retorna el footer
     public static function getFooter(){
         return <<<EOT
-        <footer id='primaryFooter'>
+        <footer class='primary'>
             <p>Desarrollado por <a href="https://robertsallent.com">
                 Robert Sallent</a> para los cursos de desarrollo de aplicaciones web.
             </p>

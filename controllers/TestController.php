@@ -15,7 +15,7 @@
  *
  */
     
-    class TestController{
+    class TestController extends Controller{
         
         public function __call(string $method, array $arguments = []){
            // va a buscar el test solicitado a la carpeta test
