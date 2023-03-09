@@ -31,12 +31,12 @@
     
     // modo debug y depuración
     define('DEBUG', true);                          // para depuración
-    define('LOG_ERRORS', true);                      // guardar fichero de log en errores
+    define('LOG_ERRORS', true);                     // guardar errores en log
     define('ERROR_LOG_FILE', '../logs/error.log');  // nombre del fichero de log
     
-    // detalles a mostrar en la info de debug tras una petada
-    // OPCIONES: ['user', 'trace', 'post', 'get', 'session', 'cookie']
-    $errorDetail = ['user', 'trace', 'post', 'get', 'session', 'cookie'];
+    // detalles a mostrar en la info de debug tras un error
+    // OPCIONES: ['user', 'trace', 'post', 'get', 'session', 'cookie', 'client']
+    $errorDetail = ['user', 'trace', 'post', 'get', 'session', 'cookie', 'client'];
     
     // parámetros de configuración de la base de datos
     define('DB_HOST','localhost');  // host

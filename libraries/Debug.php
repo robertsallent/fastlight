@@ -28,15 +28,16 @@
                 if($user = Login::get()){
                     $mensaje .= "<p>Usuario identificado: <b>".Login::get()->displayname."</b>, ";
                     $mensaje .= " roles: <b>[".implode(', ',$user->roles)."]</b></p>";
+                }else{
+                    $mensaje .= "<p>No hay usuario identificado</p>";
                 }
-            }else{
-                $mensaje .= "<p>No hay usuario identificado</p>";
             }
             
             if(in_array('trace', $errorDetail)){
                 $mensaje .= "<p>Ruta: <b>".$_GET['url']."</b></p>";
                 $mensaje .= $c ? "<p>Controlador: <b>$c</b></p>" : '';
-                $mensaje .= $m ? "<p>Método: <b>$m()</b></p>" : '';
+                $mensaje .= $m ? "<p>Método del controlador: <b>$m()</b></p>" : '';
+                $mensaje .= "<p>Método de la petición: <b>".$_SERVER['REQUEST_METHOD']."</b></p>";
                 $mensaje .= $url ? "<p>Parámetros: <b>".implode(', ',$url)."</b></p>" : '';
                 $mensaje .= "<p>En fichero: <b>".$e->getFile()."</b></p>";
                 $mensaje .= "<p>En la línea: <b>".$e->getLine()."</b></p>";
@@ -54,6 +55,8 @@
             if(in_array('cookie', $errorDetail))
                 $mensaje .= "<p>COOKIE: ".arrayToString($_COOKIE)."</p>";
             
+            if(in_array('client', $errorDetail))
+                $mensaje .= "<p>CLIENT IP: ".$_SERVER['REMOTE_ADDR'].", USER AGENT: ".$_SERVER['HTTP_USER_AGENT']."</p>";
             
             return $mensaje;
         }  
