@@ -25,5 +25,7 @@
             $date = date("d/m/Y H:i:s");
             
             fprintf($file, "%s: %s - %s\n", $level, $date, $message);
+            
+            fclose($file);
         }  
     }

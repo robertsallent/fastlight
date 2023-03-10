@@ -29,17 +29,23 @@
     // carpeta para las vistas
     define('VIEWS_FOLDER', '../views');
     
-    // modo debug y depuración
-    define('DEBUG', true);                          // para depuración
-    define('LOG_ERRORS', false);                    // guardar errores en log
-    define('ERROR_LOG_FILE', '../logs/error.log');  // nombre del fichero de log
     
-    // detalles a mostrar en la info de debug tras un error
-    // OPCIONES: ['user', 'trace', 'post', 'get', 'session', 'cookie', 'client']
+    define('DEBUG', true);    // activa el modo debug                     
+    
+    // detalle a mostrar en la info de debug tras un error
+    // OPCIONES: user, trace, post, get, session, cookie, client
     $errorDetail = ['user', 'trace', 'post', 'get', 'session', 'cookie', 'client'];
     
-    define('DB_ERRORS', false);                     // guardar errores en BDD
-    define('ERROR_DB_TABLE', 'errors');             // nombre de la tabla para los errores
+    define('LOG_ERRORS', false);                      // guardar errores en fichero de log
+    define('ERROR_LOG_FILE', '../logs/error.log');    // nombre del fichero de log
+    
+    define('DB_ERRORS', false);                       // guardar errores en BDD
+    define('ERROR_DB_TABLE', 'errors');               // nombre de la tabla para los errores
+    
+    define('LOG_LOGIN_ERRORS', false);                 // guardar errores de login en fichero de log
+    define('LOGIN_ERRORS_FILE', '../logs/login.log'); // nombre del fichero
+    
+    define('DB_LOGIN_ERRORS', false);                  // guardar errores de login en BDD
         
     // parámetros de configuración de la base de datos
     define('DB_HOST','localhost');  // host

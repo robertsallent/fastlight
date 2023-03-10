@@ -34,6 +34,13 @@
             
             if(!$identificado){
                 Session::flash('error', "Los datos de identificación no son correctos para $user.");
+                
+                if(LOG_LOGIN_ERRORS)
+                    Log::addMessage(LOGIN_ERRORS_FILE, 'ERROR', "Intento de login incorrecto para $user.");
+                
+                if(DB_LOGIN_ERRORS)
+                    AppError::create('/Login/enter', 'LOGIN', "Intento de login incorrecto para $user.");
+                    
                 redirect('/Login');
                 return;
             }
