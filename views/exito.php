@@ -9,6 +9,8 @@
 		<?= Template::getLogin() ?>
 		<?= Template::getHeader('Éxito') ?>
 		<?= Template::getMenu() ?>
+		<?= Template::getSuccess() ?>
+		<?= Template::getError() ?>
 		
 		<main>
     		<h2>Éxito en la operación solicitada</h2>

@@ -47,3 +47,18 @@ INSERT INTO products(name, vendor, price) VALUES
     ('Pendrive', 'Kingston', 15),
     ('Desk', 'Ikea', 150)
 ;
+
+
+-- tabla errors
+-- por si queremos registrar los errores en base de datos.
+CREATE TABLE errors(
+	id INT NOT NULL PRIMARY KEY auto_increment,
+    date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    level VARCHAR(32) NOT NULL DEFAULT 'ERROR',
+    url VARCHAR(256) NOT NULL,
+	message VARCHAR(256) NOT NULL,
+	user VARCHAR(128) DEFAULT NULL,
+	ip CHAR(15) NOT NULL
+);
+
+

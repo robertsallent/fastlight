@@ -1,6 +1,5 @@
 <?php
 
-
 /* Clase URL
  *
  * Herramientas para URLs y redirecciones

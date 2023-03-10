@@ -5,7 +5,7 @@
      * Parámetros de configuración del proyecto
      * 
      * Autor: Robert Sallent
-     * Última revisión: 07/03/2023
+     * Última revisión: 10/03/2023
      * 
      */
     
@@ -31,13 +31,16 @@
     
     // modo debug y depuración
     define('DEBUG', true);                          // para depuración
-    define('LOG_ERRORS', true);                     // guardar errores en log
+    define('LOG_ERRORS', false);                    // guardar errores en log
     define('ERROR_LOG_FILE', '../logs/error.log');  // nombre del fichero de log
     
     // detalles a mostrar en la info de debug tras un error
     // OPCIONES: ['user', 'trace', 'post', 'get', 'session', 'cookie', 'client']
     $errorDetail = ['user', 'trace', 'post', 'get', 'session', 'cookie', 'client'];
     
+    define('DB_ERRORS', false);                     // guardar errores en BDD
+    define('ERROR_DB_TABLE', 'errors');             // nombre de la tabla para los errores
+        
     // parámetros de configuración de la base de datos
     define('DB_HOST','localhost');  // host
     define('DB_USER','root');       // usuario
@@ -47,8 +50,8 @@
     define('DB_CHARSET','utf8');    // codificación
 
     // clase para la conexión
-    define('DB_CLASS','DB');    // DB o DBPDO
-    define('SGDB','mysql');     // driver que debe usar PDO (solo para DBPDO)
+    define('DB_CLASS','DBPDO');    // DB o DBPDO
+    define('SGDB','mysql');        // driver que debe usar PDO (solo para DBPDO)
       
     // clase para los usuarios
     // la clase indicada debe implementar Autenticable y Autorizable

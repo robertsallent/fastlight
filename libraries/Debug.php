@@ -13,12 +13,12 @@
     class Debug{
         
         // método estático que prepara toda la información de depuración tras un error
-        public static function prepareErrorInformation(
+        public static function errorInformation(
             Throwable $e, // excepción o error producido
             $c,           // controlador solicitado
             $m,           // método solicitado
             $url          // ruta solicitada
-        ){
+        ):string{
             global $errorDetail;
             $mensaje = "<p>".$e->getMessage()."</p>";
             
@@ -26,7 +26,7 @@
             
             if(in_array('user', $errorDetail)){
                 if($user = Login::get()){
-                    $mensaje .= "<p>Usuario identificado: <b>".Login::get()->displayname."</b>, ";
+                    $mensaje .= "<p>Usuario identificado: <b>$user->displayname</b> ($user->email), ";
                     $mensaje .= " roles: <b>[".implode(', ',$user->roles)."]</b></p>";
                 }else{
                     $mensaje .= "<p>No hay usuario identificado</p>";
@@ -56,7 +56,7 @@
                 $mensaje .= "<p>COOKIE: ".arrayToString($_COOKIE)."</p>";
             
             if(in_array('client', $errorDetail))
-                $mensaje .= "<p>CLIENT IP: ".$_SERVER['REMOTE_ADDR'].", USER AGENT: ".$_SERVER['HTTP_USER_AGENT']."</p>";
+                $mensaje .= "<p>CLIENT IP: ".$_SERVER['REMOTE_ADDR']."</p><p>USER AGENT: ".$_SERVER['HTTP_USER_AGENT']."</p>";
             
             return $mensaje;
         }  

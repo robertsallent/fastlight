@@ -37,6 +37,53 @@
 		padding: 20px;
 	}
 	
+	div.mensajeExito, div.mensajeError{
+		position: fixed;
+		margin: 0px;
+		top: 0px;
+		left: 0px;
+		background-color: rgba(90, 90, 90, 0.8);
+		width: 100vw;
+		min-height: 100vh;
+		padding: 15%;
+		z-index: 10;
+		text-align: center;
+	}
+	
+	div.mensajeExito h2{
+		color: #090;
+		margin-bottom: 40px;
+	}
+	
+	div.mensajeError h2{
+		color: #900;
+		margin-bottom: 40px;
+	}
+	
+	div.mensajeExito>div, div.mensajeError>div{
+		padding: 50px;
+		border-radius: 10px;
+		margin: auto;
+		font-size: 1.2em;
+	}
+	
+	div.mensajeExito a:hover, div.mensajeErrora:hover{
+		text-decoration: underline;
+	}
+	
+	div.mensajeExito>div{
+		color: #060;
+		background-color: #cfc;
+		border: solid 5px #060;
+	}
+	
+	div.mensajeError>div{
+		color: #600;
+		background-color: #fcc;
+		border: solid 5px #600;
+	}
+	
+	
 	
 	/* alineación del texto */
 	.centrado{ text-align: center;}
@@ -52,7 +99,7 @@
 	}
 	
 	p{
-		margin-bottom: 1.25rem;
+		margin-bottom: 1.1rem;
 	}
 	
 	a{

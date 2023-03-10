@@ -9,6 +9,8 @@
 		<?= Template::getLogin() ?>
 		<?= Template::getHeader('Error') ?>
 		<?= Template::getMenu() ?>
+		<?= Template::getSuccess() ?>
+		<?= Template::getError() ?>
 		
 		<main>
     		<h2>Error en la operación solicitada</h2>

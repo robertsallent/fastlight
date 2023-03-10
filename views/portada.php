@@ -9,9 +9,12 @@
 		<?= Template::getLogin() ?>
 		<?= Template::getHeader('Portada') ?>
 		<?= Template::getMenu() ?>
+		<?= Template::getSuccess() ?>
+		<?= Template::getError() ?>
 		
 		<main>
     		<h2>FastLight Framework</h2>
+    		
     		<p>Framework de clase para desarrollar aplicaciones web.</p>
     		<p>En la carpeta database encontrarás el SQL de una pequeña
     		   base de datos para test. Contiene también el ejemplo de la 

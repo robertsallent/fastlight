@@ -20,8 +20,11 @@
         public function enter(){
             
             // comprobar que llegan los datos
-            if(empty($_POST['login']))
-                throw new LoginException('No se recibió el formulario de LogIn.');
+            if(empty($_POST['login'])){
+                Session::flash('error', 'No se recibió el formulario de LogIn.');
+                redirect('/Login');
+                return;
+            }
             
             // recuperar usuario (o email) y clave
             $user = DB::escape($_POST['user']);
@@ -29,16 +32,19 @@
             
             $identificado = (USER_PROVIDER)::identificar($user, $password); // recuperar el usuario
             
-            if(!$identificado)
-                throw new LoginException("Los datos de identificación no son correctos para $user.");
-        
+            if(!$identificado){
+                Session::flash('error', "Los datos de identificación no son correctos para $user.");
+                redirect('/Login');
+                return;
+            }
+            
             Login::set($identificado); // vincula el usuario a la sesión
             
             // nos lleva a la home del usuario
-            // URL::redirect("/User/home");
+            // redirect("/User/home");
             
             // como aún no tenemos la home de usuario redirigiremos a la portada
-            URL::redirect("/"); 
+            redirect("/"); 
         }
     }
     

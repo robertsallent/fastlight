@@ -6,7 +6,7 @@
     include 'login.php';  
     
     // Pruebas de las clases que trabajan con la BDD
-    include 'db.php';       
-    include 'dbpdo.php';   
+    // include 'db.php';       
+    // include 'dbpdo.php';   
     
     // ...

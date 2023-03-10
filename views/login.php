@@ -9,6 +9,8 @@
 		<?= Template::getLogin() ?>
 		<?= Template::getHeader('LogIn') ?>
 		<?= Template::getMenu() ?>
+		<?= Template::getSuccess() ?>
+		<?= Template::getError() ?>
 		
 		<main class="flex-container">
 			<div class="flex1"> </div>

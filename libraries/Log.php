@@ -12,6 +12,8 @@
  
     class Log{
         
+        // TODO: limitar el tamaño de los ficheros
+        
         // método estático para guardar mensajes de error
         public static function addMessage(
             string $route   = '../logs/error.log',          // ruta completa del fichero de error

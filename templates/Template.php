@@ -1,8 +1,20 @@
 <?php
 
+/* Clase Template
+ *
+ * Se usa para generar las partes comunes de todas las vistas
+ *
+ * autor: Robert Sallent
+ * última revisión: 10/03/2023
+ *
+ */
+
 class Template{
     
     
+    /*****************************************************************************
+     * LOGIN / LOGOUT
+     *****************************************************************************/
     // retorna los enlaces a login/logout
     public static function getLogin(){
         
@@ -39,7 +51,9 @@ EOT;
     }
         
         
-    
+    /*****************************************************************************
+     * HEADER
+     *****************************************************************************/
     // retorna el header
     public static function getHeader(string $titulo=''){ 
         $name = APP_NAME;
@@ -58,7 +72,9 @@ EOT;
 EOT;}
     
         
-        
+    /*****************************************************************************
+     * MENÚ
+     *****************************************************************************/
     // retorna el menú principal
     public static function getMenu(){ 
         return <<<EOT
@@ -69,8 +85,43 @@ EOT;}
             </ul>
 EOT;} 
         
+          
+    /*****************************************************************************
+     * MENSAJES FLASHEADOS DE ÉXITO Y ERROR
+     *****************************************************************************/
+    // muestra mensajes de éxito flasheados
+    public static function getSuccess(){
+        
+            return ($mensaje = Session::getFlash('success')) ?
+            <<<EOT
+            <div class="mensajeExito" onclick="this.remove()">
+            	<div>
+            		<h2>Operación realizada con éxito</h2>
+            		<p>$mensaje</p>
+            		<p class="mini cursiva">-- Clic para cerrar --</p>
+        		</div>
+            </div>
+EOT: '';} 
+        
+    // muestra mensajes de error flasheados
+    public static function getError(){
+
+            return ($mensaje = Session::getFlash('error')) ?
+            <<<EOT
+            <div class="mensajeError" onclick="this.remove()">
+            	<div>
+            		<h2>Se ha producido un error</h2>
+            		<p>$mensaje</p>
+            		<p class="mini cursiva">-- Clic para cerrar --</p>
+        		</div>
+            </div>
+EOT: '';} 
+	
         
         
+    /*****************************************************************************
+     * FOOTER
+     *****************************************************************************/
     // retorna el footer
     public static function getFooter(){
         return <<<EOT
@@ -80,4 +131,6 @@ EOT;}
             </p>
         </footer>
 EOT;} 
+        
 }
+

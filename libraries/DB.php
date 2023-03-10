@@ -47,7 +47,7 @@
                 return $resultado; // si todo fue bien, retorna el resultado de la consulta
                 
             // si algo falla, pillamos la excepción y lanzamos otra con info personalizada
-            }catch(Exception $e){
+            }catch(Throwable $e){
                 
                 if(DEBUG){
                     // error detallado (muestra la consulta y el mensaje que viene de la BDD)
