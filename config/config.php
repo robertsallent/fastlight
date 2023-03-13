@@ -42,10 +42,10 @@
     define('DB_ERRORS', false);                       // guardar errores en BDD
     define('ERROR_DB_TABLE', 'errors');               // nombre de la tabla para los errores
     
-    define('LOG_LOGIN_ERRORS', false);                 // guardar errores de login en fichero de log
+    define('LOG_LOGIN_ERRORS', false);                // guardar errores de login en fichero de log
     define('LOGIN_ERRORS_FILE', '../logs/login.log'); // nombre del fichero
     
-    define('DB_LOGIN_ERRORS', false);                  // guardar errores de login en BDD
+    define('DB_LOGIN_ERRORS', false);                 // guardar errores de login en BDD
         
     // parámetros de configuración de la base de datos
     define('DB_HOST','localhost');  // host
@@ -62,9 +62,4 @@
     // clase para los usuarios
     // la clase indicada debe implementar Autenticable y Autorizable
     define('USER_PROVIDER', 'User');
-    
-    
-    
-    
-    
     

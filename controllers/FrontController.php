@@ -14,14 +14,15 @@
         // método principal del controlador frontal
         public function start(){
             try{
-                
+
                 // inicia el trabajo con sesiones
                 session_start();
                 
                 // detección del usuario identificado
                 Login::init();
                 
-                // GESTIÓN DE PETICIONES 
+                // TODO: separar el dispatcher a un componente aparte? implementar un router?
+                // DISPATCHER (evalúa las peticiones y redirige al controlador adecuado)
                 // mira la url que llega por el parámetro url y la descompone en un array
                 // por ejemplo: /libro/show/3 se convierte en ['libro','show','3']
                 $url = $_GET['url'] ?? '';
@@ -32,7 +33,8 @@
                 // si no existe, el controlador es Welcome (el indicado config.php)
                 // EJ: si es libro, el controlador a usar será LibroController
                 $c = empty($url[0]) ? 
-                    DEFAULT_CONTROLLER :  ucfirst(strtolower(array_shift($url))).'Controller';
+                    DEFAULT_CONTROLLER :  
+                    ucfirst(strtolower(array_shift($url))).'Controller';
          
                 // recupera el método (segunda posición del array)
                 // si no existe, el método es index (el indicado en config.php)

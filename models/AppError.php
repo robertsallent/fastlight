@@ -24,15 +24,11 @@
             
             $error->level = $level;
             $error->url = $url;
-            $error->message = $message;
+            $error->message = htmlspecialchars($message);
             $error->user = Login::user() ? Login::user()->email : NULL;
             $error->ip = $_SERVER['REMOTE_ADDR'];
             
             return $error->save();
         }    
     }
-    
-    
-    
-    
     

@@ -91,6 +91,9 @@
 	.izquierda{ text-align: left;}
 	.derecha{ text-align: right;}
 	
+	.mayusculas{ text-transform: uppercase; }
+	.minusculas{ text-transform: lowercase; }
+	
 	
 	/* distintos elementos */
 	h1, h2, h3, ul, ol{

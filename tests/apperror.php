@@ -12,7 +12,7 @@
     $errores = AppError::get();
     
     // a modo de helpers tenemos un par de funciones interesantes:
-    // - dump(): hace un var_dump() formateado
+    // - dump(): hace un var_dump() usando <pre>
     // - dd($variable, $mensaje): hace dump() and die() con el mensaje indicado. 
     dump($errores);
 
@@ -20,7 +20,6 @@
     foreach($errores as $error)
         $error->deleteObject();
     
-    // comprobamos
-    dd(AppError::get(), 'FIN DEL TEST');
+    dd(AppError::get(), 'FIN DEL TEST');  // comprobamos
       
     

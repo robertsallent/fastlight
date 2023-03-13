@@ -21,7 +21,11 @@
                 $$variable = $valor;
             
             // carga la vista indicada desde el directorio de vistas
-            require VIEWS_FOLDER."/$name.php";
+            try{
+                @require VIEWS_FOLDER."/$name.php";
+            }catch(Error $e){
+                throw new Exception("No se encontró la vista ".VIEWS_FOLDER."/$name.php");
+            }
         }
         
     }
