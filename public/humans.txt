@@ -1,0 +1,14 @@
+/* TEAM */
+Developer: Robert Sallent
+Site: https://robertsallent.com                       
+Twitter: @robertsallent
+LinkedIn: https://www.linkedin.com/in/robert-sallent-l%C3%B3pez-4187a866/
+Location: Sabadell, Barcelona, Catalonia
+												                            
+/* FASTLIGHT FRAMEWORK */            
+Last update: 2023/03/13 
+Language: Spanish
+Doctype:HTML5                     
+Standards: HTML5, CSS3, JavaScript, PHP8, MySQL       
+
+

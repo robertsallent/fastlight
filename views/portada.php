@@ -3,6 +3,16 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Portada - <?= APP_NAME ?></title>
+		
+		<!-- META -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Portada en <?= APP_NAME ?>">
+		<meta name="author" content="Robert Sallent">
+		
+		<!-- FAVICON -->
+		<link rel="shortcut icon" href="images/template/smallLogo.png" type="image/png">	
+		
+		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="/css/estilo.css">
 	</head>
 	<body>
@@ -10,6 +20,7 @@
 		<?= Template::getHeader('Portada') ?>
 		<?= Template::getMenu() ?>
 		<?= Template::getSuccess() ?>
+		<?= Template::getWarning() ?>
 		<?= Template::getError() ?>
 		
 		<main>

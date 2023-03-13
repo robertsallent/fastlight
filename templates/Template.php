@@ -85,6 +85,26 @@ EOT;}
             </ul>
 EOT;} 
         
+    /*****************************************************************************
+     * MIGAS
+     *****************************************************************************/
+    // retorna el elementos migas
+    public static function getMigas(array $path = []):string{
+        $migas = ["Inicio"=>"/"]+$path;
+        $html = "<nav aria-label='Breadcrumb' class='breadcrumbs'>";
+        $html .= "<ul>";
+        
+        foreach($migas as $miga => $ruta){
+            $html .= "<li>";
+            $html .= $ruta ? "<a href='$ruta'>$miga</a>" : $miga;
+            $html .= "</li>"; 
+        }
+        
+        $html .= "</ul>";
+        $html .= "</nav>";
+        return $html;
+    } 
+        
           
     /*****************************************************************************
      * MENSAJES FLASHEADOS DE ÉXITO Y ERROR
@@ -102,7 +122,21 @@ EOT;}
         		</div>
             </div>
 EOT: '';} 
-        
+
+        // muestra mensajes de warning flasheados
+        public static function getWarning(){
+                
+                return ($mensaje = Session::getFlash('warning')) ?
+                <<<EOT
+            <div class="mensajeWarning" onclick="this.remove()">
+            	<div>
+            		<h2>Hay advertencias:</h2>
+            		<p>$mensaje</p>
+            		<p class="mini cursiva">-- Clic para cerrar --</p>
+        		</div>
+            </div>
+EOT: '';}
+                
     // muestra mensajes de error flasheados
     public static function getError(){
 
