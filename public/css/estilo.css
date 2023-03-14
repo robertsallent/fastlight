@@ -136,10 +136,18 @@
 	}
 	
 	main{
-		padding: 5%;	
+		padding: 30px;	
 		margin: 40px auto;
 		background-color: rgb(245, 245, 245);
 		border-radius: 10px;
+	}
+	
+	main a{
+		color: #99e;
+	}
+	
+	main a:hover{
+		text-decoration: underline;
 	}
 	
 	/* header y footer principales */
@@ -286,6 +294,20 @@
 		background-color: rgb(100, 140, 200);
 	}
 	
+	.buttonLight{
+		color: white;
+		border: solid 2px rgb(80, 120, 180);
+		padding: 4px 12px;
+		border-radius: 5px;
+		background-color: rgb(120, 170, 220);
+		display: inline-block;
+		cursor: pointer;
+	}
+	
+	.buttonLight:hover{
+		background-color: rgb(100, 140, 200);
+	}
+	
 	/* tablas */
 	table{
 		border: solid 1px grey;
@@ -306,7 +328,7 @@
 	}
 	
 	table tr:nth-of-type(even){
-		background-color: lightgrey;
+		background-color: #eee;
 	}
 	
 	table tr, table td{

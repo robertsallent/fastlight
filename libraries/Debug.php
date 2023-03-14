@@ -14,10 +14,10 @@
         
         // método estático que prepara toda la información de depuración tras un error
         public static function errorInformation(
-            Throwable $e, // excepción o error producido
-            $c,           // controlador solicitado
-            $m,           // método solicitado
-            $url          // ruta solicitada
+            Throwable $e,             // excepción o error producido
+            string $c,                // controlador solicitado
+            string $m,                // método solicitado
+            array $parametros = []    // parámetros
         ):string{
             global $errorDetail;
             $mensaje = "<p>".$e->getMessage()."</p>";
@@ -38,7 +38,7 @@
                 $mensaje .= $c ? "<p>Controlador: <b>$c</b></p>" : '';
                 $mensaje .= $m ? "<p>Método del controlador: <b>$m()</b></p>" : '';
                 $mensaje .= "<p>Método de la petición: <b>".$_SERVER['REQUEST_METHOD']."</b></p>";
-                $mensaje .= $url ? "<p>Parámetros: <b>".implode(', ',$url)."</b></p>" : '';
+                $mensaje .= $parametros ? "<p>Parámetros: <b>".implode(', ',$parametros)."</b></p>" : '';
                 $mensaje .= "<p>En fichero: <b>".$e->getFile()."</b></p>";
                 $mensaje .= "<p>En la línea: <b>".$e->getLine()."</b></p>";
             }

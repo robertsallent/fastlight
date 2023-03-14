@@ -89,8 +89,11 @@ EOT;}
      * MIGAS
      *****************************************************************************/
     // retorna el elementos migas
-    public static function getMigas(array $path = []):string{
-        $migas = ["Inicio"=>"/"]+$path;
+    public static function getMigas(array $migas = []):string{
+        // asegura que esté el enlace a Inicio
+        $migas = ["Inicio"=>"/"]+$migas; 
+        
+        // preparamos el migas a partir del array 
         $html = "<nav aria-label='Breadcrumb' class='breadcrumbs'>";
         $html .= "<ul>";
         
@@ -104,6 +107,8 @@ EOT;}
         $html .= "</nav>";
         return $html;
     } 
+    
+    
         
           
     /*****************************************************************************

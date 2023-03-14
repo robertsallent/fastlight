@@ -62,4 +62,4 @@
     // clase para los usuarios
     // la clase indicada debe implementar Autenticable y Autorizable
     define('USER_PROVIDER', 'User');
-    
+       

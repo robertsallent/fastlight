@@ -10,7 +10,7 @@
 		<meta name="author" content="Robert Sallent">
 		
 		<!-- FAVICON -->
-		<link rel="shortcut icon" href="images/template/smallLogo.png" type="image/png">	
+		<link rel="shortcut icon" href="/images/template/smallLogo.png" type="image/png">	
 		
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="/css/estilo.css">

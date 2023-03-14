@@ -25,8 +25,8 @@
                 // DISPATCHER (evalúa las peticiones y redirige al controlador adecuado)
                 // mira la url que llega por el parámetro url y la descompone en un array
                 // por ejemplo: /libro/show/3 se convierte en ['libro','show','3']
-                $url = $_GET['url'] ?? '';
-                $url = explode('/', rtrim($url, '/'));
+                $urlInicial = $_GET['url'] ?? '';
+                $url = explode('/', rtrim($urlInicial, '/'));
                 
 
                 // recupera el controlador a usar (primera posición del array)
@@ -74,7 +74,7 @@
                 
                 // si está activada la opción de guardar errores en BDD
                 if(DB_ERRORS)
-                    AppError::create(implode('/', $url), 'ERROR', $error->getMessage());
+                    AppError::create($_GET['url'], 'ERROR', $error->getMessage());
                     
                 // carga la vista de error y le pasa los datos a mostrar
                 $this->loadView('error', ['mensaje' => $mensaje]);    
