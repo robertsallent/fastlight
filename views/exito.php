@@ -31,9 +31,9 @@
     			<?= $mensaje ?>
 			</div>
 			
-			<div class="enlaces centrado">
+			<nav class="enlaces centrado">
     			<a class="button" onclick="history.back()">Atrás</a>  
-    		</div>
+    		</nav>
     		
 		</main>
 		<?= Template::getFooter() ?>

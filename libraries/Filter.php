@@ -9,7 +9,7 @@
  *
  * */
 
-class Filtro{
+class Filter{
     
     // PROPIEDADES
     public string $nombre;              // nombre del filtro (para guardarlo en sesión)
@@ -49,7 +49,7 @@ class Filtro{
                 $camposAdicionales[DB::escape($campo)] = DB::escape($valor);
                 
             // después preparamos el nuevo filtro con los campos básicos y los adicionales            
-            $filtro = new Filtro(
+            $filtro = new Filter(
                 $nombre,
                 DB::escape($_POST['texto']),
                 DB::escape($_POST['campo']),

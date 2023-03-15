@@ -6,7 +6,7 @@
     AppError::create('/Test', 'NOTICE', 'Esto es un test');
     AppError::create('/Test/2', 'ERROR', 'Esto es otro test');
     AppError::create('/Test/3', 'DEPRECATED', 'El penúltimo test');
-    AppError::create('/Test/4');
+    AppError::create('/Test/4', 'TEST', "Esto ' <b>es</b> \' texto\n &nbsp; &gt; &lt; especial.");
     
     // recuperamos los errores y los mostramos
     $errores = AppError::get();
@@ -17,8 +17,8 @@
     dump($errores);
 
     // podemos borrar los errores de la BDD para que no se queden
-    foreach($errores as $error)
-        $error->deleteObject();
+    // foreach($errores as $error)
+    //    $error->deleteObject();
     
     dd(AppError::get(), 'FIN DEL TEST');  // comprobamos
       

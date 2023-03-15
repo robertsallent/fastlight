@@ -27,5 +27,5 @@
             fprintf($file, "%s: %s - %s\n", $level, $date, $message);
             
             fclose($file);
-        }  
+        }   
     }

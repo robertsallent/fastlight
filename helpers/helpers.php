@@ -25,13 +25,16 @@
     
     
     // FUNCIONES PARA ARRAYS Y STRINGS
-    function arrayToString(array $lista):string{
+    function arrayToString(
+        array $lista,               // array
+        bool $brackets = true       // si colocamos corchetes o no
+    ):string{
         $texto = '';
         
         foreach($lista as $clave => $valor)
             $texto .= "$clave => $valor, ";
            
-        return '[ '.rtrim($texto, ', ').' ]';
+        return $brackets ? '[ '.rtrim($texto, ', ').' ]' : rtrim($texto, ', ');
     }
     
     
@@ -42,5 +45,21 @@
         URL::redirect($url, $delay);
     }
     
+    
+    
+    // TRABAJO CON FICHEROS
+    // función que muestra o descarga ficheros de texto
+    function openTextFile(
+        string $route,
+        string $name = 'file',
+        bool $download = true
+    ){
+        header('Content-Type: text/plain');
+        
+        if($download)
+            header("Content-disposition: attachment; filename=$name.log");
+            
+        echo file_get_contents($route);        
+    }
     
     

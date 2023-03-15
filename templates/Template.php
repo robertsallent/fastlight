@@ -77,13 +77,18 @@ EOT;}
      *****************************************************************************/
     // retorna el menú principal
     public static function getMenu(){ 
-        return <<<EOT
-            <ul class='navBar'>
-            	<li><a href="/">Inicio</a></li>
-                <li><a href="/">Foo</a></li>
-                <li><a href="/">Bar</a></li>
-            </ul>
-EOT;} 
+        $html  = "<ul class='navBar'>";
+        $html .=   "<li><a href='/'>Inicio</a></li>";
+        
+        if(Login::isAdmin() && (DB_ERRORS || LOG_ERRORS || LOG_LOGIN_ERRORS))
+            $html .=   "<li><a href='/Error/list'>Errores</a></li>";
+        
+        $html .=   "<li><a href='/'>Foo</a></li>";
+        $html .=   "<li><a href='/'>Bar</a></li>";
+        $html .= "</ul>";
+
+        return $html;
+    } 
         
     /*****************************************************************************
      * MIGAS

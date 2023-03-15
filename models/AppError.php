@@ -5,7 +5,7 @@
  * Permite guardar los errores en BDD
  *
  * Autor: Robert Sallent
- * Última revisión: 15/02/2023
+ * Última revisión: 14/03/2023
  *
  */
 
@@ -24,11 +24,21 @@
             
             $error->level = $level;
             $error->url = $url;
-            $error->message = htmlspecialchars($message);
+            $error->message = (DB_CLASS)::escape($message);
             $error->user = Login::user() ? Login::user()->email : NULL;
             $error->ip = $_SERVER['REMOTE_ADDR'];
             
             return $error->save();
         }    
+        
+        // vacía la tabla de errores de la BDD
+        public static function clear():int{
+            $consulta = "DELETE FROM ".ERROR_DB_TABLE;
+            return (DB_CLASS)::delete($consulta);
+        }
     }
+    
+    
+    
+    
     

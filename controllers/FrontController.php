@@ -25,8 +25,8 @@
                 // DISPATCHER (evalúa las peticiones y redirige al controlador adecuado)
                 // mira la url que llega por el parámetro url y la descompone en un array
                 // por ejemplo: /libro/show/3 se convierte en ['libro','show','3']
-                $urlInicial = $_GET['url'] ?? '';
-                $url = explode('/', rtrim($urlInicial, '/'));
+                $url = $_GET['url'] ?? '';
+                $url = explode('/', rtrim($url, '/'));
                 
 
                 // recupera el controlador a usar (primera posición del array)
