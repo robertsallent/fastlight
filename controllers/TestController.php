@@ -8,10 +8,15 @@
  * del segundo parámetro de la URL.
  * 
  * Por ejemplo:
- * la URL /Test/usuarios  ejecutará el fichero test/usuarios.php
+ * la URL /Test/usuarios  ejecutará el fichero en test/usuarios.php
  *
+ * Se permite el uso de subcarpetas mediante guiones en la URL
+ * 
+ * Por ejemplo:
+ * la URL /Test/models-libro ejecutará el fichero en test/models/libro.php
+ * 
  * Autor: Robert Sallent
- * Última revisión: 07/03/2023
+ * Última revisión: 16/03/2023
  *
  */
     
@@ -19,7 +24,7 @@
         
         public function __call(string $method, array $arguments = []){
            // va a buscar el test solicitado a la carpeta test
-           require "../tests/$method.php";
+           require TEST_FOLDER."/".str_replace('-','/', $method).".php";
         }
         
     }

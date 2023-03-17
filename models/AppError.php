@@ -19,7 +19,7 @@
             string $url,             // URL donde se produjo el error
             string $level = 'ERROR', // nivel de severidad
             string $message = ''     // mensaje del error
-        ):int{
+        ){
             $error = new self();
             
             $error->level = $level;
@@ -28,7 +28,8 @@
             $error->user = Login::user() ? Login::user()->email : NULL;
             $error->ip = $_SERVER['REMOTE_ADDR'];
             
-            return $error->save();
+            // guarda el error en base de datos
+            $error->save();
         }    
         
         // vacía la tabla de errores de la BDD

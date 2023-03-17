@@ -73,8 +73,14 @@
                     Log::addMessage(ERROR_LOG_FILE, 'ERROR', $error->getMessage());
                 
                 // si está activada la opción de guardar errores en BDD
-                if(DB_ERRORS)
-                    AppError::create($_GET['url'], 'ERROR', $error->getMessage());
+                if(DB_ERRORS){
+                    try{
+                        AppError::create($_GET['url'], 'ERROR', $error->getMessage());
+                    }catch(SQLException $e){
+                        $this->loadView('error', ['mensaje' => $e->getMessage()]); 
+                        die();
+                    }
+                }
                     
                 // carga la vista de error y le pasa los datos a mostrar
                 $this->loadView('error', ['mensaje' => $mensaje]);    

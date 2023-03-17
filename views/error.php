@@ -16,13 +16,13 @@
 		<link rel="stylesheet" type="text/css" href="/css/estilo.css">
 	</head>
 	<body>
-		<?= Template::getLogin() ?>
-		<?= Template::getHeader('Error') ?>
-		<?= Template::getMenu() ?>
-		<?= Template::getMigas(["Error" => NULL]) ?>
-		<?= Template::getSuccess() ?>
-		<?= Template::getWarning() ?>
-		<?= Template::getError() ?>
+		<?= (TEMPLATE)::getLogin() ?>
+		<?= (TEMPLATE)::getHeader('Error') ?>
+		<?= (TEMPLATE)::getMenu() ?>
+		<?= (TEMPLATE)::getBreadCrumbs(["Error" => NULL]) ?>
+		<?= (TEMPLATE)::getSuccess() ?>
+		<?= (TEMPLATE)::getWarning() ?>
+		<?= (TEMPLATE)::getError() ?>
 		
 		<main>
     		<h2>Error en la operación solicitada</h2>
@@ -36,7 +36,7 @@
     		</nav>
     		
     	</main>
-		<?= Template::getFooter() ?>
+		<?= (TEMPLATE)::getFooter() ?>
 	</body>
 </html>
 

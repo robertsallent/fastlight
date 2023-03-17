@@ -5,12 +5,27 @@
  * Se usa para generar las partes comunes de todas las vistas
  *
  * autor: Robert Sallent
- * última revisión: 10/03/2023
+ * última revisión: 16/03/2023
  *
  */
 
-class Template{
+class Template implements TemplateInterface{
     
+    // ficheros CSS para usar con este template
+    protected static array $css = ['/css/estilo.css'];
+    
+    /*****************************************************************************
+     * CSS
+     *****************************************************************************/
+    // método que prepara los links a todos los ficheros CSS configurados arriba
+    public static function getCss(){
+        $html = "";
+        
+        foreach(get_called_class()::$css as $file)
+            $html .= "<link rel='stylesheet' type='text/css' href='$file'>\n";
+            
+        return $html;
+    }
     
     /*****************************************************************************
      * LOGIN / LOGOUT
@@ -94,7 +109,7 @@ EOT;}
      * MIGAS
      *****************************************************************************/
     // retorna el elementos migas
-    public static function getMigas(array $migas = []):string{
+    public static function getBreadCrumbs(array $migas = []):string{
         // asegura que esté el enlace a Inicio
         $migas = ["Inicio"=>"/"]+$migas; 
         

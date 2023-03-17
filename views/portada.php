@@ -13,15 +13,15 @@
 		<link rel="shortcut icon" href="/images/template/smallLogo.png" type="image/png">	
 		
 		<!-- CSS -->
-		<link rel="stylesheet" type="text/css" href="/css/estilo.css">
+		<?= (TEMPLATE)::getCss() ?>
 	</head>
 	<body>
-		<?= Template::getLogin() ?>
-		<?= Template::getHeader('Portada') ?>
-		<?= Template::getMenu() ?>
-		<?= Template::getSuccess() ?>
-		<?= Template::getWarning() ?>
-		<?= Template::getError() ?>
+		<?= (TEMPLATE)::getLogin() ?>
+		<?= (TEMPLATE)::getHeader('Portada') ?>
+		<?= (TEMPLATE)::getMenu() ?>
+		<?= (TEMPLATE)::getSuccess() ?>
+		<?= (TEMPLATE)::getWarning() ?>
+		<?= (TEMPLATE)::getError() ?>
 		
 		<main>
     		<h2>FastLight Framework</h2>
@@ -31,7 +31,7 @@
     		   base de datos para test. Contiene también el ejemplo de la 
     		   estructura para de tabla users.</p>
 		</main>
-		<?= Template::getFooter() ?>
+		<?= (TEMPLATE)::getFooter() ?>
 	</body>
 </html>
 

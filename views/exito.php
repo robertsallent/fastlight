@@ -13,16 +13,16 @@
 		<link rel="shortcut icon" href="/images/template/smallLogo.png" type="image/png">	
 		
 		<!-- CSS -->
-		<link rel="stylesheet" type="text/css" href="/css/estilo.css">
+		<?= (TEMPLATE)::getCss() ?>
 	</head>
 	<body>
-		<?= Template::getLogin() ?>
-		<?= Template::getHeader('Éxito') ?>
-		<?= Template::getMenu() ?>
-		<?= Template::getMigas(["Éxito" => NULL]) ?>
-		<?= Template::getSuccess() ?>
-		<?= Template::getWarning() ?>
-		<?= Template::getError() ?>
+		<?= (TEMPLATE)::getLogin() ?>
+		<?= (TEMPLATE)::getHeader('Éxito') ?>
+		<?= (TEMPLATE)::getMenu() ?>
+		<?= (TEMPLATE)::getBreadCrumbs(["Éxito" => NULL]) ?>
+		<?= (TEMPLATE)::getSuccess() ?>
+		<?= (TEMPLATE)::getWarning() ?>
+		<?= (TEMPLATE)::getError() ?>
 		
 		<main>
     		<h2>Éxito en la operación solicitada</h2>
@@ -36,7 +36,7 @@
     		</nav>
     		
 		</main>
-		<?= Template::getFooter() ?>
+		<?= (TEMPLATE)::getFooter() ?>
 	</body>
 </html>
 

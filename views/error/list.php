@@ -2,16 +2,26 @@
     <html lang="es">
     	<head>
     		<meta charset="UTF-8">
-    		<title><?= APP_NAME ?></title>
-    		<link rel="stylesheet" type="text/css" href="/css/estilo.css">
+			<title>Listado de errores en  - <?= APP_NAME ?></title>
+		
+    		<!-- META -->
+    		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    		<meta name="description" content="Lista de errores en <?= APP_NAME ?>">
+    		<meta name="author" content="Robert Sallent">
+    		
+    		<!-- FAVICON -->
+    		<link rel="shortcut icon" href="/images/template/smallLogo.png" type="image/png">	
+    		
+    		<!-- CSS -->
+    		<?= (TEMPLATE)::getCss() ?>
     	</head>
     	<body>
-    		<?= Template::getLogin() ?>
-    		<?= Template::getHeader('Lista de errores') ?>
-    		<?= Template::getMenu() ?>
-    		<?= Template::getMigas(["Lista de errores" => '/Error/list']) ?>
-    		<?= Template::getSuccess() ?>
-    		<?= Template::getError() ?>
+    		<?= (TEMPLATE)::getLogin() ?>
+    		<?= (TEMPLATE)::getHeader('Lista de errores') ?>
+    		<?= (TEMPLATE)::getMenu() ?>
+    		<?= (TEMPLATE)::getBreadCrumbs(["Lista de errores" => '/Error/list']) ?>
+    		<?= (TEMPLATE)::getSuccess() ?>
+    		<?= (TEMPLATE)::getError() ?>
     		<main>
         		<h1><?= APP_NAME ?></h1>
         		
@@ -88,7 +98,7 @@
         		</nav>
         		
     		</main>
-    		<?= Template::getFooter() ?>
+    		<?= (TEMPLATE)::getFooter() ?>
     	</body>
     </html>
 

@@ -5,7 +5,7 @@
      * Parámetros de configuración del proyecto
      * 
      * Autor: Robert Sallent
-     * Última revisión: 10/03/2023
+     * Última revisión: 17/03/2023
      * 
      */
     
@@ -22,13 +22,16 @@
     // título de la aplicación
     define('APP_NAME','FastLight Framework');
 
+    // Clase para el template
+    define('TEMPLATE', 'Template'); // opciones: Template, RetroTemplate
+    
+    // carpetas
+    define('VIEWS_FOLDER',      '../views');     // para las vistas
+    define('TEST_FOLDER',       '../tests');     // para los test
+    
     // controlador y método por defecto
     define('DEFAULT_CONTROLLER', 'Welcome');
     define('DEFAULT_METHOD', 'index');
-    
-    // carpeta para las vistas
-    define('VIEWS_FOLDER', '../views');
-    
     
     define('DEBUG', true);    // activa el modo debug                     
     
@@ -36,16 +39,16 @@
     // OPCIONES: user, trace, post, get, session, cookie, client
     $errorDetail = ['user', 'trace', 'post', 'get', 'session', 'cookie', 'client'];
     
-    define('LOG_ERRORS', true);                      // guardar errores en fichero de log
+    define('LOG_ERRORS', true);                       // guardar errores en fichero de log
     define('ERROR_LOG_FILE', '../logs/error.log');    // nombre del fichero de log
     
-    define('DB_ERRORS', true);                       // guardar errores en BDD
+    define('DB_ERRORS', false);                       // guardar errores en BDD
     define('ERROR_DB_TABLE', 'errors');               // nombre de la tabla para los errores
     
-    define('LOG_LOGIN_ERRORS', true);                // guardar errores de login en fichero de log
+    define('LOG_LOGIN_ERRORS', false);                // guardar errores de login en fichero de log
     define('LOGIN_ERRORS_FILE', '../logs/login.log'); // nombre del fichero
     
-    define('DB_LOGIN_ERRORS', true);                 // guardar errores de login en BDD
+    define('DB_LOGIN_ERRORS', false);                 // guardar errores de login en BDD
         
     // parámetros de configuración de la base de datos
     define('DB_HOST','localhost');  // host

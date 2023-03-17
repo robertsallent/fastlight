@@ -13,16 +13,16 @@
 		<link rel="shortcut icon" href="/images/template/smallLogo.png" type="image/png">	
 		
 		<!-- CSS -->
-		<link rel="stylesheet" type="text/css" href="/css/estilo.css">
+		<?= (TEMPLATE)::getCss() ?>
 	</head>
 	<body>
-		<?= Template::getLogin() ?>
-		<?= Template::getHeader('LogIn') ?>
-		<?= Template::getMenu() ?>
-		<?= Template::getMigas(["LogIn" => "/Login"]) ?>
-		<?= Template::getSuccess() ?>
-		<?= Template::getWarning() ?>
-		<?= Template::getError() ?>
+		<?= (TEMPLATE)::getLogin() ?>
+		<?= (TEMPLATE)::getHeader('LogIn') ?>
+		<?= (TEMPLATE)::getMenu() ?>
+		<?= (TEMPLATE)::getBreadCrumbs(["LogIn" => "/Login"]) ?>
+		<?= (TEMPLATE)::getSuccess() ?>
+		<?= (TEMPLATE)::getWarning() ?>
+		<?= (TEMPLATE)::getError() ?>
 		
 		<main>
 			<section class="flex-container">
@@ -48,7 +48,7 @@
     		
 		</main>
 		
-		<?= Template::getFooter() ?>
+		<?= (TEMPLATE)::getFooter() ?>
 	</body>
 </html>
 
