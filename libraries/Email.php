@@ -43,7 +43,7 @@ class Email{
     }
       
     // método que envía el email usando la función mail() de PHP
-    public function enviar():bool{
+    public function send():bool{
         return mail(
             $this->to, 
             $this->subject, 

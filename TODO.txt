@@ -1,15 +1,30 @@
+Lista de cosas pendientes
+
+Autor: Robert Sallent
+Última revisión: 17/03/23
+
+-------------------------------------------------------------------------------------------------------------
 Para implementar en futuras versiones:
+-------------------------------------------------------------------------------------------------------------
 
-- Cambio de nombre del FrontController a Kernel.
-- Añadir carpetas app y bootstrap y simplificar la estructura de directorios en la raíz.
-- Implementar una clase Request.
-- Mapear todo lo que llega por GET, POST o COOKIE a un objeto Request.
-- Implementar el dispatcher en una clase aparte.
+- CORE
+	- Cambio de nombre del FrontController a Kernel.
+	- Añadir carpetas app y bootstrap y simplificar la estructura de directorios en la raíz
+	- Implementar una clase Request.
+	- Mapear todo lo que llega por GET, POST o COOKIE a un objeto Request
 
+- LIBRARIES
+	- PAGINATOR
+		- Incorporar paginación numérica al paginador 
+		- Incorporar first and last al paginador
+
+-------------------------------------------------------------------------------------------------------------
 A evaluar... tal vez no se implemente por motivos docentes y se deja para los cursos de Laravel o Symfony:
+-------------------------------------------------------------------------------------------------------------
 
-- Hacer uso de PSR4 (autoload con namespaces). Autoload de Composer.
-- Incoporar middleware.
+- Hacer uso de PSR4 (autoload con namespaces). 
+- Autoload de Composer?
+- Incoporar middleware
 - Incorporar un sistema de seeding para la base de datos.
 
                 

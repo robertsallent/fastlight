@@ -36,14 +36,28 @@
             return $mensaje;
         }
         
+        
+        // métodos abreviados para flashear mensajes de éxito, error o warning
+        public static function success(string $mensaje){
+            self::flash('success', $mensaje);
+        }
+        
+        public static function warning(string $mensaje){
+            self::flash('warning', $mensaje);
+        }
+        
+        public static function error(string $mensaje){
+            self::flash('error', $mensaje);
+        }
+        
+        
         // metodo que guarda una variable de sesión
         public static function set(
             string $name,
             string $value
-        ){
-            $_SESSION[$name] = $value;
+            ){
+                $_SESSION[$name] = $value;
         }
-        
         
         // método que recupera una variable de sesión
         public static function get(string $name){

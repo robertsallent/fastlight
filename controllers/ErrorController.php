@@ -9,14 +9,27 @@
             $this->list();          // redirige al método $list
         }
         
-        // operación para listar los errores
-        public function list(){
-            Auth::admin(); // operación solamente para el administrador
-                
+        // operación para listar los errores (con paginación)
+        public function list(int $page = 1){
+            
+            Auth::admin();// operación solamente para el administrador
+            
+            // datos para paginación
+            $limit = RESULTS_PER_PAGE;      // resultados por página
+            $total = AppError::total();     // total de resultados
+                                   
+            // crea un objeto paginator
+            $paginator = new Paginator('/Error/list', $page, $limit, $total);
+            
+            // recupera los resultados para la página actual (el offset lo calcula el paginador)
+            $errores = AppError::orderBy('date', 'DESC', $limit, $paginator->getOffset());
+            
             $this->loadView('error/list', [
-                'errores' => AppError::orderBy('date', 'DESC')
+                'errores' => $errores,
+                'paginator' => $paginator // pasamos el objeto Paginator a la vista 
             ]);
         } 
+        
         
         // elimina un error de forma individual
         public function destroy(int $id = 0){

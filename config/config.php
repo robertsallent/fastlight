@@ -42,7 +42,7 @@
     define('LOG_ERRORS', true);                       // guardar errores en fichero de log
     define('ERROR_LOG_FILE', '../logs/error.log');    // nombre del fichero de log
     
-    define('DB_ERRORS', false);                       // guardar errores en BDD
+    define('DB_ERRORS', true);                       // guardar errores en BDD
     define('ERROR_DB_TABLE', 'errors');               // nombre de la tabla para los errores
     
     define('LOG_LOGIN_ERRORS', false);                // guardar errores de login en fichero de log
@@ -65,4 +65,10 @@
     // clase para los usuarios
     // la clase indicada debe implementar Autenticable y Autorizable
     define('USER_PROVIDER', 'User');
+    
+    // para la paginación de resultados
+    define('RESULTS_PER_PAGE', 10);
+    
+    
+    
     

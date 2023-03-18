@@ -24,12 +24,17 @@ class Model{
     
     
     // método para recuperar un array con todos los objetos.
-    public static function get():array{
+    public static function get(
+        int $limit = 0,    // límite de resultados (para paginación)
+        int $offset = 0    // desplazamiento (para paginación)
+    ):array{
         
         $tabla = self::getTable(); // recupera el nombre de la tabla
         
         // prepara la consulta y la ejecuta
-        $consulta = "SELECT * FROM $tabla";
+        $consulta = "SELECT * FROM $tabla ";
+        $consulta .= $limit? "LIMIT $limit OFFSET $offset" :"";
+        
         return (DB_CLASS)::selectAll($consulta, get_called_class());
     }
     
@@ -47,14 +52,18 @@ class Model{
     // recuperar todo con un orden concreto
     public static function orderBy(
         string $orden = 'id',    // orden de los resultados
-        string $sentido = 'ASC'  // sentido
+        string $sentido = 'ASC', // sentido
+        int $limit = 0,          // límite de resultados (para paginación)
+        int $offset = 0          // desplazamiento (para paginación)
     ):array{
         
         $tabla = self::getTable(); // recupera el nombre de la tabla
         
-        $consulta="SELECT *
-                   FROM $tabla
-                   ORDER BY $orden $sentido";
+        $consulta = "SELECT *
+                     FROM $tabla
+                     ORDER BY $orden $sentido ";
+
+        $consulta .= $limit? "LIMIT $limit OFFSET $offset" :"";
         
         return (DB_CLASS)::selectAll($consulta, get_called_class());
     }

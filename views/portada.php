@@ -10,7 +10,7 @@
 		<meta name="author" content="Robert Sallent">
 		
 		<!-- FAVICON -->
-		<link rel="shortcut icon" href="/images/template/smallLogo.png" type="image/png">	
+		<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
 		
 		<!-- CSS -->
 		<?= (TEMPLATE)::getCss() ?>
@@ -24,7 +24,8 @@
 		<?= (TEMPLATE)::getError() ?>
 		
 		<main>
-    		<h2>FastLight Framework</h2>
+    		<h1><?= APP_NAME ?></h1>
+    		<h2>Portada del sitio</h2>
     		
     		<p>Framework de clase para desarrollar aplicaciones web.</p>
     		<p>En la carpeta database encontrarás el SQL de una pequeña

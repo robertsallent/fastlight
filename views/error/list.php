@@ -10,7 +10,7 @@
     		<meta name="author" content="Robert Sallent">
     		
     		<!-- FAVICON -->
-    		<link rel="shortcut icon" href="/images/template/smallLogo.png" type="image/png">	
+    		<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
     		
     		<!-- CSS -->
     		<?= (TEMPLATE)::getCss() ?>
@@ -31,29 +31,39 @@
         			
         			<?php if($errores) { ?>
      	
-        			<a class="button" href="/Error/clear">Vaciar lista</a>
-        			<table>
-            			<tr>
-            				<th>Fecha</th>
-            				<th>Nivel</th>
-            				<th>URL</th>
-            				<th>Mensaje</th>
-            				<th>Usuario</th>
-            				<th>IP</th>
-            				<th>Operaciones</th>
-            			</tr>
-                		<?php foreach($errores as $error){ ?>
-            				<tr>
-                				<td><?=$error->date?></td>
-                				<td><?=$error->level?></td>
-                				<td><?=$error->url?></td>
-                				<td><?=$error->message?></td>
-                				<td><?=$error->user ?? " -- "?></td>
-                				<td><?=$error->ip?></td>
-                				<td><a class="button" href="/Error/destroy/<?= $error->id ?>">Borrar</a></td>
-            			   </tr>
-                		<?php } ?>
-            		</table>
+         				<div class="flex-container">
+         					<div class="flex1">
+            					<a class="button" href="/Error/clear">Vaciar lista</a>
+            				</div>
+            				<div class="flex1 derecha">
+            					<?= $paginator->stats()?>
+            				</div>
+            			</div>
+            			
+            			<table>
+                			<tr>
+                				<th>Fecha</th>
+                				<th>Nivel</th>
+                				<th>URL</th>
+                				<th>Mensaje</th>
+                				<th>Usuario</th>
+                				<th>IP</th>
+                				<th>Operaciones</th>
+                			</tr>
+                    		<?php foreach($errores as $error){ ?>
+                				<tr>
+                    				<td><?=$error->date?></td>
+                    				<td><?=$error->level?></td>
+                    				<td><?=$error->url?></td>
+                    				<td><?=$error->message?></td>
+                    				<td><?=$error->user ?? " -- "?></td>
+                    				<td><?=$error->ip?></td>
+                    				<td><a class="button" href="/Error/destroy/<?= $error->id ?>">Borrar</a></td>
+                			   </tr>
+                    		<?php } ?>
+                		</table>
+                		
+                		<?= $paginator->links() ?>
             		
             		<?php }else{ ?>
             			<p class="success">No hay errores que mostrar.</p>

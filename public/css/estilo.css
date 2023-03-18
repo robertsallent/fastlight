@@ -175,6 +175,15 @@
 		color: rgb(160, 160, 160);
 		font-size: 2.8rem;
 	}
+	
+	section{
+		padding: 20px;
+	}
+	
+	.flex-container>section:not(:first-of-type){
+		border-left: dashed 2px grey;
+	}
+	
 
 	footer.primary{
 		text-align: right;
@@ -270,7 +279,14 @@
 	}
 	
 	input, select, textarea{
-		padding: 5px;
+		padding: 6px 10px;
+	}
+	
+	textarea{
+		vertical-align: text-top;
+		resize: none;
+		min-width: 300px;
+		min-height: 200px;
 	}
 	
 	/* botones */
@@ -335,10 +351,23 @@
 		padding: 8px;
 	}
 	
+	/* paginador*/
+	.paginator-stats{
+		text-align: right;
+	}
+	
+	.paginator-links{
+		text-align: center;
+	}
+	
 	/* listas genéricas */
 	ul.listado li, ol.listado li{
 		margin: 10px 0px 5px 20px;
 		
 	}
 	
-
+	/* Mapa */
+	#mapa{
+		width: 100%;
+		min-height: 360px;
+	}
