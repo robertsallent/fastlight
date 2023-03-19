@@ -15,7 +15,6 @@ Para implementar en futuras versiones:
 
 - LIBRARIES
 	- PAGINATOR
-		- Incorporar paginación numérica al paginador 
 		- Incorporar first and last al paginador
 
 -------------------------------------------------------------------------------------------------------------

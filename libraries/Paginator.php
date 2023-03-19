@@ -106,6 +106,57 @@
         	
         	return $resultado;
         }
+        
+        
+        // genera enlaces numéricos
+        public function numericLinks(
+            string $divCssClasses = 'paginator-links',  // clases para el CSS del contenedor
+            string $linkCssClasses = 'button'           // clases para el CSS de los enlaces
+        ):string{
+                           
+            // prepara el HTML con los enlaces para las vistas
+            $resultado = "<div class='$divCssClasses'>";
+            
+            for($i = 1; $i <= $this->pages; $i++){
+                $actual = $i==$this->page ? "current" : "";
+                $resultado .= "<a class='$linkCssClasses $actual' href='$this->url/$i'>$i</a>";
+            }
+            $resultado .= "</div>";
+            
+            return $resultado;
+        }
+        
+        // genera enlaces numéricos con omisión de intermedios
+        public function ellipsisLinks(
+            string $divCssClasses = 'paginator-links',  // clases para el CSS del contenedor
+            string $linkCssClasses = 'button'           // clases para el CSS de los enlaces
+        ):string{
+            
+            // prepara el HTML con los enlaces para las vistas
+            $resultado = "<div class='$divCssClasses'>";
+            $resultado .= "<a class='$linkCssClasses' href='$this->url/1'>Primera</a>";
+            
+            // cálculos
+            $start = $this->page - 2;
+            $start = $start < 1 ? 1 : $start;
+            
+            if($start > 1) $resultado .= "<b>&lt;&lt;</b>";
+            
+            $end = $start + 3;
+            $end = $end > $this->pages ? $this->pages : $end;
+
+            for($i = $start; $i <= $end; $i++){
+                $actual = $i==$this->page ? "current" : "";
+                $resultado .= "<a class='$linkCssClasses $actual' href='$this->url/$i'>$i</a>";
+            }
+            
+            if($end < $this->pages) $resultado .= "<b>&gt;&gt;</b>";
+            $resultado .= "<a class='$linkCssClasses' href='$this->url/$this->pages'>Última</a>";
+            
+            $resultado .= "</div>";
+            
+            return $resultado;
+        }
     
         
         // genera la información de paginación

@@ -28,9 +28,10 @@
             
             // recupera los resultados para la página actual 
             $errores = $filtro ?    // hay filtro?
-                          AppError::filter($filtro, $limit, $paginator->getOffset()):           // resutados filtrados
-                          AppError::orderBy('date', 'DESC', $limit, $paginator->getOffset());   // resultados sin filtrar
+                  AppError::filter($filtro, $limit, $paginator->getOffset()):         // filtrados
+                  AppError::orderBy('date', 'DESC', $limit, $paginator->getOffset()); // sin filtrar
             
+            // cargamos la vista y le pasamos la lista de entidades, el paginador y el filtro
             $this->loadView('error/list', [
                 'errores'   => $errores,
                 'paginator' => $paginator,   // pasamos el objeto Paginator a la vista 
@@ -38,7 +39,7 @@
             ]);
         } 
         
-        
+          
         // elimina un error de forma individual
         public function destroy(int $id = 0){
             Auth::admin(); // operación solamente para el administrador

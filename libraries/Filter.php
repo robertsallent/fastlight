@@ -15,13 +15,12 @@
         public string $field;               // campo en el que buscar
         public string $orderField;          // campo para ordenar
         public string $order;               // sentido (ASC, DESC)
-        public int $limit;                  // límite de resultados (para paginación)
-        public int $offset;                 // desplazamiento (para paginación)
         
-        // permite configurar el nombre de los campos de formulario (en los valores)
+        // permite configurar el nombre de los campos de formulario
+        // los valores en los pares de clave => valor son los nombres que deben tener los inputs
         protected static array $fields = [
-            'filter'        => 'filtrar',       // input para comprobar que llega una petición de nuevo filtro
-            'removeFilter'  => 'quitarFiltro',  // input para comprobar que llega una petición de quitar filtro
+            'filter'        => 'filtrar',       // nombre para una petición de nuevo filtro
+            'removeFilter'  => 'quitarFiltro',  // nombre para una petición de quitar filtro
             'text'          => 'texto',         // nombre del input para el texto
             'field'         => 'campo',         // nombre del input para el campo 
             'orderField'    => 'campoOrden',    // nombre del input para el campo de ordenación
@@ -33,16 +32,12 @@
             string $text        = '%',
             string $field       = 'id',
             string $orderField  = 'id',
-            string $order       = 'DESC',
-            int $limit          = RESULTS_PER_PAGE,
-            int $offset         = 0
+            string $order       = 'DESC'
         ){
             $this->text         = $text;
             $this->field        = $field;
             $this->orderField   = $orderField;
-            $this->order        = $order;
-            $this->limit        = $limit;
-            $this->offset       = $offset;             
+            $this->order        = $order;            
         }
         
         // MÉTODOS

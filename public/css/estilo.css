@@ -324,6 +324,16 @@
 		background-color: rgb(100, 140, 200);
 	}
 	
+	/* paginador */
+	.paginator-links{
+		color: #33a;
+	}
+	
+	.paginator-links .current{
+		background-color: white;
+		color: #99e;
+	}
+	
 	/* tablas */
 	table{
 		border: solid 1px grey;

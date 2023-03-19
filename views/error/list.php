@@ -27,16 +27,18 @@
         		
         		<?php if(DB_ERRORS){ ?>
         		<section>
+        		
             		<h2>Lista completa de errores</h2>
         			
-        			<p>Utiliza el formulario de búsqueda para filtrar resultados. Las búsquedas se mantendrán
-        			   guardadas aunque cambies de página.</p>
+        			<p>Utiliza el formulario de búsqueda para filtrar resultados. Las búsquedas 
+        			   se mantendrán guardadas aunque cambies de página.</p>
         			   
         			<?php if(!empty($filtro)){?>
             			
         				<form class="filtro derecha" method="POST" action="/Error/list">
         					<label><?= $filtro ?></label>
-        					<input class="button" style="display:inline" type="submit" name="quitarFiltro" value="Quitar filtro">
+        					<input class="button" style="display:inline" type="submit" 
+        					       name="quitarFiltro" value="Quitar filtro">
         				</form>
             		
         			<?php }else{ ?>
@@ -50,6 +52,7 @@
             					<option value="user">Usuario</option>
             					<option value="ip">IP</option>
             				</select>
+            				
             				<label>Ordenar por:</label>
             				<select name="campoOrden">
             					<option value="date" selected>Fecha</option>
@@ -103,7 +106,7 @@
                     		<?php } ?>
                 		</table>
                 		
-                		<?= $paginator->links() ?>
+                		<?= $paginator->ellipsisLinks() ?>
             		
             		<?php }else{ ?>
             			<p class="success">No hay errores que mostrar.</p>
