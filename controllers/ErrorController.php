@@ -12,21 +12,29 @@
         // operación para listar los errores (con paginación)
         public function list(int $page = 1){
             
-            Auth::admin();// operación solamente para el administrador
+            // Auth::admin();// operación solamente para el administrador
             
+            // Comprobar si hay filtros a aplicar/quitar/recuperar de sesión
+            $filtro = Filter::apply('errores');
+                        
             // datos para paginación
-            $limit = RESULTS_PER_PAGE;      // resultados por página
-            $total = AppError::total();     // total de resultados
+            $limit = RESULTS_PER_PAGE;                       // resultados por página
+            $total = $filtro ?                               // hay filtro ?
+                        AppError::filteredResults($filtro):     // total de resultados filtrados
+                        AppError::total();                      // total de resultados sin filtrar
                                    
             // crea un objeto paginator
             $paginator = new Paginator('/Error/list', $page, $limit, $total);
             
-            // recupera los resultados para la página actual (el offset lo calcula el paginador)
-            $errores = AppError::orderBy('date', 'DESC', $limit, $paginator->getOffset());
+            // recupera los resultados para la página actual 
+            $errores = $filtro ?    // hay filtro?
+                          AppError::filter($filtro, $limit, $paginator->getOffset()):           // resutados filtrados
+                          AppError::orderBy('date', 'DESC', $limit, $paginator->getOffset());   // resultados sin filtrar
             
             $this->loadView('error/list', [
-                'errores' => $errores,
-                'paginator' => $paginator // pasamos el objeto Paginator a la vista 
+                'errores'   => $errores,
+                'paginator' => $paginator,   // pasamos el objeto Paginator a la vista 
+                'filtro'    => $filtro       // pasamos el objeto filter a la vista
             ]);
         } 
         

@@ -86,7 +86,7 @@
         public function links(
             string $divCssClasses = 'paginator-links',  // clases para el CSS del contenedor
             string $linkCssClasses = 'button'           // clases para el CSS de los enlaces
-        ){ 
+        ):string{ 
             $idiomas = [
                 'ca' => ['Anterior', 'Següent'],
                 'es' => ['Anterior', 'Siguiente'],
@@ -111,7 +111,7 @@
         // genera la información de paginación
         public function stats(
             string $cssClasses = 'paginator-stats'   // clases para el CSS del contenedor
-        ){
+        ):string{
             $pagina = number_format($this->page, 0, ',', '.');
             $paginas = number_format($this->pages, 0, ',', '.');
             $resultados = number_format($this->total, 0, ',', '.');

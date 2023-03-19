@@ -54,9 +54,9 @@
         // metodo que guarda una variable de sesión
         public static function set(
             string $name,
-            string $value
-            ){
-                $_SESSION[$name] = $value;
+            $value
+        ){
+            $_SESSION[$name] = $value;
         }
         
         // método que recupera una variable de sesión

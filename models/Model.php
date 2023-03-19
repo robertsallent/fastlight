@@ -88,6 +88,39 @@ class Model{
     }
     
     
+    // recuperar objetos a partir de un objeto Filter
+    // se combina con la paginación gracias a los parámetros limit y offset
+    public static function filter(
+        Filter $filtro,                 // objeto filtro
+        int $limit = RESULTS_PER_PAGE,  // resultados por página
+        int $offset = 0                 // desplazamiento          
+    ):array{
+            
+            $tabla = self::getTable(); // recupera el nombre de la tabla
+            
+            $consulta="SELECT *
+                       FROM $tabla
+                       WHERE $filtro->field LIKE '%$filtro->text%'
+                       ORDER BY $filtro->orderField $filtro->order 
+                       LIMIT $limit 
+                       OFFSET $offset ";
+            
+            return (DB_CLASS)::selectAll($consulta, get_called_class());
+    }
+    
+    // calcula el total de resultados a partir de un objeto filter
+    public static function filteredResults(Filter $filtro):int{
+        
+        $tabla = self::getTable(); // recupera el nombre de la tabla
+        
+        $consulta="SELECT COUNT(*) AS total
+                       FROM $tabla
+                       WHERE $filtro->field LIKE '%$filtro->text%'
+                       ORDER BY $filtro->orderField $filtro->order ";
+        
+        return ((DB_CLASS)::select($consulta))->total;
+    }
+    
     // recuperar objetos con múltiples filtros
     public static function where(
         array $condiciones = [],    // array asociativo con campo => valor
