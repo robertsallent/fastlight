@@ -1,12 +1,12 @@
 <?php
 
 /*
- Fichero: autoload.php
- Autor: Robert Sallent
- Última mofidicación: 24/02/2023
- 
- Permitirá la carga de clases automática a partir de un listado de directorios
-  
+ * Fichero: autoload.php
+ * Autor: Robert Sallent
+ * Última mofidicación: 24/02/2023
+ *
+ * Permitirá la carga de clases automática a partir de un listado de directorios
+ * 
  */
     
     // función usada para buscar las clases

@@ -12,7 +12,7 @@
         // operación para listar los errores (con paginación)
         public function list(int $page = 1){
             
-            // Auth::admin();// operación solamente para el administrador
+            Auth::admin();// operación solamente para el administrador
             
             // Comprobar si hay filtros a aplicar/quitar/recuperar de sesión
             $filtro = Filter::apply('errores');
