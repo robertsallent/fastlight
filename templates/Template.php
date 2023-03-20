@@ -47,8 +47,9 @@ EOT;
         if(Login::isAdmin())
             return <<<EOT
                  <div class='derecha'>
-                    <span>Bienvenido <a href='/User/home'>$user->displayname</a> 
-                    ($user->email), eres <b>administrador</b>.</span> 
+                    <span>Bienvenido <a class='negrita' href='/User/home'>$user->displayname</a> 
+                    (<span class='cursiva'>$user->email</span>)
+                    , eres <a class='negrita' href='/Admin'>administrador</a>.</span> 
                     <a class='button' href='/Logout'>LogOut</a>
                  </div>
 EOT;  
@@ -58,7 +59,7 @@ EOT;
             return <<<EOT
                  <div class='derecha'>
                     <span>Bienvenido <a href='/User/home'>$user->displayname</a>
-                    ($user->email).</span> 
+                    (<span class='cursiva'>$user->email</span>).</span> 
                     <a class='button' href='/Logout'>LogOut</a>
                  </div>
 EOT;    

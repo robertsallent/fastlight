@@ -96,8 +96,8 @@
                     		<?php foreach($errores as $error){ ?>
                 				<tr>
                     				<td><?=$error->date?></td>
-                    				<td><?=$error->level?></td>
-                    				<td><?=$error->url?></td>
+                    				<td class='negrita'><?=$error->level?></td>
+                    				<td class='cursiva'><?=$error->url?></td>
                     				<td><?=$error->message?></td>
                     				<td><?=$error->user ?? " -- "?></td>
                     				<td><?=$error->ip?></td>

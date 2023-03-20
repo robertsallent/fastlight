@@ -103,7 +103,7 @@
 	
 	
 	
-	/* alineación del texto */
+	/* textos */
 	.centrado{ text-align: center;}
 	.justificado{ text-align: justify;}
 	.izquierda{ text-align: left;}
@@ -112,6 +112,11 @@
 	.mayusculas{ text-transform: uppercase; }
 	.minusculas{ text-transform: lowercase; }
 	
+	.cursiva{font-style: italic; }
+	.negrita{font-weight: bold; }
+	
+	.mini{ font-size: 0.8rem; }
+	.maxi{ font-size: 1.2rem; }
 	
 	/* distintos elementos */
 	h1, h2, h3{
@@ -217,6 +222,13 @@
 		padding: 20px;
 		border-radius: 10px;
 		text-align: center;
+	}
+	
+	/* paginador */
+	
+	.paginator-links .current{
+		background-color: white;
+		color: grey;
 	}
 	
 	
@@ -372,6 +384,16 @@
 	ul.listado li, ol.listado li{
 		margin: 10px 0px 5px 20px;
 		
+	}
+	
+	/* imágenes */
+	.cover-mini{
+		height: 100%;
+		max-width: 100px;
+	}
+	
+	.cover{
+		width: 100%;
 	}
 	
 	/* Mapa */

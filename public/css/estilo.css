@@ -100,7 +100,7 @@
 	
 	
 	
-	/* alineación del texto */
+	/* textos */
 	.centrado{ text-align: center;}
 	.justificado{ text-align: justify;}
 	.izquierda{ text-align: left;}
@@ -108,6 +108,12 @@
 	
 	.mayusculas{ text-transform: uppercase; }
 	.minusculas{ text-transform: lowercase; }
+	
+	.cursiva{font-style: italic; }
+	.negrita{font-weight: bold; }
+	
+	.mini{ font-size: 0.8rem; }
+	.maxi{ font-size: 1.2rem; }
 	
 	
 	/* distintos elementos */
@@ -331,7 +337,7 @@
 	
 	.paginator-links .current{
 		background-color: white;
-		color: #99e;
+		color: #99a;
 	}
 	
 	/* tablas */
@@ -374,6 +380,18 @@
 	ul.listado li, ol.listado li{
 		margin: 10px 0px 5px 20px;
 		
+	}
+	
+	/* imágenes */
+	.cover-mini{
+		width: 100%;
+		max-width: 100px;
+	}
+	
+	.cover{
+		width: 100%;
+		max-width: 400px;
+		margin: 10px;
 	}
 	
 	/* Mapa */

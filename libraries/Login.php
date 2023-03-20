@@ -20,14 +20,14 @@
     	// método que recupera el usuario desde la variable de sesión
         // hay que invocarlo para que funcione el sistema de login.
         public static function init(){
-            self::$activeUser = $_SESSION['user'] ??  NULL;
+            self::$activeUser = Session::get('user') ??  NULL;
         }
     	   	
     	// establece el usuario identificado
     	// se usará desde LoginController, método login()
         public static function set(Autenticable $user){
             self::$activeUser = $user; 
-    	    $_SESSION['user'] = $user;
+    	    Session::set('user', $user);
     	}
     	
     	// elimina el usuario identificado
@@ -35,7 +35,7 @@
     	public static function clear(){
     	    self::$activeUser = NULL;
     	    
-    	    $_SESSION = [];   // borra todas las variables de sesión
+    	    Session::clear();   // borra todas las variables de sesión
     	    
     	    $parametrosCookie = session_get_cookie_params();
     	    

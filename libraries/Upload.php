@@ -83,7 +83,4 @@
         }   
     }
     
-    // tipo de excepción personalizada (útil para el control de errores)
-    class UploadException extends Exception{
-        // Vacía
-    }
+ 

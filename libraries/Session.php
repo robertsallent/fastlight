@@ -53,15 +53,15 @@
         
         // metodo que guarda una variable de sesión
         public static function set(
-            string $name,
-            $value
+            string $name,    // nombre de la variable de sesión a crear
+            $value           // valor a guardar
         ){
             $_SESSION[$name] = $value;
         }
         
         // método que recupera una variable de sesión
         public static function get(string $name){
-            return $_SESSION[$name];
+            return $_SESSION[$name] ?? NULL;
         }
         
         // método que comprueba si existe una variable de sesión
@@ -72,6 +72,11 @@
         // método que elimina una variable de sesión
         public static function forget(string $name){
             unset($_SESSION[$name]);
+        }
+        
+        // método que elimina todas las variables de sesión
+        public static function clear(){
+            $_SESSION = [];
         }
         
     }

@@ -14,7 +14,7 @@
         // método que gestiona la salida del usuario de la aplicación
         public function index(){
             Login::clear();         // elimina los datos de sesión y desvincula el usuario      
-            URL::redirect('/');     // redirige a la portada 
+            redirect('/');     // redirige a la portada 
         } 
     }
     

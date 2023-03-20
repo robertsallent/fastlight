@@ -56,7 +56,7 @@
                 $mensaje .= "<p>COOKIE: ".arrayToString($_COOKIE)."</p>";
             
             if(in_array('client', $errorDetail))
-                $mensaje .= "<p>CLIENT IP: ".$_SERVER['REMOTE_ADDR']."</p><p>USER AGENT: ".$_SERVER['HTTP_USER_AGENT']."</p>";
+                $mensaje .= "<p>CLIENT IP: <b>".$_SERVER['REMOTE_ADDR']."</b></p><p>USER AGENT: ".$_SERVER['HTTP_USER_AGENT']."</p>";
             
             return $mensaje;
         }  

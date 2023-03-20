@@ -132,6 +132,8 @@
             string $linkCssClasses = 'button'           // clases para el CSS de los enlaces
         ):string{
             
+            if($this->pages < 2) return "";
+            
             // prepara el HTML con los enlaces para las vistas
             $resultado = "<div class='$divCssClasses'>";
             $resultado .= "<a class='$linkCssClasses' href='$this->url/1'>Primera</a>";
