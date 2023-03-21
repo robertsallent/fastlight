@@ -44,12 +44,10 @@ class Email{
       
     // método que envía el email usando la función mail() de PHP
     public function send():bool{
-        return mail(
-            $this->to, 
-            $this->subject, 
-            $this->message, 
-            $this->headers
-        );
+        if(!mail($this->to, $this->subject, $this->message, $this->headers))
+            throw new EmailException("No se pudo enviar el email.");
+        
+        return true;
     }     
 }
 

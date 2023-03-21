@@ -385,12 +385,14 @@
 	/* imágenes */
 	.cover-mini{
 		width: 100%;
-		max-width: 100px;
+		max-width: 80px;
+		max-height: 120px;
 	}
 	
 	.cover{
 		width: 100%;
-		max-width: 400px;
+		max-width: 280px;
+		max-height: 400px;
 		margin: 10px;
 	}
 	

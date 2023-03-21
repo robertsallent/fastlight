@@ -388,12 +388,16 @@
 	
 	/* imágenes */
 	.cover-mini{
-		height: 100%;
-		max-width: 100px;
+		width: 100%;
+		max-width: 80px;
+		max-height: 120px;
 	}
 	
 	.cover{
 		width: 100%;
+		max-width: 280px;
+		max-height: 400px;
+		margin: 10px;
 	}
 	
 	/* Mapa */

@@ -17,12 +17,21 @@
         }
         
         // comprueba si hay alguien identificado, sino  lanza excepción
-        public static function userLogged():bool{
+        public static function check():bool{
             if(!Login::check())
                 throw new AuthException("Debes estar identificado.");
             
             return true;
         }
+        
+        // comprueba si hay alguien identificado, sino  lanza excepción
+        public static function guest():bool{
+            if(!Login::guest())
+                throw new AuthException("Solo para usuarios no identificados.");
+                
+            return true;
+        }
+        
         
         // comprueba si el usuario es admin, en caso contrario lanza excepción
         public static function admin():bool{

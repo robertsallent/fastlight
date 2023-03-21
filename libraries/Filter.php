@@ -61,7 +61,7 @@
             }
             
             // si se pide quitar un filtro
-            if(!empty($_POST['quitarFiltro']))
+            if(!empty($_POST[self::$fields['removeFilter']]))
                 Session::forget("filter_$name");
                 
             // Recuperar y retornar el filtro desde la variable de sesión

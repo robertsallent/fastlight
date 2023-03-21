@@ -46,20 +46,5 @@
     }
     
     
-    
-    // TRABAJO CON FICHEROS
-    // función que muestra o descarga ficheros de texto
-    function openTextFile(
-        string $route,
-        string $name = 'file',
-        bool $download = true
-    ){
-        header('Content-Type: text/plain');
-        
-        if($download)
-            header("Content-disposition: attachment; filename=$name.log");
-            
-        echo file_get_contents($route);        
-    }
-    
+ 
     

@@ -59,17 +59,20 @@
             }
         }
         
-        // vacía la lista de errores
+        
+        // vacía la lista de errores en la base de datos
         public function clear(){
             Auth::admin(); // operación solamente para el administrador
             
             try{
                 $rows = AppError::clear();
-                Session::flash('success', "Lista de errores vaciada correctamente. Se eliminaron $rows registros.");
+                Session::success("Lista de errores vaciada correctamente. 
+                                  Se eliminaron $rows registros.");
+                
                 redirect("/Error/list");
                 
             }catch(SQLException $e){
-                Session::flash('error', "No se pudo vaciar la lista de errores.");
+                Session::error("No se pudo vaciar la lista de errores.");
                
                 if(DEBUG)
                     throw new Exception($e->getMessage());
@@ -78,44 +81,38 @@
             }
         }
 
+        
         // descarga los ficheros de LOG
         public function download(string $fileType = 'errors'){
             Auth::admin(); // operación solamente para el administrador
             
             switch($fileType){
-                case 'errors' : $file = ERROR_LOG_FILE;
-                break;
-                case 'login'  : $file = LOGIN_ERRORS_FILE;
-                break;
+                case 'errors' : $file = ERROR_LOG_FILE;     break;
+                case 'login'  : $file = LOGIN_ERRORS_FILE;  break;
                 default       : return;
             }
             
-            if(is_readable($file))
-                openTextFile($file, pathinfo($file, PATHINFO_FILENAME));
-            else
-                Session::flash('error',"No se puede abrir el fichero, es probable que no
-                                exista o que no se tengan los permisos adecuados en el sistema de ficheros.");
-            
-            redirect("/Error/list");
+            File::openTextFile($file, pathinfo($file, PATHINFO_BASENAME)); 
+            die();
         }
+        
         
         // elimina ficheros de LOG
         public function erase(string $fileType = 'errors'){
             Auth::admin(); // operación solamente para el administrador
   
             switch($fileType){
-                case 'errors' : $ok = @unlink(ERROR_LOG_FILE);
-                                break;
-                case 'login'  : $ok = @unlink(LOGIN_ERRORS_FILE);
-                                break;
+                case 'errors' : $ok = File::remove(ERROR_LOG_FILE);      break;
+                case 'login'  : $ok = File::remove(LOGIN_ERRORS_FILE);   break;
                 default       : $ok = false;
             }
             
             if($ok)
-                Session::flash('success',"Fichero borrado.");
+                Session::success("Fichero borrado.");
             else
-                Session::flash('error',"No se pudo eliminar el fichero, es probable que no 
-                                exista o que no se tengan los permisos adecuados en el sistema de ficheros.");
+                Session::error("No se pudo eliminar el fichero, es probable que no 
+                                exista o que no se tengan los permisos adecuados en 
+                                el sistema de ficheros.");
             
             redirect("/Error/list");
         }

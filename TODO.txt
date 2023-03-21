@@ -12,11 +12,16 @@ Para implementar en futuras versiones:
 	- Añadir carpetas app y bootstrap y simplificar la estructura de directorios en la raíz
 	- Implementar una clase Request.
 	- Mapear todo lo que llega por GET, POST o COOKIE a un objeto Request
+	- Los errores de autorización generan error 403
+	- Los errores de controlador o método no válido generan error 404
+	- Vistas de error personalizada.
 
 - LIBRARIES
-	- PAGINATOR
-		- Incorporar first and last al paginador
-
+	- Library File para trabajar con ficheros (borrar, reemplazar...).
+	
+- VIEWS
+	- Sacar el formulario de búsqueda hacia el Template (necesitará dos arrays).
+	
 -------------------------------------------------------------------------------------------------------------
 A evaluar... tal vez no se implemente por motivos docentes y se deja para los cursos de Laravel o Symfony:
 -------------------------------------------------------------------------------------------------------------

@@ -1,14 +1,14 @@
 <?php
 
-/* Clase URL
- *
- * Herramientas para URLs y redirecciones
- *
- * Autor: Robert Sallent
- * Última revisión: 15/02/2023
- *
- */
- 
+    /* Clase URL
+     *
+     * Herramientas para URLs y redirecciones
+     *
+     * Autor: Robert Sallent
+     * Última revisión: 15/02/2023
+     *
+     */
+     
     class URL{
         
         // método estático para redirigir a la URL deseada

@@ -5,7 +5,7 @@
  * Controlador frontal para la aplicación
  *
  * Autor: Robert Sallent
- * Última revisión: 09/03/2022
+ * Última revisión: 21/03/2022
  * 
  */
  
@@ -70,12 +70,20 @@
                 
                 // si está activado el LOG de errores:
                 if(LOG_ERRORS)
-                    Log::addMessage(ERROR_LOG_FILE, 'ERROR', $error->getMessage());
+                    Log::addMessage(
+                        ERROR_LOG_FILE, 
+                        'ERROR: '.get_class($error), 
+                        $error->getMessage()
+                    );
                 
                 // si está activada la opción de guardar errores en BDD
                 if(DB_ERRORS){
                     try{
-                        AppError::create($_GET['url'], 'ERROR', $error->getMessage());
+                        AppError::create(
+                            $_GET['url'], 
+                            'ERROR: '.get_class($error), 
+                            $error->getMessage()
+                        );
                     }catch(SQLException $e){
                         $this->loadView('error', ['mensaje' => $e->getMessage()]); 
                         die();
