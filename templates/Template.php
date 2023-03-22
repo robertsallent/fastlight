@@ -177,7 +177,10 @@ EOT: '';}
             </div>
 EOT: '';} 
 	
-        
+    // muestra los mensajes de success, error y warning flasheados
+    public static function getFlashes(){
+        return self::getSuccess().self::getWarning().self::getError();
+    }
         
     /*****************************************************************************
      * FOOTER
@@ -187,7 +190,7 @@ EOT: '';}
         return <<<EOT
         <footer class='primary'>
             <p>Desarrollado por <a href="https://robertsallent.com">
-                Robert Sallent</a> para los cursos de desarrollo de aplicaciones web.
+                Robert Sallent</a> para sus cursos de desarrollo de aplicaciones web (2023).
             </p>
         </footer>
 EOT;} 

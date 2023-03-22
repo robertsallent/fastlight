@@ -5,11 +5,11 @@
  * Proveedor de usuarios por defecto para las aplicaciones
  *
  * Autor: Robert Sallent
- * Última revisión: 07/03/2023
+ * Última revisión: 22/03/2023
  *
  */
 
-class User extends Model implements Autenticable, Autorizable{
+class User extends Model implements Authenticable, Authorizable{
     
     
     // redefine el método del padre, que no recupera bien el campo JSON
@@ -28,11 +28,11 @@ class User extends Model implements Autenticable, Autorizable{
     
     
     
-    // MÉTODOS DE AUTENTICABLE
+    // MÉTODOS DE AUTHENTICABLE
     // método encargado de comprobar que el login es correcto y recuperar el usuario
     // permitiremos la identificación por email o teléfono.
     // si la identificación es correcta retorna el usuario, en caso contrario NULL.
-    public static function identificar(
+    public static function authenticate(
         string $emailOrPhone = '',      // email o teléfono
         string $password = ''           // debe llegar encriptado con MD5
     ):?User{
@@ -54,7 +54,7 @@ class User extends Model implements Autenticable, Autorizable{
     
     
     
-    // MÉTODOS DE AUTORIZABLE
+    // MÉTODOS DE AUTHORIZABLE
     // retorna la lista de roles
     public function getRoles(): array{
         $this->roles[] = 'ROLE_USER';     // garantiza que al menos tenga el ROLE_USER

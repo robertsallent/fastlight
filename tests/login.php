@@ -1,19 +1,29 @@
 <?php
 
     echo "<h1>Test de login</h1>";
-
-    // recupera un usuario
-    $user = (USER_PROVIDER)::identificar('admin@fastlight.com', md5('1234'));
+    echo "<h2>Nadie identificado</h2>";
     
-    if(!$user)
-        throw new Exception('Identificación incorrecta');
+    Login::clear(); // nos aseguramos que no hay nadie identificado
+    
+    echo Login::guest() ? "Nadie identificado<br>" : "Alguien identificado<br>";  // nadie
+    echo Login::check() ? "Alguien identificado<br>" : "Nadie identificado<br>";  // nadie
+    echo Login::isAdmin() ? "Administrador<br>" : "No administrador<br>";  // NO
+    
+    echo "<h2>Usuario hace login</h2>";
+    
+    // identifica (probad con admin y con biblio)
+    $user = (USER_PROVIDER)::authenticate('admin@fastlight.com', md5('1234'));
+    if(!$user) throw new LoginException('Identificación incorrecta');
         
-    // haz login
-    Login::set($user);
+    Login::set($user); // hace Login
     
-    // recupera el usuario logueado y muéstralo
-    echo "<p>Resultado del login:</p>";
-    dump(Login::user());
-
-   
+    echo "<h2>Info del usuario</h2>";
+    echo Login::guest() ? "Nadie identificado<br>" : "Alguien identificado<br>";  // alguien
+    echo Login::check() ? "Alguien identificado<br>" : "Nadie identificado<br>";  // alguien
+    echo Login::isAdmin() ? "Administrador<br>" : "No administrador<br>";  // Administrador
+    
+    dump(Login::user()); // admin
+    
+    
+    
     

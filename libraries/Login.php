@@ -14,7 +14,7 @@
         // Propiedad que contendrá el usuario identificado en la aplicación.
         // Es privada, se puede recuperar mediante el método Login::get().
         // Como no hay setter será de solo lectura.
-        private static ?Autenticable $activeUser = NULL; 
+        private static ?Authenticable $activeUser = NULL; 
     
     	// METODOS
     	// método que recupera el usuario desde la variable de sesión
@@ -25,7 +25,7 @@
     	   	
     	// establece el usuario identificado
     	// se usará desde LoginController, método login()
-        public static function set(Autenticable $user){
+        public static function set(Authenticable $user){
             self::$activeUser = $user; 
     	    Session::set('user', $user);
     	}
@@ -54,12 +54,12 @@
     	
     	// METODOS ÚTILES PARA NUESTRAS APLICACIONES
     	// recupera el usuario identificado (o NULL si no hay)
-    	public static function user():?Autenticable{
+    	public static function user():?Authenticable{
     	    return self::$activeUser;
     	}
     	
     	// alias de Login::user()
-    	public static function get():?Autenticable{
+    	public static function get():?Authenticable{
     	    return self::user();
     	}
     	

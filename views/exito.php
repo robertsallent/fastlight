@@ -20,9 +20,7 @@
 		<?= (TEMPLATE)::getHeader('Éxito') ?>
 		<?= (TEMPLATE)::getMenu() ?>
 		<?= (TEMPLATE)::getBreadCrumbs(["Éxito" => NULL]) ?>
-		<?= (TEMPLATE)::getSuccess() ?>
-		<?= (TEMPLATE)::getWarning() ?>
-		<?= (TEMPLATE)::getError() ?>
+		<?= (TEMPLATE)::getFlashes() ?>
 		
 		<main>
     		<h2>Éxito en la operación solicitada</h2>

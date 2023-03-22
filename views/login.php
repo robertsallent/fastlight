@@ -20,9 +20,7 @@
 		<?= (TEMPLATE)::getHeader('LogIn') ?>
 		<?= (TEMPLATE)::getMenu() ?>
 		<?= (TEMPLATE)::getBreadCrumbs(["LogIn" => "/Login"]) ?>
-		<?= (TEMPLATE)::getSuccess() ?>
-		<?= (TEMPLATE)::getWarning() ?>
-		<?= (TEMPLATE)::getError() ?>
+		<?= (TEMPLATE)::getFlashes() ?>
 		
 		<main>
 			<section class="flex-container">

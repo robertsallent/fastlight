@@ -3,7 +3,7 @@
     /*
         Clase: Auth
         Autor: Robert Sallent
-        Última mofidicación: 15/03/2023
+        Última mofidicación: 22/03/2023
 
         Nos facilitará la tarea de comprobar autorizaciones
 
@@ -12,7 +12,7 @@
     class Auth{
         
         // retorna el usuario identificado
-        public static function user():Autenticable{
+        public static function user():Authenticable{
             return Login::get();
         }
         

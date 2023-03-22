@@ -20,9 +20,7 @@
 		<?= (TEMPLATE)::getHeader('Error') ?>
 		<?= (TEMPLATE)::getMenu() ?>
 		<?= (TEMPLATE)::getBreadCrumbs(["Error" => NULL]) ?>
-		<?= (TEMPLATE)::getSuccess() ?>
-		<?= (TEMPLATE)::getWarning() ?>
-		<?= (TEMPLATE)::getError() ?>
+		<?= (TEMPLATE)::getFlashes() ?>
 		
 		<main>
     		<h2>Error en la operación solicitada</h2>

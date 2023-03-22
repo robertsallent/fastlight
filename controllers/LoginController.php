@@ -32,7 +32,7 @@
             $user = DB::escape($_POST['user']);
             $password = md5($_POST['password']);    // la clave va en MD5
             
-            $identificado = (USER_PROVIDER)::identificar($user, $password); // recuperar el usuario
+            $identificado = (USER_PROVIDER)::authenticate($user, $password); // recuperar el usuario
             
             if(!$identificado){
                 Session::error("Los datos de identificación no son correctos para $user.");

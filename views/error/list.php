@@ -20,8 +20,8 @@
     		<?= (TEMPLATE)::getHeader('Lista de errores') ?>
     		<?= (TEMPLATE)::getMenu() ?>
     		<?= (TEMPLATE)::getBreadCrumbs(["Lista de errores" => '/Error/list']) ?>
-    		<?= (TEMPLATE)::getSuccess() ?>
-    		<?= (TEMPLATE)::getError() ?>
+    		<?= (TEMPLATE)::getFlashes() ?>
+    		
     		<main>
         		<h1><?= APP_NAME ?></h1>
         		
