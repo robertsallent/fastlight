@@ -27,6 +27,8 @@
             return $this->directory;
         }
         
+        
+        
         // método que recupera la lista de entradas en el directorio
         // permite filtrado mediante expresión regular
         public function getEntries(string $regexp = "/.*/"):array{
@@ -40,10 +42,13 @@
             return $filtered;
         }
 
+        
+        
         // método estático (simplifica la tarea)
         public static function get(
             string $directorio = ".",   // directorio de trabajo
             string $regexp = "/.*/"     // expresión regular
+                
         ):array{
             return (new FileList($directorio))->getEntries($regexp);
         }

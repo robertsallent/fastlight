@@ -21,6 +21,7 @@
         public static function uniqueName(
             string $extension='',    // extensión del fichero
             string $prefix=''       // prefijo para el nombre único
+                
         ):string{
             // genera el nombre único con un prefijo
             $nombre = uniqid($prefix);

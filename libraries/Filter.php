@@ -4,7 +4,7 @@
      *
      * Permite aplicar filtros que se guardarán en sesión.
      *
-     * Última revisión: 19/03/2023
+     * Última revisión: 23/03/2023
      *
      * */
     
@@ -51,10 +51,10 @@
                                 
                 // preparamos el nuevo filtro             
                 $filtro = new Filter(
-                    DB::escape($_POST[self::$fields['text']]),
-                    DB::escape($_POST[self::$fields['field']]),
-                    DB::escape($_POST[self::$fields['orderField']]),
-                    DB::escape($_POST[self::$fields['order']]),
+                    (DB_CLASS)::escape($_POST[self::$fields['text']]),
+                    (DB_CLASS)::escape($_POST[self::$fields['field']]),
+                    (DB_CLASS)::escape($_POST[self::$fields['orderField']]),
+                    (DB_CLASS)::escape($_POST[self::$fields['order']]),
                 );
                 
                 Session::set("filter_$name", $filtro); // guarda el filtro en sesión

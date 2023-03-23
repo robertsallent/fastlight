@@ -170,7 +170,7 @@
                 switch(gettype($valor)){
                     case "string" : $consulta .= "'$valor', "; break;
                     case "NULL"   : $consulta .= "NULL, "; break;
-                    case "array"  : $consulta .= "$propiedad='".json_encode($valor)."', "; break;  
+                    case "array"  : $consulta .= "'".json_encode($valor)."', "; break;  
                     default       : $consulta .= "$valor, ";
             }
             

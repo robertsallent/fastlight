@@ -6,7 +6,7 @@
 		
 		<!-- META -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="LogIn en <?= APP_NAME ?>">
+		<meta name="description" content="Nueva clave en <?= APP_NAME ?>">
 		<meta name="author" content="Robert Sallent">
 		
 		<!-- FAVICON -->
@@ -17,35 +17,41 @@
 	</head>
 	<body>
 		<?= (TEMPLATE)::getLogin() ?>
-		<?= (TEMPLATE)::getHeader('LogIn') ?>
+		<?= (TEMPLATE)::getHeader('Nueva clave') ?>
 		<?= (TEMPLATE)::getMenu() ?>
-		<?= (TEMPLATE)::getBreadCrumbs(["LogIn" => "/Login"]) ?>
+		<?= 
+		  (TEMPLATE)::getBreadCrumbs([
+		    "LogIn" => "/Login",
+		    "Nueva clave" => NULL
+		  ]) 
+		?>
 		<?= (TEMPLATE)::getFlashes() ?>
 		
 		<main>
 			<section class="flex-container">
     			<div class="flex1"> </div>
-        		<form class="flex2" method="POST" autocomplete="off" id="loginForm" action="/Login/enter">
+    			
+        		<form class="flex2" method="POST" autocomplete="off" 
+        			id="loginForm" action="/Forgotpassword/send">
         			
-        			<h2>Acceso a la aplicación</h2>
-    				<p>Introduce tus datos en el formulario para identificarte.</p>
+        			<h2>Recuperación de password</h2>
+    				<p class="justificado">Introduce tus datos y se te enviará una 
+    					nueva clave con la que podrás acceder a la aplicación. 
+    					Recuerda que debes cambiarla lo antes posible.</p>
     		
     				<div style="margin: 10px;">
             			<label for="email">email:</label>
-            			<input type="email" name="user" id="email" required>
+            			<input type="email" name="email" id="email" required>
             			<br>
-            			<label for="password">Password:</label>
-            			<input type="password" name="password" id="password" required>
+            			<label for="phone">teléfono:</label>
+            			<input type="text" name="phone" id="phone" required>
         			</div>
         			
         			<div class="centrado">
-        				<input type="submit" class="button" name="login" value="LogIn">
-        			</div>
-        			<div class="derecha">
-        				<a href="/Forgotpassword">Olvidé mi clave</a>
-        			</div>
-        			
+        				<input type="submit" class="button" name="nueva" value="Nueva clave">
+        			</div>        			
         		</form>
+        		
         		<div class="flex1"> </div>
     		</section>
     		

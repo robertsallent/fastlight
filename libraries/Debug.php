@@ -18,10 +18,12 @@
             string $c,                // controlador solicitado
             string $m,                // método solicitado
             array $parametros = []    // parámetros
-        ):string{
-            global $errorDetail;
-            $mensaje = "<p>".$e->getMessage()."</p>";
             
+        ):string{
+            
+            global $errorDetail; // array en config.php que define el nivel de detalle a mostrar
+            
+            $mensaje = "<p>".$e->getMessage()."</p>";
             $mensaje .= "<h3>Información adicional para depuración:</h3>";
             
             if(in_array('user', $errorDetail)){

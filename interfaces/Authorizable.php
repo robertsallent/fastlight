@@ -1,29 +1,63 @@
 <?php
 
-/* Intarface Autenticable
+/* Trait Authorizable
  *
- * Interfaz que deben implementar las clases que permitan trabajar con autorización.
+ * Implementa los métodos para las clases que permitan autorización.
  *
  * autor: Robert Sallent
  * última revisión: 22/03/2023
  *
  */
 
-    interface Authorizable{
+    trait Authorizable{
         
-        // método que comprueba si un autorizable tiene un rol determinado
-        public function hasRole(string $role):bool;
-
-        // método que permite añadir un nuevo rol
-        public function addRole(string $role);
+        // retorna la lista de roles
+        public function getRoles(): array{
+            $this->roles[] = 'ROLE_USER';     // garantiza que al menos tenga el ROLE_USER
+            return array_unique($this->roles);
+        }
         
-        // método que permite quitar un rol
-        public function removeRole(string $role);
+        // añade un rol
+        // OJO: si el usuario está identificado, no tendrá el rol disponible hasta que cierre la sesión y acceda de nuevo
+        public function addRole(string $role = 'ROLE_USER'){
+            $this->roles[] = $role;                    // añade el rol
+            $this->roles = array_unique($this->roles); // elimina duplicados
+        }
         
-        // método que recupera la lista completa de roles
-        public function getRoles():array;
-
-        // método que indica si un autorizable tiene rol de admin
-        public function isAdmin():bool;    
+        // elimina un rol
+        // OJO: si el usuario está identificado, no se eliminará hasta que cierre la sesión y acceda de nuevo
+        public function removeRole(string $role){
+            $this->roles = array_diff($this->roles, [$role]);
+            return array_unique($this->roles);
+        }
+        
+        // comprueba si un usuario tiene un determinado rol
+        public function hasRole(string $role):bool{
+            return in_array($role, $this->roles);
+        }
+        
+        // comprueba si el usuario tiene todos los roles en una lista
+        public function allRoles(array $roles):bool{
+            foreach($roles as $role)
+                if(!$this->hasRole($role))
+                    return false;
+                    
+            return true;
+        }
+        
+        // comprueba si el usuario tiene un rol de entre los indicados
+        public function oneRole(array $roles):bool{
+            foreach($roles as $role)
+                if($this->hasRole($role))
+                    return true;
+                    
+             return false;
+        }
+        
+        // retorna si el usuario es admin
+        public function isAdmin(string $adminRole = 'ROLE_ADMIN'):bool{
+            return $this->hasRole($adminRole);
+        }    
+  
     }
 

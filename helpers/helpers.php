@@ -28,6 +28,7 @@
     function arrayToString(
         array $lista,               // array
         bool $brackets = true       // si colocamos corchetes o no
+        
     ):string{
         $texto = '';
         
@@ -40,9 +41,13 @@
     
     
     // REDIRECCIONES Y URLS
-    // redirect
-    function redirect(string $url = '/', int $delay = 0){
-        URL::redirect($url, $delay);
+    // redirect (usa el método redirect() de la clase URL)
+    function redirect(
+        string $url = '/',  // URL a la que redirigir
+        int $delay = 0,     // retardo
+        bool $die = true    // finalizar la ejecución tras redirección
+    ){
+        URL::redirect($url, $delay, $die);
     }
     
     
