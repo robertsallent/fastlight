@@ -47,9 +47,8 @@
             
             Login::set($identificado); // vincula el usuario a la sesión
             
-            // TODO: editar la redirección final para que nos lleve a la home del usuario
-            // como aún no tenemos esta operación, redirigiremos a la portada
-            redirect("/");  // redirect("/User/home");
+            // redirección tras Login
+            redirect(REDIRECT_AFTER_LOGIN ?? '/');
         }
     }
     

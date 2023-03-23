@@ -66,6 +66,9 @@
     // la clase indicada debe implementar Autenticable y Autorizable
     define('USER_PROVIDER', 'User');
     
+    // redirección tras login
+    define('REDIRECT_AFTER_LOGIN', '/');
+    
     // para la paginación de resultados
     define('RESULTS_PER_PAGE', 10);
     

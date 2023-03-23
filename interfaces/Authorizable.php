@@ -14,7 +14,8 @@
         // retorna la lista de roles
         public function getRoles(): array{
             $this->roles[] = 'ROLE_USER';     // garantiza que al menos tenga el ROLE_USER
-            return array_unique($this->roles);
+            $this->roles = array_unique($this->roles);
+            return $this->roles;
         }
         
         // añade un rol
