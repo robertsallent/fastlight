@@ -47,7 +47,4 @@
     $usuario = User::getById(1);
     dump($usuario->getRoles());
     
-    
-
  
-    

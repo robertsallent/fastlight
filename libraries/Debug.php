@@ -26,6 +26,8 @@
             $mensaje = "<p>".$e->getMessage()."</p>";
             $mensaje .= "<h3>Información adicional para depuración:</h3>";
             
+            $mensaje .= "<p>Tipo de error: <b>".get_class($e)."</b></p>";
+            
             if(in_array('user', $errorDetail)){
                 if($user = Login::get()){
                     $mensaje .= "<p>Usuario identificado: <b>$user->displayname</b> ($user->email), ";

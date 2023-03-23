@@ -1,13 +1,12 @@
 <?php
 
-    /*
-        Clase: Auth
-        Autor: Robert Sallent
-        Última mofidicación: 22/03/2023
-
-        Nos facilitará la tarea de comprobar autorizaciones
-
-    */
+/*
+ *   Clase: Auth
+ *   Autor: Robert Sallent
+ *   Última mofidicación: 23/03/2023
+ *
+ *   Nos facilitará la tarea de comprobar autorizaciones
+*/
 
     class Auth{
         
@@ -32,12 +31,15 @@
             return true;
         }
         
-        
+        // TODO: indicar el $adminRole con la constante del fichero config.php
         // comprueba si el usuario es admin, en caso contrario lanza excepción
-        public static function admin():bool{
-            if(!Login::isAdmin())
-                throw new AuthException("Se requieren privilegios de administrador.");
-            
+        public static function admin(string $adminRole = 'ROLE_ADMIN'):bool{
+            if(!Login::isAdmin($adminRole))
+                throw new AuthException(
+                    DEBUG ? 
+                        "Se requiere privilegio de administrador ($adminRole)." : 
+                        "No estás autorizado a realizar esta operación."
+                );
             return true;
         }
         
@@ -46,8 +48,11 @@
             $user = Login::user();
             
             if(!$user || !$user->hasRole($role))
-                throw new AuthException(DEBUG ? "Se requiere rol de $role para continuar." : "No autorizado.");
-            
+                throw new AuthException(
+                    DEBUG ? 
+                        "Se requiere rol de $role para continuar." : 
+                        "No estás autorizado a realizar esta operación."
+                );
             return true;
         }
         
@@ -59,9 +64,8 @@
                 throw new AuthException( 
                     DEBUG ? 
                         "Se requieren los roles: ".arrayToString($roles)." para continuar." : 
-                        "No autorizado."
+                        "No estás autorizado a realizar esta operación."
                 );
-                
             return true;
         }
         
@@ -73,9 +77,8 @@
                 throw new AuthException(
                     DEBUG ?
                         "Se requiere uno de estos roles: ".arrayToString($roles)." para continuar." :
-                        "No autorizado."
+                        "No estás autorizado a realizar esta operación."
                     );
-                
             return true;
         }
     }

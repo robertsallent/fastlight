@@ -30,19 +30,21 @@
         
         
         
-        // retorna un usuario a partir de un teléfono y un email (se usa en "olvidé mi password")
+        // retorna un usuario a partir de un teléfono y un email 
+        // (se usa en "olvidé mi password")
         public static function getByPhoneAndMail(
             string $phone,
             string $email
             
         ):?User{
             
-            $consulta = "SELECT *  FROM users  WHERE phone = '$phone' AND email = '$email' ";
-            return DB::select($consulta, self::class);
+            $consulta = "SELECT *  FROM users  
+                         WHERE phone = '$phone' AND email = '$email' ";
+            
+            return (DB_CLASS)::select($consulta, self::class);
         }
         
-        
-        
+                
         // MÉTODOS DE AUTHENTICABLE
         
         // método encargado de comprobar que el login es correcto y recuperar el usuario
@@ -60,7 +62,7 @@
                        WHERE (email='$emailOrPhone' OR phone='$emailOrPhone') 
                        AND password='$password'";
             
-            $usuario = DB::select($consulta, self::class);
+            $usuario = (DB_CLASS)::select($consulta, self::class);
             
             // hay que pasar los roles a array
             if($usuario)

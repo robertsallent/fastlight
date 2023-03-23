@@ -5,7 +5,7 @@
  * Implementa los métodos para las clases que permitan autorización.
  *
  * autor: Robert Sallent
- * última revisión: 22/03/2023
+ * última revisión: 23/03/2023
  *
  */
 
@@ -20,8 +20,15 @@
         
         // añade un rol
         // OJO: si el usuario está identificado, no tendrá el rol disponible hasta que cierre la sesión y acceda de nuevo
-        public function addRole(string $role = 'ROLE_USER'){
+        public function addRole(string $role){
             $this->roles[] = $role;                    // añade el rol
+            $this->roles = array_unique($this->roles); // elimina duplicados
+        }
+        
+        // añade múltiples roles de golpe
+        // OJO: si el usuario está identificado, no tendrá los roles disponibles hasta que cierre la sesión y acceda de nuevo
+        public function addRoles(array $roles){
+            $this->roles = $this->roles + $roles;      // añade los roles
             $this->roles = array_unique($this->roles); // elimina duplicados
         }
         
@@ -29,6 +36,13 @@
         // OJO: si el usuario está identificado, no se eliminará hasta que cierre la sesión y acceda de nuevo
         public function removeRole(string $role){
             $this->roles = array_diff($this->roles, [$role]);
+            return array_unique($this->roles);
+        }
+        
+        // elimina múltiples roles de golpe
+        // OJO: si el usuario está identificado, no se eliminarán hasta que cierre la sesión y acceda de nuevo
+        public function removeRoles(array $roles){
+            $this->roles = array_diff($this->roles, $roles);
             return array_unique($this->roles);
         }
         

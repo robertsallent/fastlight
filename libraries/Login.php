@@ -73,9 +73,10 @@
     	    return empty(self::user());
     	}
     	  	
+    	// TODO: indicar el $adminRole con la constante del fichero config.php
     	// retorna si el usuario está identificado y es admin
-    	public static function isAdmin():bool{
-    	    return self::$activeUser && self::$activeUser->hasRole('ROLE_ADMIN');
+    	public static function isAdmin(string $adminRole = 'ROLE_ADMIN'):bool{
+    	    return self::$activeUser && self::$activeUser->hasRole($adminRole);
     	}    	
     }
     

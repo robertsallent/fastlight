@@ -1,7 +1,7 @@
 Lista de cosas pendientes
 
 Autor: Robert Sallent
-Última revisión: 17/03/23
+Última revisión: 23/03/23
 
 -------------------------------------------------------------------------------------------------------------
 Para implementar en futuras versiones:
@@ -14,13 +14,14 @@ Para implementar en futuras versiones:
 	- Mapear todo lo que llega por GET, POST o COOKIE a un objeto Request
 	- Los errores de autorización generan error 403
 	- Los errores de controlador o método no válido generan error 404
-	- Vistas de error personalizada.
+	- Vistas de error personalizadas.
+	- Separar en varios el fichero de configuración.
 
 - LIBRARIES
 	- Library File para trabajar con ficheros (borrar, reemplazar...).
 	
 - VIEWS
-	- Sacar el formulario de búsqueda hacia el Template (necesitará dos arrays).
+	- Sacar el formulario de búsqueda hacia el Template (necesitará dos arrays para los desplegables).
 	
 -------------------------------------------------------------------------------------------------------------
 A evaluar... tal vez no se implemente por motivos docentes y se deja para los cursos de Laravel o Symfony:
