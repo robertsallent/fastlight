@@ -5,7 +5,7 @@
  * Simplifica la tarea de login/logout y el trabajo con sesiones de usuario
  *
  * autor: Robert Sallent
- * última revisión: 07/03/2023
+ * última revisión: 23/03/2023
  *
  */
 
@@ -73,13 +73,26 @@
     	    return empty(self::user());
     	}
     	  	
-    	// TODO: indicar el $adminRole con la constante del fichero config.php
-    	// retorna si el usuario está identificado y es admin
-    	public static function isAdmin(string $adminRole = 'ROLE_ADMIN'):bool{
+    	// retorna true si el usuario está identificado y es admin
+    	public static function isAdmin(string $adminRole = ADMIN_ROLE):bool{
     	    return self::$activeUser && self::$activeUser->hasRole($adminRole);
-    	}    	
+    	}
+    	
+    	// comprueba si el usuario identificado tiene un rol determinado
+    	public static function role(string $role):bool{
+    	    return self::user() && self::user()->hasRole($role);
+    	}
+    	
+    	// comprueba si el usuario identificado tiene todos los roles en una lista
+    	public static function allRoles(array $roles):bool{
+    	    return self::user() && self::user()->allRoles($roles);
+    	}
+    	
+    	// comprueba si el usuario identificado tiene un rol de entre los indicados
+    	public static function oneRole(array $roles):bool{
+    	    return self::user() && self::user()->oneRole($roles);
     }
     
-    
+}
     
     

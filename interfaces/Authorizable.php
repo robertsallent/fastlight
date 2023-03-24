@@ -18,30 +18,16 @@
             return $this->roles;
         }
         
-        // añade un rol
+        // añade uno o más roles
         // OJO: si el usuario está identificado, no tendrá el rol disponible hasta que cierre la sesión y acceda de nuevo
-        public function addRole(string $role){
-            $this->roles[] = $role;                    // añade el rol
-            $this->roles = array_unique($this->roles); // elimina duplicados
+        public function addRole(string ...$roles):array{
+            $this->roles = array_unique(array_merge($this->roles ?? [], $roles));   // añade los roles eliminando duplicados 
+            return $this->roles; 
         }
-        
-        // añade múltiples roles de golpe
-        // OJO: si el usuario está identificado, no tendrá los roles disponibles hasta que cierre la sesión y acceda de nuevo
-        public function addRoles(array $roles){
-            $this->roles = $this->roles + $roles;      // añade los roles
-            $this->roles = array_unique($this->roles); // elimina duplicados
-        }
-        
-        // elimina un rol
+               
+        // elimina uno o más roles
         // OJO: si el usuario está identificado, no se eliminará hasta que cierre la sesión y acceda de nuevo
-        public function removeRole(string $role){
-            $this->roles = array_diff($this->roles, [$role]);
-            return array_unique($this->roles);
-        }
-        
-        // elimina múltiples roles de golpe
-        // OJO: si el usuario está identificado, no se eliminarán hasta que cierre la sesión y acceda de nuevo
-        public function removeRoles(array $roles){
+        public function removeRole(string ...$roles):array{
             $this->roles = array_diff($this->roles, $roles);
             return array_unique($this->roles);
         }
@@ -70,7 +56,7 @@
         }
         
         // retorna si el usuario es admin
-        public function isAdmin(string $adminRole = 'ROLE_ADMIN'):bool{
+        public function isAdmin(string $adminRole = ADMIN_ROLE):bool{
             return $this->hasRole($adminRole);
         }    
   

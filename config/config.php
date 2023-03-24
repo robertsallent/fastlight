@@ -91,7 +91,13 @@
     define('USER_PROVIDER', 'User');
     
     // roles para los usuarios
-    $roles = ['ROLE_USER', 'ROLE_ADMIN', 'ROLE_EDITOR', 'ROLE_SUPERVISOR', 'ROLE_TEST'];
+    $roles = [
+        'Usuario'       => 'ROLE_USER',
+        'Administrador' => 'ROLE_ADMIN',
+        'Supervisor'    => 'ROLE_SUPERVISOR',
+        'Editor'        => 'ROLE_EDITOR',
+        'Test'          => 'ROLE_TEST'
+    ];
     
     // rol para el administrador (debería ser uno de los que están en la lista anterior)
     define('ADMIN_ROLE', 'ROLE_ADMIN');

@@ -1,50 +1,49 @@
 <?php
 
-    echo "<h1>Test de gestión de roles</h1>";
 
+    echo "<h1>Test de gestión de roles</h1>";
+    echo "<h2>Añadiendo y recuperando roles</h2>";
+    
     echo "<p>Recupera el usuario 1 y muestra sus roles:</p>";
-    $usuario = User::getById(1);
-    dump($usuario->getRoles());
+    $u = User::getById(1);
+    dump($u->getRoles());     // ROLE_USER, ROLE_ADMIN
     
-    echo "Es admin?: ".($usuario->isAdmin() ? 'SI' : 'NO');
+    echo "Es admin?: ".($u->isAdmin() ? 'SI' : 'NO'); // SI
     
-    echo "<p>Añade un rol ROLE_TEST al usuario:</p>";
-    $usuario->addRole('ROLE_TEST');
-    $usuario->update(); // para aplicar los cambios a la BDD
-    dump($usuario->getRoles());
+    echo "<p>Añade ROLE_TEST y ROLE_FOO al usuario:</p>";
+    $u->addRole('ROLE_TEST', 'ROLE_FOO');
+    dump($u->getRoles());     // ROLE_USER, ROLE_ADMIN, ROLE_TEST, ROLE_FOO
     
-    echo "<p>Recupera el usuario 1 y muestra sus roles (para comprobar que en BDD está OK):</p>";
-    $usuario = User::getById(1);
-    dump($usuario->getRoles());
+    echo "<p>Recupera el usuario 1 de BDD y muestra sus roles:</p>";
+    $u->update();             // aplica a la BDD
+    $u = User::getById(1);    // recupera de la BDD
+    dump($u->getRoles());     // ROLE_USER, ROLE_ADMIN, ROLE_TEST, ROLE_FOO
     
-    echo "ROLE_TEST: ".($usuario->hasRole('ROLE_TEST') ? 'SI' : 'NO');
-    echo "<br>";
-    echo "ROLE_DEVELOPER: ".($usuario->hasRole('ROLE_DEVELOPER') ? 'SI' : 'NO');
-    echo "<br>";
-    echo "ROLE_USER AND ROLE_TEST: ".($usuario->allRoles(['ROLE_USER', 'ROLE_TEST']) ? 'SI' : 'NO');
-    echo "<br>";
-    echo "ROLE USER OR ROLE_TEST: ".($usuario->oneRole(['ROLE_USER', 'ROLE_TEST']) ? 'SI' : 'NO');
+    echo "<br>TEST: ".($u->hasRole('ROLE_TEST') ? 'SI' : 'NO');                                  // SI
+    echo "<br>DEVELOPER: ".($u->hasRole('ROLE_DEVELOPER') ? 'SI' : 'NO');                        // NO
+    echo "<br>USER and TEST: ".($u->allRoles(['ROLE_USER', 'ROLE_TEST']) ? 'SI' : 'NO');         // SI
+    echo "<br>USER and EDITOR: ".($u->allRoles(['ROLE_USER', 'ROLE_EDITOR']) ? 'SI' : 'NO');     // NO
+    echo "<br>USER or EDITOR: ".($u->oneRole(['ROLE_USER', 'ROLE_EDITOR']) ? 'SI' : 'NO');       // SI
+    echo "<br>EDITOR or ADVISOR: ".($u->oneRole(['ROLE_EDITOR', 'ROLE_ADVISOR']) ? 'SI' : 'NO'); // NO
     
-    echo "<p>Quita un rol ROLE_TEST al usuario:</p>";
-    $usuario->removeRole('ROLE_TEST');
-    $usuario->update(); // para aplicar los cambios a la BDD
-    dump($usuario->getRoles());
     
-    echo "<p>Recupera el usuario 1 y muestra sus roles (para comprobar que en BDD está OK):</p>";
-    $usuario = User::getById(1);
-    dump($usuario->getRoles());
+    echo "<h2>Quitando roles</h2>";
+    echo "<p>Quita ROLE_TEST al usuario:</p>";
+    $u->removeRole('ROLE_TEST');
+    dump($u->getRoles());           // ROLE_USER, ROLE_ADMIN, ROLE_FOO
     
-    echo "ROLE_USER AND ROLE_TEST: ".($usuario->allRoles(['ROLE_USER', 'ROLE_TEST']) ? 'SI' : 'NO');
-    echo "<br>";
-    echo "ROLE_USER OR ROLE_TEST: ".($usuario->oneRole(['ROLE_USER', 'ROLE_TEST']) ? 'SI' : 'NO');
-         
-    echo "<p>Elimina ROLE_OTHER del usuario:</p>";
-    $usuario->removeRole('ROLE_OTHER');
-    $usuario->update();  // para aplicar los cambios a la BDD
-    dump($usuario->getRoles());
+    echo "<p>Comprobación con la BDD:</p>";
+    $u->update();                   // aplica los cambios a la BDD
+    $u = User::getById(1);
+    dump($u->getRoles());           // ROLE_USER, ROLE_ADMIN, ROLE_FOO
+  
+    echo "<p>Elimina ROLE_OTHER y ROLE_FOO del usuario:</p>";
+    $u->removeRole('ROLE_OTHER', 'ROLE_FOO');
+    dump($u->getRoles());           // ROLE_USER, ROLE_ADMIN
     
-    echo "<p>Recupera el usuario 1 y muestra sus roles (para comprobar que en BDD está OK):</p>";
-    $usuario = User::getById(1);
-    dump($usuario->getRoles());
+    echo "<p>Comprobación con la BDD:</p>";
+    $u->update();                   // aplica los cambios a la BDD
+    $u = User::getById(1);
+    dump($u->getRoles());           // ROLE_USER, ROLE_ADMIN
     
  

@@ -31,9 +31,8 @@
             return true;
         }
         
-        // TODO: indicar el $adminRole con la constante del fichero config.php
         // comprueba si el usuario es admin, en caso contrario lanza excepción
-        public static function admin(string $adminRole = 'ROLE_ADMIN'):bool{
+        public static function admin(string $adminRole = ADMIN_ROLE):bool{
             if(!Login::isAdmin($adminRole))
                 throw new AuthException(
                     DEBUG ? 
@@ -45,9 +44,7 @@
         
         // comprueba si el usuario tiene un rol determinado, en caso contrario lanza excepción
         public static function role(string $role):bool{
-            $user = Login::user();
-            
-            if(!$user || !$user->hasRole($role))
+            if(!Login::role($role))
                 throw new AuthException(
                     DEBUG ? 
                         "Se requiere rol de $role para continuar." : 
@@ -58,9 +55,7 @@
         
         // comprueba si el usuario tiene todos los roles en una lista
         public static function allRoles(array $roles):bool{
-            $user = Login::user();
-            
-            if(!$user || !$user->allRoles($roles))
+            if(!Login::allRoles($roles))
                 throw new AuthException( 
                     DEBUG ? 
                         "Se requieren los roles: ".arrayToString($roles)." para continuar." : 
@@ -71,9 +66,7 @@
         
         // comprueba si el usuario tiene un rol de entre los indicados 
         public static function oneRole(array $roles):bool{
-            $user = Login::user();
-            
-            if(!$user || !$user->oneRole($roles))
+            if(!Login::oneRole($roles))
                 throw new AuthException(
                     DEBUG ?
                         "Se requiere uno de estos roles: ".arrayToString($roles)." para continuar." :
