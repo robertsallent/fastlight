@@ -38,7 +38,7 @@
             }
             
             if(in_array('trace', $errorDetail)){
-                $mensaje .= "<p>Ruta: <b>".($_GET['url'] ?? ' -- ')."</b></p>";
+                $mensaje .= "<p>Ruta: <b>".($_SERVER['REQUEST_URI'] ?? ' -- ')."</b></p>";
                 $mensaje .= $c ? "<p>Controlador: <b>$c</b></p>" : '';
                 $mensaje .= $m ? "<p>Método del controlador: <b>$m()</b></p>" : '';
                 $mensaje .= "<p>Método de la petición: <b>".$_SERVER['REQUEST_METHOD']."</b></p>";

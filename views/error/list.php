@@ -33,45 +33,32 @@
         			<p>Utiliza el formulario de búsqueda para filtrar resultados. Las búsquedas 
         			   se mantendrán guardadas aunque cambies de página.</p>
         			   
-        			<?php if(!empty($filtro)){?>
-            			
-        				<form class="filtro derecha" method="POST" action="/Error/list">
-        					<label><?= $filtro ?></label>
-        					<input class="button" style="display:inline" type="submit" 
-        					       name="quitarFiltro" value="Quitar filtro">
-        				</form>
-            		
-        			<?php }else{ ?>
+        			<?php 
         			
-            			<form method="POST" class="filtro derecha" action="/Error/list">
-            				<input type="text" name="texto" placeholder="Buscar...">
-            				<select name="campo">
-            					<option value="level">Nivel</option>
-            					<option value="url">URL</option>
-            					<option value="message" selected>Mensaje</option>
-            					<option value="user">Usuario</option>
-            					<option value="ip">IP</option>
-            				</select>
-            				
-            				<label>Ordenar por:</label>
-            				<select name="campoOrden">
-            					<option value="date" selected>Fecha</option>
-            					<option value="level">Nivel</option>
-            					<option value="url">URL</option>
-            					<option value="message">Mensaje</option>
-            					<option value="user">Usuario</option>
-            					<option value="ip">IP</option>
-            				</select>
-            				<input type="radio" name="sentidoOrden" value='ASC'>
-            				<label>Ascendente</label>
-            				<input type="radio" name="sentidoOrden" value='DESC' checked>
-            				<label>Descendente</label>
-            				<input class="button" type="submit" name="filtrar" value="Filtrar">
-            			</form>
-        			<?php } ?>
-            			
-            			
-        			<?php if($errores) { ?>
+        			// coloca el formulario de filtro
+        			echo isset($filtro) ?
+        			     (TEMPLATE)::removeFilterForm($filtro, '/Error/list'):
+        			     
+        			     (TEMPLATE)::filterForm(
+            			     '/Error/list',
+            			     [
+            			         'Tipo' => 'level',
+            			         'URL' => 'url',
+            			         'Mensaje' => 'message',
+            			         'Usuario' => 'user'
+            			     ],[
+            			         'Tipo' => 'level',
+            			         'URL' => 'url',
+            			         'Mensaje' => 'message',
+            			         'Usuario' => 'user',
+            			         'Fecha' => 'date'
+            			     ], 
+            			     'Mensaje',
+            			     'Fecha'
+		            );
+
+        			     
+        			if($errores) { ?>
      	
          				<div class="flex-container">
          					<div class="flex1">
@@ -86,7 +73,7 @@
             			<table>
                 			<tr>
                 				<th>Fecha</th>
-                				<th>Nivel</th>
+                				<th>Tipo</th>
                 				<th>URL</th>
                 				<th>Mensaje</th>
                 				<th>Usuario</th>

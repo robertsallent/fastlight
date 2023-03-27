@@ -10,8 +10,6 @@ Para implementar en futuras versiones:
 - CORE
 	- Cambio de nombre del FrontController a Kernel.
 	- Añadir carpetas app y bootstrap y simplificar la estructura de directorios en la raíz
-	- Implementar una clase Request.
-	- Mapear todo lo que llega por GET, POST o COOKIE a un objeto Request
 	- Los errores de autorización generan error 403
 	- Los errores de controlador o método no válido generan error 404
 	- Vistas de error personalizadas.

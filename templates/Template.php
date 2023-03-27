@@ -182,6 +182,64 @@ EOT: '';}
         return self::getSuccess().self::getWarning().self::getError();
     }
         
+    
+    /*****************************************************************************
+     * FILTROS DE BÚSQUEDA
+     *****************************************************************************/
+    // retorna el formulario para realizar filtros y búsquedas
+    public static function filterForm(
+        string $action = '/',   // URL donde se enviará el formulario
+        array $fields = [],     // lista de campos para el desplegable campo de búsqueda
+        array $orders = [],      // lista de campos para el desplegable orden
+        string $selectedField = '',
+        string $selectedOrder = ''
+        
+    ){
+        $html = "<form method='POST' class='filtro derecha' action='$action'>";
+        $html .= "<input type='text' name='texto' placeholder='Buscar...'> ";
+        $html .= "<select name='campo'>";
+        
+        foreach($fields as $nombre=>$valor){
+            $html .= "<option value='$valor' ";
+            $html .= $selectedField == $nombre ? 'selected' : '';
+            $html .= ">$nombre</option>";
+        }
+        
+        $html .= "</select>";
+        
+        $html .= "<label>Ordenar por:</label>";
+        $html .= "<select name='campoOrden'>";
+        
+        foreach($orders as $nombre=>$valor){
+            $html .= "<option value='$valor' ";
+            $html .= $selectedOrder == $nombre ? 'selected' : '';
+            $html .= ">$nombre</option>";
+        }
+        
+        return $html."</select>
+    				<input type='radio' name='sentidoOrden' value='ASC'>
+    				<label>Ascendente</label>
+    				<input type='radio' name='sentidoOrden' value='DESC' checked>
+    				<label>Descendente</label>
+    				<input class='button' type='submit' name='filtrar' value='Filtrar'>
+    			</form>";
+    }
+    
+    // retorna el formulario de "quitar filtro"
+    public static function removeFilterForm(
+        Filter $filtro,
+        string $action = '/'
+    ){
+        
+        return "<form class='filtro derecha' method='POST' action='$action'>
+					<label>$filtro</label>
+					<input class='button' style='display:inline' type='submit' 
+					       name='quitarFiltro' value='Quitar filtro'>
+				</form>";
+    }
+    
+    
+    
     /*****************************************************************************
      * FOOTER
      *****************************************************************************/

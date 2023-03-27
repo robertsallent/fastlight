@@ -5,7 +5,7 @@
  * Controlador frontal para la aplicación
  *
  * Autor: Robert Sallent
- * Última revisión: 21/03/2022
+ * Última revisión: 27/03/2022
  * 
  */
  
@@ -20,6 +20,9 @@
                 
                 // detección del usuario identificado
                 Login::init();
+                
+                // crea un objeto Request
+                $request = Request::create();
                 
                 // TODO: separar el dispatcher a un componente aparte? implementar un router?
                 // DISPATCHER (evalúa las peticiones y redirige al controlador adecuado)
@@ -45,6 +48,7 @@
                             
                 // crea una instancia del controlador correspondiente
                 $controlador = new $c();
+                $controlador->setRequest($request);
                 
                 // comprueba si ese controlador tiene ese método y es llamable (visible) 
                 if(!is_callable([$controlador, $m]))
@@ -70,20 +74,13 @@
                 
                 // si está activado el LOG de errores:
                 if(LOG_ERRORS)
-                    Log::addMessage(
-                        ERROR_LOG_FILE, 
-                        'ERROR: '.get_class($error), 
-                        $error->getMessage()
-                    );
+                    Log::addMessage(ERROR_LOG_FILE, get_class($error), $error->getMessage());
                 
                 // si está activada la opción de guardar errores en BDD
                 if(DB_ERRORS){
                     try{
-                        AppError::create(
-                            $_GET['url'] ?? '', 
-                            'ERROR: '.get_class($error), 
-                            $error->getMessage()
-                        );
+                        AppError::create(get_class($error), $error->getMessage());
+                        
                     }catch(SQLException $e){
                         $this->loadView('error', ['mensaje' => $e->getMessage()]); 
                         die();

@@ -10,22 +10,22 @@
  *
  */
  
-    class Log{
+class Log{
+    
+    // TODO: limitar el tamaño de los ficheros
+    
+    // método estático para guardar mensajes de error
+    public static function addMessage(
+        string $route   = '../logs/error.log',          // ruta completa del fichero de error
+        string $level   = 'ERROR',                      // nivel del error (NOTICE, WARNING, ERROR)
+        string $message = 'se ha producido un error'    // mensaje
+    ){
         
-        // TODO: limitar el tamaño de los ficheros
+        $file = fopen($route, 'a');
+        $date = date("d/m/Y H:i:s");
         
-        // método estático para guardar mensajes de error
-        public static function addMessage(
-            string $route   = '../logs/error.log',          // ruta completa del fichero de error
-            string $level   = 'ERROR',                      // nivel del error (NOTICE, WARNING, ERROR)
-            string $message = 'se ha producido un error'    // mensaje
-        ){
-            
-            $file = fopen($route, 'a');
-            $date = date("d/m/Y H:i:s");
-            
-            fprintf($file, "%s: %s - %s\n", $level, $date, $message);
-            
-            fclose($file);
-        }   
-    }
+        fprintf($file, "%s: %s - %s\n", $level, $date, $message);
+        
+        fclose($file);
+    }   
+}

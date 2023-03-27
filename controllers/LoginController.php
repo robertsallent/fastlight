@@ -22,14 +22,14 @@
             Auth::guest();  // solo para usuarios no identificados
             
             // comprobar que llegan los datos
-            if(empty($_POST['login'])){
+            if(!$this->request->has('login')){
                 Session::error("No se recibió el formulario de LogIn.");
                 redirect('/Login');
             }
             
             // recuperar usuario (o email) y clave (encriptada)
-            $user       = (DB_CLASS)::escape($_POST['user']);
-            $password   = md5($_POST['password']);          
+            $user       = $this->request->post('user');
+            $password   = md5($this->request->post('password'));          
             
             $identificado = (USER_PROVIDER)::authenticate($user, $password); // recuperar el usuario
             
@@ -37,10 +37,10 @@
                 Session::error("Los datos de identificación no son correctos para $user.");
                 
                 if(LOG_LOGIN_ERRORS)
-                    Log::addMessage(LOGIN_ERRORS_FILE, 'ERROR', "Intento de login incorrecto para $user.");
+                    Log::addMessage(LOGIN_ERRORS_FILE, 'ERROR', "Intento de identificación incorrecto para $user.");
                 
                 if(DB_LOGIN_ERRORS)
-                    AppError::create($_GET['url'], 'LOGIN', "Intento de login incorrecto para $user.");
+                    AppError::create('Login', "Intento de identificación incorrecto para $user.");
                     
                 redirect('/Login');
             }

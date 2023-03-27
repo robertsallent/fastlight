@@ -5,12 +5,26 @@
  * Clase base para los controladores.
  *
  * Autor: Robert Sallent
- * Última revisión: 09/03/2023
+ * Última revisión: 27/03/2023
  *
  */
 
     abstract class Controller{
-          
+        
+        // los controladores dispondrán de un objeto Request
+        protected ?Request $request = null;
+        
+        // SETTER para la Request
+        public function setRequest(Request $request){
+            $this->request = $request;
+        }
+        
+        // GETTER para la Request
+        public function getRequest(){
+            return $this->request;
+        }
+        
+        
         // Método para cargar una vista desde un controlador
         public function loadView(
             string $name,           // nombre del fichero (sin extensión)
