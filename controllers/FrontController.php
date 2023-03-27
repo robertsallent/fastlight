@@ -80,7 +80,7 @@
                 if(DB_ERRORS){
                     try{
                         AppError::create(
-                            $_GET['url'], 
+                            $_GET['url'] ?? '', 
                             'ERROR: '.get_class($error), 
                             $error->getMessage()
                         );

@@ -19,8 +19,9 @@ Para implementar en futuras versiones:
 
 - LIBRARIES
 	- Library File para trabajar con ficheros (borrar, reemplazar...).
+	- Añadir el código HTTP a las redirecciones (para 403 o 404).
 	
-- VIEWS
+- VIEWS Y TEMPLATE
 	- Sacar el formulario de búsqueda hacia el Template (necesitará dos arrays para los desplegables).
 	
 -------------------------------------------------------------------------------------------------------------

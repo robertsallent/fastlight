@@ -11,10 +11,9 @@
     
     // función usada para buscar las clases
     function load(string $clase){ 
-        global $autoloadDirectories; // variable global
     
         // para cada directorio de la lista
-        foreach($autoloadDirectories as $directorio){
+        foreach(AUTOLOAD_DIRECTORIES as $directorio){
             
            $ruta="$directorio/$clase.php";  // calcula la ruta
           

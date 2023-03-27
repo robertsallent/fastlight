@@ -1,0 +1,38 @@
+/* 
+	FICHERO CON LA BASE PARA LOS ESTILOS
+	
+	Autor: Robert Sallent
+	Última revisión: 27/03/2023
+*/
+
+*{
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+/* para el flex */
+.flex-container{
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.flex1{flex:1}
+.flex2{flex:2}
+.flex3{flex:3}
+.flex4{flex:4}
+
+/* textos */
+.centrado{ text-align: center;}
+.justificado{ text-align: justify;}
+.izquierda{ text-align: left;}
+.derecha{ text-align: right;}
+
+.mayusculas{ text-transform: uppercase; }
+.minusculas{ text-transform: lowercase; }
+
+.cursiva{font-style: italic; }
+.negrita{font-weight: bold; }
+
+.mini{ font-size: 0.8rem; }
+.maxi{ font-size: 1.2rem; }

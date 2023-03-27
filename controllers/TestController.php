@@ -23,10 +23,13 @@
     class TestController extends Controller{
         
         public function __call(string $method, array $arguments = []){
-           // TODO: cargar un template para mostrar más bonito el test.
-           
+            
+           echo TestTemplate::start($method);
+            
            // va a buscar el test solicitado a la carpeta test
            require TEST_FOLDER."/".str_replace('-','/', $method).".php";
+           
+           echo TestTemplate::end();
         }
         
     }

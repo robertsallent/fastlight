@@ -1,29 +1,39 @@
 <?php
 
-/* Clase AppError
+/** 
+ * Clase AppError.
  *
- * Permite guardar los errores en BDD
+ * Modelo responsable de guardar los errores en base de datos.
  *
- * Autor: Robert Sallent
- * Última revisión: 14/03/2023
- *
+ * @author: Robert Sallent <robert@juegayestudia.com>
+ * @version: 23.03.24
  */
 
     class AppError extends Model{
         
-        // nombre de la tabla en la BDD (config)
+        /** @staticvar string $table nombre de la tabla en la base de datos */ 
         protected static string $table = ERROR_DB_TABLE;
         
-        // crea un nuevo AppError y lo guarda en BDD
+        /**
+         * Create
+         *
+         * Permite crear un nuevo objeto AppError y guardarlo en base de datos.
+         * 
+         * @static
+         * @param string $url       url donde se produjo el error      
+         * @param string $level     nivel de severidad
+         * @param string $message   mensaje
+         * @return void
+         */
         public static function create(
-            string $url,             // URL donde se produjo el error
+            ?string $url,            // URL donde se produjo el error
             string $level = 'ERROR', // nivel de severidad
             string $message = ''     // mensaje del error
         ){
             $error = new self();
             
             $error->level = $level;
-            $error->url = $url;
+            $error->url = $url ?? '';
             $error->message = (DB_CLASS)::escape($message);
             $error->user = Login::user() ? Login::user()->email : NULL;
             $error->ip = $_SERVER['REMOTE_ADDR'];
@@ -32,6 +42,14 @@
             $error->save();
         }    
         
+        /**
+         * Clear
+         *
+         * Vacía la tabla de errores en la base de datos.
+         *
+         * @static
+         * @return int
+         */
         // vacía la tabla de errores de la BDD
         public static function clear():int{
             $consulta = "DELETE FROM ".ERROR_DB_TABLE;

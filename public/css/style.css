@@ -1,14 +1,12 @@
 /* 
-	FICHERO CON ESTILO RETRO
+	FICHERO CON ESTILO PRINCIPAL DE FASTLIGHT
 	
 	Autor: Robert Sallent
 	Última revisión: 27/03/2023
 */
 
 
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;400&display=swap');
 @import 'base.css';
-
 
 /* éxito y error */
 .success{
@@ -91,8 +89,6 @@ div.mensajeWarning>div{
 	border: solid 5px #660;
 }
 
-
-
 /* distintos elementos */
 h1, h2, h3{
 	margin-top: 1rem;
@@ -108,15 +104,12 @@ a{
 	text-decoration: none;
 }
 
-img{
-	filter: grayscale(100);
-}
-
 
 /* estructura de la página */
 body{
+	color: rgb(120, 120, 120);
 	padding: 20px;
-	font-family: Oswald, arial, verdana, helvetica;
+	font-family: arial, verdana, helvetica;
 	width: 100%;	
 	margin: 20px auto;
 }
@@ -124,26 +117,26 @@ body{
 main{
 	padding: 20px;	
 	margin: 20px auto;
-	border: solid 2px black;
+	background-color: rgb(245, 245, 245);
 	border-radius: 10px;
 }
 
 main a{
-	color: #666;
+	color: #99e;
 }
 
 main a:hover{
 	text-decoration: underline;
 }
 
-section{
-	padding: 20px;
+main ul{
+	margin: 20px 10px;
 }
 
-.flex-container>section:not(:first-of-type){
-	border-left: dashed 2px black;
+main ul li{
+	margin-left: 40px;
+	margin-bottom: 10px;
 }
-
 
 /* header y footer principales */
 header.primary{
@@ -167,11 +160,18 @@ header.primary hgroup{
 }
 
 header.primary h1{
-	font-size: 2rem;
+	color: rgb(160, 160, 160);
+	font-size: 2.8rem;
 }
-header.primary h2{
-	font-size: 1.5rem;
+
+section{
+	padding: 20px;
 }
+
+.flex-container>section:not(:first-of-type){
+	border-left: dashed 2px grey;
+}
+
 
 footer.primary{
 	text-align: right;
@@ -181,7 +181,7 @@ footer.primary{
 footer.primary a{
 	font-style: italic;
 	font-size: 1.05rem;
-	color: #666;
+	color: rgb(60, 100, 160);
 }
 
 header.primary, footer.primary{
@@ -192,25 +192,18 @@ header.primary, footer.primary{
 /* formulario de login */
 #loginForm{
 	min-width: 500px;
-	border: solid 1px black;
-	background-color: lightgrey;
+	border: solid 1px lightgrey;
+	background-color: white;
 	padding: 20px;
 	border-radius: 10px;
 	text-align: center;
-}
-
-/* paginador */
-
-.paginator-links .current{
-	background-color: white;
-	color: grey;
 }
 
 
 /* Barra de navegación */
 ul.navBar{
 	padding: 10px;
-	background-color: black;
+	background-color: rgb(60, 100, 160);
 	color: white;
 }
 
@@ -295,14 +288,14 @@ textarea{
 	padding: 6px 20px;
 	margin: 6px;
 	border-radius: 5px;
-	background-color: black;
+	background-color: rgb(60, 100, 160);
 	white-space: nowrap;
 	display: inline-block;
 	cursor: pointer;
 }
 
 .button:hover{
-	background-color: grey;
+	background-color: rgb(100, 140, 200);
 }
 
 .buttonLight{
@@ -310,13 +303,23 @@ textarea{
 	border: solid 2px rgb(80, 120, 180);
 	padding: 4px 12px;
 	border-radius: 5px;
-	background-color: lightgrey;
+	background-color: rgb(120, 170, 220);
 	display: inline-block;
 	cursor: pointer;
 }
 
 .buttonLight:hover{
+	background-color: rgb(100, 140, 200);
+}
+
+/* paginador */
+.paginator-links{
+	color: #33a;
+}
+
+.paginator-links .current{
 	background-color: white;
+	color: #99a;
 }
 
 /* tablas */
@@ -328,7 +331,7 @@ table{
 
 table th{
 	color: white;
-	background-color: grey;
+	background-color: rgb(60, 100, 160);
 	padding: 10px;
 	font-size: 1.2rem;
 	text-align: left;

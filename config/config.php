@@ -14,14 +14,14 @@
  * -------------------------------------------------------------*/
 
     // directorios para el autoload (que no usa namespaces)
-    $autoloadDirectories = [
+    define('AUTOLOAD_DIRECTORIES',  [
         '../controllers',
         '../models',
         '../libraries',
         '../interfaces',
         '../templates',
         '../exceptions'
-    ];
+    ]);
  
     
 /* -------------------------------------------------------------
@@ -56,13 +56,13 @@
     define('LOG_ERRORS', true);                       // guardar errores en fichero de log
     define('ERROR_LOG_FILE', '../logs/error.log');    // nombre del fichero de log
     
-    define('DB_ERRORS', true);                       // guardar errores en BDD
-    define('ERROR_DB_TABLE', 'errors');               // nombre de la tabla para los errores
+    define('DB_ERRORS', true);            // guardar errores en BDD
+    define('ERROR_DB_TABLE', 'errors');   // nombre de la tabla para los errores
     
-    define('LOG_LOGIN_ERRORS', true);                // guardar errores de login en fichero de log
+    define('LOG_LOGIN_ERRORS', true);                 // guardar errores de login en fichero de log
     define('LOGIN_ERRORS_FILE', '../logs/login.log'); // nombre del fichero
     
-    define('DB_LOGIN_ERRORS', true);                 // guardar errores de login en BDD
+    define('DB_LOGIN_ERRORS', true);                  // guardar errores de login en BDD
 
     
 /* -------------------------------------------------------------
@@ -91,13 +91,13 @@
     define('USER_PROVIDER', 'User');
     
     // roles para los usuarios
-    $roles = [
+    define('USER_ROLES', [
         'Usuario'       => 'ROLE_USER',
         'Administrador' => 'ROLE_ADMIN',
         'Supervisor'    => 'ROLE_SUPERVISOR',
         'Editor'        => 'ROLE_EDITOR',
         'Test'          => 'ROLE_TEST'
-    ];
+    ]);
     
     // rol para el administrador (debería ser uno de los que están en la lista anterior)
     define('ADMIN_ROLE', 'ROLE_ADMIN');

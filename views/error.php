@@ -13,7 +13,7 @@
 		<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
 		
 		<!-- CSS -->
-		<link rel="stylesheet" type="text/css" href="/css/estilo.css">
+		<?= (TEMPLATE)::getCss() ?>
 	</head>
 	<body>
 		<?= (TEMPLATE)::getLogin() ?>

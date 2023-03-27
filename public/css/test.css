@@ -1,0 +1,108 @@
+/* 
+	FICHERO CON LOS ESTILOS PARA LOS TEST UNITARIOS
+	
+	Autor: Robert Sallent
+	Última revisión: 27/03/2023
+*/
+
+@import "base.css";
+
+/* éxito y error */
+.success{
+	background-color: #efe;
+	color: #363;
+}
+
+.warning{
+	background-color: #ffe;
+	color: #663;
+}
+
+.error{
+	background-color: #fee;
+	color: #633;
+}
+
+p.error, p.success{
+	padding: 20px;
+}
+
+div.error, div.success, div.warning{
+	padding: 20px;
+}
+
+
+/* distintos elementos */
+h1, h2, h3{
+	margin-top: 1rem;
+	margin-bottom: 1.25rem;
+}
+
+p{
+	margin-bottom: 1.1rem;
+}
+
+a{
+	color: inherit;
+	text-decoration: none;
+}
+
+/* estructura de la página */
+body{
+	color: rgb(120, 120, 120);
+	padding: 20px;
+	font-family: arial, verdana, helvetica;
+	width: 90%;	
+	margin: 20px auto;
+}
+
+pre{
+	font-size: 1rem;
+	font-family: 'lucida console', arial;
+	line-height: 1.35rem;
+	margin: 10px 15px;
+}
+
+/* header y footer principales */
+header.primary{
+	display: flex;
+	flex-wrap:wrap;
+	padding: 10px;
+}
+
+header.primary figure{
+	max-width: 80px;
+}
+
+header.primary img{
+	width: 100%;
+	vertical-align: middle;
+}
+
+header.primary hgroup{
+	margin: auto 0;
+	padding: 0 2%;
+}
+
+header.primary h1{
+	color: rgb(160, 160, 160);
+	font-size: 2rem;
+}
+
+footer.primary{
+	text-align: right;
+	padding: 20px;
+}
+
+footer.primary a{
+	font-style: italic;
+	font-size: 1.05rem;
+	color: rgb(60, 100, 160);
+}
+
+header.primary, footer.primary{
+	border-bottom: solid 2px lightgrey;
+	border-top: solid 2px lightgrey;
+}
+
+	
