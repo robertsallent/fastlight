@@ -16,20 +16,19 @@
  * la URL /Test/models-libro ejecutará el fichero en test/models/libro.php
  * 
  * Autor: Robert Sallent
- * Última revisión: 16/03/2023
+ * Última revisión: 29/03/2023
  *
  */
     
     class TestController extends Controller{
         
-        public function __call(string $method, array $arguments = []){
+        public function __call(
+            string $method, 
+            array $arguments = []
             
-           echo TestTemplate::start($method);
-            
+        ){
            // va a buscar el test solicitado a la carpeta test
            require TEST_FOLDER."/".str_replace('-','/', $method).".php";
-           
-           echo TestTemplate::end();
         }
         
     }

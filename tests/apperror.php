@@ -20,4 +20,3 @@
     
     // dump(AppError::get());  // comprobamos que se han borrado
       
-    
