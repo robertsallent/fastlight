@@ -13,26 +13,19 @@ class JSON{
     // codifica objetos en JSON (tanto listas como objetos sueltos)
     public static function encode(
         $objetos,                   // datos a codificar en JSON
-        bool $exceptions = true     // indica si se deben lanzar excepciones ante un error
+        bool $exceptions = true,    // indica si se deben lanzar excepciones ante un error
+        bool $pretty = false        // impresión "bonita"
         
     ):string{
         
-        return $exceptions ? 
-                    json_encode(
-                        $objetos, 
-                        JSON_UNESCAPED_UNICODE | 
-                        JSON_UNESCAPED_SLASHES | 
-                        JSON_NUMERIC_CHECK |
-                        JSON_THROW_ON_ERROR |
-                        JSON_PRETTY_PRINT
-                    ):
-                    json_encode(
-                        $objetos,
-                        JSON_UNESCAPED_UNICODE |
-                        JSON_UNESCAPED_SLASHES |
-                        JSON_NUMERIC_CHECK |
-                        JSON_PRETTY_PRINT
-                        );
+        return json_encode(
+                    $objetos, 
+                    JSON_UNESCAPED_UNICODE | 
+                    JSON_UNESCAPED_SLASHES | 
+                    JSON_NUMERIC_CHECK |
+                    ($exceptions ? JSON_THROW_ON_ERROR : 0) |
+                    ($pretty ? JSON_PRETTY_PRINT : 0)
+                );
     }
     
     
