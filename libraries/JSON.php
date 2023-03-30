@@ -23,13 +23,15 @@ class JSON{
                         JSON_UNESCAPED_UNICODE | 
                         JSON_UNESCAPED_SLASHES | 
                         JSON_NUMERIC_CHECK |
-                        JSON_THROW_ON_ERROR
+                        JSON_THROW_ON_ERROR |
+                        JSON_PRETTY_PRINT
                     ):
                     json_encode(
                         $objetos,
                         JSON_UNESCAPED_UNICODE |
                         JSON_UNESCAPED_SLASHES |
-                        JSON_NUMERIC_CHECK
+                        JSON_NUMERIC_CHECK |
+                        JSON_PRETTY_PRINT
                         );
     }
     

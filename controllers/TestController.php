@@ -28,7 +28,7 @@
             
         ){
            // va a buscar el test solicitado a la carpeta test
-           require TEST_FOLDER."/".str_replace('-','/', $method).".php";
+           @require TEST_FOLDER."/".str_replace('-','/', $method).".php";
         }
         
     }
