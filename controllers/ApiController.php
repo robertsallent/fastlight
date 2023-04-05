@@ -26,7 +26,7 @@
                 
                 // DISPATCHER: evalúa las peticiones y redirige al controlador adecuado.
                 // /xml/libro/3 se convierte en ['xml','libro','3']
-                $this->url = $_GET['url'] ?? '';
+                $this->url = $request->get('url') ?? '';
                 $url = explode('/', rtrim($this->url, '/'));
                 
                 // El controlador a usar será combinación de la primera y segunda 
@@ -53,7 +53,8 @@
                 $controlador->setRequest($request);
                 
                 // analizamos el método HTTP (será el método a invocar en el controlador)
-                $this->metodo = strtoupper($_SERVER['REQUEST_METHOD']);
+                $metodo = strtoupper($_SERVER['REQUEST_METHOD']);
+                $this->metodo = $metodo;
                                
                 // comprueba si ese controlador tiene ese método y es llamable (visible) 
                 if(!is_callable([$controlador, $this->metodo]))
@@ -63,10 +64,10 @@
                 // llamaremos al método del controlador pasando hasta tres parámetros
                 // (podemos poner más), los que no se necesiten serán omitidos.
                 switch(sizeof($url)){
-                    case 0 : $controlador->$this->metodo(); break;
-                    case 1 : $controlador->$this->metodo($url[0]); break;
-                    case 2 : $controlador->$this->metodo($url[0], $url[1]); break;
-                    case 3 : $controlador->$this->metodo($url[0], $url[1], $url[2]); break;
+                    case 0 : $controlador->$metodo(); break;
+                    case 1 : $controlador->$metodo($url[0]); break;
+                    case 2 : $controlador->$metodo($url[0], $url[1]); break;
+                    case 3 : $controlador->$metodo($url[0], $url[1], $url[2]); break;
                 }
  
             // si se produce algún error...
@@ -88,6 +89,10 @@
                                  $respuesta = new stdClass();
                                  $respuesta->status = "ERROR";
                                  $respuesta->message = $t->getMessage();
+                                 
+                                 if(DEBUG)
+                                     $respuesta->message .= "En fichero ".$t->getFile()." línea ".$t->getLine();
+                                     
                                  $respuesta->method = $this->metodo;
                                  $respuesta->url = $this->url;
                                  echo JSON::encode($respuesta);

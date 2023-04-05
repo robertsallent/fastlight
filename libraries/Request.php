@@ -71,6 +71,14 @@ class Request{
         $data = $_COOKIE[$name] ?? NULL;
         return  $data ? (DB_CLASS)::escape($data) : NULL;
     }    
+    
+    
+    // retorna los datos en el cuerpo de la petición
+    // no los sanea puesto que si son en JSON tendríamos problemas
+    public function body():string{
+        return file_get_contents('php://input');
+    }
+    
 }
 
 

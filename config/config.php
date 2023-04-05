@@ -54,7 +54,7 @@
     
     
 /* -------------------------------------------------------------
- * HERRAMIENTAS DE DEPURACIÓN
+ * HERRAMIENTAS DE DEPURACIÓN (PARA TIPO APP)
  * -------------------------------------------------------------*/
     
     define('DEBUG', true);    // activa el modo debug                     
