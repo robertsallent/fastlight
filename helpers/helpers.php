@@ -4,7 +4,7 @@
  *
  *
  * autor: Robert Sallent
- * última revisión: 09/03/2023
+ * última revisión: 31/03/2023
  *
  */
 
@@ -27,14 +27,15 @@
     // FUNCIONES PARA ARRAYS Y STRINGS
     function arrayToString(
         array $lista,               // array
-        bool $brackets = true       // si colocamos corchetes o no
+        bool $brackets = true,      // si colocamos corchetes o no
+        bool $associative = true    // si el array es asociativo
         
     ):string{
         $texto = '';
         
         foreach($lista as $clave => $valor)
-            $texto .= "$clave => $valor, ";
-           
+            $texto .= $associative ? "$clave => $valor, " : "$valor, ";
+            
         return $brackets ? '[ '.rtrim($texto, ', ').' ]' : rtrim($texto, ', ');
     }
     

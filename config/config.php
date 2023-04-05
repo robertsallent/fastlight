@@ -5,7 +5,8 @@
  * Parámetros de configuración del proyecto
  * 
  * Autor: Robert Sallent
- * Última revisión: 23/03/2023
+ * Última revisión: 05/04/2023
+ * Desde: 0.7.0
  * 
  */
    
@@ -31,7 +32,16 @@
     // título de la aplicación
     define('APP_NAME','FastLight Framework');
     
-    // controlador y método por defecto
+    // tipo de aplicación
+    define('APP_TYPE', 'APP'); // puede ser APP o API
+    
+    // PARA PROYECTOS API
+    // cabeceras CORS
+    define('ALLOW_ORIGIN', '*');                         // orígenes aceptados para peticiones
+    define('ALLOW_METHODS', 'POST, GET, PUT, DELETE');   // métodos aceptados para peticiones
+    
+    // PARA PROYECTOS APP
+    // controlador y método por defecto (para tipo proyecto)
     define('DEFAULT_CONTROLLER', 'Welcome');
     define('DEFAULT_METHOD', 'index');
 

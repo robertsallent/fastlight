@@ -9,7 +9,8 @@
  * - Invoca al controlador frontal.
  *
  * Autor: Robert Sallent
- * Última revisión: 07/03/2023
+ * Última revisión: 05/04/2023
+ * Desde: 0.7.0
  *
  */
 
@@ -20,5 +21,20 @@
     require '../helpers/helpers.php';       // carga las funciones helper globales
     
     // invocar al controlador frontal
-    (new FrontController())->start();
+    // dependerá de si el proyecto es para una aplicación o una API.
+    switch(APP_TYPE){
+        case 'APP' : 
+            (new FrontController())->start(); 
+            break;
+        
+        case 'API' : 
+            // cabeceras para el CORS
+            header("Access-Control-Allow-Origin: ".ALLOW_ORIGIN);
+            header("Access-Control-Allow-Methods: ".ALLOW_METHODS);
+            (new ApiController())->start();  
+            break;
+        
+        default    : die('El proyecto solamente puede ser APP o API.');
+    }
+        
     

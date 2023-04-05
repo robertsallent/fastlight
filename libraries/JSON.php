@@ -32,7 +32,7 @@ class JSON{
     
     // decodifica un JSON en una lista de objetos
     public static function decode(
-    string $json,                   // datos a decodificar
+        string $json,                   // datos a decodificar
         string $class = 'stdClass', // tipo de los objetos recuperados
         bool $exceptions = true     // indica si se deben lanzar excepciones ante un error
         
