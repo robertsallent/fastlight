@@ -14,6 +14,9 @@
         // propiedades
         private string $formato = 'JSON'; // formato de trabajo (XML, JSON...)
         private string $entidad = '';     // entidad deseada (Libro, Socio, Coche...)
+        private string $url     = '';     // URL de la petición
+        private string $metodo  = 'GET';  // Método de la petición
+        
         
         // método principal del controlador frontal
         public function start(){
@@ -23,8 +26,8 @@
                 
                 // DISPATCHER: evalúa las peticiones y redirige al controlador adecuado.
                 // /xml/libro/3 se convierte en ['xml','libro','3']
-                $url = $_GET['url'] ?? '';
-                $url = explode('/', rtrim($url, '/'));
+                $this->url = $_GET['url'] ?? '';
+                $url = explode('/', rtrim($this->url, '/'));
                 
                 // El controlador a usar será combinación de la primera y segunda 
                 // posición de la URL, por ejemplo para xml/libro sería XmlLibroController
@@ -49,18 +52,21 @@
                 $controlador = new $c();
                 $controlador->setRequest($request);
                 
+                // analizamos el método HTTP (será el método a invocar en el controlador)
+                $this->metodo = strtoupper($_SERVER['REQUEST_METHOD']);
+                               
                 // comprueba si ese controlador tiene ese método y es llamable (visible) 
-                if(!is_callable([$controlador, $m]))
-                    throw new ApiException("La operación indicada no existe.");
+                if(!is_callable([$controlador, $this->metodo]))
+                    throw new ApiException("La operación $this->metodo para $this->entidad en $this->formato no existe.");
                 
-                // tras sacar controlador y método, lo que queda en $url son los parámetros.
+                // tras sacar formato y entidad, lo que queda en $url son los parámetros.
                 // llamaremos al método del controlador pasando hasta tres parámetros
                 // (podemos poner más), los que no se necesiten serán omitidos.
                 switch(sizeof($url)){
-                    case 0 : $controlador->$m(); break;
-                    case 1 : $controlador->$m($url[0]); break;
-                    case 2 : $controlador->$m($url[0], $url[1]); break;
-                    case 3 : $controlador->$m($url[0], $url[1], $url[2]); break;
+                    case 0 : $controlador->$this->metodo(); break;
+                    case 1 : $controlador->$this->metodo($url[0]); break;
+                    case 2 : $controlador->$this->metodo($url[0], $url[1]); break;
+                    case 3 : $controlador->$this->metodo($url[0], $url[1], $url[2]); break;
                 }
  
             // si se produce algún error...
@@ -72,14 +78,18 @@
                     case 'Xml':  header('Content-type:text/xml; charset=utf-8');
                                  echo "<respuesta>\n
                                     \t<status>ERROR</status>\n
-                                    \t<mensaje>".htmlspecialchars($t->getMessage())."</mensaje>\n
+                                    \t<message>".htmlspecialchars($t->getMessage())."</message>\n
+                                    \t<method>".htmlspecialchars($this->metodo)."</method>\n
+                                    \t<url>".htmlspecialchars($this->url)."</url>\n
                                     </respuesta>";
                                  break;
                     
                     case 'Json': header('Content-type:application/json; charset=utf-8');
                                  $respuesta = new stdClass();
                                  $respuesta->status = "ERROR";
-                                 $respuesta->mensaje = $t->getMessage();
+                                 $respuesta->message = $t->getMessage();
+                                 $respuesta->method = $this->metodo;
+                                 $respuesta->url = $this->url;
                                  echo JSON::encode($respuesta);
                                  break;
                     
