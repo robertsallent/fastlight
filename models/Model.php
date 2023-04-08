@@ -233,6 +233,16 @@
         }
         
         
+        
+        // método que sanea todos todas las propiedades string de un modelo
+        public function saneate(bool $entities = true){
+            
+            foreach($this as $propiedad => $valor)
+                if(gettype($propiedad) == 'string')
+                    $this->$propiedad = (DB_CLASS)::escape($valor, $entities);
+        }
+        
+        
         // método que recupera objetos relacionados en relación 1 a N
         // $propietario->hasMany(string $entidad, string $foranea, string $local):array
         

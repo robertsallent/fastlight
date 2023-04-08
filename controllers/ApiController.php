@@ -20,7 +20,14 @@
         
         // método principal del controlador frontal
         public function start(){
-            try{               
+            try{      
+                
+                // inicia el trabajo con sesiones
+                session_start();
+                
+                // detección del usuario identificado
+                Login::init();
+                
                 // crea un objeto Request
                 $request = Request::create();
                 
@@ -75,26 +82,33 @@
                 
                 // miramos si la petición fue XML o JSON para enviar errores en formato correcto
                 // si queremos permitir más formatos, los tendremos que añadir.
-                switch($this->formato){
-                    case 'Xml':  header('Content-type:text/xml; charset=utf-8');
-                                 echo "<respuesta>\n
+                switch(strtoupper($this->formato)){
+                    case 'XML':  header('Content-type:text/xml; charset=utf-8');
+                                 $respuesta = "<respuesta>\n
                                     \t<status>ERROR</status>\n
-                                    \t<message>".htmlspecialchars($t->getMessage())."</message>\n
-                                    \t<method>".htmlspecialchars($this->metodo)."</method>\n
-                                    \t<url>".htmlspecialchars($this->url)."</url>\n
-                                    </respuesta>";
+                                    \t<message>".htmlspecialchars($t->getMessage())."</message>\n";
+                                 
+                                 if(DEBUG){
+                                     $respuesta.= "
+                                        \t<method>".htmlspecialchars($this->metodo)."</method>\n
+                                        \t<url>".htmlspecialchars($this->url)."</url>\n";
+                                 }
+                                 
+                                 $respuesta .= "</respuesta>";
+                                 echo $respuesta;
                                  break;
                     
-                    case 'Json': header('Content-type:application/json; charset=utf-8');
+                    case 'JSON': header('Content-type:application/json; charset=utf-8');
                                  $respuesta = new stdClass();
                                  $respuesta->status = "ERROR";
                                  $respuesta->message = $t->getMessage();
                                  
-                                 if(DEBUG)
-                                     $respuesta->message .= "En fichero ".$t->getFile()." línea ".$t->getLine();
-                                     
-                                 $respuesta->method = $this->metodo;
-                                 $respuesta->url = $this->url;
+                                 if(DEBUG){
+                                    $respuesta->message .= ". En fichero ".$t->getFile()." línea ".$t->getLine();
+                                    $respuesta->method = $this->metodo;
+                                    $respuesta->url = $this->url;
+                                 }
+                                 
                                  echo JSON::encode($respuesta);
                                  break;
                     

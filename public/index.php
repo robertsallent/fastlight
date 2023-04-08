@@ -22,7 +22,7 @@
     
     // invocar al controlador frontal
     // dependerá de si el proyecto es para una aplicación o una API.
-    switch(APP_TYPE){
+    switch(strtoupper(APP_TYPE)){
         case 'APP' : 
             (new FrontController())->start(); 
             break;
