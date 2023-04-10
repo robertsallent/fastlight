@@ -26,7 +26,7 @@
     		<h2>Portada del sitio web</h2>
     		
     		<p><a href="https://github.com/robertsallent/fastlight">FastLight</a> es un framework 
-    			rápido y ligero para desarrollar aplicaciones web PHP o APIs RESTFUL.</p>
+    			rápido y ligero para desarrollar <b>aplicaciones web PHP</b> o <b>APIs RESTFUL</b>.</p>
     		
 		   	<p>Está pensado expresamente para docencia, con 
 		   	   lo que no incorpora de serie las cosas que desarrollamos en clase como:</p>

@@ -5,8 +5,8 @@
  * Parámetros de configuración del proyecto
  * 
  * Autor: Robert Sallent
- * Última revisión: 05/04/2023
- * Desde: 0.7.0
+ * Última revisión: 10/04/2023
+ * Desde: 0.0.1
  * 
  */
    
@@ -42,7 +42,7 @@
     
     // PARA PROYECTOS APP
     // controlador y método por defecto (para tipo proyecto)
-    define('DEFAULT_CONTROLLER', 'Welcome');
+    define('DEFAULT_CONTROLLER', 'WelcomeController');
     define('DEFAULT_METHOD', 'index');
 
     // Clase para el template
@@ -106,7 +106,8 @@
         'Administrador' => 'ROLE_ADMIN',
         'Supervisor'    => 'ROLE_SUPERVISOR',
         'Editor'        => 'ROLE_EDITOR',
-        'Test'          => 'ROLE_TEST'
+        'Test'          => 'ROLE_TEST',
+        'API'           => 'ROLE_API'
     ]);
     
     // rol para el administrador (debería ser uno de los que están en la lista anterior)

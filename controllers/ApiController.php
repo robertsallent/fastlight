@@ -5,22 +5,22 @@
  * Controlador frontal para el desarrollo de Apis Restful
  *
  * Autor: Robert Sallent
- * Última revisión: 05/04/2023
+ * Última revisión: 10/04/2023
  * 
  */
  
     class ApiController extends Controller{
         
         // propiedades
-        private string $formato = 'JSON'; // formato de trabajo (XML, JSON...)
-        private string $entidad = '';     // entidad deseada (Libro, Socio, Coche...)
-        private string $url     = '';     // URL de la petición
-        private string $metodo  = 'GET';  // Método de la petición
+        private string $formato = 'PLAINTEXT';  // formato de trabajo (XML, JSON...)
+        private string $entidad = '';           // entidad deseada (Libro, Socio, Coche...)
+        private string $url     = '';           // URL de la petición
+        private string $metodo  = 'GET';        // Método de la petición
         
         
         // método principal del controlador frontal
         public function start(){
-            try{      
+            try{     
                 
                 // inicia el trabajo con sesiones
                 session_start();
@@ -85,15 +85,16 @@
                 switch(strtoupper($this->formato)){
                     case 'XML':  header('Content-type:text/xml; charset=utf-8');
                                  $respuesta = "<respuesta>\n
-                                    \t<status>ERROR</status>\n
-                                    \t<message>".htmlspecialchars($t->getMessage())."</message>\n";
-                                 
+                                                \t<status>ERROR</status>\n
+                                                \t<message>".htmlspecialchars($t->getMessage())."</message>\n
+                                                \t<data></data>\n";
+                                
                                  if(DEBUG){
-                                     $respuesta.= "
-                                        \t<method>".htmlspecialchars($this->metodo)."</method>\n
-                                        \t<url>".htmlspecialchars($this->url)."</url>\n";
+                                    $respuesta.= "
+                                                    \t<method>".htmlspecialchars($this->metodo)."</method>\n
+                                                    \t<url>/".htmlspecialchars($this->url)."</url>\n";
                                  }
-                                 
+                                
                                  $respuesta .= "</respuesta>";
                                  echo $respuesta;
                                  break;
@@ -102,18 +103,18 @@
                                  $respuesta = new stdClass();
                                  $respuesta->status = "ERROR";
                                  $respuesta->message = $t->getMessage();
+                                 $respuesta->data = NULL;
                                  
                                  if(DEBUG){
-                                    $respuesta->message .= ". En fichero ".$t->getFile()." línea ".$t->getLine();
-                                    $respuesta->method = $this->metodo;
-                                    $respuesta->url = $this->url;
+                                     $respuesta->message .= " En fichero ".$t->getFile()." línea ".$t->getLine();
+                                     $respuesta->method = $this->metodo;
+                                     $respuesta->url = '/'.$this->url;
                                  }
-                                 
                                  echo JSON::encode($respuesta);
                                  break;
                     
                     default: header('Content-type:text/plain; charset=utf-8');
-                             echo $t->getMessage();
+                                 echo "ERROR: ".$t->getMessage();
                 }
             }
         }  

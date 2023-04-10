@@ -2,6 +2,7 @@
 -- se incluye:
 --  la tabla para usuarios, con algunos usuarios para pruebas.
 --  una tabla products para pruebas (POSIBLE EJERCICIO: implementar un CRUD de productos).
+--  la tabla errores, por si queremos registrar los errores de la aplicación en BDD.
 
 DROP DATABASE IF EXISTS fastlight;
 CREATE DATABASE fastlight DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
@@ -26,7 +27,9 @@ CREATE TABLE users(
 INSERT INTO users(displayname, email, phone, password, roles) VALUES 
 	('admin', 'admin@fastlight.com', '666666666', md5('1234'), '["ROLE_USER", "ROLE_ADMIN"]'),
 	('editor', 'editor@fastlight.com', '666666665', md5('1234'), '["ROLE_USER", "ROLE_EDITOR"]'),
-	('user', 'user@fastlight.com', '666666664', md5('1234'), '["ROLE_USER"]')
+	('user', 'user@fastlight.com', '666666664', md5('1234'), '["ROLE_USER"]'),
+	('test', 'test@fastlight.com', '666666663', md5('1234'), '["ROLE_USER"]'),
+	('api', 'api@fastlight.com', '666666662', md5('1234'), '["ROLE_API"]')
 ;
 
 -- tabla products
