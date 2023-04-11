@@ -37,8 +37,11 @@
     
     // PARA PROYECTOS API
     // cabeceras CORS
-    define('ALLOW_ORIGIN', '*');                         // orígenes aceptados para peticiones
+    define('ALLOW_ORIGIN', 'http://localhost');          // orígenes aceptados para peticiones
     define('ALLOW_METHODS', 'POST, GET, PUT, DELETE');   // métodos aceptados para peticiones
+    define('ALLOW_HEADERS', 'csrf_token');               // encabezados permitidos
+    define('ALLOW_CREDENTIALS', 'true');                 // se permite el envío de credenciales?
+    
     
     // PARA PROYECTOS APP
     // controlador y método por defecto (para tipo proyecto)

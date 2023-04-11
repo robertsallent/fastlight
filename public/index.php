@@ -31,6 +31,9 @@
             // cabeceras para el CORS
             header("Access-Control-Allow-Origin: ".ALLOW_ORIGIN);
             header("Access-Control-Allow-Methods: ".ALLOW_METHODS);
+            header("Access-Control-Allow-Headers: ".ALLOW_HEADERS);
+            header("Access-Control-Allow-Credentials: ".ALLOW_CREDENTIALS);
+            
             (new ApiController())->start();  
             break;
         
