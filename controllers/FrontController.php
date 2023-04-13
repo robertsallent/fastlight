@@ -52,7 +52,7 @@
                 
                 // comprueba si ese controlador tiene ese método y es llamable (visible) 
                 if(!is_callable([$controlador, $m]))
-                    throw new Exception("La operación indicada no existe.");
+                    throw new NotFoundException("La operación indicada no existe.");
                 
                 // tras sacar controlador y método, lo que queda en $url son los parámetros.
                 // llamaremos al método del controlador pasando hasta tres parámetros
@@ -69,7 +69,7 @@
                 
                 // en modo DEBUG, añade información adicional al mensaje
                 $mensaje = DEBUG ?
-                    Debug::errorInformation($error, $c, $m, $url):
+                Debug::errorInformation($error, $c, $m, $url):
                     $error->getMessage();
                 
                 // si está activado el LOG de errores:

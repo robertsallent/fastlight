@@ -3,7 +3,7 @@
 /*
  *   Clase: Auth
  *   Autor: Robert Sallent
- *   Última mofidicación: 23/03/2023
+ *   Última mofidicación: 13/04/2023
  *
  *   Nos facilitará la tarea de comprobar autorizaciones
 */
@@ -58,7 +58,7 @@
             if(!Login::allRoles($roles))
                 throw new AuthException( 
                     DEBUG ? 
-                        "Se requieren los roles: ".arrayToString($roles)." para continuar." : 
+                        "Se requieren los roles: ".arrayToString($roles, false, false)." para continuar." : 
                         "No estás autorizado a realizar esta operación."
                 );
             return true;
@@ -69,7 +69,7 @@
             if(!Login::oneRole($roles))
                 throw new AuthException(
                     DEBUG ?
-                        "Se requiere uno de estos roles: ".arrayToString($roles)." para continuar." :
+                        "Se requiere uno de estos roles: ".arrayToString($roles, false, false)." para continuar." :
                         "No estás autorizado a realizar esta operación."
                     );
             return true;

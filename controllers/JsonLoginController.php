@@ -41,7 +41,8 @@
             
             // si hubo un error de identificación
             if(!$identificado){
-                $response->status = "LOGIN ERROR";
+                $response->status = "LOGIN_ERROR";
+                $response->message = "Los datos no son correctos";
                 
                 if(LOG_LOGIN_ERRORS)
                     Log::addMessage(LOGIN_ERRORS_FILE, 'API_ERROR', "Intento de identificación API incorrecto para $user.");
@@ -53,13 +54,12 @@
                 
             // si se pudo identificar correctamente al usuario
             }else{
+                
                 Login::set($identificado); // vincula el usuario a la sesión.
+                
                 $response->status = "OK";
                 $response->message = "Identificación correcta";
-                
-                // Cálculo del token CSRF
-                $response->csrfToken = md5($user.uniqid());
-                Session::set('csrf_token', $response->csrfToken);
+                $response->csrfToken = CSRF::create(); // Cálculo del token CSRF
                 
                 if(DEBUG)
                     $response->sessionId = session_id();

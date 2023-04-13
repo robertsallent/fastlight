@@ -142,11 +142,11 @@
         // evitará ataques mediante SQLInjections (no todos) e inyección de scripts
         // si entities es true, se convertirán los caracteres especiales a entidades
         public static function escape(
-            string $texto, 
+            ?string $texto, 
             bool $entities = true
         ):string{
             
-            $texto = self::get()->real_escape_string($texto);
+            $texto = self::get()->real_escape_string($texto ?? '');
             return $entities? htmlspecialchars($texto) : $texto;
         }
     }

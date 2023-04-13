@@ -5,7 +5,7 @@
  * Parámetros de configuración del proyecto
  * 
  * Autor: Robert Sallent
- * Última revisión: 10/04/2023
+ * Última revisión: 13/04/2023
  * Desde: 0.0.1
  * 
  */
@@ -41,6 +41,8 @@
     define('ALLOW_METHODS', 'POST, GET, PUT, DELETE');   // métodos aceptados para peticiones
     define('ALLOW_HEADERS', 'csrf_token');               // encabezados permitidos
     define('ALLOW_CREDENTIALS', 'true');                 // se permite el envío de credenciales?
+    
+    define('API_AUTHENTICATION', 'COOKIE'); // puede ser COOKIE o KEY (no implementado aún)
     
     
     // PARA PROYECTOS APP

@@ -26,14 +26,8 @@
         
         
         // método que compara el token que se le pasa con el guardado en sesión
-        public function checkCsrfToken(string $token){
-            
-            if(!Session::has('csrf_token'))
-                throw new AuthException("No se recibió el token CSRF");
-                
-            if($token != Session::get('csrf_token'))
-                throw new CsrfException("No se pudo validar el token CSRF");
-                    
+        public function checkCsrfToken(string $token = null){
+            CSRF::check($token);   
         }
         
         

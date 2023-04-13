@@ -1,20 +1,20 @@
 <?php
 
-/* Clase AuthException 
+/* Clase NotFoundException 
  *
- * Para distinguir las excepciones de autorización
+ * Para distinguir las excepciones de no encontrado
  *
  * autor: Robert Sallent
  * última revisión: 13/04/2023
  *
  */
 
-    class AuthException extends Exception{
+    class NotFoundException extends Exception{
         
         public function __construct(
-            string $message = 'Unauthorized',
-            string $responseMessage = 'Unauthorized', 
-            int $code = 401, 
+            string $message = 'Not Found', 
+            string $responseMessage = 'Not Found',
+            int $code = 404, 
             Throwable $previous = NULL
         ){
             parent::__construct($message, $code, $previous);

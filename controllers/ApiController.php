@@ -65,7 +65,7 @@
                                
                 // comprueba si ese controlador tiene ese método y es llamable (visible) 
                 if(!is_callable([$controlador, $this->metodo]))
-                    throw new ApiException("La operación $this->metodo para $this->entidad en $this->formato no existe.");
+                    throw new NotFoundException("La operación $this->metodo para $this->entidad en $this->formato no existe.");
                 
                 // tras sacar formato y entidad, lo que queda en $url son los parámetros.
                 // llamaremos al método del controlador pasando hasta tres parámetros
