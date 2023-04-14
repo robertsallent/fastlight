@@ -73,9 +73,13 @@ class XML{
     ):array{
         
         // cargamos el XML depediendo de si es de fichero o string
-        $xml = $fichero?
-        simplexml_load_file($origen):
-        simplexml_load_string($origen);
+        $xml = $fichero ?
+            simplexml_load_file($origen):
+            simplexml_load_string($origen);
+        
+        // si no se pudo recuperar bien el XMl, se lanza una excepción
+        if(!$xml)
+            throw new XmlException("Se produjo un error al recuperar el XML.");
         
         $lista = []; // lista de objetos
         
