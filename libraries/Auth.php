@@ -18,7 +18,7 @@
         // comprueba si hay alguien identificado, sino  lanza excepción
         public static function check():bool{
             if(!Login::check())
-                throw new AuthException("Debes estar identificado.");
+                throw new NotIdentifiedException("Debes estar identificado.");
             
             return true;
         }
@@ -33,6 +33,9 @@
         
         // comprueba si el usuario es admin, en caso contrario lanza excepción
         public static function admin(string $adminRole = ADMIN_ROLE):bool{
+            
+            self::check(); 
+            
             if(!Login::isAdmin($adminRole))
                 throw new AuthException(
                     DEBUG ? 
@@ -44,6 +47,9 @@
         
         // comprueba si el usuario tiene un rol determinado, en caso contrario lanza excepción
         public static function role(string $role):bool{
+            
+            self::check();
+            
             if(!Login::role($role))
                 throw new AuthException(
                     DEBUG ? 
@@ -55,6 +61,9 @@
         
         // comprueba si el usuario tiene todos los roles en una lista
         public static function allRoles(array $roles):bool{
+            
+            self::check();
+            
             if(!Login::allRoles($roles))
                 throw new AuthException( 
                     DEBUG ? 
@@ -66,6 +75,9 @@
         
         // comprueba si el usuario tiene un rol de entre los indicados 
         public static function oneRole(array $roles):bool{
+            
+            self::check();
+            
             if(!Login::oneRole($roles))
                 throw new AuthException(
                     DEBUG ?

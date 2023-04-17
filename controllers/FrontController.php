@@ -24,7 +24,6 @@
                 // crea un objeto Request
                 $request = Request::create();
                 
-                // TODO: separar el dispatcher a un componente aparte? implementar un router?
                 // DISPATCHER (evalúa las peticiones y redirige al controlador adecuado)
                 // mira la url que llega por el parámetro url y la descompone en un array
                 // por ejemplo: /libro/show/3 se convierte en ['libro','show','3']
@@ -86,9 +85,13 @@
                         die();
                     }
                 }
-                    
-                // carga la vista de error y le pasa los datos a mostrar
-                $this->loadView('error', ['mensaje' => $mensaje]);    
+                
+                if(get_class($error) != 'NotIdentifiedException') 
+                    $this->loadView('error', ['mensaje' => $mensaje]);  // carga la vista de error
+                else{
+                    Session::flash('pending_operation', '/'.$request->get('url'));
+                    redirect('/Login');
+                }
             } 
         }  
     }

@@ -48,7 +48,7 @@
             Login::set($identificado); // vincula el usuario a la sesión
             
             // redirección tras Login
-            redirect(REDIRECT_AFTER_LOGIN ?? '/');
+            redirect(Session::getFlash('pending_operation') ?? REDIRECT_AFTER_LOGIN ?? '/');
         }
     }
     
