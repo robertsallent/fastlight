@@ -9,7 +9,7 @@
      * Automatiza las tareas del CRUD, permitiendo que los modelos estén vacíos
      *
      * autor: Robert Sallent
-     * última revisión: 07/03/2023
+     * última revisión: 20/04/2023
      */
     
     class Model{
@@ -238,8 +238,17 @@
         public function saneate(bool $entities = true){
             
             foreach($this as $propiedad => $valor)
-                if(gettype($propiedad) == 'string')
+                if(gettype($valor) == 'string')
                     $this->$propiedad = (DB_CLASS)::escape($valor, $entities);
+        }
+        
+        
+        // método que quita los especios en blanco de las propiedades string
+        public function trimStrings(){
+            
+            foreach($this as $propiedad => $valor)
+                if(gettype($valor) == 'string')
+                    $this->$propiedad = trim($this->valor);
         }
         
         
