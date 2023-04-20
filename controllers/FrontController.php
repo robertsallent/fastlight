@@ -17,20 +17,19 @@
 
                 // inicia el trabajo con sesiones
                 session_start();
-                
+
                 // detección del usuario identificado
                 Login::init();
-                
+
                 // crea un objeto Request
                 $request = Request::create();
-                
+              
                 // DISPATCHER (evalúa las peticiones y redirige al controlador adecuado)
                 // mira la url que llega por el parámetro url y la descompone en un array
                 // por ejemplo: /libro/show/3 se convierte en ['libro','show','3']
                 $url = $request->get('url') ?? '';
                 $url = explode('/', rtrim($url, '/'));
                 
-
                 // recupera el controlador a usar (primera posición del array)
                 // si no existe, el controlador es Welcome (el indicado config.php)
                 // EJ: si es libro, el controlador a usar será LibroController
@@ -68,7 +67,7 @@
                 
                 // en modo DEBUG, añade información adicional al mensaje
                 $mensaje = DEBUG ?
-                Debug::errorInformation($error, $c, $m, $url):
+                    Debug::errorInformation($error, $c, $m, $url):
                     $error->getMessage();
                 
                 // si está activado el LOG de errores:

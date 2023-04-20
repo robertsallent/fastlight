@@ -19,15 +19,27 @@
             
             // si no estábamos conectados a la base de datos...
             if(!self::$conexion){ 
-                // conecta a la BDD. En PHP>=8.1 si algo falla se lanza una excepción 
-                self::$conexion = @new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT); 
-    
-                // por compatibilidad con versiones PHP<8.1, que no lanzan excepciones
-                if(self::$conexion->connect_errno)
-                    throw new SQLException("Conexión fallida: ".(self::$conexion->connect_error));
-    
-                // si todo fue bien, establece el charset
-                self::$conexion->set_charset(DB_CHARSET); 
+                
+                try{
+                    // conecta a la BDD. En PHP>=8.1 si algo falla se lanza una excepción 
+                    self::$conexion = @new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT); 
+        
+                    // por compatibilidad con versiones PHP<8.1, que no lanzan excepciones
+                    if(self::$conexion->connect_errno)
+                        throw new SQLException("Conexión fallida: ".(self::$conexion->connect_error));
+        
+                    // si todo fue bien, establece el charset
+                    self::$conexion->set_charset(DB_CHARSET); 
+                    
+                }catch(Throwable $e){
+                    
+                    $message = "No se pudo conectar con la Base de datos. ";
+                    
+                    if(DEBUG)
+                        $message .= "Revisa la configuración: ".DB_HOST.', '.DB_USER.', '.DB_PASS.', '.DB_NAME.', '.DB_PORT;
+                        
+                    die($message);
+                }
             }
             return self::$conexion; // retorna la conexión 
         } 

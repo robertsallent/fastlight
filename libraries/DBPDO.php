@@ -22,7 +22,18 @@
                 
                 //conecta con la BDD, si no puede lanzará una PDOException
                 $dsn = SGDB.':host='.DB_HOST.':'.DB_PORT.';dbname='.DB_NAME.';charset='.DB_CHARSET;
-                self::$conexion = new PDO($dsn, DB_USER, DB_PASS);
+                try{
+                    self::$conexion = new PDO($dsn, DB_USER, DB_PASS);
+                    
+                }catch(Throwable $e){
+                    
+                    $message = "No se pudo conectar con la Base de datos. ";
+                    
+                    if(DEBUG)
+                        $message .= "Revisa la configuración: ".$dsn;
+                    
+                    die($message);
+                }
                 
             }
             return self::$conexion; // retorna la conexión 
