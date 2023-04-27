@@ -16,9 +16,6 @@ Para implementar en futuras versiones:
 	- Añadir el código HTTP a las redirecciones (para 403 o 404).
 	- Nueva clase Response para las respuestas.
 	
-- VIEWS Y TEMPLATE
-	- Sacar el formulario de búsqueda hacia el Template (necesitará dos arrays para los desplegables).
-	
 - API
 	- implementar mecanismo de API Keys	
 -------------------------------------------------------------------------------------------------------------

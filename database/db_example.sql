@@ -1,4 +1,4 @@
--- Base de datos vacía para fastlight
+-- Base de datos de ejemplo para fastlight
 -- se incluye:
 --  la tabla para usuarios, con algunos usuarios para pruebas.
 --  una tabla products para pruebas (POSIBLE EJERCICIO: implementar un CRUD de productos).
@@ -11,7 +11,7 @@ USE fastlight;
 -- tabla users
 -- podéis crear los campos adicionales que necesitéis.
 CREATE TABLE users(
-	id INT NOT NULL PRIMARY KEY auto_increment,
+	id INT PRIMARY KEY auto_increment,
 	displayname VARCHAR(32) NOT NULL,
 	email VARCHAR(128) NOT NULL UNIQUE KEY,
 	phone VARCHAR(32) NOT NULL UNIQUE KEY,
@@ -56,7 +56,7 @@ INSERT INTO products(name, vendor, price) VALUES
 -- tabla errors
 -- por si queremos registrar los errores en base de datos.
 CREATE TABLE errors(
-	id INT NOT NULL PRIMARY KEY auto_increment,
+	id INT PRIMARY KEY auto_increment,
     date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     level VARCHAR(32) NOT NULL DEFAULT 'ERROR',
     url VARCHAR(256) NOT NULL,

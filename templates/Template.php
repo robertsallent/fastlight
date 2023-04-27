@@ -247,8 +247,19 @@ EOT: '';}
     public static function getFooter(){
         return <<<EOT
         <footer class='primary'>
+            
             <p>Desarrollado por <a href="https://robertsallent.com">
                 Robert Sallent</a> para sus cursos de desarrollo de aplicaciones web (2023).
+
+                <a href='https://robertsallent.com'>
+                    <img src='/images/template/logo.png' alt='Robert Sallent'>
+                </a>
+                <a href='https://www.linkedin.com/in/robert-sallent-l%C3%B3pez-4187a866'>
+                    <img src='/images/template/linkedin.png' alt='LinkedIn'>
+                </a>
+                <a href='https://github.com/robertsallent/fastlight'>
+                    <img src='/images/template/github.png' alt='GitHub'>
+                </a>
             </p>
         </footer>
 EOT;} 

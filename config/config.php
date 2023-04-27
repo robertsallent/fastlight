@@ -66,9 +66,11 @@
     
     // detalle a mostrar en la info de debug tras un error
     // OPCIONES: user, trace, post, get, session, cookie, client
-    $errorDetail = ['user', 'trace', 'post', 'get', 'session', 'cookie', 'client'];
+    define('DEBUG_INFO', [
+        'user', 'trace', 'post', 'get', 'session', 'cookie', 'client'
+    ]);
     
-    define('LOG_ERRORS', false);                       // guardar errores en fichero de log
+    define('LOG_ERRORS', true);                       // guardar errores en fichero de log
     define('ERROR_LOG_FILE', '../logs/error.log');    // nombre del fichero de log
     
     define('DB_ERRORS', false);            // guardar errores en BDD

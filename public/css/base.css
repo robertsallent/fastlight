@@ -22,6 +22,11 @@
 .flex3{flex:3}
 .flex4{flex:4}
 
+/* floats */
+.float-right{float:right}
+.float-left{float:left}
+.clear-both{clear: both}
+
 /* textos */
 .centrado{ text-align: center;}
 .justificado{ text-align: justify;}

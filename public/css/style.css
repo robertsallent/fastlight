@@ -184,6 +184,13 @@ footer.primary a{
 	color: rgb(60, 100, 160);
 }
 
+footer.primary img{
+	height: 40px;
+	width: 40px;
+	margin-right: 10px;
+	vertical-align: middle;
+}
+
 header.primary, footer.primary{
 	border-bottom: solid 2px lightgrey;
 	border-top: solid 2px lightgrey;
