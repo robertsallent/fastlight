@@ -1,7 +1,4 @@
 <?php
-
-    echo TestTemplate::start($method); 
-
     echo "<h1>Test de CSRF</h1>";
 
     echo "<p>Creando un token CSRF y guardándolo en sesión</p>";
@@ -32,5 +29,4 @@
     echo CSRF::forget();
     echo Session::get('csrf_token') ?? '<p>No existe</p>';
     
-    echo TestTemplate::end(); 
     

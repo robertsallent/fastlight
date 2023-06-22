@@ -38,12 +38,18 @@
             bool $warnings = false      // mostrar warnings?
         ):bool{
             
-            $ok = $warnings? unlink($route) : @unlink($route);
+            $ok = $warnings ? unlink($route) : @unlink($route);
             
             if(!$ok && $exception)
                 throw new FileException("No se pudo eliminar el fichero.");
             
             return $ok;
+        }
+        
+        
+        // método que recupera el tipo MIME de un fichero
+        public static function mime(string $route){
+            return (new finfo(FILEINFO_MIME_TYPE))->file($route);
         }
         
     }

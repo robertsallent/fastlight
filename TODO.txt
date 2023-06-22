@@ -1,7 +1,7 @@
-Lista de cosas pendientes
+FASTLIGHT - TODO LIST
 
 Autor: Robert Sallent
-Última revisión: 13/04/23
+Última revisión: 22/06/23
 
 -------------------------------------------------------------------------------------------------------------
 Para implementar en futuras versiones:
@@ -12,18 +12,17 @@ Para implementar en futuras versiones:
 	- Vistas de error personalizadas.
 
 - LIBRARIES
-	- Library File para trabajar con ficheros (borrar, reemplazar...).
-	- Añadir el código HTTP a las redirecciones (para 403 o 404).
+	- Añadir el código HTTP a las redirecciones y errores.
 	- Nueva clase Response para las respuestas.
 	
 - API
 	- implementar mecanismo de API Keys	
+	
 -------------------------------------------------------------------------------------------------------------
-A evaluar... tal vez no se implemente por motivos docentes y se deja para los cursos de Laravel o Symfony:
+A evaluar... tal vez no se implemente por motivos docentes y se deja para los cursos de Laravel o Symfony
 -------------------------------------------------------------------------------------------------------------
 
 - Hacer uso de PSR4 (autoload con namespaces). 
-- Autoload de Composer?
 - Incoporar middleware
 - Incorporar un sistema de seeding para la base de datos.
 

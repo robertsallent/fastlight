@@ -9,7 +9,7 @@
  * - Invoca al controlador frontal.
  *
  * Autor: Robert Sallent
- * Última revisión: 05/04/2023
+ * Última revisión: 22/06/2023
  * Desde: 0.7.0
  *
  */
@@ -23,7 +23,7 @@
     // invocar al controlador frontal
     // dependerá de si el proyecto es para una aplicación o una API.
     switch(strtoupper(APP_TYPE)){
-        case 'APP' : 
+        case 'WEB' : 
             (new FrontController())->start(); 
             break;
         

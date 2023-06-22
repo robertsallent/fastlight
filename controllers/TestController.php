@@ -16,7 +16,7 @@
  * la URL /Test/models-libro ejecutará el fichero en test/models/libro.php
  * 
  * Autor: Robert Sallent
- * Última revisión: 29/03/2023
+ * Última revisión: 22/06/2023
  *
  */
     
@@ -27,8 +27,18 @@
             array $arguments = []
             
         ){
+           
+            
+           // Usa el template de test para que el resultado se vea "bonito" 
+           if(BEAUTIFUL_TEST) 
+               echo (TEST_TEMPLATE)::start($method);
+            
            // va a buscar el test solicitado a la carpeta test
            @require TEST_FOLDER."/".str_replace('-','/', $method).".php";
+           
+           // Usa el template de test para que el resultado se vea "bonito"
+           if(BEAUTIFUL_TEST)
+               echo (TEST_TEMPLATE)::end(); 
         }
         
     }

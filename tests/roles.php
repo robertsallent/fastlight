@@ -1,6 +1,5 @@
 <?php
 
-
     echo "<h1>Test de gestión de roles</h1>";
     echo "<h2>Añadiendo y recuperando roles</h2>";
     

@@ -1,7 +1,5 @@
 <?php
     
-    echo TestTemplate::start($method);
-
     echo "<h1>Test de login</h1>";
     echo "<h2>Nadie identificado</h2>";
     
@@ -25,7 +23,6 @@
     echo Login::isAdmin() ? "Administrador<br>" : "No administrador<br>";  // Administrador
     
     dump(Login::user()); // admin
-    
-    echo TestTemplate::end(); 
+
     
     

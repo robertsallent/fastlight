@@ -3,13 +3,14 @@
     /*
         Clase: FileList
         Autor: Robert Sallent
-        Última mofidicación: 24/02/2023
+        Última mofidicación: 21/06/2023
 
         Nos facilitará la tarea de realizar listados de directorio
 
     */
 
     class FileList{
+        // propiedades
         private $directory; // directorio donde buscar
         
         // constructor
@@ -28,17 +29,31 @@
         }
         
         
-        
         // método que recupera la lista de entradas en el directorio
-        // permite filtrado mediante expresión regular
-        public function getEntries(string $regexp = "/.*/"):array{
-            $all = scandir($this->directory);
-                   
-            $filtered = [];
-            foreach($all as $entry)
-                if(preg_match($regexp, $entry))
-                    $filtered[] = "$this->directory/$entry";
+        // permite filtrado mediante expresión regular o array de extensioens
+        public function getEntries(string|array $matches = "/.*/"):array{
             
+            $all = scandir($this->directory);
+            
+            $filter = $matches ? $matches : "/\.$/";
+            $filtered = [];
+            
+            // si nos pasan un array de extensiones, preparamos la expresión regular
+            if(gettype($matches) == 'array'){
+                
+                $filter = "/\.(";
+                
+                foreach($matches as $extension)
+                    $filter .= "$extension|";
+                
+                $filter = rtrim($filter, '|').')$/i';
+            }
+           
+            // filtra las entradas del directorio aplicando la expresión regular
+            foreach($all as $entry)
+                if(preg_match($filter, $entry))
+                    $filtered[] = "$this->directory/$entry";
+           
             return $filtered;
         }
 
@@ -46,11 +61,11 @@
         
         // método estático (simplifica la tarea)
         public static function get(
-            string $directorio = ".",   // directorio de trabajo
-            string $regexp = "/.*/"     // expresión regular
+            string $directorio = ".",        // directorio de trabajo
+            array|string $matches = "/.*/"     // expresión regular o array de extensiones
                 
         ):array{
-            return (new FileList($directorio))->getEntries($regexp);
+            return (new FileList($directorio))->getEntries($matches);
         }
     }
 
