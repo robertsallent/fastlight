@@ -3,11 +3,13 @@
     echo "<h1>Test de Registro de errores en BDD</h1>";
 
     // registramos diversos errores de prueba
-    AppError::create('/Test', 'NOTICE', 'Esto es un test');
-    AppError::create('/Test', 'DEPRECATED', 'El penúltimo test');
-    AppError::create('/Test', 'WARNING', "Esto '<b>es</b>\'texto\n&nbsp;&gt;&lt;especial.");
+    echo "<h3>Creando algunos errores de prueba</h3>";
+    AppError::create('NOTICE', 'Esto es un test');
+    AppError::create('DEPRECATED', 'El penúltimo test');
+    AppError::create('WARNING', "Esto '<b>es</b>\'texto\n&nbsp;&gt;&lt;especial.");
     
     // recuperamos los errores y los mostramos
+    echo "<h3>Recuperando el listado completo de errores</h3>";
     $errores = AppError::get();
     
     // a modo de helpers tenemos un par de funciones interesantes:
@@ -15,8 +17,15 @@
     // - dd($variable, $mensaje): hace dump() and die() con el mensaje indicado. 
     dump($errores);
 
-    // foreach($errores as $error) // podemos borrar los registros tras el test (descomentar)
-       // $error->deleteObject();
+    echo "<h3>Borrando el último error...</h3>";
+    echo "<p>Se han borrado ".AppError::clearLast()." errores.</p>";
     
-    // dump(AppError::get());  // comprobamos que se han borrado
+    echo "<h3>Recuperando el listado completo de errores.</h3>";
+    dump(AppError::get());  // comprobamos que se han borrado
+    
+    echo "<h3>Borrando todos los errores...</h3>";
+    AppError::clear();
+    
+    echo "<h3>Recuperando el listado completo de errores.</h3>";
+    dump(AppError::get());  // comprobamos que se han borrado
       

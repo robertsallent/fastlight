@@ -30,7 +30,7 @@
         
         
         // método que recupera la lista de entradas en el directorio
-        // permite filtrado mediante expresión regular o array de extensioens
+        // permite filtrado mediante expresión regular o array de extensiones
         public function getEntries(string|array $matches = "/.*/"):array{
             
             $all = scandir($this->directory);

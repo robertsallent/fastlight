@@ -126,6 +126,7 @@ main{
 	margin: 20px auto;
 	border: solid 2px black;
 	border-radius: 10px;
+	background-color: #eee;
 }
 
 main a{
@@ -176,13 +177,36 @@ header.primary h2{
 footer.primary{
 	text-align: right;
 	padding: 20px;
+	background-color: black;
+	color: white;
 }
 
 footer.primary a{
 	font-style: italic;
 	font-size: 1.05rem;
-	color: #666;
+	color: #ddd;
 }
+
+
+footer.primary img{
+	height: 40px;
+	width: 40px;
+	margin-right: 10px;
+	vertical-align: middle;
+}
+
+
+footer.primary img :last-of-type{
+	height: 40px;
+	width: 40px;
+	margin-right: 10px;
+	vertical-align: middle;
+}
+
+footer.primary a:last-of-type img{
+	background-color: white;
+}
+
 
 header.primary, footer.primary{
 	border-bottom: solid 2px lightgrey;

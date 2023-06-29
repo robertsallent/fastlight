@@ -138,11 +138,11 @@
         
         // escapa los caracteres especiales
         public static function escape(
-            ?string $texto,
+            string $texto,
             bool $entities = true
         ):string{
             
-            $texto = self::get()->quote($texto ?? '');
+            $texto = self::get()->quote($texto);
             $texto = trim($texto, '\'');
             return $entities? htmlspecialchars($texto) : $texto;
         }

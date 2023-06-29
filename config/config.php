@@ -15,7 +15,7 @@
  * AUTOLOAD
  * -------------------------------------------------------------*/
 
-// Directorios para el autoload (no PSR-4).
+// direcotrios para el autoload (no PSR-4) 
 define('AUTOLOAD_DIRECTORIES',  [
     '../controllers',   // controladores
     '../models',        // modelos
@@ -30,8 +30,6 @@ define('AUTOLOAD_DIRECTORIES',  [
 /* -------------------------------------------------------------
  * APLICACIÓN
  * -------------------------------------------------------------*/
-
-
 define('APP_NAME','FastLight Framework'); // Título de la aplicación.
 define('APP_TYPE', 'WEB');                // Tipo de aplicación: WEB o API.
 
@@ -46,7 +44,7 @@ define('DEFAULT_METHOD', 'index');
  * -------------------------------------------------------------*/
     
 define('VIEWS_FOLDER', '../views');     // Carpeta para las vistas.
-    
+ 
 // Clase para el template a usar en las vistas.
 // Las opciones disponibles por defecto son Template o RetroTemplate.
 define('TEMPLATE', 'Template'); 

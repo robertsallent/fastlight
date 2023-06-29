@@ -11,12 +11,10 @@
 
 class AppError extends Model{
     
-    /** @staticvar string $table nombre de la tabla en la base de datos */ 
+    /** @var string $table nombre de la tabla en la base de datos */ 
     protected static string $table = ERROR_DB_TABLE;
     
     /**
-     * Create
-     *
      * Permite crear un nuevo objeto AppError y guardarlo en base de datos.
      * 
      * @static  
@@ -41,15 +39,30 @@ class AppError extends Model{
     }    
     
     /**
-     * Clear
-     *
      * Vacía la tabla de errores en la base de datos.
      *
-     * @static
-     * @return int
+     * @return int número de errores borrados.
      */
     public static function clear():int{
         return (DB_CLASS)::delete("DELETE FROM ".ERROR_DB_TABLE);
+    }
+    
+    /**
+     * Elmina los últimos errores.
+     * 
+     * @param int $limit número de errores a eliminar.
+     * 
+     * @return int número de errores que ha podido eliminar.
+     */
+    public static function clearLast(int $limit = 1):int{
+        
+        $query = "SELECT * FROM ".ERROR_DB_TABLE." ORDER BY id DESC LIMIT $limit";    
+        $errors = (DB_CLASS)::selectAll($query, self::class);
+
+        foreach($errors as $error)
+            $error->deleteObject();
+
+        return sizeof($errors);
     }
 }
 

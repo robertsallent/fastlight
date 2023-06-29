@@ -14,11 +14,14 @@
  *
  */
 
+    define('PUBLIC_PATH', __DIR__); // detecta el directorio donde se encuentra el index.php
+
     // Fichero index.php
     // por aquí pasan todas las peticiones
     require '../config/config.php';         // carga el config
     require '../libraries/autoload.php';    // carga el autoload
     require '../helpers/helpers.php';       // carga las funciones helper globales
+    
     
     // invocar al controlador frontal
     // dependerá de si el proyecto es para una aplicación o una API.

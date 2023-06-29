@@ -35,34 +35,34 @@ class Template implements TemplateInterface{
         
         // si el usuario no está identificado, retorna el botón de LogIn
         if(Login::guest())
-            return <<<EOT
+            return "
                <div class='derecha'>
                     <a class='button' href='/Login'>LogIn</a>
                </div>
-EOT;
+        ";
         
         $user = Login::user(); // recupera el usuario identificado
           
         // si el usuario es administrador...
         if(Login::isAdmin())
-            return <<<EOT
+            return "
                  <div class='derecha'>
                     <span>Bienvenido <a class='negrita' href='/User/home'>$user->displayname</a> 
                     (<span class='cursiva'>$user->email</span>)
                     , eres <a class='negrita' href='/Admin'>administrador</a>.</span> 
                     <a class='button' href='/Logout'>LogOut</a>
                  </div>
-EOT;  
+            ";  
         
         // si el usuario no es administrador...
         if(Login::check())
-            return <<<EOT
+            return "
                  <div class='derecha'>
                     <span>Bienvenido <a href='/User/home'>$user->displayname</a>
                     (<span class='cursiva'>$user->email</span>).</span> 
                     <a class='button' href='/Logout'>LogOut</a>
                  </div>
-EOT;    
+            ";    
     
     }
         
@@ -74,18 +74,19 @@ EOT;
     public static function getHeader(string $titulo=''){ 
         $name = APP_NAME;
         
-        return <<<EOT
+        return "
             <header class='primary'>
                 <figure>
                     <a href='/'>
-                        <img style='width:100%;' src='/images/template/logo.png'>
+                        <img style='width:100%;' alt='FastLight Logo'
+                             src='/images/template/fastlight.png'>
                     </a>
                 </figure>
                 <hgroup>
             	   <h1>$titulo en $name</h1>
                 </hgroup>  
             </header>
-EOT;}
+        ";}
     
         
     /*****************************************************************************
@@ -245,10 +246,10 @@ EOT: '';}
      *****************************************************************************/
     // retorna el footer
     public static function getFooter(){
-        return <<<EOT
+        return "
         <footer class='primary'>
             
-            <p>Desarrollado por <a href="https://robertsallent.com">
+            <p>Desarrollado por <a href='https://robertsallent.com'>
                 Robert Sallent</a> para sus cursos de desarrollo de aplicaciones web (2023).
 
                 <a href='https://robertsallent.com'>
@@ -261,8 +262,7 @@ EOT: '';}
                     <img src='/images/template/github.png' alt='GitHub'>
                 </a>
             </p>
-        </footer>
-EOT;} 
-        
+        </footer>";
+    }       
 }
 

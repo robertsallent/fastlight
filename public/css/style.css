@@ -2,7 +2,7 @@
 	FICHERO CON ESTILO PRINCIPAL DE FASTLIGHT
 	
 	Autor: Robert Sallent
-	Última revisión: 27/03/2023
+	Última revisión: 29/06/2023
 */
 
 
@@ -108,10 +108,10 @@ a{
 /* estructura de la página */
 body{
 	color: rgb(120, 120, 120);
-	padding: 20px;
+	padding: 10px 30px;
 	font-family: arial, verdana, helvetica;
 	width: 100%;	
-	margin: 20px auto;
+	margin: 0px auto 20px auto;
 }
 
 main{
@@ -184,6 +184,10 @@ footer.primary a{
 	color: rgb(60, 100, 160);
 }
 
+footer.primary p{
+	margin-bottom: 0px;
+}
+
 footer.primary img{
 	height: 40px;
 	width: 40px;
@@ -191,17 +195,20 @@ footer.primary img{
 	vertical-align: middle;
 }
 
-header.primary, footer.primary{
-	border-bottom: solid 2px lightgrey;
+header.primary{
+	border-top: solid 2px lightgrey;
+}
+
+footer.primary{
 	border-top: solid 2px lightgrey;
 }
 
 /* formulario de login */
 #loginForm{
-	min-width: 500px;
+	min-width: 600px;
 	border: solid 1px lightgrey;
 	background-color: white;
-	padding: 20px;
+	padding: 30px;
 	border-radius: 10px;
 	text-align: center;
 }
@@ -269,7 +276,7 @@ form.filtro{
 label{
   display: inline-block;
   min-width: 80px; 
-  margin: 10px;
+  margin: 12px 10px;
   font-style: italic;
 }
 

@@ -1,14 +1,15 @@
 <?php
 
-/* Clase SQLException 
+/** Clase SQLException 
  *
- * Para distinguir las excepciones lanzadas por la clase DB
+ * Permite distinguir las excepciones producidas al realizar consultas SQL a la base de datos.
  *
- * autor: Robert Sallent
- * última revisión: 03/03/2023
+ * @author: Robert Sallent
+ * 
+ * última revisión: 28/06/2023
  *
  */
 
-    class SQLException extends Exception{}
+class SQLException extends Exception{}
     
     
