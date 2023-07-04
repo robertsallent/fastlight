@@ -1,46 +1,47 @@
 <?php
 
-/* Fichero: index.php
+/** index.php
  *
- * Punto de entrada para todas las peticiones
+ *  Punto de entrada para todas las peticiones.
  * 
- * - Carga el fichero de configuración.
- * - Carga el autoload.
- * - Invoca al controlador frontal.
+ * Carga el fichero de configuración, el autoload, las funciones helper
+ * y arranca la aplicación Web o Api.
  *
- * Autor: Robert Sallent
- * Última revisión: 22/06/2023
- * Desde: 0.7.0
- *
+ * Última revisión: 04/07/2023
+ * 
+ * @author Robert Sallent <robertsallent@gmail.com>
+ * @since 0.1.0
  */
 
-    define('PUBLIC_PATH', __DIR__); // detecta el directorio donde se encuentra el index.php
+require '../config/config.php';         // carga el config
+require '../App/autoload.php';    // carga el autoload
+require '../App/Helpers/helpers.php';       // carga las funciones helper globales
 
-    // Fichero index.php
-    // por aquí pasan todas las peticiones
-    require '../config/config.php';         // carga el config
-    require '../libraries/autoload.php';    // carga el autoload
-    require '../helpers/helpers.php';       // carga las funciones helper globales
+
+$request = Request::create();           // crea el objeto Request 
+$app = NULL;                            
+
+// Crea una instancia de la aplicación, dependiendo de si el proyecto 
+// es para una aplicación WEB o una API.
+switch(strtoupper(APP_TYPE)){
+    case 'WEB' : 
+        $app = new App();
+        break;
     
+    case 'API' : 
+        // cabeceras para el CORS
+        header("Access-Control-Allow-Origin: ".ALLOW_ORIGIN);
+        header("Access-Control-Allow-Methods: ".ALLOW_METHODS);
+        header("Access-Control-Allow-Headers: ".ALLOW_HEADERS);
+        header("Access-Control-Allow-Credentials: ".ALLOW_CREDENTIALS);
+        
+        $app = new Api();  
+        break;
     
-    // invocar al controlador frontal
-    // dependerá de si el proyecto es para una aplicación o una API.
-    switch(strtoupper(APP_TYPE)){
-        case 'WEB' : 
-            (new FrontController())->start(); 
-            break;
-        
-        case 'API' : 
-            // cabeceras para el CORS
-            header("Access-Control-Allow-Origin: ".ALLOW_ORIGIN);
-            header("Access-Control-Allow-Methods: ".ALLOW_METHODS);
-            header("Access-Control-Allow-Headers: ".ALLOW_HEADERS);
-            header("Access-Control-Allow-Credentials: ".ALLOW_CREDENTIALS);
-            
-            (new ApiController())->start();  
-            break;
-        
-        default    : die('El proyecto solamente puede ser APP o API.');
-    }
-        
+    default    : die('El proyecto solamente puede ser WEB o API.');
+}
     
+// Arranca la aplicación y le pasa la request
+$app->start($request);
+
+

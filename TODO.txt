@@ -8,7 +8,6 @@ Para implementar en futuras versiones:
 -------------------------------------------------------------------------------------------------------------
 
 - CORE
-	- Añadir carpetas app y bootstrap y simplificar la estructura de directorios en la raíz
 	- Vistas de error personalizadas.
 
 - LIBRARIES

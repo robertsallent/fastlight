@@ -1,13 +1,12 @@
 <?php
 
-/* Fichero: config.php
+/** config.php
  * 
  * Parámetros de configuración del proyecto
  * 
- * Autor: Robert Sallent
- * Última revisión: 22/06/2023
- * Desde: 0.1.0
- * 
+ * Última revisión: 04/07/23
+ * @author Robert Sallent <robertsallent@gmail.com>
+ * @since 0.1.0
  */
    
 
@@ -17,12 +16,13 @@
 
 // direcotrios para el autoload (no PSR-4) 
 define('AUTOLOAD_DIRECTORIES',  [
-    '../controllers',   // controladores
-    '../models',        // modelos
-    '../libraries',     // librerías
-    '../interfaces',    // interfaces
-    '../templates',     // plantillas para las vistas
-    '../exceptions'     // excepciones
+    '../MVC/Controllers',   // controladores
+    '../MVC/Models',        // modelos
+    '../App/Core',          // core  
+    '../App/Libraries',     // librerías       
+    '../App/Interfaces',    // interfaces
+    '../Templates',         // plantillas para las vistas
+    '../App/Exceptions'     // excepciones
 ]);
  
     
@@ -43,7 +43,7 @@ define('DEFAULT_METHOD', 'index');
  * VISTAS
  * -------------------------------------------------------------*/
     
-define('VIEWS_FOLDER', '../views');     // Carpeta para las vistas.
+define('VIEWS_FOLDER', '../MVC/views');     // Carpeta para las vistas.
  
 // Clase para el template a usar en las vistas.
 // Las opciones disponibles por defecto son Template o RetroTemplate.
@@ -79,11 +79,11 @@ define('DEBUG_INFO', [
     'client'    // Muestra información del navegador del cliente.
 ]);
 
-define('LOG_ERRORS', true);                       // Guardar errores en fichero de log.
-define('ERROR_LOG_FILE', '../logs/error.log');    // Nombre del fichero de log.
+define('LOG_ERRORS', true);                        // Guardar errores en fichero de log.
+define('ERROR_LOG_FILE', '../logs/error.log');     // Nombre del fichero de log.
 
-define('DB_ERRORS', false);           // Guardar errores en la base de datos.
-define('ERROR_DB_TABLE', 'errors');   // Nombre de la tabla en la BDD para los errores.
+define('DB_ERRORS', true);                        // Guardar errores en la base de datos.
+define('ERROR_DB_TABLE', 'errors');                // Nombre de la tabla en la BDD para los errores.
 
 define('LOG_LOGIN_ERRORS', false);                 // Guardar errores de login en fichero de log.
 define('LOGIN_ERRORS_FILE', '../logs/login.log');  // Nombre del fichero para los errores de login.
@@ -105,8 +105,8 @@ define('DB_PORT',  3306);       // Puerto.
 define('DB_CHARSET','utf8');    // Codificación de caracteres.
 
 
-define('DB_CLASS','DBPDO');    // Clase a usar, puede ser DB (mysqli) o DBPDO (PDO).
-define('SGDB','mysql');        // Driver que debe usar PDO (solamente para PDO).
+define('DB_CLASS','DB');        // Clase a usar, puede ser DB (mysqli) o DBPDO (PDO).
+define('SGDB','mysql');         // Driver que debe usar PDO (solamente para PDO).
 
     
 /* -------------------------------------------------------------
