@@ -4,8 +4,7 @@
  *
  * Controlador frontal para el desarrollo de Apis Restful
  *
- *
- * Última revisión: 04/07/2023
+ * Última revisión: 05/07/2023
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  */
@@ -31,14 +30,11 @@ class Api implements Kernel{
      * @throws ApiException si se produce algún error.
      * @throws NotFoundException si no existe la operación indicada
      */
-    public function start(Request $request){
+    public function boot(Request $request){
         try{     
             
-            // inicia el trabajo con sesiones
-            session_start();
-            
-            // detección del usuario identificado
-            Login::init();
+            session_start();  // inicia el trabajo con sesiones
+            Login::init();    // detección del usuario identificado
             
             // DISPATCHER: evalúa las peticiones y redirige al controlador adecuado.
             // /xml/libro/3 se convierte en ['xml','libro','3']
@@ -64,21 +60,21 @@ class Api implements Kernel{
             if(!is_readable("../controllers/$c.php"))
                 throw new ApiException("No existe ENDPOINT para $this->entidad en $this->formato.");
             
-            // crea una instancia del controlador correspondiente
-            $controlador = new $c();
-            $controlador->setRequest($request);
+            // crea una instancia del controlador correspondiente y le pasa la Request
+            $controlador = new $c($request);
             
-            // analizamos el método HTTP (será el método a invocar en el controlador)
-            $metodo = strtoupper($_SERVER['REQUEST_METHOD']);
-            $this->metodo = $metodo;
+            // analiza el método HTTP (será el método a invocar en el controlador)
+            $this->metodo   = strtoupper($request->method());
+            $metodo         = strtolower($this->metodo); 
                            
             // comprueba si ese controlador tiene ese método y es llamable (visible) 
-            if(!is_callable([$controlador, $this->metodo]))
+            if(!is_callable([$controlador, $metodo]))
                 throw new NotFoundException("La operación $this->metodo para $this->entidad en $this->formato no existe.");
             
             // tras sacar formato y entidad, lo que queda en $url son los parámetros.
             // llamaremos al método del controlador pasando hasta tres parámetros
             // (podemos poner más), los que no se necesiten serán omitidos.
+            
             switch(sizeof($url)){
                 case 0 : $controlador->$metodo(); break;
                 case 1 : $controlador->$metodo($url[0]); break;

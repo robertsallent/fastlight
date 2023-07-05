@@ -2,7 +2,7 @@
 
 /** App
  *
- * Controlador frontal, núcleo de FastLight.
+ * Controlador frontal, núcleo de las aplicaciones web en FastLight.
  * 
  * El controlador frontal realiza las tareas de inicialización y arranque de la aplicación: 
  * gestión de sesiones, del sistema de identificación...
@@ -12,7 +12,7 @@
  * Además trata los errores que se puedan producir, redirigiendo hacia la página de error y registrando
  * los mensajes en LOG y BDD (según lo configurado en el fichero config.php).
  *
- * Última revisión: 04/07/2022
+ * Última revisión: 05/07/2022
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
@@ -26,15 +26,13 @@ class App implements Kernel{
      * @throws NotFoundException en caso de no encontrar el controlador o método asociados a 
      * la operación solicitada.
      */
-    public function start(Request $request){
+    public function boot(Request $request){
         try{
 
-            // inicia el trabajo con sesiones
-            session_start();
+            session_start();    // inicia el trabajo con sesiones          
+            Login::init();      // detección del usuario identificado
 
-            // detección del usuario identificado
-            Login::init();
-
+            
             // DISPATCHER (evalúa las peticiones y redirige al controlador adecuado)
             // mira la url que llega por el parámetro url y la descompone en un array
             // por ejemplo: /libro/show/3 se convierte en ['libro','show','3']
@@ -55,9 +53,8 @@ class App implements Kernel{
                 DEFAULT_METHOD :  
                 strtolower(array_shift($url));
                         
-            // crea una instancia del controlador correspondiente
-            $controlador = new $c();
-            $controlador->setRequest($request);
+            // crea una instancia del controlador correspondiente y le pasa la Request.
+            $controlador = new $c($request);
             
             // comprueba si ese controlador tiene ese método y es llamable (visible) 
             if(!is_callable([$controlador, $m]))

@@ -16,13 +16,13 @@
 
 // direcotrios para el autoload (no PSR-4) 
 define('AUTOLOAD_DIRECTORIES',  [
-    '../MVC/Controllers',   // controladores
-    '../MVC/Models',        // modelos
-    '../App/Core',          // core  
-    '../App/Libraries',     // librerías       
-    '../App/Interfaces',    // interfaces
-    '../Templates',         // plantillas para las vistas
-    '../App/Exceptions'     // excepciones
+    '../mvc/controllers',   // controladores
+    '../mvc/models',        // modelos 
+    '../app/libraries',     // librerías       
+    '../app/interfaces',    // interfaces
+    '../app/core',          // core 
+    '../templates',         // plantillas para las vistas
+    '../app/exceptions'     // excepciones
 ]);
  
     
@@ -43,7 +43,7 @@ define('DEFAULT_METHOD', 'index');
  * VISTAS
  * -------------------------------------------------------------*/
     
-define('VIEWS_FOLDER', '../MVC/views');     // Carpeta para las vistas.
+define('VIEWS_FOLDER', '../mvc/views');     // Carpeta para las vistas.
  
 // Clase para el template a usar en las vistas.
 // Las opciones disponibles por defecto son Template o RetroTemplate.

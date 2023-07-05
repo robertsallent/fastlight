@@ -15,7 +15,7 @@ interface Kernel{
      * 
      * @param Request $request petición realizada a la aplicación.
      */
-    public function start(Request $request); 
+    public function boot(Request $request); 
     
 }
 

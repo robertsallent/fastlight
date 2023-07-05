@@ -1,5 +1,7 @@
 /.project
 /.buildpath
 /.settings/
+/tmp/
+/tmp/*
 /logs/*.log
 

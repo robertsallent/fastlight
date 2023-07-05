@@ -16,6 +16,17 @@ abstract class Controller{
     
     
     /**
+     * Constructor.
+     * 
+     * @param Request $request petición.
+     */
+    public function __construct(Request $request){
+        $this->request = $request;
+    }
+    
+    
+    
+    /**
      * Setter para la propiedad $request
      * 
      * @param Request $request

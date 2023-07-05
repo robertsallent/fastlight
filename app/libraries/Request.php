@@ -1,13 +1,13 @@
 <?php
 
-/** Clase Request
+/** Request
  * 
- * Permitirá acceder a los datos saneados de la petición 
- * fácilmente desde los controladores.
+ * Permitirá acceder a los datos de la petición fácilmente desde los controladores.
  * 
- * Última mofidicación: 13/04/2023.
+ * Última mofidicación: 05/07/2023.
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
+ * @since v0.6.5
  */
 
 class Request{
@@ -24,18 +24,36 @@ class Request{
     
     
     /**
-     * Crea un nuevo objeto Request.
+     * Constructor de Request.
+     */
+    public function __construct(){
+        
+        $this->user = Login::user();            // mete el usuario identificado en la Request
+        $this->url  = $_SERVER['REQUEST_URI'];  // mete la URL en la request
+        $this->csrfToken = apache_request_headers()['csrf_token'] ?? null;  // token CSRF que llega en los headers
+        
+    }
+    
+    
+    
+    /**
+     * Método estático para crea un nuevo objeto de tipo Request.
      * 
      * @return Request
      */
     public static function create(){
-        $request = new self();
-        
-        $request->user = Login::user();          // mete el usuario identificado en la Request
-        $request->url = $_SERVER['REQUEST_URI']; // mete la URL en la request
-        $request->csrfToken = apache_request_headers()['csrf_token'] ?? null; // token CSRF que llega en los headers
-        
-        return $request;
+        return new self();
+    }
+    
+    
+    
+    /**
+     * método de la petición HTTP.
+     * 
+     * @return string
+     */
+    public function method():string{
+        return $_SERVER['REQUEST_METHOD'];
     }
     
     
@@ -168,6 +186,23 @@ class Request{
     }
     
     
+    
+    /**
+     * Recupera un fichero subido desde un formulario.
+     * 
+     * @param string $key nombre del input, clave en el array superglobal $_FILES.
+     * 
+     * @return UploadedFile|NULL un objeto de tipo UploadedFile o NULL si no existe la clave indicada.
+     */
+    public function file(string $key):?UploadedFile{
+        try{
+            return new UploadedFile($key);
+        }catch(UploadException $e){
+            return NULL;
+        }
+    }
+    
+
     
     /**
      * Recupera los datos en el body de la petición. Los datos no son

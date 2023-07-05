@@ -1,7 +1,7 @@
 FASTLIGHT - TODO LIST
 
 Autor: Robert Sallent
-Última revisión: 22/06/23
+Última revisión: 05/07/23
 
 -------------------------------------------------------------------------------------------------------------
 Para implementar en futuras versiones:
@@ -12,7 +12,6 @@ Para implementar en futuras versiones:
 
 - LIBRARIES
 	- Añadir el código HTTP a las redirecciones y errores.
-	- Nueva clase Response para las respuestas.
 	
 - API
 	- implementar mecanismo de API Keys	

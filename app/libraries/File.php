@@ -15,7 +15,7 @@
         /**
          * @var string $path ruta al fichero
          */
-        private string $path;
+        protected string $path;
         
         
         /**
@@ -46,6 +46,100 @@
         public function setPath(string $path){
             $this->path = $path;
         }
+        
+        
+        
+        /**
+         * Recupera la extensión del fichero.
+         * 
+         * @return string la extensión del fichero
+         */
+        public function getExtension():string{
+            return self::extension($this->path);
+        }
+        
+        
+        /**
+         * Método estático para recuperar la extensión de un fichero
+         * a partir de una ruta.
+         * 
+         * @param string $path ruta al fichero.
+         * 
+         * @return string extensión del fichero.
+         */
+        public static function extension(string $path = ''):string{
+            return pathinfo($path, PATHINFO_EXTENSION);
+        }
+        
+        
+        /**
+         * Recupera el nombre base del fichero.
+         *
+         * @return string el nombre base del fichero
+         */
+        public function getBaseName():string{
+            return self::baseName($this->path);
+        }
+        
+        
+        /**
+         * Método estático para recuperar el nombre base de un fichero
+         * a partir de una ruta.
+         *
+         * @param string $path ruta al fichero.
+         *
+         * @return string nombre base del fichero.
+         */
+        public static function baseName(string $path = ''):string{
+            return pathinfo($path, PATHINFO_BASENAME);
+        }
+        
+        
+        /**
+         * Recupera el nombre del fichero.
+         *
+         * @return string el nombre del fichero
+         */
+        public function getName():string{
+            return self::name($this->path);
+        }
+        
+        
+        /**
+         * Método estático para recuperar el nombre de un fichero
+         * a partir de una ruta.
+         *
+         * @param string $path ruta al fichero.
+         *
+         * @return string nombre del fichero.
+         */
+        public static function name(string $path = ''):string{
+            return pathinfo($path, PATHINFO_FILENAME);
+        }
+        
+        
+        /**
+         * Recupera el directorio del fichero.
+         *
+         * @return string el nombre del fichero
+         */
+        public function getFolder():string{
+            return self::folder($this->path);
+        }
+        
+        
+        /**
+         * Método estático para recuperar el directorio de un fichero
+         * a partir de una ruta.
+         *
+         * @param string $path ruta al fichero.
+         *
+         * @return string directorio del fichero.
+         */
+        public static function folder(string $path = ''):string{
+            return pathinfo($path, PATHINFO_DIRNAME);
+        }
+        
         
         
         /**

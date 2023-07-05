@@ -14,20 +14,20 @@
  */
 
 require '../config/config.php';         // carga el config
-require '../App/autoload.php';    // carga el autoload
-require '../App/Helpers/helpers.php';       // carga las funciones helper globales
+require '../app/autoload.php';    // carga el autoload
+require '../app/helpers/helpers.php';       // carga las funciones helper globales
 
 
-$request = Request::create();           // crea el objeto Request 
-$app = NULL;                            
-
-// Crea una instancia de la aplicación, dependiendo de si el proyecto 
-// es para una aplicación WEB o una API.
+// crea una instancia de la aplicación y la arranca.
+// El proceso es distinto dependiendo de si el proyecto es una WEB o una API.
 switch(strtoupper(APP_TYPE)){
+    
+    // para las aplicaciones web
     case 'WEB' : 
-        $app = new App();
+        (new App())->boot(new Request());  // arranca la App
         break;
     
+    // para Apis
     case 'API' : 
         // cabeceras para el CORS
         header("Access-Control-Allow-Origin: ".ALLOW_ORIGIN);
@@ -35,13 +35,10 @@ switch(strtoupper(APP_TYPE)){
         header("Access-Control-Allow-Headers: ".ALLOW_HEADERS);
         header("Access-Control-Allow-Credentials: ".ALLOW_CREDENTIALS);
         
-        $app = new Api();  
+        (new Api())->boot(new Request());  // arranca la Api
         break;
     
     default    : die('El proyecto solamente puede ser WEB o API.');
 }
     
-// Arranca la aplicación y le pasa la request
-$app->start($request);
-
 
