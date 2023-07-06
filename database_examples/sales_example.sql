@@ -108,7 +108,8 @@ INSERT INTO customers(name, city, email) VALUES
 	('Joan', 'Barcelona', 'joan@barcelona.cat'),
 	('Oriol', 'Girona', 'oriol@girona.cat'),
 	('Borja', 'Aranjuez', 'borja@aranjuez.es'),
-	('Michael', 'Detroit', 'muchael@detroit.com')
+	('Michael', 'Detroit', 'muchael@detroit.com'),
+	('Dembo', 'Johannesburgo', 'dembo@johannesburgo.com')
 ;
 
 -- algunas ventas

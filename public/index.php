@@ -14,9 +14,12 @@
  */
 
 require '../config/config.php';         // carga el config
-require '../app/autoload.php';    // carga el autoload
-require '../app/helpers/helpers.php';       // carga las funciones helper globales
+require '../app/autoload.php';          // carga el autoload
+require '../app/helpers/helpers.php';   // carga las funciones helper globales
 
+session_start();            // inicia el trabajo con sesiones
+
+$request = new Request();   // crea el objeto Request a partir de la petición
 
 // crea una instancia de la aplicación y la arranca.
 // El proceso es distinto dependiendo de si el proyecto es una WEB o una API.
@@ -24,7 +27,7 @@ switch(strtoupper(APP_TYPE)){
     
     // para las aplicaciones web
     case 'WEB' : 
-        (new App())->boot(new Request());  // arranca la App
+        (new App())->boot($request);  // arranca la App
         break;
     
     // para Apis
@@ -35,7 +38,7 @@ switch(strtoupper(APP_TYPE)){
         header("Access-Control-Allow-Headers: ".ALLOW_HEADERS);
         header("Access-Control-Allow-Credentials: ".ALLOW_CREDENTIALS);
         
-        (new Api())->boot(new Request());  // arranca la Api
+        (new Api())->boot($request);  // arranca la Api
         break;
     
     default    : die('El proyecto solamente puede ser WEB o API.');

@@ -12,10 +12,11 @@
  * Además trata los errores que se puedan producir, redirigiendo hacia la página de error y registrando
  * los mensajes en LOG y BDD (según lo configurado en el fichero config.php).
  *
- * Última revisión: 05/07/2022
+ * Última revisión: 05/07/2023
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
+ * @since v0.9.1 se ha cambiado el nombre de FrontController a App.
  */
  
 class App implements Kernel{
@@ -28,8 +29,7 @@ class App implements Kernel{
      */
     public function boot(Request $request){
         try{
-
-            session_start();    // inicia el trabajo con sesiones          
+      
             Login::init();      // detección del usuario identificado
 
             

@@ -41,10 +41,10 @@
     		
     				<div style="margin: 10px;">
             			<label for="email">email:</label>
-            			<input type="email" name="email" id="email" required>
+            			<input type="email" name="email" id="email" value="<?= old('email') ?>" required>
             			<br>
             			<label for="phone">teléfono:</label>
-            			<input type="text" name="phone" id="phone" required>
+            			<input type="text" name="phone" id="phone" value="<?= old('phone') ?>" required>
         			</div>
         			
         			<div class="centrado">

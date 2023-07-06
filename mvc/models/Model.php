@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Clase Model
+ * Model
  * 
  * Clase base para todos los modelos. Implementa las operaciones 
  * genéricas del CRUD y el método __toString().
@@ -13,14 +13,17 @@
  * protected static array $jsonFields: para indicar los campos JSON que se deben 
  * convertir automáticamente en arrays PHP.
  *
+ * Última revisión 06/07/23
+ * 
  * @author Robert Sallent <robertsallent@gmail.com>
- * Última revisión 29/06/23
+ * @since v0.1.0
+ * @since v0.9.2 añadido belongsToAny() y hasAny()
  */
+
 
 abstract class Model{
          
-    
-    
+ 
     /**
      * Retorna el nombre de la tabla, que será el nombre indicado en la propiedad
      * estática $table de la clase hija. En caso de no existir esta propiedad, 
@@ -499,9 +502,9 @@ abstract class Model{
      * @return array lista de entidades relacionadas
      */
     public function hasMany(
-        string $related,            // clase (entidad) relacionada
-        string $foreignKey = null,  // clave foránea
-        string $localKey = 'id'     // clave local
+        string $related, 
+        string $foreignKey = null,
+        string $localKey = 'id'
     ):array{
         
         $tabla = $related::$table ?? strtolower($related).'s';   // cálculo del nombre de la tabla
@@ -515,6 +518,37 @@ abstract class Model{
             $entity->parseJsonFields();
             
         return $entities;
+    }
+    
+    
+    
+    /**
+     * Comprueba si una entidad tiene relacionadas entidades de otro
+     * tipo en una relación 1 a N.
+     * 
+     * @param string $related tipo de entidad (clase) relacionada.
+     * @param string $foreignKey clave foránea.
+     * @param string $localKey clave local.
+     * 
+     * @return bool true si existen entidades relacionadas, false en caso contrario.
+     */
+    public function hasAny(
+        string $related,
+        string $foreignKey = null,
+        string $localKey = 'id'
+    ):bool{
+        
+        $table = $related::$table ?? strtolower($related).'s';   // cálculo del nombre de la tabla
+        
+        $foreignKey = $foreignKey ?? 'id'.strtolower(get_called_class());  // cálculo foranea
+        
+        $query = "SELECT COUNT(*) AS total
+                     FROM $table 
+                     WHERE $foreignKey = ".$this->$localKey; // consulta
+        
+        $result =  (DB_CLASS)::select($query);
+        
+        return $result->total;
     }
     
     
@@ -533,7 +567,7 @@ abstract class Model{
      * @param string $foreignKey nombre de la clave foránea
      * @param string $ownerKey nombre de la clave primaria en la tabla del lado 1.
      * 
-     * @return object|NULL
+     * @return object|NULL la entidad relacionada en el lado 1. 
      */
     public function belongsTo(
         string $related,
@@ -552,6 +586,37 @@ abstract class Model{
             $entity->parseJsonFields();
         
         return $entity;
+    }
+    
+    
+    
+    /**
+     * Indica si una entidad que participa en una relación en el lado N está
+     * relacionada con otra entidad en el lado 1.
+     * 
+     * @param string $related tipo de entidad (clase) relacionada.
+     * @param string $foreignKey nombre de la clave foránea
+     * @param string $ownerKey nombre de la clave primaria en la tabla del lado 1.
+     * 
+     * @return bool true si la entidad está vinculada a otra, false en caso contrario.
+     */
+    public function belongsToAny(
+        string $related,
+        string $foreignKey = null,
+        string $ownerKey = 'id'
+        ):bool{
+            
+            $table = $related::$table ?? strtolower($related).'s';   // cálculo del nombre de la tabla
+            
+            $foreignKey = $foreignKey ?? 'id'.strtolower($related);  // cálculo  foranea
+            
+            $query="SELECT COUNT(*) AS total
+                       FROM $table 
+                       WHERE $ownerKey = ".$this->$foreignKey;
+            
+            $result = (DB_CLASS)::select($query);
+            
+            return $result->total;
     }
     
     

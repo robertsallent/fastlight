@@ -32,8 +32,6 @@ class Api implements Kernel{
      */
     public function boot(Request $request){
         try{     
-            
-            session_start();  // inicia el trabajo con sesiones
             Login::init();    // detección del usuario identificado
             
             // DISPATCHER: evalúa las peticiones y redirige al controlador adecuado.

@@ -32,7 +32,7 @@
     		
     				<div style="margin: 10px;">
             			<label for="email">email:</label>
-            			<input type="email" name="user" id="email" required>
+            			<input type="email" name="user" id="email" value="<?= old('user') ?>" required>
             			<br>
             			<label for="password">Password:</label>
             			<input type="password" name="password" id="password" required>

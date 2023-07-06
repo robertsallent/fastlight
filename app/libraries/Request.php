@@ -21,7 +21,8 @@ class Request{
     /** @var string|null $csrfToken token CSRF que llega con la petición. */
     public ?string $csrfToken;
     
-    
+    /** @var $oldInputs inputs de la petición anterior, útil para los old values en los formularios. */
+    public array $oldInputs = [];
     
     /**
      * Constructor de Request.
@@ -32,10 +33,14 @@ class Request{
         $this->url  = $_SERVER['REQUEST_URI'];  // mete la URL en la request
         $this->csrfToken = apache_request_headers()['csrf_token'] ?? null;  // token CSRF que llega en los headers
         
+        // recupera los inputs de la petición anterior.
+        $this->oldInputs = $_SESSION['flashed_input'] ?? [];
+        
+        // flashea los inputs de la nueva petición.
+        $_SESSION['flashed_input'] = $this->all();   
     }
     
-    
-    
+       
     /**
      * Método estático para crea un nuevo objeto de tipo Request.
      * 
@@ -201,8 +206,7 @@ class Request{
             return NULL;
         }
     }
-    
-
+        
     
     /**
      * Recupera los datos en el body de la petición. Los datos no son

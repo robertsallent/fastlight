@@ -17,7 +17,6 @@
 */
 
 
-
 /**
  * Función para volcar el contenido de variables sobre el documento.
  * Útil para depuración.
@@ -51,7 +50,6 @@ function dd($thing, string $message = 'Se detuvo la ejecución.'){
 */
 
 
-
 /**
  * Convierte un array en string para ser mostrado en vistas o mensajes.
  * 
@@ -69,9 +67,14 @@ function arrayToString(
 ):string{
     $texto = '';
     
-    foreach($lista as $clave => $valor)
-        $texto .= $associative ? "$clave => $valor, " : "$valor, ";
+    foreach($lista as $clave => $valor){
         
+        if(gettype($valor)=='array')
+            $valor = arrayToString($valor);
+        
+        $texto .= $associative ? "$clave => $valor, " : "$valor, ";
+    }
+    
     return $brackets ? '[ '.rtrim($texto, ', ').' ]' : rtrim($texto, ', ');
 }
 
@@ -139,5 +142,21 @@ function view(
 }   
 
 
+/*
+ |--------------------------------------------------------------------------
+ | FORMULARIOS
+ |--------------------------------------------------------------------------
+ */
 
+/**
+ * Recupera los valores de los inputs flasheados en sesión (de la petición anterior).
+ * 
+ * @param string $inputName nombre del input a recuperar.
+ * 
+ * @return string valor del input recuperado.
+ */
+function old(string $inputName):string{
+    global $request;
+    return $request->oldInputs[$inputName] ?? '';
+}
 

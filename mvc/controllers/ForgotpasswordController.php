@@ -35,7 +35,7 @@ class ForgotpasswordController extends Controller{
        
        if(!$user){
             Session::error("Los datos no son válidos.");
-            redirect('/Login');
+            redirect('/Forgotpassword');
        }
        
        $password = uniqid();                // genera el nuevo password
