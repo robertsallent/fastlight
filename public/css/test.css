@@ -90,6 +90,7 @@ header.primary h1{
 }
 
 footer.primary{
+	margin-top: 20px;
 	text-align: right;
 	padding: 20px;
 }
@@ -113,3 +114,99 @@ header.primary, footer.primary{
 }
 
 	
+	
+/* formularios */
+form{
+	padding: 20px;
+	margin: 5px auto;
+	border: dashed 3px #ddd;
+	display: inline-block;
+}
+
+label{
+  display: inline-block;
+  min-width: 100px; 
+  margin: 12px 10px;
+  font-style: italic;
+}
+
+input, select, textarea{
+	padding: 6px 10px;
+}
+
+textarea{
+	vertical-align: text-top;
+	resize: none;
+	min-width: 300px;
+	min-height: 200px;
+}
+
+/* botones */
+.button, a{
+	font-size: 1rem;
+}
+
+.button{
+	color: white;
+	border: solid 2px rgb(40, 80, 140);
+	padding: 6px 20px;
+	margin: 6px;
+	border-radius: 5px;
+	background-color: rgb(60, 100, 160);
+	white-space: nowrap;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.button:hover{
+	background-color: rgb(100, 140, 200);
+}
+
+.buttonLight{
+	color: white;
+	border: solid 2px rgb(80, 120, 180);
+	padding: 4px 12px;
+	border-radius: 5px;
+	background-color: rgb(120, 170, 220);
+	display: inline-block;
+	cursor: pointer;
+}
+
+.buttonLight:hover{
+	background-color: rgb(100, 140, 200);
+}
+	
+	
+p.end{
+	text-align: center;
+	font-weight: bold;
+	max-width: 80%;
+	padding: 15px;
+	margin: 30px auto;
+	background-color: #faa;
+	color: #900;
+	border-radius: 5px;
+}	
+
+
+h1:first-letter, h2:first-letter, h3:first-letter{
+	text-transform: uppercase;
+}
+
+ul{
+	margin: 1.5rem;
+	column-count: 3;
+}
+ul li a{
+	color: #aaf;
+}
+
+ul li{
+	margin-left: 20px;
+	padding: 5px;
+}
+
+div.inicio{
+	text-align: center;
+}
+

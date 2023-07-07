@@ -4,12 +4,12 @@
  *
  * Controlador frontal para el desarrollo de Apis Restful
  *
- * Última revisión: 05/07/2023
+ * Última revisión: 06/07/2023
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  */
 
-class Api implements Kernel{
+class Api extends Kernel{
     
     /** @var string $formato formato de trabajo para la petición/respuesta (XML, JSON...) */
     private string $formato = 'PLAINTEXT';
@@ -30,13 +30,11 @@ class Api implements Kernel{
      * @throws ApiException si se produce algún error.
      * @throws NotFoundException si no existe la operación indicada
      */
-    public function boot(Request $request){
+    public function boot(){
         try{     
-            Login::init();    // detección del usuario identificado
-            
             // DISPATCHER: evalúa las peticiones y redirige al controlador adecuado.
             // /xml/libro/3 se convierte en ['xml','libro','3']
-            $this->url = $request->get('url') ?? '';
+            $this->url = self::$request->get('url') ?? '';
             $url = explode('/', rtrim($this->url, '/'));
             
             // El controlador a usar será combinación de la primera y segunda 
@@ -59,10 +57,10 @@ class Api implements Kernel{
                 throw new ApiException("No existe ENDPOINT para $this->entidad en $this->formato.");
             
             // crea una instancia del controlador correspondiente y le pasa la Request
-            $controlador = new $c($request);
+            $controlador = new $c(self::$request);
             
             // analiza el método HTTP (será el método a invocar en el controlador)
-            $this->metodo   = strtoupper($request->method());
+            $this->metodo   = strtoupper(self::$request->method());
             $metodo         = strtolower($this->metodo); 
                            
             // comprueba si ese controlador tiene ese método y es llamable (visible) 

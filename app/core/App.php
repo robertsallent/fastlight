@@ -12,14 +12,14 @@
  * Además trata los errores que se puedan producir, redirigiendo hacia la página de error y registrando
  * los mensajes en LOG y BDD (según lo configurado en el fichero config.php).
  *
- * Última revisión: 05/07/2023
+ * Última revisión: 06/07/2023
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
  * @since v0.9.1 se ha cambiado el nombre de FrontController a App.
  */
  
-class App implements Kernel{
+class App extends Kernel{
     
     /**
      * Método principal del controlador frontal.
@@ -27,16 +27,12 @@ class App implements Kernel{
      * @throws NotFoundException en caso de no encontrar el controlador o método asociados a 
      * la operación solicitada.
      */
-    public function boot(Request $request){
+    public function boot(){
         try{
-      
-            Login::init();      // detección del usuario identificado
-
-            
-            // DISPATCHER (evalúa las peticiones y redirige al controlador adecuado)
+            // DISPATCHER: evalúa las peticiones y redirige al controlador adecuado
             // mira la url que llega por el parámetro url y la descompone en un array
             // por ejemplo: /libro/show/3 se convierte en ['libro','show','3']
-            $url = $request->get('url') ?? '';
+            $url = self::$request->get('url') ?? '';
             $url = explode('/', rtrim($url, '/'));
             
             // recupera el controlador a usar (primera posición del array)
@@ -54,7 +50,7 @@ class App implements Kernel{
                 strtolower(array_shift($url));
                         
             // crea una instancia del controlador correspondiente y le pasa la Request.
-            $controlador = new $c($request);
+            $controlador = new $c(self::$request);
             
             // comprueba si ese controlador tiene ese método y es llamable (visible) 
             if(!is_callable([$controlador, $m]))
@@ -99,7 +95,7 @@ class App implements Kernel{
             if(get_class($error) != 'NotIdentifiedException') 
                 view('error', ['mensaje' => $mensaje]);  // carga la vista de error
             else{
-                Session::flash('pending_operation', '/'.$request->get('url'));
+                Session::flash('pending_operation', '/'.self::$request->get('url'));
                 redirect('/Login');
             }
         } 

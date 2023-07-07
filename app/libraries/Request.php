@@ -4,13 +4,14 @@
  * 
  * Permitirá acceder a los datos de la petición fácilmente desde los controladores.
  * 
- * Última mofidicación: 05/07/2023.
+ * Última mofidicación: 07/07/2023.
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.6.5
  */
 
 class Request{
+    
     
     /** @var Authenticable|null $user usuario identificado en la aplicación */
     public ?Authenticable $user;
@@ -21,8 +22,13 @@ class Request{
     /** @var string|null $csrfToken token CSRF que llega con la petición. */
     public ?string $csrfToken;
     
-    /** @var $oldInputs inputs de la petición anterior, útil para los old values en los formularios. */
+    /** @var $oldInputs inputs de la petición anterior, útil para recuperar los 
+     *  valores de la petición anterior en los formularios y evitar que se borren cuando
+     *  se produce un error. 
+     *  Se debe usar el helper old() en las vistas para recuperar los valores. */
     public array $oldInputs = [];
+    
+    
     
     /**
      * Constructor de Request.
@@ -36,11 +42,12 @@ class Request{
         // recupera los inputs de la petición anterior.
         $this->oldInputs = $_SESSION['flashed_input'] ?? [];
         
-        // flashea los inputs de la nueva petición.
-        $_SESSION['flashed_input'] = $this->all();   
+        // flashea los inputs de la nueva petición que llegan por POST desde un formulario.
+        $_SESSION['flashed_input'] = self::posts();   
     }
     
        
+    
     /**
      * Método estático para crea un nuevo objeto de tipo Request.
      * 
@@ -48,6 +55,17 @@ class Request{
      */
     public static function create(){
         return new self();
+    }
+    
+    
+    
+    /**
+     * Recupera la request.
+     * 
+     * @return Request
+     */
+    public static function take():Request{
+        return Kernel::getRequest();
     }
     
     
@@ -176,6 +194,23 @@ class Request{
     
     
     /**
+     * Retorna un array con todas las entradas de $_GET saneadas.
+     *
+     * @return array un array asociativo con las mismas claves que la
+     * variable superglobal $_GET y los valores saneados
+     */
+    public static function gets():array{
+        $all = [];
+        
+        foreach($_GET as $property => $value)
+            $all[$property] =  (DB_CLASS)::escape($value);
+            
+        return $all;
+    }
+    
+    
+    
+    /**
      * Retorna un array con todas las entradas de $_COOKIE saneadas.
      *
      * @return array un array asociativo con las mismas claves que la
@@ -207,6 +242,7 @@ class Request{
         }
     }
         
+    
     
     /**
      * Recupera los datos en el body de la petición. Los datos no son

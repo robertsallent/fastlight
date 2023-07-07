@@ -3,7 +3,6 @@
     echo "<h1>Test de autenticación</h1>";
     echo "<h2>Métodos de Authenticable</h2>";
     
-    
     // identifica mediante email (probad con admin y con biblio)  
     echo "<h3>Identificación email correcta</h3>";
     $user = User::authenticate('admin@fastlight.com', md5('1234'));

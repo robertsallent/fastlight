@@ -55,7 +55,7 @@ define('TEMPLATE', 'Template');
  * TESTS
  * -------------------------------------------------------------*/
     
-define('TEST_FOLDER', '../tests');          // Carpeta para los test.
+define('TEST_FOLDER', '../test');          // Carpeta para los test.
 define('BEAUTIFUL_TEST', true);             // ¿Usar template en los tests?
 define('TEST_TEMPLATE', 'TestTemplate');    // Ubicación del template para los tests.
 

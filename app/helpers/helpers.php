@@ -156,7 +156,6 @@ function view(
  * @return string valor del input recuperado.
  */
 function old(string $inputName):string{
-    global $request;
-    return $request->oldInputs[$inputName] ?? '';
+    return Request::take()->oldInputs[$inputName] ?? '';
 }
 

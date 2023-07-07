@@ -291,12 +291,9 @@ abstract class Model{
                        WHERE $filtro->field LIKE '%$filtro->text%'
                        ORDER BY $filtro->orderField $filtro->order ";
         
-        $entities = ((DB_CLASS)::select($consulta))->total;
-        
-        foreach($entities as $entity)
-            $entity->parseJsonFields();
+        $total = ((DB_CLASS)::select($consulta))->total;
             
-        return $entities;
+        return $total;
     }
     
     
