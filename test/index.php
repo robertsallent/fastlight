@@ -1,8 +1,11 @@
 
 	<h1>Listado de tests</h1>
 	
-	<p>Aquí se muestra el listado de tests disponibles en la carpeta test. puedes lanzar
-	cada uno de los test haciendo clic sobre el nombre del fichero.</p>
+	<p>Aquí se muestra el listado de <b>tests</b> disponibles en la carpeta <i>test</i> y que se pueden
+	lanzar haciendo clic sobre el nombre del fichero. Esta sección solamente <b>existe por 
+	motivos docentes</b>, no se incluye en los proyectos reales.</p>
+	
+	<p>El aspecto es diferente, usa el template TestTemplate.</p>
 	
 	<h2>Tests disponibles:</h2>
 	

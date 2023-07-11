@@ -7,7 +7,7 @@
  |
  | Funciones helper para realizar tareas habituales.
  |
- | Última revisión: 31/03/2023
+ | Última revisión: 11/07/2023
  | @author Robert Sallent <robertsallent@gmail.com>
  |
  |
@@ -23,9 +23,12 @@
  * 
  * @param mixed $thing variable a mostrar.
  */
-function dump($thing){
+function dump(...$things){
     echo "<pre>";
-    var_dump($thing);
+    
+    foreach($things as $thing)
+        var_dump($thing);
+    
     echo "</pre>";
 }
 
@@ -150,12 +153,14 @@ function view(
 
 /**
  * Recupera los valores de los inputs flasheados en sesión (de la petición anterior).
+ * Solamente los retorna si estamos en la misma URL, para evitar cruzar inputs
+ * entre formularios en distintas URLs.
  * 
  * @param string $inputName nombre del input a recuperar.
  * 
  * @return string valor del input recuperado.
  */
 function old(string $inputName):string{
-    return Request::take()->oldInputs[$inputName] ?? '';
+    return Request::take()->previousInputs[$inputName] ?? '';
 }
 

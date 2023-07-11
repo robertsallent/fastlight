@@ -15,9 +15,9 @@ class TestTemplate extends Template{
      * 
      * @param string $file nombre del fichero de test cargado.
      * 
-     * @return string inicio del documento de test.
+     * @return string parte superior del documento de test.
      */
-    public static function start(string $file = ''):string{
+    public static function top(string $file = ''):string{
         
         return "
         <!DOCTYPE html>
@@ -35,14 +35,27 @@ class TestTemplate extends Template{
     
     /**
      * Retorna la parte inferior de las vistas de test.
-     * 
+     *
      * @return string fin del fichero de test.
      */
-    public static function end(){
+    public static function end(string $file=''){
+        return "
+            <p class='end'>Fin del test $file</p>
+        	<div class='inicio'>
+                <a class='button' href='/test'>Lista de tests.</a>
+            </div>";
+    }
+    
+    
+    
+    /**
+     * Retorna la parte inferior de las vistas de test.
+     * 
+     * @return string parte inferior.
+     */
+    public static function bottom(){
         
-        return "<div class='inicio'>
-                    <a class='button' href='/test'>Lista de tests.</a>
-                </div>".self::getFooter()."</body></html>";
+        return self::getFooter()."</body></html>";
 
     }  
 }

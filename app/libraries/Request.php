@@ -4,10 +4,11 @@
  * 
  * Permitirá acceder a los datos de la petición fácilmente desde los controladores.
  * 
- * Última mofidicación: 07/07/2023.
+ * Última modificación: 11/07/2023.
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.6.5
+ * @since v0.9.4 añadida propiedad $previousUrl y método sameAsPrevious()
  */
 
 class Request{
@@ -19,14 +20,17 @@ class Request{
     /** @var string|null $url url indicada en la petición http. */
     public ?string $url;
     
+    /** @var string|null $previousUrl url de la petición anterior. */
+    public ?string $previousUrl;
+    
     /** @var string|null $csrfToken token CSRF que llega con la petición. */
     public ?string $csrfToken;
     
-    /** @var $oldInputs inputs de la petición anterior, útil para recuperar los 
+    /** @var $previousInputs inputs de la petición anterior, útil para recuperar los 
      *  valores de la petición anterior en los formularios y evitar que se borren cuando
      *  se produce un error. 
      *  Se debe usar el helper old() en las vistas para recuperar los valores. */
-    public array $oldInputs = [];
+    public array $previousInputs = [];
     
     
     
@@ -40,13 +44,31 @@ class Request{
         $this->csrfToken = apache_request_headers()['csrf_token'] ?? null;  // token CSRF que llega en los headers
         
         // recupera los inputs de la petición anterior.
-        $this->oldInputs = $_SESSION['flashed_input'] ?? [];
+        $this->previousInputs = Session::get('flashed_input') ?? [];
         
-        // flashea los inputs de la nueva petición que llegan por POST desde un formulario.
-        $_SESSION['flashed_input'] = self::posts();   
+        // recupera la URL de la petición anterior.
+        $this->previousUrl = Session::get('previousUrl');
+        
+        // Guarda en sesión los inputs de la nueva petición que llegan por POST desde un formulario.
+        // En la próxima petición podrán ser recuperados mediante el helper old().
+        Session::set('flashed_input', self::posts()); 
+        
+        // guarda en sesión la URL actual (para tenerlo en la próxima petición)
+        Session::set('previousUrl', $this->url);
     }
     
-       
+    
+    
+    /**
+     * Retorna si estamos realizando la misma petición (refresh).
+     * 
+     * @return boolean true si la petición actual es a la misma ruta que la anterior.
+     */  
+    public function sameAsPrevious(){
+        return $this->url == $this->previousUrl;
+    }
+    
+    
     
     /**
      * Método estático para crea un nuevo objeto de tipo Request.

@@ -18,4 +18,11 @@
     echo "<h3>request->all()</h3>";
     echo "<p>URL: /test/request?id=10&texto=hola</p>";
     dump($request->all());
+ ?>   
+    
+    <h2>Rutas</h2>
+    <p>Previa:<?= $request->previousUrl ?></p>
+<p>Actual:<?= $request->url ?></p>
+
+    
     

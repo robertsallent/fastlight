@@ -180,8 +180,7 @@ textarea{
 p.end{
 	text-align: center;
 	font-weight: bold;
-	max-width: 80%;
-	padding: 15px;
+	padding: 10px;
 	margin: 30px auto;
 	background-color: #faa;
 	color: #900;
@@ -198,7 +197,7 @@ ul{
 	column-count: 3;
 }
 ul li a{
-	color: #aaf;
+	color: #99d;
 }
 
 ul li{

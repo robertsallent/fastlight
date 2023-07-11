@@ -2,16 +2,13 @@
     <h1>Test de la clase Login</h1>
     
     <h2>Haciendo logout</h2>
-    
     <p>El método Login::clear() expulsa el usuario identificado y limpia por completo la sesión.</p>
-    
     <?php  Login::clear() ?>
     
     <p>Comprobaciones con guest(), check() e isAdmin():</p>
-    
     <?php     
-        echo Login::guest() ? "Nadie identificado<br>" : "Alguien identificado<br>";  // nadie
-        echo Login::check() ? "Alguien identificado<br>" : "Nadie identificado<br>";  // nadie
+        echo Login::guest() ? "Nadie<br>" : "Alguien<br>";  // nadie
+        echo Login::check() ? "Alguien<br>" : "Nadie<br>";  // nadie
         echo Login::isAdmin() ? "Administrador<br>" : "No administrador<br>";  // NO
     ?> 
       
@@ -24,11 +21,10 @@
         Login::set($user);      // hace Login
     ?>
     
-    
     <p>Comprobaciones con guest(), check() e isAdmin():</p>
     <?php 
-        echo Login::guest() ? "Nadie identificado<br>" : "Alguien identificado<br>";  // alguien
-        echo Login::check() ? "Alguien identificado<br>" : "Nadie identificado<br>";  // alguien
+        echo Login::guest() ? "Nadie<br>" : "Alguien<br>";  // alguien
+        echo Login::check() ? "Alguien<br>" : "Nadie<br>";  // alguien
         echo Login::isAdmin() ? "Administrador<br>" : "No administrador<br>";  // Administrador
     ?>   
      
@@ -42,15 +38,16 @@
     
     <p>Comprobaciones con guest(), check() e isAdmin():</p>
     <?php 
-        echo Login::guest() ? "Nadie identificado<br>" : "Alguien identificado<br>";  // alguien
-        echo Login::check() ? "Alguien identificado<br>" : "Nadie identificado<br>";  // alguien
+        echo Login::guest() ? "Nadie<br>" : "Alguien<br>";  // alguien
+        echo Login::check() ? "Alguien<br>" : "Nadie<br>";  // alguien
         echo Login::isAdmin() ? "Administrador<br>" : "No administrador<br>";  // Administrador
      ?> 
      
     <h2>Limpiando...</h2> 
     <p>Finalmente haremos logout con Login::clear().</p>
+    
     <?php  Login::clear() ?> 
-    <p class='end'>Fin del test</p>
-
+    
+    
     
     

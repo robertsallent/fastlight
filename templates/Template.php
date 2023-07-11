@@ -97,11 +97,17 @@ class Template implements TemplateInterface{
         $html  = "<ul class='navBar'>";
         $html .=   "<li><a href='/'>Inicio</a></li>";
         
+        // enlace a la gestión de errores (solamente administrador)
         if(Login::isAdmin() && (DB_ERRORS || LOG_ERRORS || LOG_LOGIN_ERRORS))
             $html .=   "<li><a href='/Error/list'>Errores</a></li>";
         
-        $html .=   "<li><a href='/'>Foo</a></li>";
-        $html .=   "<li><a href='/'>Bar</a></li>";
+        // enlace a los tests de ejemplo (solamente administrador)    
+        if(Login::isAdmin() && (DEBUG))
+            $html .=   "<li><a href='/test'>Lista de test</a></li>";
+    
+        // entrada adicional de ejemplo:
+        $html .=   "<li><a href='/'>TODO</a></li>";
+        
         $html .= "</ul>";
 
         return $html;

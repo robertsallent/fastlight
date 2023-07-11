@@ -45,12 +45,12 @@ class ForgotpasswordController extends Controller{
             $user->update();    // actualiza el user
             
             // prepara el email
-            $to = $user->email;
-            $from = "passwordrecovery@fastlight.com";
-            $name = "Sistema de generación de claves";
-            $subject = "Aquí tienes tu nueva clave de acceso";
-            $message = "Tu nueva clave es: <b>$password</b>, recuerda que 
-                        la debes cambiar lo antes posible.";
+            $to       = $user->email;
+            $from     = "passwordrecovery@fastlight.com";
+            $name     = "Sistema de generación de claves";
+            $subject  = "Aquí tienes tu nueva clave de acceso";
+            $message  = "Tu nueva clave es: <b>$password</b>, recuerda que 
+                         la debes cambiar lo antes posible.";
             
             // envía el email
             (new Email($to, $from, $name, $subject, $message))->send();

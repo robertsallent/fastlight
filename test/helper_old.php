@@ -4,18 +4,16 @@
 El helper old() se encarga de rellenar los campos de 
 formulario con los valores de la petición anterior flasheados en sesión.
 </p>
-	
-<p>
-	Tras enviar el formulario se realizará una redirección, pero 
-	verás que los valores se mantienen.
-</p>
 
+<?php 
+    $request = Request::take();
+?>
 
 <h2>Old Inputs en la Request</h2>
 <p>Inputs flasheados en sesión y recuperados en la request actual:</p>
 <?php 
-    dump(Request::take()->oldInputs ?? NULL);
 
+    dump($request->previousInputs ?? NULL);
     
     // redireccionando tras el envio del formulario
     if(Request::take()->has('enviar')){
@@ -24,6 +22,11 @@ formulario con los valores de la petición anterior flasheados en sesión.
 ?>
 
 <h2>Formulario que recuerda los valores antiguos.</h2>
+
+<p>
+	Tras enviar el formulario se realizará una redirección, pero 
+	verás que los valores se mantienen.
+</p>
 
 <form method="POST">
 	<label>Nombre:</label>
@@ -37,5 +40,9 @@ formulario con los valores de la petición anterior flasheados en sesión.
 	<br>
 	<input type="submit" name="enviar" value="Enviar" class="button">
 </form>
+
+<h2>Dump completo de la Request</h2>
+<?php dump($request); ?>
+
 
 

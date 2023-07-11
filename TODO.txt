@@ -1,7 +1,7 @@
 FASTLIGHT - TODO LIST
 
 Autor: Robert Sallent
-Última revisión: 05/07/23
+Última revisión: 07/07/23
 
 -------------------------------------------------------------------------------------------------------------
 Para implementar en futuras versiones:
@@ -12,6 +12,7 @@ Para implementar en futuras versiones:
 
 - LIBRARIES
 	- Añadir el código HTTP a las redirecciones y errores.
+	- Añadir el manyToMany a Model.
 	
 - API
 	- implementar mecanismo de API Keys	

@@ -35,14 +35,18 @@ class TestController extends Controller{
           
        // Usa el template de test para que el resultado se vea "bonito" 
        if(BEAUTIFUL_TEST) 
-           echo (TEST_TEMPLATE)::start($method);
+           echo (TEST_TEMPLATE)::top($method);
         
        // va a buscar el test solicitado a la carpeta test
        @require TEST_FOLDER."/".str_replace('-','/', $method).".php";
        
+       
        // Usa el template de test para que el resultado se vea "bonito"
-       if(BEAUTIFUL_TEST)
-           echo (TEST_TEMPLATE)::end(); 
+       if(BEAUTIFUL_TEST){
+           if($method != 'index')
+               echo (TEST_TEMPLATE)::end($method);
+           echo (TEST_TEMPLATE)::bottom();
+       }
     }
     
 }
