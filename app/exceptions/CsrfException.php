@@ -14,12 +14,11 @@ class CsrfException extends Exception{
     
     public function __construct(
         string $message = 'Page Expired', 
-        string $responseMessage = 'Page Expired', 
         int $code = 419, 
         Throwable $previous = NULL
     ){
         parent::__construct($message, $code, $previous);
-        header("HTTP/1.1 $code $responseMessage");
+        header("HTTP/1.1 $code $message");
     }   
     
 }

@@ -14,12 +14,11 @@ class ValidationException extends Exception{
     
     public function __construct(
         string $message = 'Unprocessable entity',
-        string $responseMessage = 'Unprocessable entity',
         int $code = 422,
         Throwable $previous = NULL
     ){
         parent::__construct($message, $code, $previous);
-        header("HTTP/1.1 $code $responseMessage");
+        header("HTTP/1.1 $code $message");
     }  
     
 }

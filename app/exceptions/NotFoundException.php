@@ -13,12 +13,11 @@ class NotFoundException extends Exception{
     
     public function __construct(
         string $message = 'Not Found', 
-        string $responseMessage = 'Not Found',
         int $code = 404, 
         Throwable $previous = NULL
     ){
         parent::__construct($message, $code, $previous);
-        header("HTTP/1.1 $code $responseMessage");
+        header("HTTP/1.1 $code $message");
     }   
     
 }
