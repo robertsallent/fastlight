@@ -1,10 +1,10 @@
-FASTLIGHT - TODO LIST
-
-Autor: Robert Sallent
-Última revisión: 07/07/23
 
 -------------------------------------------------------------------------------------------------------------
-Para implementar en futuras versiones:
+TODO LIST
+
+Autor: Robert Sallent
+Última revisión: 13/07/23
+
 -------------------------------------------------------------------------------------------------------------
 
 - CORE
@@ -13,12 +13,14 @@ Para implementar en futuras versiones:
 - LIBRARIES
 	- Añadir el código HTTP a las redirecciones y errores.
 	- Añadir el manyToMany a Model.
+	- Métodos owns() e ownedBy() en Model.
+	- Implementar un faker.
 	
 - API
 	- implementar mecanismo de API Keys	
 	
 -------------------------------------------------------------------------------------------------------------
-A evaluar... tal vez no se implemente por motivos docentes y se deja para los cursos de Laravel o Symfony
+ A evaluar... tal vez no se implemente por motivos docentes y se deja para los cursos de Laravel o Symfony
 -------------------------------------------------------------------------------------------------------------
 
 - Hacer uso de PSR4 (autoload con namespaces). 

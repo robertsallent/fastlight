@@ -12,7 +12,7 @@
  * Además trata los errores que se puedan producir, redirigiendo hacia la página de error y registrando
  * los mensajes en LOG y BDD (según lo configurado en el fichero config.php).
  *
- * Última revisión: 06/07/2023
+ * Última revisión: 13/07/2023
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
@@ -32,8 +32,9 @@ class App extends Kernel{
             // DISPATCHER: evalúa las peticiones y redirige al controlador adecuado
             // mira la url que llega por el parámetro url y la descompone en un array
             // por ejemplo: /libro/show/3 se convierte en ['libro','show','3']
-            $url = self::$request->get('url') ?? '';
-            $url = explode('/', rtrim($url, '/'));
+            $url = self::$request->get('url') ?? NULL;
+            $url = $url ? explode('/', rtrim($url, '/')) : [];
+            
             
             // recupera el controlador a usar (primera posición del array)
             // si no existe, el controlador es Welcome (el indicado config.php)
@@ -66,7 +67,15 @@ class App extends Kernel{
                 case 3 : $controlador->$m($url[0], $url[1], $url[2]); break;
             }
 
-        // si se produce algún error...
+            
+        // si es un problema de usuario no identificado
+        }catch(NotIdentifiedException $error){ 
+            
+            // no llevamos al usuario a error sino a login.
+            Session::flash('pending_operation', '/'.self::$request->get('url'));
+            redirect('/Login');
+      
+        // si se produce algún otro tipo de error...
         }catch(Throwable $error){ 
             
             // en modo DEBUG, añade información adicional al mensaje
@@ -89,15 +98,7 @@ class App extends Kernel{
                 }
             }
             
-            
-            // si se produce una excepción de usuario no identificado, no llevamos
-            // al usuario a error sino a login.
-            if(get_class($error) != 'NotIdentifiedException') 
-                view('error', ['mensaje' => $mensaje]);  // carga la vista de error
-            else{
-                Session::flash('pending_operation', '/'.self::$request->get('url'));
-                redirect('/Login');
-            }
+            view('error', ['mensaje' => $mensaje]);  // carga la vista de error
         } 
     }  
 }

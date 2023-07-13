@@ -34,8 +34,8 @@ class Api extends Kernel{
         try{     
             // DISPATCHER: evalúa las peticiones y redirige al controlador adecuado.
             // /xml/libro/3 se convierte en ['xml','libro','3']
-            $this->url = self::$request->get('url') ?? '';
-            $url = explode('/', rtrim($this->url, '/'));
+            $this->url = self::$request->get('url') ?? NULL;
+            $url = $url? explode('/', rtrim($this->url, '/')) : [];
             
             // El controlador a usar será combinación de la primera y segunda 
             // posición de la URL, por ejemplo para xml/libro sería XmlLibroController

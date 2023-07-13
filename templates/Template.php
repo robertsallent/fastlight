@@ -145,45 +145,40 @@ class Template implements TemplateInterface{
     // muestra mensajes de éxito flasheados
     public static function getSuccess(){
         
-            return ($mensaje = Session::getFlash('success')) ?
-            <<<EOT
-            <div class="mensajeExito" onclick="this.remove()">
-            	<div>
-            		<h2>Operación realizada con éxito</h2>
-            		<p>$mensaje</p>
-            		<p class="mini cursiva">-- Clic para cerrar --</p>
-        		</div>
-            </div>
-EOT: '';} 
+        return ($mensaje = Session::getFlash('success')) ?
+        "<div class='mensajeExito' onclick='this.remove()'>
+        	<div>
+        		<h2>Operación realizada con éxito</h2>
+        		<p>$mensaje</p>
+        		<p class='mini cursiva'>-- Clic para cerrar --</p>
+    		</div>
+        </div>": '';} 
 
-        // muestra mensajes de warning flasheados
-        public static function getWarning(){
-                
-                return ($mensaje = Session::getFlash('warning')) ?
-                <<<EOT
-            <div class="mensajeWarning" onclick="this.remove()">
-            	<div>
-            		<h2>Hay advertencias:</h2>
-            		<p>$mensaje</p>
-            		<p class="mini cursiva">-- Clic para cerrar --</p>
-        		</div>
-            </div>
-EOT: '';}
+    // muestra mensajes de warning flasheados
+    public static function getWarning(){
+            
+        return ($mensaje = Session::getFlash('warning')) ?
+        "<div class='mensajeWarning' onclick='this.remove()'>
+        	<div>
+        		<h2>Hay advertencias:</h2>
+        		<p>$mensaje</p>
+        		<p class='mini cursiva'>-- Clic para cerrar --</p>
+    		</div>
+        </div>": '';}
                 
     // muestra mensajes de error flasheados
     public static function getError(){
 
-            return ($mensaje = Session::getFlash('error')) ?
-            <<<EOT
-            <div class="mensajeError" onclick="this.remove()">
-            	<div>
-            		<h2>Se ha producido un error</h2>
-            		<p>$mensaje</p>
-            		<p class="mini cursiva">-- Clic para cerrar --</p>
-        		</div>
-            </div>
-EOT: '';} 
+        return ($mensaje = Session::getFlash('error')) ?
+        "<div class='mensajeError' onclick='this.remove()'>
+        	<div>
+        		<h2>Se ha producido un error</h2>
+        		<p>$mensaje</p>
+        		<p class='mini cursiva'>-- Clic para cerrar --</p>
+    		</div>
+        </div>": '';} 
 	
+        
     // muestra los mensajes de success, error y warning flasheados
     public static function getFlashes(){
         return self::getSuccess().self::getWarning().self::getError();
