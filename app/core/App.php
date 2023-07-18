@@ -72,7 +72,7 @@ class App extends Kernel{
         }catch(NotIdentifiedException $error){ 
             
             // no llevamos al usuario a error sino a login.
-            Session::flash('pending_operation', '/'.self::$request->get('url'));
+            Session::set('_pending_operation', '/'.self::$request->get('url'));
             redirect('/Login');
       
         // si se produce algún otro tipo de error...
@@ -90,7 +90,7 @@ class App extends Kernel{
             // si está activada la opción de guardar errores en BDD
             if(DB_ERRORS){
                 try{
-                    AppError::create(get_class($error), $error->getMessage());
+                    AppError::new(get_class($error), $error->getMessage());
                     
                 }catch(SQLException $e){
                     view('error', ['mensaje' => $e->getMessage()]); 

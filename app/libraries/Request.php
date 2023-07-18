@@ -4,7 +4,7 @@
  * 
  * Permitirá acceder a los datos de la petición fácilmente desde los controladores.
  * 
- * Última modificación: 11/07/2023.
+ * Última modificación: 18/07/2023.
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.6.5
@@ -88,6 +88,30 @@ class Request{
      */
     public static function take():Request{
         return Kernel::getRequest();
+    }
+    
+    
+    
+    /**
+     * Busca una cadena de texto en la url.
+     * 
+     * @param string $url cadena de texto a buscar.
+     * @return bool si la url contiene la cadena de texto buscada.
+     */
+    public function urlHas(string $url):bool{
+        return str_contains($this->url, $url);
+    }
+    
+    
+    
+    /**
+     * Comprueba si una ruta comienza por un texto determinado.
+     * 
+     * @param string $url cadena de texto a buscar al inicio de la ruta.
+     * @return bool true si la url comienza por la cadena de texto indicada.
+     */
+    public function urlBeginsWith(string $url):bool{
+        return strpos($this->url, $url) === 0;
     }
     
     

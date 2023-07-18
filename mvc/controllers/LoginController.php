@@ -4,7 +4,7 @@
  *
  * Gestiona la operación de LogIn
  *
- * Última revisión: 23/03/2023
+ * Última revisión: 18/07/2023
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  */
@@ -42,15 +42,21 @@ class LoginController extends Controller{
                 Log::addMessage(LOGIN_ERRORS_FILE, 'ERROR', "Intento de identificación incorrecto para $user.");
             
             if(DB_LOGIN_ERRORS)
-                AppError::create('Login', "Intento de identificación incorrecto para $user.");
+                AppError::new('Login', "Intento de identificación incorrecto para $user.");
                 
             redirect('/Login');
         }
         
         Login::set($identificado); // vincula el usuario a la sesión
         
+        
+        // toma la operación pendiente (si la hay) y la borra de sesión
+        $pending = Session::get('_pending_operation');
+        Session::forget('_pending_operation');
+        
+        
         // redirección tras Login
-        redirect(Session::getFlash('pending_operation') ?? REDIRECT_AFTER_LOGIN ?? '/');
+        redirect($pending ?? REDIRECT_AFTER_LOGIN ?? '/');
     }
 }
 

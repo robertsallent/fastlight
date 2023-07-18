@@ -22,7 +22,7 @@ class AppError extends Model{
      * @param string $message   mensaje
      * @return void
      */
-    public static function create(
+    public static function new(
         string $level = 'Error', 
         string $message = ''     
     ){

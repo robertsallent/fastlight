@@ -6,7 +6,7 @@
   * Implementa las operaciones de login/logout y también permite hacer comprobaciones
   * sobre los distintos roles de que dispone el usuario identificado. 
   *
-  * Última revisión: 07/07/2023
+  * Última revisión: 18/07/2023
   * 
   * @author Robert Sallent <robertsallent@gmail.com>
   */
@@ -20,9 +20,22 @@ class Login{
 
 
     
-    /** Recupera el usuario desde la variable de sesión. */
+    /** 
+     * Tareas de inicialización del sistema de login
+     * - Recupera el usuario desde la variable de sesión. 
+     * - Borra la operación pendiente. 
+     */
     public static function init(){
+        
+        // recupera el usuario activo de la variable de sesión
         self::$activeUser = Session::get('user') ??  NULL;
+        
+        // Si hay operación pendiente pero no estamos en login, eliminaremos la operación pendiente.
+        // Es para los casos en los que el usuario no identificado no llega a identificarse al solicitar
+        // una URL protegida. Así evitamos que se haga la redirección en una identificación posterior
+        if(Session::has('_pending_operation') && !Request::take()->urlBeginsWith('/Login'))
+            Session::forget('_pending_operation');
+        
     }
 
     

@@ -51,7 +51,7 @@ class JsonLoginController extends Controller{
                 Log::addMessage(LOGIN_ERRORS_FILE, 'API_ERROR', "Intento de identificación API incorrecto para $user.");
                 
             if(DB_LOGIN_ERRORS)
-                AppError::create('API Login', "Intento de identificación API incorrecto para $user.");
+                AppError::new('API Login', "Intento de identificación API incorrecto para $user.");
         
             header("HTTP/1.1 401 Unauthorized");
             

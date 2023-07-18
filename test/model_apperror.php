@@ -4,9 +4,9 @@
 
     // registramos diversos errores de prueba
     echo "<h3>Creando algunos errores de prueba</h3>";
-    AppError::create('NOTICE', 'Esto es un test');
-    AppError::create('DEPRECATED', 'El penúltimo test');
-    AppError::create('WARNING', "Esto '<b>es</b>\'texto\n&nbsp;&gt;&lt;especial.");
+    AppError::new('NOTICE', 'Esto es un test');
+    AppError::new('DEPRECATED', 'El penúltimo test');
+    AppError::new('WARNING', "Esto '<b>es</b>\'texto\n&nbsp;&gt;&lt;especial.");
     
     // recuperamos los errores y los mostramos
     echo "<h3>Recuperando el listado completo de errores</h3>";

@@ -13,11 +13,11 @@
     <?php
         
     $tests = FileList::get(TEST_FOLDER, ['php']);
+    $tests = array_diff($tests, [TEST_FOLDER.'/index.php']);
     
     foreach ($tests as $fichero){
         
         $file = pathinfo($fichero, PATHINFO_FILENAME);
-        
         echo "<li><a href='/test/$file'>$file</a></li>";    
     }
         

@@ -69,6 +69,40 @@ abstract class Model{
     
     
     
+    
+    /**
+     * Permite crear una entidad a partir de un array asociativo y la guarda en BDD. 
+     * Es peligroso si se usa en combinación con alguno de los métodos que recuperan 
+     * los inputs de la Request en un array.
+     * 
+     * Si hacemos User::create($request->posts()) crearemos un usuario a partir de los campos
+     * del formulario de registo que llegan por POST en un solo paso. Sin embargo, nos exponemos a que 
+     * inyecten un campo "roles" con valor "ROLE_ADMIN" y que esa persona que se estaba
+     * registrando se convierta en administrador. 
+     * 
+     * Un uso adecuado, en un controlador, podría ser:
+     * 
+     * Perro::create([
+     *      'nombre' => $this->request->post('nombre'),
+     *      'raza'   => $this->request->post('nombre'),
+     *      'peso'   => floatval($this->request->post('peso'));
+     * ]);
+     * 
+     * @param array $data lista de propiedades de la entidad a modo de array asociativo.
+     * @return int identificador único asignado en la BDD.
+     */
+    public static function create(array $data):int{
+        $class = get_called_class();
+        $entity = new $class();
+        
+        foreach($data as $property => $value)
+            $entity->$property = $value;
+        
+        return $entity->save();
+    }
+    
+    
+    
     /**
      * Recupera todas las entidades y las retorna en un array.
      * 
