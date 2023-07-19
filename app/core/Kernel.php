@@ -16,13 +16,17 @@ abstract class Kernel{
     
     
     /**
-     * Constructor
+     * Constructordel nucleo de la aplicación.
      * 
      * @param Request $request petición realizada a la aplicación.
      */
     public function __construct(Request $request){
+        
+        // guarda el objeto Request en la propiedad estática $request.
         self::$request = $request;  
-        Login::init();              // inicializa el sistema de login
+        
+        // inicializa el sistema de login
+        Login::init();              
     }
     
     

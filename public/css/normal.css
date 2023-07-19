@@ -2,7 +2,7 @@
 	FICHERO CON ESTILO PRINCIPAL DE FASTLIGHT
 	
 	Autor: Robert Sallent
-	Última revisión: 29/06/2023
+	Última revisión: 19/07/2023
 */
 
 
@@ -94,6 +94,7 @@ h1, h2, h3{
 	margin-top: 1rem;
 	margin-bottom: 1.5rem;
 }
+
 
 p{
 	margin-bottom: 1.1rem;

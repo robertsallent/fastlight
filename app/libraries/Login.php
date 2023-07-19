@@ -33,6 +33,7 @@ class Login{
         // Si hay operación pendiente pero no estamos en login, eliminaremos la operación pendiente.
         // Es para los casos en los que el usuario no identificado no llega a identificarse al solicitar
         // una URL protegida. Así evitamos que se haga la redirección en una identificación posterior
+        // TODO: comprobar si esto también funciona correctamente para la API.
         if(Session::has('_pending_operation') && !Request::take()->urlBeginsWith('/Login'))
             Session::forget('_pending_operation');
         

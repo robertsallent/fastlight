@@ -7,7 +7,7 @@
  * Útil para derivar al usuario a la vista de login cuando intenta realizar una 
  * operación que requiere estar identificado.
  *
- * Última revisión: 13/07/2023.
+ * Última revisión: 19/07/2023.
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  */
@@ -27,7 +27,7 @@ class NotIdentifiedException extends Exception{
         Throwable $previous = NULL
     ){
         parent::__construct($message, $code, $previous);
-        header("HTTP/1.1 $code $message");
+        header($_SERVER['SERVER_PROTOCOL']." $code $message");
     }   
     
 }

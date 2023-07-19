@@ -4,7 +4,7 @@
  *
  * Para distinguir las excepciones de recurso no encontrado.
  *
- * Última revisión: 13/07/2023.
+ * Última revisión: 19/07/2023.
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  */
@@ -24,7 +24,7 @@ class NotFoundException extends Exception{
         Throwable $previous = NULL
     ){
         parent::__construct($message, $code, $previous);
-        header("HTTP/1.1 $code $message");
+        header($_SERVER['SERVER_PROTOCOL']." $code $message");
     }   
     
 }

@@ -12,7 +12,7 @@
 class Template implements TemplateInterface{
     
     // ficheros CSS para usar con este template
-    protected static array $css = ['/css/style.css'];
+    protected static array $css = ['/css/normal.css'];
     
     /*****************************************************************************
      * CSS

@@ -4,7 +4,7 @@
  *
  * Para distinguir las excepciones de token CSRF
  *
- * Última revisión: 05/04/2023
+ * Última revisión: 19/07/2023
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.7.3
@@ -18,7 +18,7 @@ class CsrfException extends Exception{
         Throwable $previous = NULL
     ){
         parent::__construct($message, $code, $previous);
-        header("HTTP/1.1 $code $message");
+        header($_SERVER['SERVER_PROTOCOL']." $code $message");
     }   
     
 }

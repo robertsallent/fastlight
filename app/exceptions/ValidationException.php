@@ -5,7 +5,7 @@
   * Para distinguir las excepciones producidas en los procesos
   * de validación de datos.
   *
-  * Última revisión: 05/04/2023.
+  * Última revisión: 19/07/2023.
   * 
   * @author Robert Sallent <robertsallent@gmail.com>
   */
@@ -18,7 +18,7 @@ class ValidationException extends Exception{
         Throwable $previous = NULL
     ){
         parent::__construct($message, $code, $previous);
-        header("HTTP/1.1 $code $message");
+        header($_SERVER['SERVER_PROTOCOL']." $code $message");
     }  
     
 }

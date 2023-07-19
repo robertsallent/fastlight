@@ -41,3 +41,21 @@
 
 .mini{ font-size: 0.8rem; }
 .maxi{ font-size: 1.2rem; }
+
+
+
+/* Para las vistas de error HTTP */
+
+h2.http-code{
+	font-size: 5.5rem;
+	text-align: center;
+	margin: 5px auto;
+}
+
+div.http-error{
+	width: 80%;
+	margin: auto;
+	padding: 5px 10px 40px 10px;
+	text-align: center;
+	font-size: 2rem;
+}

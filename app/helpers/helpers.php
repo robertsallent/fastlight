@@ -7,7 +7,7 @@
  |
  | Funciones helper para realizar tareas habituales.
  |
- | Última revisión: 11/07/2023
+ | Última revisión: 18/07/2023
  | @author Robert Sallent <robertsallent@gmail.com>
  |
  |
@@ -107,6 +107,29 @@ function redirect(
 }
 
 
+
+/**
+ * Aborta la operación y retorna una respuesta de error, cargando
+ * la vista personalizada si existe.
+ * 
+ * @param int $code código HTTP del error.
+ * @param string $message mensaje para mostrar.
+ * 
+ * @throws ViewException si no encuentra la vista.
+ * 
+ */
+function abort(int $code, string $message = ''){
+    header($_SERVER['SERVER_PROTOCOL']." $code", true, $code);
+    
+    if(viewExists("http_errors/$code"))
+        view("http_errors/$code", ['message' => $message]);
+    else
+        throw new ViewException("La vista para el error $code no existe.");
+    
+    die();
+}
+
+
 /*
  |--------------------------------------------------------------------------
  | VISTAS
@@ -121,10 +144,7 @@ function redirect(
  * 
  * @throws ViewException en caso de que algo falle.
  */
-function view(
-    string $name,           // nombre del fichero (sin extensión)
-    array $parameters = []  // array asociativo de parámetros para la vista
-){
+function view(string $name, array $parameters = []){
     
     // crea las variables a partir de las claves del array en este ámbito
     foreach($parameters as $variable => $valor)
@@ -132,7 +152,7 @@ function view(
         
     // carga la vista indicada desde el directorio de vistas
     try{
-        require VIEWS_FOLDER."/$name.php";
+        @require VIEWS_FOLDER."/$name.php";
         
     }catch(Throwable $e){
         $message = DEBUG ?
@@ -143,6 +163,18 @@ function view(
         throw new ViewException($message);
     }
 }   
+
+
+/**
+ * Comprueba si una vista existe y es legible.
+ * 
+ * @param string $name nombre de la vista.
+ * 
+ * @return bool true si la vista existe y es legible, false en caso contrario.
+ */
+function viewExists(string $name):bool{
+    return is_readable(VIEWS_FOLDER."/$name.php");
+}
 
 
 /*
@@ -163,4 +195,9 @@ function view(
 function old(string $inputName):string{
     return Request::take()->previousInputs[$inputName] ?? '';
 }
+
+
+
+
+
 
