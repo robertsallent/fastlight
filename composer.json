@@ -4,9 +4,9 @@
 	"name" : "robertsallent/fastlight",
 	"description" : "Fast and light framework for PHP web applications",
 	"require" : {
-		"php" : ">=8.0"
+		"php" : ">=8.1"
 	},
-	"homepage" : "http://robertsallent.com",
+	"homepage" : "http://fastlight.robertsallent.com",
 	"authors" : [{
 			"name" : "Robert Sallent",
 			"email" : "robert@juegayestudia.com",

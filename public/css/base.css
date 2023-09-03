@@ -59,3 +59,17 @@ div.http-error{
 	text-align: center;
 	font-size: 2rem;
 }
+
+
+/* para las figuras e imágenes */
+
+figure.centrada{
+	margin: auto;
+	text-align: center;
+}
+
+figcaption{
+	font-size: 0.8rem;
+	font-style: italic;
+}
+

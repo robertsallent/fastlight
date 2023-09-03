@@ -4,7 +4,7 @@
  *
  * Controlador frontal para el desarrollo de Apis Restful
  *
- * Última revisión: 06/07/2023
+ * Última revisión: 03/09/2023
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  */
@@ -34,8 +34,8 @@ class Api extends Kernel{
         try{     
             // DISPATCHER: evalúa las peticiones y redirige al controlador adecuado.
             // /xml/libro/3 se convierte en ['xml','libro','3']
-            $this->url = self::$request->get('url') ?? NULL;
-            $url = $url? explode('/', rtrim($this->url, '/')) : [];
+            $this->url = self::$request->get('url') ?? '';
+            $url = $this->url ? explode('/', rtrim($this->url, '/')) : [];
             
             // El controlador a usar será combinación de la primera y segunda 
             // posición de la URL, por ejemplo para xml/libro sería XmlLibroController
@@ -53,7 +53,7 @@ class Api extends Kernel{
             $c =  $this->formato.$this->entidad.'Controller';
              
             // comprueba que el controlador XmlLibroController (por ejemplo) existe
-            if(!is_readable("../controllers/$c.php"))
+            if(!is_readable("../mvc/controllers/$c.php"))
                 throw new ApiException("No existe ENDPOINT para $this->entidad en $this->formato.");
             
             // crea una instancia del controlador correspondiente y le pasa la Request
@@ -84,6 +84,9 @@ class Api extends Kernel{
             // miramos si la petición fue XML o JSON para enviar errores en formato correcto
             // si queremos permitir más formatos, los tendremos que añadir.
             switch(strtoupper($this->formato)){
+                
+                
+                // si la operación era XML
                 case 'XML':  header('Content-type:text/xml; charset=utf-8');
                              $respuesta = "<respuesta>\n
                                             \t<status>ERROR</status>\n
@@ -100,22 +103,27 @@ class Api extends Kernel{
                              echo $respuesta;
                              break;
                 
-                case 'JSON': header('Content-type:application/json; charset=utf-8');
-                             $respuesta = new stdClass();
-                             $respuesta->status = "ERROR";
-                             $respuesta->message = $t->getMessage();
-                             $respuesta->data = NULL;
+                // si la operación era JSON             
+                case 'JSON': // prepara una nueva JsonResponse
+                             $respuesta = new JsonResponse(
+                                'ERROR',            // estado
+                                 NULL,              // datos de la respuesta
+                                 $t->getMessage()   // mensaje con información
+                             );
                              
+                             // si estamos en modo DEBUG, se anexa más información
                              if(DEBUG){
                                  $respuesta->message .= " En fichero ".$t->getFile()." línea ".$t->getLine();
                                  $respuesta->method = $this->metodo;
                                  $respuesta->url = '/'.$this->url;
                              }
-                             echo JSON::encode($respuesta);
+                             
+                             echo $respuesta;
                              break;
                 
-                default: header('Content-type:text/plain; charset=utf-8');
-                             echo "ERROR: ".$t->getMessage();
+                // si la operación era con otro formato             
+                default:    header('Content-type:text/plain; charset=utf-8');
+                            echo "ERROR: ".$t->getMessage();
             }
         }
     }  
