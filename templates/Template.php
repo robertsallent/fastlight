@@ -83,7 +83,7 @@ class Template implements TemplateInterface{
                     </a>
                 </figure>
                 <hgroup>
-            	   <h1>$titulo en $name</h1>
+            	   <h1>$titulo, en $name</h1>
                 </hgroup>  
             </header>
         ";}
@@ -94,7 +94,7 @@ class Template implements TemplateInterface{
      *****************************************************************************/
     // retorna el menú principal
     public static function getMenu(){ 
-        $html  = "<ul class='navBar'>";
+        $html  = "<menu>";
         $html .=   "<li><a href='/'>Inicio</a></li>";
         
         // enlace a la gestión de errores (solamente administrador)
@@ -108,7 +108,7 @@ class Template implements TemplateInterface{
         // entrada adicional de ejemplo:
         $html .=   "<li><a href='/'>TODO</a></li>";
         
-        $html .= "</ul>";
+        $html .= "</menu>";
 
         return $html;
     } 

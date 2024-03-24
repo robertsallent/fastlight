@@ -62,22 +62,7 @@ class Login{
 	 */
 	public static function clear(){
 	    self::$activeUser = NULL;
-	    
-	    Session::clear();   // borra todas las variables de sesión
-	    
-	    $parametrosCookie = session_get_cookie_params();
-	    
-	    setcookie(              // manda una cookie caducada
-	        session_name(),                 // nombre de la cookie
-	        '',                             // valor
-	        time()-3600,                    // tiempo (expirada)
-	        $parametrosCookie['path'],      // ruta
-	        $parametrosCookie['domain'],    // dominio
-	        $parametrosCookie['secure'],    // http o https?
-	        $parametrosCookie['httponly'],  // accesible desde JS?
-        );
-	    
-	    session_destroy();      // cierra y elimina el fichero
+	    Session::destroy();  
 	}
 	
 	

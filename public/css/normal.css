@@ -92,7 +92,7 @@ div.mensajeWarning>div{
 /* distintos elementos */
 h1, h2, h3{
 	margin-top: 1rem;
-	margin-bottom: 1.5rem;
+	margin-bottom: 1.2rem;
 }
 
 
@@ -105,25 +105,30 @@ a{
 	text-decoration: none;
 }
 
+h2{
+	margin: 10px 0px;
+	padding: 10px 0px;
+}
+
 
 /* estructura de la página */
 body{
-	color: rgb(120, 120, 120);
-	padding: 10px 30px;
+	color: rgb(100, 100, 100);
+	padding: 10px 2%;
 	font-family: arial, verdana, helvetica;
 	width: 100%;	
 	margin: 0px auto 20px auto;
 }
 
 main{
-	padding: 20px;	
-	margin: 20px auto;
-	background-color: rgb(245, 245, 245);
-	border-radius: 10px;
+	padding: 2%;	
+	margin: 0px auto;
+	border-radius: 5px;
+	background-color: #f8fcff;
 }
 
 main a{
-	color: #99e;
+	color: rgb(0, 128, 212);
 }
 
 main a:hover{
@@ -143,7 +148,7 @@ main ul li{
 header.primary{
 	display: flex;
 	flex-wrap:wrap;
-	padding: 10px;
+	padding: 0px 10px 10px;
 }
 
 header.primary figure{
@@ -165,9 +170,7 @@ header.primary h1{
 	font-size: 2.8rem;
 }
 
-section{
-	padding: 20px;
-}
+
 
 .flex-container>section:not(:first-of-type){
 	border-left: dashed 2px grey;
@@ -196,10 +199,6 @@ footer.primary img{
 	vertical-align: middle;
 }
 
-header.primary{
-	border-top: solid 2px lightgrey;
-}
-
 footer.primary{
 	border-top: solid 2px lightgrey;
 }
@@ -207,7 +206,7 @@ footer.primary{
 /* formulario de login */
 #loginForm{
 	min-width: 600px;
-	border: solid 1px lightgrey;
+	border: solid 1px rgb(60, 100, 160);
 	background-color: white;
 	padding: 30px;
 	border-radius: 10px;
@@ -216,31 +215,32 @@ footer.primary{
 
 
 /* Barra de navegación */
-ul.navBar{
-	padding: 10px;
-	background-color: rgb(60, 100, 160);
+menu{
+	padding: 8px 20px;
+	background-color: rgb(0, 128, 212);
 	color: white;
+	border-radius: 5px;
 }
 
-ul.navBar li{
+menu li{
 	text-align: center;
 	display: inline-block;
 	list-style-type: none;
 }
 
-ul.navBar li a{
+menu li a{
 	display: block;
 	padding: 10px 20px;
 	margin: 0px;
 	transition: 0.2s;
 }
-ul.navBar li a:hover{
+menu li a:hover{
 	background-color: white;
 	color: #006;
 }
 
-ul.navBar li:not(:first-of-type){
-	border-left: dotted 3px white;
+menu li:not(:first-of-type){
+	border-left: dotted 2px white;
 }
 
 /* migas */
@@ -269,8 +269,12 @@ form{
 	margin: 5px auto;
 }
 
+td form{
+	padding: 0px;
+	margin: 0px;
+}
+
 form.filtro{
-	background-color: #eee;
 	padding: 10px;
 }
 
@@ -299,14 +303,14 @@ textarea{
 
 .button{
 	color: white;
-	border: solid 2px rgb(40, 80, 140);
-	padding: 6px 20px;
+	padding: 8px 25px;
 	margin: 6px;
 	border-radius: 5px;
-	background-color: rgb(60, 100, 160);
+	background-color: rgb(0, 128, 212);
 	white-space: nowrap;
 	display: inline-block;
 	cursor: pointer;
+	border: none;
 }
 
 .button:hover{
@@ -339,7 +343,7 @@ textarea{
 
 /* tablas */
 table{
-	border: solid 1px grey;
+	border: solid 1px rgb(60, 100, 160);
 	width: 100%;
 	margin: 5px auto;
 }
@@ -357,7 +361,7 @@ table tr:nth-of-type(odd){
 }
 
 table tr:nth-of-type(even){
-	background-color: #eee;
+	background-color: #f1f5ff;
 }
 
 table tr, table td{

@@ -13,7 +13,7 @@
  * protected static array $jsonFields: para indicar los campos JSON que se deben 
  * convertir automáticamente en arrays PHP.
  *
- * Última revisión 06/07/23
+ * Última revisión 23/03/24
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
@@ -192,15 +192,23 @@ abstract class Model{
      * Recupera una entidad a partir de su identificador único o falla.
      * 
      * @param int $id identificador único de la entidad a recuperar.
+     * @param string $message texto a mostrar en caso de no encontrar la entidad con ese identificador. 
      * 
      * @throws NotFoundException si no encuentra la entidad con ese identificador.
      * @return object la entidad recuperada.
      */
-    public static function findOrFail(int $id = 0):object{
+    public static function findOrFail(
+        int $id = 0, 
+        string $message = "No se encontró lo que buscas."
+    ):object{
+        
+        if(!$id)
+            throw new NothingToFindException("No se recibió el identificador de la entidad a buscar.");
+        
         $entity = get_called_class()::find($id);
         
         if(!$entity)
-            throw new NotFoundException("No se encontró lo que buscas.");
+            throw new NotFoundException($message);
         
         return $entity;
     }

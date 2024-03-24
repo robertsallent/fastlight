@@ -21,6 +21,10 @@
 .flex2{flex:2}
 .flex3{flex:3}
 .flex4{flex:4}
+.flex5{flex:5}
+.flex6{flex:6}
+.flex7{flex:7}
+.flex8{flex:8}
 
 /* floats */
 .float-right{float:right}
@@ -47,7 +51,7 @@
 /* Para las vistas de error HTTP */
 
 h2.http-code{
-	font-size: 5.5rem;
+	font-size: 5.2rem;
 	text-align: center;
 	margin: 5px auto;
 }

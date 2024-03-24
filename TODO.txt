@@ -3,7 +3,7 @@
 TODO LIST
 
 Autor: Robert Sallent
-Última revisión: 17/07/23
+Última revisión: 17/03/24
 
 -------------------------------------------------------------------------------------------------------------
 
@@ -14,17 +14,22 @@ Autor: Robert Sallent
 	- Añadir el código HTTP a las redirecciones y errores.
 	- Añadir el manyToMany a Model.
 	- Métodos owns() e ownedBy() en Model.
-	- Implementar un faker.
+	- Implementar un sistema de seeding (uso de faker?).
 	
 - API
 	- implementar mecanismo de API Keys	
+
+- PETICIONES ASÍNCRONAS.
+	- Añadir un controlador para procesar las peticiones asíncronas y retornar respuestas JSON (y XML?)
+
+- EXTRAS:
+	- En la vista del listado de errores, mostrar algunos gráficos de totales con chart.js
 	
+
 -------------------------------------------------------------------------------------------------------------
  A evaluar... tal vez no se implemente por motivos docentes y se deja para los cursos de Laravel o Symfony
 -------------------------------------------------------------------------------------------------------------
-
-- Hacer uso de PSR4 (autoload con namespaces). 
-- Incoporar middleware
-- Incorporar un sistema de seeding para la base de datos.
+- Incoporar middleware (poco probable que se implemente).
+- Hacer uso de PSR4 para el autoload (poco probable que se implemente).
 
                 

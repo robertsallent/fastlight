@@ -232,30 +232,30 @@ header.primary, footer.primary{
 
 
 /* Barra de navegación */
-ul.navBar{
+menu{
 	padding: 10px;
 	background-color: black;
 	color: white;
 }
 
-ul.navBar li{
+menu li{
 	text-align: center;
 	display: inline-block;
 	list-style-type: none;
 }
 
-ul.navBar li a{
+menu li a{
 	display: block;
 	padding: 10px 20px;
 	margin: 0px;
 	transition: 0.2s;
 }
-ul.navBar li a:hover{
+menu li a:hover{
 	background-color: white;
 	color: #006;
 }
 
-ul.navBar li:not(:first-of-type){
+menu li:not(:first-of-type){
 	border-left: dotted 3px white;
 }
 

@@ -4,7 +4,7 @@
  * 
  * Parámetros de configuración del proyecto
  * 
- * Última revisión: 04/07/23
+ * Última revisión: 24/03/24
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since 0.1.0
  */
@@ -36,9 +36,16 @@ define('APP_TYPE', 'WEB');                // Tipo de aplicación: WEB o API.
 // Controlador y método por defecto (solamente para APP_TYPE WEB).
 define('DEFAULT_CONTROLLER', 'WelcomeController');
 define('DEFAULT_METHOD', 'index');
-    
    
-    
+// Email del administrador, para la operación de "contacto"
+define('ADMIN_EMAIL', 'robert@juegayestudia.com');
+
+// ¿Deben las cadenas vacías ser convertidas a NULL? 
+// se aplica all recuperar los datos de la petición mediante el objeto Request,
+// tanto si llegan por GET, POST, COOKIE...
+define('EMPTY_STRINGS_TO_NULL', true);
+
+
 /* -------------------------------------------------------------
  * VISTAS
  * -------------------------------------------------------------*/

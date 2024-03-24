@@ -31,6 +31,7 @@ class ErrorController extends Controller{
                     
         // datos para paginación
         $limit = RESULTS_PER_PAGE;                       // resultados por página
+        
         $total = $filtro ?                               // hay filtro ?
                     AppError::filteredResults($filtro):     // total de resultados filtrados
                     AppError::total();                      // total de resultados sin filtrar
@@ -64,14 +65,14 @@ class ErrorController extends Controller{
         
         try{
             AppError::delete($id);
-            Session::flash('success', "Error borrado.");
+            Session::success("Error borrado.");
             redirect("/Error/list");
             
         }catch(SQLException $e){
-            Session::flash('error', "No se pudo borrar el error.");
+            Session::error("No se pudo borrar el error.");
 
             if(DEBUG)
-                throw new Exception($e->getMessage());
+                throw new ControllerException($e->getMessage());
             else
                 redirect("/Error/list");
         }
@@ -89,16 +90,14 @@ class ErrorController extends Controller{
         
         try{
             $rows = AppError::clear();
-            Session::success("Lista de errores vaciada correctamente. 
-                              Se eliminaron $rows registros.");
-            
+            Session::success("Lista de errores vaciada correctamente. Se eliminaron $rows registros.");
             redirect("/Error/list");
             
         }catch(SQLException $e){
             Session::error("No se pudo vaciar la lista de errores.");
            
             if(DEBUG)
-                throw new Exception($e->getMessage());
+                throw new ControllerException($e->getMessage());
             else
                 redirect("/Error/list");
         }

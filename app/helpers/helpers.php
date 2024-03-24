@@ -189,14 +189,39 @@ function viewExists(string $name):bool{
  * entre formularios en distintas URLs.
  * 
  * @param string $inputName nombre del input a recuperar.
- * 
+ * @param string $dbValue para las operaciones de edición, valor antiguo de la BDD.
+
  * @return string valor del input recuperado.
  */
-function old(string $inputName):string{
-    return Request::take()->previousInputs[$inputName] ?? '';
+function old(string $inputName, string $dbValue = NULL):string{
+    return Request::take()->previousInputs[$inputName] ?? $dbValue ?? '';
 }
 
 
+/**
+ * Selecciona una opción en un input, dependiendo del valor.
+ * 
+ * @param string $inputName nombre del input.
+ * @param string $value valor a comprobar.
+ * 
+ * @return string selected o cadena vacía.
+ */
+function oldSelected(string $inputName, string $value):string{
+    return Request::take()->previousInputs[$inputName] == $value ? ' selected ' : '';
+}
+
+
+/**
+ * Marca un checkbox o botón de radio, dependiendo del valor.
+ * 
+ * @param string $inputName nombre del input.
+ * @param string $value valor a comprobar.
+ * 
+ * @return string checked o cadena vacía.
+ */
+function oldChecked(string $inputName, string $value):string{
+    return Request::take()->previousInputs[$inputName] == $value ? ' checked ' : '';
+}
 
 
 

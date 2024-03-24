@@ -4,7 +4,7 @@
  * 
  * Permitirá acceder a los datos de la petición fácilmente desde los controladores.
  * 
- * Última modificación: 18/07/2023.
+ * Última modificación: 19/03/2024.
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.6.5
@@ -151,7 +151,7 @@ class Request{
     
     
     
-    /**
+        /**
      * Recupera parámetros que llegan por POST.
      * 
      * @param string $name nombre del parámetro a recuperar.
@@ -159,16 +159,24 @@ class Request{
      * @return string|NULL valor recuperado o NULL si no existe el parámetro.
      */
     public function post(
-        string $name        // nombre del campo a recuperar
-        
+        string $name        // nombre del campo a recuperar  
     ): ?string{
         
-        $data = $_POST[$name] ?? NULL; 
-        return  $data ? (DB_CLASS)::escape($data) : NULL;
+        if(!isset($_POST[$name])) // mira si llega el campo
+            return NULL; 
+        
+        $data = $_POST[$name];    // toma el dato que llega
+        
+        // si hay que pasar la cadena vacía a NULL...
+        if(EMPTY_STRINGS_TO_NULL && $data === '')
+              return NULL;
+        
+        // retornamos los datos escapados
+        return  (DB_CLASS)::escape($data);
     }
     
-    
-    
+     
+   
     /**
      * Recupera parámetros que llegan por GET.
      *
@@ -181,8 +189,17 @@ class Request{
         
     ): ?string{
             
-        $data = $_GET[$name] ?? NULL;
-        return  $data ? (DB_CLASS)::escape($data) : NULL;
+        if(!isset($_GET[$name])) // mira si llega el campo
+            return NULL;
+            
+        $data = $_GET[$name];    // toma el dato que llega
+            
+        // si hay que pasar la cadena vacía a NULL...
+        if(EMPTY_STRINGS_TO_NULL && $data === '')
+            return NULL;
+            
+        // retornamos los datos escapados
+        return  (DB_CLASS)::escape($data);
     }
     
     
@@ -199,9 +216,19 @@ class Request{
  
     ): ?string{
         
-        $data = $_COOKIE[$name] ?? NULL;
-        return  $data ? (DB_CLASS)::escape($data) : NULL;
+        if(!isset($_COOKIE[$name])) // mira si llega el campo
+            return NULL;
+            
+        $data = $_COOKIE[$name];    // toma el dato que llega
+            
+        // si hay que pasar la cadena vacía a NULL...
+        if(EMPTY_STRINGS_TO_NULL && $data === '')
+            return NULL;
+                
+        // retornamos los datos escapados
+        return  (DB_CLASS)::escape($data);
     }    
+    
     
 
 
@@ -214,9 +241,14 @@ class Request{
     public static function all():array{
         $all = [];
         
-        foreach($_REQUEST as $property => $value)
-            $all[$property] =  (DB_CLASS)::escape($value);
-        
+        foreach($_REQUEST as $property => $value){
+            
+            // si hay que pasar la cadena vacía a NULL...
+            if(EMPTY_STRINGS_TO_NULL && $value === '')
+                $value = NULL;
+            
+            $all[$property] =  $value ? (DB_CLASS)::escape($value) : NULL;
+        }
         return $all;
     }
     
@@ -231,8 +263,14 @@ class Request{
     public static function posts():array{
         $all = [];
         
-        foreach($_POST as $property => $value)
-            $all[$property] =  (DB_CLASS)::escape($value);
+        foreach($_POST as $property => $value){
+            
+            // si hay que pasar la cadena vacía a NULL...
+            if(EMPTY_STRINGS_TO_NULL && $value === '')
+                $value = NULL;
+            
+            $all[$property] =  $value ? (DB_CLASS)::escape($value) : NULL;
+        }
             
         return $all;
     }
@@ -248,8 +286,14 @@ class Request{
     public static function gets():array{
         $all = [];
         
-        foreach($_GET as $property => $value)
-            $all[$property] =  (DB_CLASS)::escape($value);
+        foreach($_GET as $property => $value){
+            
+            // si hay que pasar la cadena vacía a NULL...
+            if(EMPTY_STRINGS_TO_NULL && $value === '')
+                $value = NULL;
+            
+            $all[$property] =  $value ? (DB_CLASS)::escape($value) : NULL;
+        }
             
         return $all;
     }
@@ -265,9 +309,14 @@ class Request{
     public static function cookies():array{
         $all = [];
         
-        foreach($_COOKIE as $property => $value)
-            $all[$property] =  (DB_CLASS)::escape($value);
+        foreach($_COOKIE as $property => $value){
             
+            // si hay que pasar la cadena vacía a NULL...
+            if(EMPTY_STRINGS_TO_NULL && $value === '')
+                $value = NULL;
+            
+            $all[$property] =  $value ? (DB_CLASS)::escape($value) : NULL;
+        }
         return $all;
     }
     

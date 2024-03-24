@@ -6,7 +6,7 @@
 	"require" : {
 		"php" : ">=8.1"
 	},
-	"homepage" : "http://fastlight.robertsallent.com",
+	"homepage" : "https://fastlight.robertsallent.com",
 	"authors" : [{
 			"name" : "Robert Sallent",
 			"email" : "robert@juegayestudia.com",
