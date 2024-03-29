@@ -1,0 +1,24 @@
+/* 
+	FICHERO CON ESTILO OSCURO DE FASTLIGHT
+	
+	Autor: Robert Sallent
+	Última revisión: 19/07/2023
+*/
+
+
+@import 'base.css';
+
+
+body{
+	color: white;
+	background-color: #333;
+}
+
+main{ background-color: transparent; }
+
+table{border: solid 1px rgb(60, 100, 160); }
+table tr:nth-of-type(odd){ background-color: #666; }
+table tr:nth-of-type(even){ background-color: #777; }
+
+#login{ color: #666; }
+

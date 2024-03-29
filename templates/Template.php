@@ -12,7 +12,7 @@
 class Template implements TemplateInterface{
     
     // ficheros CSS para usar con este template
-    protected static array $css = ['/css/normal.css'];
+    protected static array $css = ['/css/base.css'];
     
     /*****************************************************************************
      * CSS
@@ -71,19 +71,20 @@ class Template implements TemplateInterface{
      * HEADER
      *****************************************************************************/
     // retorna el header
-    public static function getHeader(string $titulo=''){ 
-        $name = APP_NAME;
-        
+    public static function getHeader(
+        string $titulo    = '', 
+        string $subtitulo = NULL
+    ){ 
         return "
             <header class='primary'>
                 <figure>
                     <a href='/'>
-                        <img style='width:100%;' alt='FastLight Logo'
-                             src='/images/template/fastlight.png'>
+                        <img style='width:100%;' alt='FastLight Logo' src='/images/template/fastlight.png'>
                     </a>
                 </figure>
                 <hgroup>
-            	   <h1>$titulo, en $name</h1>
+            	   <h1>$titulo <span class='small italic'>en ".APP_NAME."</small></h1>
+                   <p>".($subtitulo ?? '')."</p>
                 </hgroup>  
             </header>
         ";}

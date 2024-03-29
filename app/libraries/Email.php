@@ -1,20 +1,46 @@
 <?php
 
-/* Clase: Email
- * 
- * Nos facilitará la tarea de enviar emails
- * 
- * Autor: Robert Sallent
- * Última mofidicación: 24/02/2023
- * 
+/**
+ *   Clase Email
+ *
+ *   Facilita la tarea de enviar emails.
+ *
+ *   Última mofidicación: 24/02/2023
+ *
+ *   @author Robert Sallent <robertsallent@gmail.com>
  */
-
 class Email{
     
-    // PROPIEDADES
-    public string $date, $to, $from, $name, $subject, $message, $headers;
+    /** @var $date fecha actual */
+    public string $date; 
     
-    // CONSTRUCTOR
+    /** @var $to destinatario del email */
+    public string $to;
+    
+    /** @var $from remitente del email */
+    public string $from;
+    
+    /** @var $name nombre del remitente */
+    public string $name;
+    
+    /** @var $subject asunto del mensaje */
+    public string $subject;
+    
+    /** @var $message cuerpo del mensaje */
+    public string $message;
+    
+    /** @var $headers cabeceras adicionales */
+    public string $headers;
+    
+    /**
+     * Constructor de la clase Email
+     * 
+     * @param string $to destinatario del email
+     * @param string $from remitente del mensaje
+     * @param string $name nombre del remitente
+     * @param string $subject asunto del mensaje
+     * @param string $message cuerpo del mensaje
+     */
     public function __construct(
         string $to,         // destinatario
         string $from,       // remitente
@@ -42,8 +68,15 @@ class Email{
         $this->message .= "<p>$message</p>"; 
     }
       
-    // método que envía el email usando la función mail() de PHP
+    /**
+     * Envía el email usando la función mail() de PHP
+     * 
+     * @return bool
+     * 
+     * @throws EmailException en caso de no poder enviar el mensaje
+     */
     public function send():bool{
+        
         if(!mail($this->to, $this->subject, $this->message, $this->headers))
             throw new EmailException("No se pudo enviar el email.");
         

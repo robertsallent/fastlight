@@ -6,7 +6,7 @@
   * Implementa las operaciones de login/logout y también permite hacer comprobaciones
   * sobre los distintos roles de que dispone el usuario identificado. 
   *
-  * Última revisión: 18/07/2023
+  * Última revisión: 27/03/2024
   * 
   * @author Robert Sallent <robertsallent@gmail.com>
   */
@@ -30,9 +30,13 @@ class Login{
         // recupera el usuario activo de la variable de sesión
         self::$activeUser = Session::get('user') ??  NULL;
         
-        // Si hay operación pendiente pero no estamos en login, eliminaremos la operación pendiente.
-        // Es para los casos en los que el usuario no identificado no llega a identificarse al solicitar
-        // una URL protegida. Así evitamos que se haga la redirección en una identificación posterior
+        // Si hay operación pendiente pero no estamos en /Login, eliminaremos la operación pendiente.
+        
+        // Para los casos en los que el usuario no identificado no llega a identificarse al solicitar
+        // una URL protegida y ser redirigido a login. 
+        
+        // Así evitamos que se haga la redirección en una identificación posterior
+        
         // TODO: comprobar si esto también funciona correctamente para la API.
         if(Session::has('_pending_operation') && !Request::take()->urlBeginsWith('/Login'))
             Session::forget('_pending_operation');
@@ -43,7 +47,7 @@ class Login{
     
     /**
      * Hace login, estableciendo el usuario.
-     * Se usa desde LoginController::login().
+     * Se usa desde LoginController::enter().
      * 
      * @param Authenticable $user
      */
@@ -58,7 +62,7 @@ class Login{
 	 * Hace logout olvidando el usuario, limpiando la sesión, eliminando
 	 * la cookie de sesión y destruyendo los datos del servidor.
 	 * 
-	 * Se usa desde LoginController::logout().
+	 * Se usa desde LogoutController::index().
 	 */
 	public static function clear(){
 	    self::$activeUser = NULL;
@@ -125,7 +129,7 @@ class Login{
 	
 	
 	/**
-	 * Comrueba si el usuario identificado tiene un rol determinado.
+	 * Comprueba si el usuario identificado tiene un rol determinado.
 	 * 
 	 * @param string $role rol a comprobar.
 	 * 

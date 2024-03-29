@@ -28,11 +28,9 @@
 		<?= (TEMPLATE)::getFlashes() ?>
 		
 		<main>
-			<section class="flex-container">
-    			<div class="flex1"> </div>
+			
     			
-        		<form class="flex2" method="POST" autocomplete="off" 
-        			id="loginForm" action="/Forgotpassword/send">
+        		<form class="w50 bloque-centrado" method="POST" autocomplete="off" id="login" action="/Forgotpassword/send">
         			
         			<h2>Recuperación de password</h2>
     				<p class="justificado">Introduce tus datos y se te enviará una 
@@ -49,11 +47,13 @@
         			
         			<div class="centrado">
         				<input type="submit" class="button" name="nueva" value="Nueva clave">
-        			</div>        			
+        			</div>  
+        			<div class="derecha">
+    				<a href="/Login">Volver a Login</a>
+    			</div>      			
         		</form>
         		
-        		<div class="flex1"> </div>
-    		</section>
+        		
     		
 		</main>
 		

@@ -8,7 +8,7 @@
   * @author Robert Sallent <robertsallent@gmail.com>
 */
 
-class TestTemplate extends Template{
+class Test extends Template{
           
     /**
      * Retorna la parte superior (header) para las vistas de test.

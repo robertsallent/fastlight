@@ -19,7 +19,7 @@
     		<?= (TEMPLATE)::getLogin() ?>
     		<?= (TEMPLATE)::getHeader('Lista de errores') ?>
     		<?= (TEMPLATE)::getMenu() ?>
-    		<?= (TEMPLATE)::getBreadCrumbs(["Lista de errores" => '/Error/list']) ?>
+    		<?= (TEMPLATE)::getBreadCrumbs(["Lista de errores" => NULL]) ?>
     		<?= (TEMPLATE)::getFlashes() ?>
     		
     		<main>

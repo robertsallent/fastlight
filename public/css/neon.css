@@ -1,0 +1,147 @@
+/* 
+	FICHERO CON ESTILO NEON DE FASTLIGHT
+	
+	Autor: Robert Sallent
+	Última revisión: 27/03/2024
+*/
+
+
+@import 'base.css';
+
+/* éxito y error */
+.success{
+	background-color: rgb(0, 255, 128);
+	color: rgb(255, 255, 255);
+}
+
+.warning{
+	background-color: rgb(255, 0, 128);
+	color: rgb(255, 255, 255);
+}
+
+.error{
+	background-color: rgb(255, 0, 0);
+	color: rgb(255, 255, 255);
+}
+
+
+div.mensajeExito, div.mensajeError, div.mensajeWarning{
+	background-color: rgba(100, 100, 100, 0.8);
+}
+
+div.mensajeExito>div{
+	color: white;
+	background-color: green;
+	border: solid 5px white;
+}
+
+div.mensajeError>div{
+	color: white;
+	background-color: red;
+	border: solid 5px white;
+}
+
+div.mensajeWarning>div{
+	color: white;
+	background-color: orange;
+	border: solid 5px white;
+}
+
+
+
+body{
+	color: white;
+	background-color: black;
+	font-family: avantgarde, brush, english, helvetica;
+}
+
+main{
+	background-color: transparent;
+	margin: 10px 0px;
+}
+
+main a{
+	color: rgb(0, 255, 255)
+}
+
+
+
+/* header y footer principales */
+header.primary{
+	color: rgb(255, 0, 128);
+	font-family: mistral;
+}
+
+
+header.primary h1{
+	color: rgb(255, 0, 128);
+	font-size: 5rem;
+}
+
+
+footer.primary{
+	background-color: rgb(255, 0, 128);
+}
+
+footer.primary a{
+	color: yellow;
+}
+
+
+/* formulario de login */
+#login{
+	border: solid 2px white;
+	background-color: rgb(255, 0, 128);
+}
+
+
+/* Barra de navegación */
+menu{
+	background-color: rgb(255, 0, 128);
+	color: white;
+}
+
+menu li a:hover{
+	background-color: rgb(0, 200, 64);
+	color: white;
+}
+
+
+.button{
+	color: white;
+	background-color: rgb(0, 200, 64);
+}
+
+.button.current, .button.active{
+	border: solid 2px rgb(0, 100, 32);
+}
+
+.button:hover{
+	background-color: rgb(90, 250, 200);
+	color: black;
+}
+
+/* paginador */
+.paginator-links{
+	color: #33a;
+}
+
+.paginator-links .current{
+	background-color: white;
+	color: #99a;
+}
+
+
+table th{
+	color: white;
+	background-color: rgb(0, 200, 64);
+}
+
+table tr:nth-of-type(odd){
+	background-color: black;
+}
+
+table tr:nth-of-type(even){
+	background-color: rgb(179, 0, 89)
+}
+

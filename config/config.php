@@ -52,8 +52,8 @@ define('EMPTY_STRINGS_TO_NULL', true);
     
 define('VIEWS_FOLDER', '../mvc/views');     // Carpeta para las vistas.
  
-// Clase para el template a usar en las vistas.
-// Las opciones disponibles por defecto son Template o RetroTemplate.
+// Template a usar en las vistas (en la carpeta templates).
+// Las opciones disponibles por defecto son Template, Dark, Neon o Retro.
 define('TEMPLATE', 'Template'); 
 
 
@@ -62,9 +62,9 @@ define('TEMPLATE', 'Template');
  * TESTS
  * -------------------------------------------------------------*/
     
-define('TEST_FOLDER', '../test');          // Carpeta para los test.
-define('BEAUTIFUL_TEST', true);             // ¿Usar template en los tests?
-define('TEST_TEMPLATE', 'TestTemplate');    // Ubicación del template para los tests.
+define('TEST_FOLDER', '../test');  // Carpeta para los test.
+define('BEAUTIFUL_TEST', true);    // ¿Usar template en los tests?
+define('TEST_TEMPLATE', 'Test');   // Ubicación del template para los tests.
 
     
     

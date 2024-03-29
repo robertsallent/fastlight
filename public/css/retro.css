@@ -214,7 +214,7 @@ header.primary, footer.primary{
 }
 
 /* formulario de login */
-#loginForm{
+#login{
 	min-width: 500px;
 	border: solid 1px black;
 	background-color: lightgrey;
@@ -315,7 +315,7 @@ textarea{
 
 .button{
 	color: white;
-	border: solid 2px rgb(40, 80, 140);
+	border: solid 2px rgb(80, 80, 80);
 	padding: 6px 20px;
 	margin: 6px;
 	border-radius: 5px;

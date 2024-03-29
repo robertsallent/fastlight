@@ -1,19 +1,20 @@
 <?php
 
 
-class RetroTemplate extends Template{
+class Retro extends Template{
     
     // ficheros CSS para usar con este template
     protected static array $css = ['/css/retro.css'];
     
     // retorna el header
-    public static function getHeader(string $titulo = ''){ 
-        $name = APP_NAME;
-        
+    public static function getHeader(
+        string $titulo = '',
+        string $subtitulo = NULL
+    ){         
         return "
             <header class='primary flex-container'>
                 <hgroup class='flex4'>
-            	  <h1>$titulo en $name</h1>
+            	  <h1>$titulo en ".APP_NAME."</h1>
                 </hgroup>  
                 <figure class='flex1 derecha'>
                     <a href='/'>
