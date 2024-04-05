@@ -1,46 +1,57 @@
 <?php
 
-/*
- * Clase para la manipulación de JSON
- * Autor: Robert Sallent
- * Última revisión: 30/03/2023
+/**
+ *   Json
  *
- * */
-
+ *   Herramientas para trabajar con JSON desde PHP.
+ *
+ *   Última mofidicación: 05/04/2024
+ *
+ *   @author Robert Sallent <robertsallent@gmail.com>
+ */
 
 class JSON{
     
-    // codifica objetos en JSON (tanto listas como objetos sueltos)
+    /**
+     * Codifica objetos o arrays en JSON.
+     *
+     * @param mixed $objetos los datos a pasar a JSON.
+     * @param bool $exceptions permite indicar si se deben lanzar excepciones ante un fallo o no.
+     * @param bool $pretty permite indicar si queremos usar tabuladores y saltos de línea para una impresión amigable.
+     * 
+     * @return string el texto con los datos codificados en JSON.
+     */
     public static function encode(
-        $objetos,                   // datos a codificar en JSON
-        bool $exceptions = true,    // indica si se deben lanzar excepciones ante un error
-        bool $pretty = false        // impresión "bonita"
-        
+        $datos, 
+        bool $exceptions = true, 
+        bool $pretty = false 
     ):string{
         
         return json_encode(
-                    $objetos, 
-                    JSON_UNESCAPED_UNICODE | 
-                    JSON_UNESCAPED_SLASHES | 
-                    JSON_NUMERIC_CHECK |
-                    ($exceptions ? JSON_THROW_ON_ERROR : 0) |
-                    ($pretty ? JSON_PRETTY_PRINT : 0)
-                );
+            $datos, 
+            JSON_UNESCAPED_UNICODE |  JSON_UNESCAPED_SLASHES |  JSON_NUMERIC_CHECK |
+                ($exceptions ? JSON_THROW_ON_ERROR : 0) |  ($pretty ? JSON_PRETTY_PRINT : 0)
+        );
     }
     
     
+    /**
+     * Decodifica JSON y lo convierte en una lista de objetos.
+     *
+     * @param string $json texto en JSON que queremos convertir a lista de objetos PHP.
+     * @param string $class clase a la que queremos convertir los objetos de primer nivel de profindidad.
+     * @param bool $exceptions permite indicar si se deben lanzar excepciones ante un fallo o no.
+     *
+     * @return array el listado de objetos recuperados.
+     */
     
-    // decodifica un JSON en una lista de objetos
     public static function decode(
-        string $json,                   // datos a decodificar
-        string $class = 'stdClass', // tipo de los objetos recuperados
-        bool $exceptions = true     // indica si se deben lanzar excepciones ante un error
+        string $json,  
+        string $class = 'stdClass', 
+        bool $exceptions = true       
+    ):?array{
         
-    ):array{
-        
-        $lista = $exceptions ? 
-                    json_decode($json, false, 99, JSON_THROW_ON_ERROR):
-                    json_decode($json);
+        $lista = json_decode($json, false, 512, $exceptions? JSON_THROW_ON_ERROR : 0);
         
         // si hay error de sintaxis y no había que lanzar excepciones...
         if(json_last_error()) return NULL;

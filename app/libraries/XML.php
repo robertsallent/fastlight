@@ -1,18 +1,30 @@
 <?php
-/* 
- * Clase para la manipulación de XML
- * Autor: Robert Sallent
- * Última revisión: 28/02/2022
- * 
- * */
+
+/**
+ *   XML
+ *
+ *   Herramientas para trabajar fácilmente con XML desde PHP.
+ *
+ *   Última mofidicación: 05/04/2024
+ *
+ *   @author Robert Sallent <robertsallent@gmail.com>
+ */
 
 class XML{
    
-    // método que valida con XMLSchema
+    /**
+     * Valida un XML a partir de un XMLSchema
+     *
+     * @param string $xml XML a validar.
+     * @param string $schema esquema contra el que se quiere realizar la validación.
+     *
+     * @return bool true si valida o false si no lo hace.
+     * 
+     * @throws XMLException si no se puede cargar el XML.
+     */
     public static function validateWithSchema(
         string $xml, 
-        string $esquema
-        
+        string $schema   
     ):bool{
         
         $dom = new DOMDocument();
@@ -20,37 +32,50 @@ class XML{
         if(!@$dom->loadXML($xml)) // intenta cargar el XML
             throw new XMLException("XML mal formado.");
 
-        return $dom->schemaValidate($esquema);
+        return $dom->schemaValidate($schema);
     }
     
     
     
-    // convierte listas de cualquier tipo de objeto en XML.
+    /**
+     * Convierte listas de elementos a XML.
+     * 
+     * @param array $lista lista de elementos a convertir.
+     * @param string $root nombre para el elemento raíz.
+     * @param string $name nombre para cada uno de los elementos contenidos directamente dentro del elemento raíz.
+     * @param string $namespace espacio de nombres a usar.
+     * 
+     * @return string el XML con el resultado.
+     */
     public static function encode(
-        array  $lista = [],         // lista de elementos a codificar
-        string $root = 'root',      // nombre del elemento raíz
-        string $name = null,        // nombre para cada elemento
-        string $namespace = 'http://ejemplo.xml.robertsallent.cat'
-        
+        array  $list     = [],
+        string $root      = 'root',
+        string $name      = null,
+        string $namespace = "https://xml.robertsallent.com"       
     ):string{
-            
+           
         // crea el documento XML con las opciones adecuadas
         $xml = new DOMDocument("1.0", "utf-8");
         $xml->preserveWhiteSpace = false;
         $xml->formatOutput = true;
-        
+     
         $raiz = $xml->createElement($root); // crea el elemento raíz
         $raiz->setAttribute('xmlns', $namespace); // pone el namespace
-        
-        foreach($lista as $objeto){ // para cada objeto de la lista
+
+        foreach($list as $objeto){ // para cada objeto de la lista
             // crea un nuevo elemento con el nombre indicado
             // si no estaba indicado, usará el nombre de la clase en minúscula
             $nombre = $name ?? strtolower(get_class($objeto));
             $elemento = $xml->createElement($nombre);
             
-            foreach($objeto as $campo=>$valor) // para cada propiedad del objeto...
-                $elemento->appendChild($xml->createElement($campo, $valor));
+            foreach($objeto as $campo => $valor){ // para cada propiedad del objeto...
+               
+                // corrección para que funcionen los campos JSON con arrays
+                if(is_array($valor))
+                    $valor = arrayToString($valor, true, false);
                 
+                $elemento->appendChild($xml->createElement($campo, $valor));
+            }
             // añade el nuevo elemento al elemento raíz
             $raiz->appendChild($elemento);
         }
@@ -64,18 +89,23 @@ class XML{
     
     
     
-    // Método que recupera objetos desde un XML
+    /**
+     * Recupera objetos desde un origen XML
+     * 
+     * @param string $origin origen de datos XML.
+     * @param string $class nombre de la clase a la que queremos mapear los objetos recuperados en primer nivel de profundidad.
+     * @param bool $file para indicar si los datos llegan de fichero (true) o url (false).
+     * 
+     * @return array lista de objetos PHP recuperados desde el XML.
+     */
     public static function decode(
-        string $origen,             // origen del XML
-        string $clase = 'stdClass', // clase a la que se mapeará
-        bool $fichero = true        // XML desde fichero?
-        
+        string $origin,
+        string $class = 'stdClass',
+        bool $file    = true 
     ):array{
         
-        // cargamos el XML depediendo de si es de fichero o string
-        $xml = $fichero ?
-            simplexml_load_file($origen):
-            simplexml_load_string($origen);
+        // carga el XML depediendo de si es de fichero o string
+        $xml = $file ? simplexml_load_file($origin) : simplexml_load_string($origin);
         
         // si no se pudo recuperar bien el XMl, se lanza una excepción
         if(!$xml)
@@ -85,7 +115,7 @@ class XML{
         
         // para cada objeto que encontremos en el XML...
         foreach($xml as $objetoXML){
-            $objeto = new $clase(); // crea un nuevo objeto
+            $objeto = new $class(); // crea un nuevo objeto
             
             // mapea los datos del XML al objeto
             foreach($objetoXML as $campo=>$valor)

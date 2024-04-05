@@ -12,7 +12,7 @@
   *  Aún así se mantiene esta clase para la realización de distintos ejemplos docentes 
   *  en los cursos de PHP y desarrollo de aplicaciones web.
   *  
-  *  Última mofidicación: 05/07/23
+  *  Última mofidicación: 05/04/24
   *  
   *  @author Robert Sallent <robertsallent@gmail.com>
   *  @since v0.1.0
@@ -56,16 +56,27 @@ class Upload{
     }
     
     
-    
-    // procesa la subida de un fichero y hace todas las comprobaciones
+    /**
+     * Procesa la subida de un fichero y hace todas las comprobaciones necesarias.
+     * 
+     * @param string $key clave de $_FILES (nombre del input).
+     * @param string $folder carpeta de destino.
+     * @param bool $unique generar nombre único?.
+     * @param int $max tamaño max del fichero (0 ilimitado).
+     * @param string $mime tipo MIME (image/jpeg, image/*, etc).
+     * @param string $prefix prefijo para el nombre del fichero.
+     * @param bool $returnFullRoute retornar la ruta final completa o solo el nombre del fichero.
+     * 
+     * @return string nombre final del fichero o ruta completa en la que queda ubicado.
+     */
     public static function save(
-        string $key = 'file',  // clave de $_FILES (nombre del input)
-        string $folder = '',   // carpeta de destino
-        bool $unique = true,   // generar nombre único?
-        int $max = 0,          // tamaño max del fichero (0 ilimitado)
-        string $mime = '.',    // tipo MIME (image/jpeg, image/*, etc)
-        string $prefix = '',   // prefijo para el nombre del fichero
-        bool $returnFullRoute = false  // retorna la ruta final completa o solo el nombre del fichero
+        string $key = 'file', 
+        string $folder = '', 
+        bool $unique = true, 
+        int $max = 0,
+        string $mime = '.',
+        string $prefix = '',
+        bool $returnFullRoute = false 
     ):string{
         
         // comprobar que llega algo con la clave indicada
