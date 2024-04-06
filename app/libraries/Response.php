@@ -24,10 +24,10 @@ class Response{
     protected int $httpCode;
     
     /** @var string $status mensaje o código de estado */
-    protected string $status = '';
+    public string $status = '';
 
     /** @var string $timestamp fecha y hora de la respuesta */
-    protected string $timestamp;
+    public string $timestamp;
     
     
     /**

@@ -23,7 +23,7 @@ class JsonResponse extends Response{
     public string $message;
     
     /** @var string $requestMethod método HTTP con el que se relizó la petición */
-    public string $requestMethod;
+    protected string $requestMethod;
 
     /**
      * Constructor de JsonResponse.

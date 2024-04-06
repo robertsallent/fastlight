@@ -3,11 +3,12 @@
 TODO LIST
 
 Autor: Robert Sallent
-Última revisión: 17/03/24
+Última revisión: 06/04/24
 
 -------------------------------------------------------------------------------------------------------------
 
 - CORE
+	- Hacer que load_view() cree un nuevo objeto Response en lugar de cargar directamente la vista.
 	- Vistas de error personalizadas.
 
 - LIBRARIES
