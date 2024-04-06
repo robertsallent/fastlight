@@ -74,7 +74,7 @@ class XML{
                 if(is_array($valor))
                     $valor = arrayToString($valor, true, false);
                 
-                $elemento->appendChild($xml->createElement($campo, $valor));
+                $elemento->appendChild($xml->createElement($campo, htmlspecialchars($valor)));
             }
             // añade el nuevo elemento al elemento raíz
             $raiz->appendChild($elemento);

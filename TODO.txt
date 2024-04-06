@@ -29,7 +29,7 @@ Autor: Robert Sallent
 -------------------------------------------------------------------------------------------------------------
  A evaluar... tal vez no se implemente por motivos docentes y se deja para los cursos de Laravel o Symfony
 -------------------------------------------------------------------------------------------------------------
-- Incoporar middleware (poco probable que se implemente).
+- Incoporar middleware.
 - Hacer uso de PSR4 para el autoload (poco probable que se implemente).
 
                 

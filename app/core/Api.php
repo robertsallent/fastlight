@@ -103,22 +103,14 @@ class Api extends Kernel{
                              echo $respuesta;
                              break;
                 
-                // si la operación era JSON             
-                case 'JSON': // prepara una nueva JsonResponse
-                             $respuesta = new JsonResponse(
-                                'ERROR',            // estado
-                                 NULL,              // datos de la respuesta
-                                 $t->getMessage()   // mensaje con información
-                             );
                              
-                             // si estamos en modo DEBUG, se anexa más información
-                             if(DEBUG){
-                                 $respuesta->message .= " En fichero ".$t->getFile()." línea ".$t->getLine();
-                                 $respuesta->method = $this->metodo;
-                                 $respuesta->url = '/'.$this->url;
-                             }
+                // si la operación era JSON , preparamos una nueva JsonResponse            
+                case 'JSON': $response = new JsonResponse([], $t->getMessage(), 500, 'ERROR');
+
+                             if(DEBUG) // en modo DEBUG se anexa más información
+                                 $response->message .= " En fichero ".$t->getFile()." línea ".$t->getLine();
                              
-                             echo $respuesta;
+                             $response->send();
                              break;
                 
                 // si la operación era con otro formato             

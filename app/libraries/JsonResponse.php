@@ -4,43 +4,78 @@
  *
  * Respuestas JSON para las aplicaciones de tipo API.
  *
- * Última modificación: 03/09/2023.
+ * Última modificación: 06/04/2024.
  *
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.9.9
  */
 
 
-class JsonResponse{
+class JsonResponse extends Response{
     
-    /** @var string $status mensaje o código de estado */
-    public string $status = '';
-    
-    /** @var ?array $data información de retorno que contiene la respuesta */
-    public ?array $data = NULL;
+    /** @var array $data datos a enviar */
+    public array $data;
     
     /** @var int $results número de resultados */
-    public int $results = 0;
+    public int $results;
     
-    /** @var string $message mensaje */
-    public string $message = '';
+    /** @var string $message mensaje con información adicional */
+    public string $message;
+    
+    /** @var string $requestMethod método HTTP con el que se relizó la petición */
+    public string $requestMethod;
+
+    /**
+     * Constructor de JsonResponse.
+     */
+    public function __construct(
+        array  $data        = [],
+        string $message     = '',
+        int $httpCode       = 200,
+        string $status      = 'OK'
+    ){
+        
+        parent::__construct('', 'application/json', $httpCode, $status);
+        
+        $this->data = $data;
+        $this->message = $message;    
+        $this->results = $data? sizeof($data) : 0;
+        $this->requestMethod = $_SERVER['REQUEST_METHOD'];
+    }
+    
+    
+    
     
     
     
     /**
-     * Constructor de JsonApiResponse.
+     * @return array
      */
-    public function __construct(
-        string $status,
-        ?array $data = NULL,
-        string $message = ''
-    ){
-        $this->status = $status;
-        $this->data = $data;
-        $this->results = $data? sizeof($data) : 0;
-        $this->message = $message;          
+    public function getData(){
+        return $this->data;
     }
-    
+
+    /**
+     * @return number
+     */
+    public function getResults(){
+        return $this->results;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessage(){
+        return $this->message;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRequestMethod(){
+        return $this->requestMethod;
+    }
+
     
     
     /**
@@ -49,7 +84,6 @@ class JsonResponse{
      * @return string
      */
     public function __toString():string{
-        header('Content-type:application/json; charset=utf-8');
         return JSON::encode($this);
     }
     
