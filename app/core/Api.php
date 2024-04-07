@@ -88,21 +88,19 @@ class Api extends Kernel{
                 case 'NotFoundException':   $httpCode = 404;
                                             $status = 'Not Found';
                                             break;
-                
+                                            
+                case 'LoginException':      
                 case 'AuthException':       $httpCode = 401;
                                             $status = 'Not Authorized';
                                             break;
-                                            
-                case 'ApiException':       $httpCode = 400;
+                  
+                case 'JsonException':      
+                case 'ApiException':        $httpCode = 400;
                                             $status = 'Bad Request';
                                             break;
                 
                 case 'CsrfException':       $httpCode = 419;
                                             $status = 'Page Expired';
-                                            break;
-                
-                case 'LoginException':      $httpCode = 401;
-                                            $status = 'Not Authorized';
                                             break;
                 
                 case 'ValidationException': $httpCode = 422;

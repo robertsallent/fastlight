@@ -8,11 +8,8 @@ Autor: Robert Sallent
 -------------------------------------------------------------------------------------------------------------
 
 - CORE
-	- Hacer que load_view() cree un nuevo objeto Response en lugar de cargar directamente la vista.
-	- Vistas de error personalizadas.
-
 - LIBRARIES
-	- Añadir el código HTTP a las redirecciones y errores.
+	- Añadir el código HTTP a las redirecciones.
 	- Añadir el manyToMany a Model.
 	- Métodos owns() e ownedBy() en Model.
 	- Implementar un sistema de seeding (uso de faker?).

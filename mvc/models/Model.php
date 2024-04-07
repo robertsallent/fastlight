@@ -198,18 +198,18 @@ abstract class Model{
      * @return object la entidad recuperada.
      */
     public static function findOrFail(
-        int $id = 0, 
-        string $message = "No se encontró lo que buscas."
+        int $id = 0,
+        ?string $message = NULL
     ):object{
         
         if(!$id)
-            throw new NothingToFindException("No se recibió el identificador de la entidad a buscar.");
-        
+            throw new NothingToFindException("No se recibió el identificador.");
+            
         $entity = get_called_class()::find($id);
         
         if(!$entity)
-            throw new NotFoundException($message);
-        
+            throw new NotFoundException($message ?? "No se encontró la entidad buscada.");
+            
         return $entity;
     }
     
