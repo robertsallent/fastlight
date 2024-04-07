@@ -14,7 +14,7 @@ class LoginController extends Controller{
     /** Muestra el formulario de login. */
     public function index(){
         Auth::guest();              // solo para usuarios no identificados
-        $this->loadView('login');   // carga la vista de login     
+        Response::view('login');   // carga la vista de login     
     }
     
     /**

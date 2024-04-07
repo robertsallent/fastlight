@@ -51,6 +51,9 @@ class App extends Kernel{
                 strtolower(array_shift($url));
                         
             // crea una instancia del controlador correspondiente y le pasa la Request.
+            if(!class_exists($c))
+                throw new NotFoundException("La URL indicada no existe.");
+            
             $controlador = new $c(self::$request);
             
             // comprueba si ese controlador tiene ese método y es llamable (visible) 
@@ -98,7 +101,43 @@ class App extends Kernel{
                 }
             }
             
-            view('error', ['mensaje' => $mensaje]);  // carga la vista de error
+            // evalúa el tipo de error producido para preparar correctamente la respuesta HTTP y la vista de error personalizada.
+            switch(get_class($error)){
+                case 'NothingToFindException':
+                case 'NotFoundException':   $httpCode = 404;
+                                            $status = 'Not Found';
+                                            break;
+                                          
+                case 'AuthException':       $httpCode = 401;
+                                            $status = 'Not Authorized';
+                                            break;
+                                          
+                case 'CsrfException':       $httpCode = 419;
+                                            $status = 'Page Expired';
+                                            break;
+                                          
+                case 'LoginException':      $httpCode = 401;
+                                            $status = 'Not Authorized';
+                                            break;
+                
+                case 'ValidationException': $httpCode = 422;
+                                            $status = 'Unprocessable Entity';
+                                            break;
+                
+                default:                    $httpCode = 500;
+                                            $status = 'Internal Server Error';
+            }
+            
+            
+            // genera una respuesta con la vista de error
+            // intentará cargar una vista personalizada, en caso que no exista cargará la de error genérica
+            Response::view(
+                !DEBUG && USE_CUSTOM_ERROR_VIEWS && viewExists("http_errors/$httpCode") ? "http_errors/$httpCode" : 'error',
+                ['mensaje' => $mensaje],
+                'text/html',
+                $httpCode,
+                $status
+            );
         } 
     }  
 }

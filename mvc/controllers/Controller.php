@@ -64,15 +64,19 @@ abstract class Controller{
     * 
     * @param string $name nombre del fichero (sin extensión).
     * @param array $parameters array de parámetros a pasarle a la vista.
-    * 
-    * @throws ViewException si no encuentra la vista a cargar.
+    * @param string $contentType tipo MIME del contenido mostrado
+    * @param int $httpCode código HTTP de estado
+    * @param string $status mensaje HTTP de estado
+    *
     */
     public function loadView(
-        string $name,           // nombre del fichero (sin extensión)
-        array $parameters = []  // array asociativo de parámetros para la vista
+        string $name,  
+        array $parameters = [], 
+        string $contentType = 'text/html',
+        int $httpCode       = 200,
+        string $status      = 'OK'
     ){
-
-       view($name, $parameters);
+       Response::view($name, $parameters, $contentType, $httpCode, $status);
     }
 }
 

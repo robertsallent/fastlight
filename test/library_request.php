@@ -32,7 +32,7 @@
 <p>La ruta tiene el texto library? <?= $request->urlHas('library') ? 'SI' : 'NO' ?></p>
 <p>La ruta tiene el texto patata? <?= $request->urlHas('patata') ? 'SI' : 'NO' ?></p>  
 
-<h2>urlBegisnWith()</h2>
+<h2>urlBeginsWith()</h2>
 <p>La ruta comienza por el texto /test? <?= $request->urlBeginsWith('/test') ? 'SI' : 'NO' ?></p>
 <p>La ruta comienza por el texto library? <?= $request->urlBeginsWith('library') ? 'SI' : 'NO' ?></p>
 <p>La ruta comienza por el texto patata? <?= $request->urlBeginsWith('patata') ? 'SI' : 'NO' ?></p>  

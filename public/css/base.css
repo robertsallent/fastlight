@@ -98,6 +98,17 @@ h2.http-code{
 	margin: 5px auto;
 }
 
+p.http-message{
+	font-size: 2rem;
+	margin: 5px auto;
+}
+
+p.http-details{
+	font-size: 1.5rem;
+	margin: 5px auto;
+}
+
+
 div.http-error{
 	width: 80%;
 	margin: auto;

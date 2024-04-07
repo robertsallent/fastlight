@@ -13,10 +13,6 @@
 
 class Response{
     
-    
-    /** @var string $body información de retorno que contiene la respuesta */
-    protected string $body;
-    
     /** @var string $contentType tipo MIME del contenido */
     protected string $contentType;
     
@@ -33,19 +29,15 @@ class Response{
     /**
      * Constructor de Response
      * 
-     * @param string $body
      * @param string $contentType
      * @param int $httpCode
      * @param string $status
      */
     public function __construct(
-        string $body        = '',
         string $contentType = 'text/html',
         int $httpCode       = 200,
-        string $status      = 'OK'
-        
+        string $status      = 'OK'    
     ){    
-        $this->body        = $body;
         $this->contentType = $contentType;
         $this->httpCode    = $httpCode;  
         $this->status      = $status;
@@ -53,16 +45,15 @@ class Response{
         $this->timestamp = date('Y-m-d H:i:s');
     }
     
-    
+     
     /**
-     * Coloca el encabezado "Content-type" a la respuesta.
+     * prepara los encabezados y el código de la respuesta.
      */
-    public function setResponseHeaders(){
+    protected function prepare(){
         // TODO: añadir otros encabezados
         header("Content-type:$this->contentType; charset=utf-8");
+        header($_SERVER['SERVER_PROTOCOL']." $this->httpCode $this->status");
     }
-    
-    
     
     /**
      * Setter de status
@@ -85,6 +76,9 @@ class Response{
     }
     
     
+
+    
+    
     
     /**
      * Setter de contentType
@@ -95,24 +89,35 @@ class Response{
         $this->contentType = $contentType;
     }
     
-    
-    /**
-     * Setter para los datos 
-     * 
-     * @param string $body datos de la respuesta
-     */
-    public function setBody(string $body){
-        $this->body = $body;
-    }
-    
-    
-    
+        
     /**
      * genera la respuesta
      */
     public function send(){
-        $this->setResponseHeaders();
+        $this->prepare();
         echo $this;
+    }
+    
+    
+    /**
+     * Genera una respuesta y carga una vista
+     * 
+     * @param string $name nombre de la vista a cargar
+     * @param array $parameters array de parámetros para mostrar en la vista
+     * @param string $contentType tipo MIME del contenido mostrado
+     * @param int $httpCode código HTTP de estado
+     * @param string $status mensaje HTTP de estado
+     */
+    public static function view(
+        string $name,
+        array $parameters = [],
+        string $contentType = 'text/html',
+        int $httpCode       = 200,
+        string $status      = 'OK'
+    ){
+        $response = new self($contentType, $httpCode, $status);
+        $response->prepare();
+        view($name, $parameters);
     }
     
     
@@ -120,8 +125,9 @@ class Response{
     /**
      * @return string
      */
-    public function __toString():string{
-        return $this->body();
+    public function __toString(){
+        return $this->message ?? $this->status;
     }
+    
     
 }

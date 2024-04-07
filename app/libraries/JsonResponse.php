@@ -13,15 +13,15 @@
 
 class JsonResponse extends Response{
     
-    /** @var array $data datos a enviar */
-    public array $data;
-    
     /** @var int $results número de resultados */
     public int $results;
     
     /** @var string $message mensaje con información adicional */
     public string $message;
-    
+
+    /** @var array $data datos a enviar */
+    public array $data;
+       
     /** @var string $requestMethod método HTTP con el que se relizó la petición */
     protected string $requestMethod;
 
@@ -35,7 +35,7 @@ class JsonResponse extends Response{
         string $status      = 'OK'
     ){
         
-        parent::__construct('', 'application/json', $httpCode, $status);
+        parent::__construct('application/json', $httpCode, $status);
         
         $this->data = $data;
         $this->message = $message;    
@@ -76,8 +76,7 @@ class JsonResponse extends Response{
         return $this->requestMethod;
     }
 
-    
-    
+
     /**
      * Retorna la respuesta en JSON.
      * 

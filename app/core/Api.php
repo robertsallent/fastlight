@@ -81,13 +81,46 @@ class Api extends Kernel{
         // si se produce algún error...
         }catch(Throwable $t){ 
             
+            // evalúa el tipo de error producido para preparar correctamente la respuesta HTTP y la vista de error personalizada.
+            //FIXME: pasar esto, que está repetido en App y Api (salvo ApiException) a un método de Response
+            switch(get_class($t)){
+                case 'NothingToFindException':
+                case 'NotFoundException':   $httpCode = 404;
+                                            $status = 'Not Found';
+                                            break;
+                
+                case 'AuthException':       $httpCode = 401;
+                                            $status = 'Not Authorized';
+                                            break;
+                                            
+                case 'ApiException':       $httpCode = 400;
+                                            $status = 'Bad Request';
+                                            break;
+                
+                case 'CsrfException':       $httpCode = 419;
+                                            $status = 'Page Expired';
+                                            break;
+                
+                case 'LoginException':      $httpCode = 401;
+                                            $status = 'Not Authorized';
+                                            break;
+                
+                case 'ValidationException': $httpCode = 422;
+                                            $status = 'Unprocessable Entity';
+                                            break;
+                
+                default:                    $httpCode = 500;
+                                            $status = 'Internal Server Error';
+            }
+            
             // miramos si la petición fue XML o JSON para enviar errores en formato correcto
             // si queremos permitir más formatos, los tendremos que añadir.
             switch(strtoupper($this->formato)){
                 
-                
+                // TODO: mejorar XMLResponse y rehacer este código (como en el caso JSON)
                 // si la operación era XML
                 case 'XML':  header('Content-type:text/xml; charset=utf-8');
+                             http_response_code($httpCode);
                              $respuesta = "<respuesta>\n
                                             \t<status>ERROR</status>\n
                                             \t<message>".htmlspecialchars($t->getMessage())."</message>\n
@@ -104,18 +137,27 @@ class Api extends Kernel{
                              break;
                 
                              
+                             
                 // si la operación era JSON , preparamos una nueva JsonResponse            
-                case 'JSON': $response = new JsonResponse([], $t->getMessage(), 500, 'ERROR');
+                case 'JSON': $response = new JsonResponse([], $t->getMessage(), $httpCode, $status);
 
                              if(DEBUG) // en modo DEBUG se anexa más información
-                                 $response->message .= " En fichero ".$t->getFile()." línea ".$t->getLine();
+                                 $response->more = " En fichero ".$t->getFile()." línea ".$t->getLine();
                              
                              $response->send();
                              break;
                 
+                             
+                             
                 // si la operación era con otro formato             
-                default:    header('Content-type:text/plain; charset=utf-8');
-                            echo "ERROR: ".$t->getMessage();
+                default:    $response = new Response(
+                                'text/plain',
+                                $httpCode,
+                                $status
+                            );
+                            
+                            $response->message = $t->getMessage();
+                            $response->send();
             }
         }
     }  

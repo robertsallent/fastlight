@@ -144,7 +144,10 @@ function abort(int $code, string $message = ''){
  * 
  * @throws ViewException en caso de que algo falle.
  */
-function view(string $name, array $parameters = []){
+function view(
+    string $name, 
+    array $parameters = []
+){
     
     // crea las variables a partir de las claves del array en este ámbito
     foreach($parameters as $variable => $valor)

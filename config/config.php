@@ -7,6 +7,7 @@
  * Última revisión: 24/03/24
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since 0.1.0
+ * @since 1.0.0 se pueden configurar las vistas de error personalizadas
  */
    
 
@@ -72,7 +73,7 @@ define('TEST_TEMPLATE', 'Test');   // Ubicación del template para los tests.
  * HERRAMIENTAS DE DEPURACIÓN (PARA APP_TYPE WEB)
  * -------------------------------------------------------------*/
     
-define('DEBUG', true);    // Activa el modo debug.                     
+define('DEBUG', true); // Activa el modo debug.   
 
 // Detalles que queremos mostrar en modo debug en la página de error
 // OPCIONES: user, trace, post, get, session, cookie, client
@@ -97,6 +98,12 @@ define('LOGIN_ERRORS_FILE', '../logs/login.log');  // Nombre del fichero para lo
 
 define('DB_LOGIN_ERRORS', false);                  // Guardar errores de login en la base de datos.
 
+
+// usar vistas personalizadas de error 401, 403...
+// se deben colocar en el directorio de vistas en la subcarpeta http_errors y el nombre
+// del fichero debe ser el código del error, por ejemplo 404.php
+// solamente se muestran si no estamos en modo DEBUG
+define('USE_CUSTOM_ERROR_VIEWS', true);
 
 
 /* -------------------------------------------------------------

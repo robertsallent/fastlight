@@ -24,10 +24,11 @@
 		
 		<main>
     		<h2 class="http-code">401</h2>
+    		<p class="http-message centrado">Unauthorized</p>
     
-    		<div class='http-error'>
-    			<?= $message ?>
-			</div>
+    		<p class='http-details centrado'>
+    			<?= $mensaje ?>
+			</p>
 			
 			<nav class="enlaces centrado">
     			<a class="button" onclick="history.back()">Atrás</a>  

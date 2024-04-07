@@ -2,11 +2,11 @@
 <html lang="es">
 	<head>
 		<meta charset="UTF-8">
-		<title>Error 404 en <?= APP_NAME ?></title>
+		<title>Error 500 en <?= APP_NAME ?></title>
 		
 		<!-- META -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="Error 404 en <?= APP_NAME ?>">
+		<meta name="description" content="Error 500 en <?= APP_NAME ?>">
 		<meta name="author" content="Robert Sallent">
 		
 		<!-- FAVICON -->
@@ -17,14 +17,14 @@
 	</head>
 	<body>
 		<?= (TEMPLATE)::getLogin() ?>
-		<?= (TEMPLATE)::getHeader('Error 404') ?>
+		<?= (TEMPLATE)::getHeader('Error 401') ?>
 		<?= (TEMPLATE)::getMenu() ?>
-		<?= (TEMPLATE)::getBreadCrumbs(["Error 404" => NULL]) ?>
+		<?= (TEMPLATE)::getBreadCrumbs(["Error 400" => NULL]) ?>
 		<?= (TEMPLATE)::getFlashes() ?>
 		
 		<main>
-    		<h2 class="http-code">404</h2>
-    		<p class="http-message centrado">Not Found</p>
+    		<h2 class="http-code">500</h2>
+    		<p class="http-message centrado">Internal Server Error</p>
     
     		<p class='http-details centrado'>
     			<?= $mensaje ?>
