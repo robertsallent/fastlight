@@ -4,11 +4,12 @@
  * 
  * Permitirá acceder a los datos de la petición fácilmente desde los controladores.
  * 
- * Última modificación: 19/03/2024.
+ * Última modificación: 09/04/2024.
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.6.5
  * @since v0.9.4 añadida propiedad $previousUrl y método sameAsPrevious()
+ * @since v1.0.2 añadido métodos fromJson() y fromXML()
  */
 
 class Request{
@@ -19,6 +20,9 @@ class Request{
     
     /** @var string|null $url url indicada en la petición http. */
     public ?string $url;
+    
+    /** @var string $method método de la petición */
+    public string $method;
     
     /** @var string|null $previousUrl url de la petición anterior. */
     public ?string $previousUrl;
@@ -41,6 +45,9 @@ class Request{
         
         $this->user = Login::user();            // mete el usuario identificado en la Request
         $this->url  = $_SERVER['REQUEST_URI'];  // mete la URL en la request
+        
+        $this->method = strtoupper($_SERVER['REQUEST_METHOD']); // método de la petición
+        
         $this->csrfToken = apache_request_headers()['csrf_token'] ?? null;  // token CSRF que llega en los headers
         
         // recupera los inputs de la petición anterior.
@@ -122,10 +129,26 @@ class Request{
      * @return string
      */
     public function method():string{
-        return $_SERVER['REQUEST_METHOD'];
+        return $this->method;
     }
     
     
+    /**
+     * comprueba si un método será permitido por las directivas CORS, 
+     * dependiendo de la configuración en config.php
+     * 
+     * @param string $method método a comprobar
+     * @return bool retorna si será bloqueada la petición por CORS o no
+     */
+    public function allowedByCors():bool{
+        
+        $permitidos = explode(',', ALLOW_METHODS);
+        
+        for($i = 0; $i<count($permitidos); $i++)
+            $permitidos[$i] = trim($permitidos[$i]);
+        
+        return in_array(strtoupper($this->method()), $permitidos);
+    }
     
     /**
      * Comprueba si llega un determinado parámetro en la petición.
@@ -348,4 +371,44 @@ class Request{
     public function body():string{
         return file_get_contents('php://input');
     }   
+    
+    /**
+     * recupera los datos contenidos en una petición con datos en JSON y los retorna a modo de array de objetos.
+     *
+     * @param string $class clase a la que mapear los elementos de pimer nivel dentro del array retornado
+     *
+     * @return array|NULL retorna un array de objetos creado a partir del JSON
+     */
+    public function fromJson(
+        string $class = 'stdClass'
+    ):?array{
+            
+        // recupera los datos contenidos en el cuerpo de la petición
+        if(empty($json = $this->body())) 
+            throw new ApiException('No se recibieron datos en la petición.');
+            
+        // convierte los datos en una lista de objetos del tipo deseado    
+        return JSON::decode($json, $class); 
+    }
+    
+    
+    /**
+     * recupera los datos contenidos en una petición con datos en XML y los retorna a modo de array de objetos.
+     *
+     * @param string $class clase a la que mapear los elementos de pimer nivel dentro del array retornado
+     *
+     * @return array|NULL retorna un array de objetos creado a partir del XML
+     */
+    //TODO: esto está sin probar ahún :D estamos trabajando en ello
+    public function fromXML(
+        string $class = 'stdClass'
+    ):?array{
+            
+        // recupera los datos contenidos en el cuerpo de la petición
+        if(empty($xml = $this->body()))
+            throw new ApiException('No se recibieron datos en la petición.');
+            
+        // convierte los datos en una lista de objetos del tipo deseado
+        return XML::decode($xml, $class);
+    }
 }

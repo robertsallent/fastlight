@@ -61,11 +61,24 @@ class Api extends Kernel{
             
             // analiza el método HTTP (será el método a invocar en el controlador)
             $this->metodo   = strtoupper(self::$request->method());
-            $metodo         = strtolower($this->metodo); 
-                           
-            // comprueba si ese controlador tiene ese método y es llamable (visible) 
+            
+            // si el método no está permitido por CORS, lanzaremos una excepción
+            // que retornará 405 METHOD NOT ALLOWED
+            if(!self::$request->allowedByCors())
+                throw new MethodNotAllowedException("Esta petición será bloqueada según la política CORS.");
+            
+            // si el método es OPTIONS retornamos ya las
+            if(strtoupper($this->metodo) == 'OPTIONS'){
+                header('Allow: '.ALLOW_METHODS);
+                return;
+            }
+            
+            // para otros métodos que no sean options...
+            // comprueba si el controlador tiene ese método y es llamable (visible)
+            $metodo = strtolower($this->metodo); 
+            
             if(!is_callable([$controlador, $metodo]))
-                throw new NotFoundException("La operación $this->metodo para $this->entidad en $this->formato no existe.");
+                throw new MethodNotAllowedException("La operación $this->metodo para $this->entidad en $this->formato no existe.");
             
             // tras sacar formato y entidad, lo que queda en $url son los parámetros.
             // llamaremos al método del controlador pasando hasta tres parámetros
@@ -86,29 +99,33 @@ class Api extends Kernel{
             switch(get_class($t)){
                 case 'NothingToFindException':
                 case 'NotFoundException':   $httpCode = 404;
-                                            $status = 'Not Found';
+                                            $status = 'NOT FOUND';
                                             break;
-                                            
+                
+                case 'MethodNotAllowedException':  $httpCode = 405;
+                                            $status = 'METHOD NOT ALLOWED';
+                                            break;
+                              
                 case 'LoginException':      
                 case 'AuthException':       $httpCode = 401;
-                                            $status = 'Not Authorized';
+                                            $status = 'NOT AUTHORIZED';
                                             break;
                   
                 case 'JsonException':      
                 case 'ApiException':        $httpCode = 400;
-                                            $status = 'Bad Request';
+                                            $status = 'BAD REQUEST';
                                             break;
                 
                 case 'CsrfException':       $httpCode = 419;
-                                            $status = 'Page Expired';
+                                            $status = 'PAGE EXPIRED';
                                             break;
                 
                 case 'ValidationException': $httpCode = 422;
-                                            $status = 'Unprocessable Entity';
+                                            $status = 'UNPROCESSABLE ENTITY';
                                             break;
                 
                 default:                    $httpCode = 500;
-                                            $status = 'Internal Server Error';
+                                            $status = 'INTERNAL SERVER ERROR';
             }
             
             // miramos si la petición fue XML o JSON para enviar errores en formato correcto

@@ -27,10 +27,10 @@ class JSON{
         bool $pretty = false 
     ):string{
         
+        // FIXME: he quitado el JSON_NUMERIC_CHECK por problemas con los códigos postales, hay que comprobar si funciona bien todo lo demás
         return json_encode(
             $datos, 
-            JSON_UNESCAPED_UNICODE |  JSON_UNESCAPED_SLASHES |  JSON_NUMERIC_CHECK |
-                ($exceptions ? JSON_THROW_ON_ERROR : 0) |  ($pretty ? JSON_PRETTY_PRINT : 0)
+            JSON_UNESCAPED_UNICODE |  JSON_UNESCAPED_SLASHES | ($exceptions ? JSON_THROW_ON_ERROR : 0) |  ($pretty ? JSON_PRETTY_PRINT : 0)
         );
     }
     
