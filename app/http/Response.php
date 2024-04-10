@@ -23,8 +23,7 @@ class Response{
     public string $status = '';
 
     /** @var string $timestamp fecha y hora de la respuesta */
-    public string $timestamp;
-    
+    public string $timestamp;  
     
     /**
      * Constructor de Response
@@ -117,8 +116,8 @@ class Response{
     public function setContentType(string $contentType){
         $this->contentType = $contentType;
     }
-    
-          
+        
+       
     /**
      * prepara y genera la respuesta
      */
@@ -167,8 +166,10 @@ class Response{
      * Actualiza el código HTTP y el estado en función del error
      * 
      * @param Throwable $t la excepción o error producidos
+     * 
+     * @return Response retorna la propia response, para permitir el chaining
      */
-    public function evaluateError(Throwable $t){
+    public function evaluateError(Throwable $t):Response{
         
         // Prepara el código y status en función del tipo de error
         switch(get_class($t)){
@@ -213,6 +214,9 @@ class Response{
         // en modo DEBUG se anexa más información
         if(DEBUG) 
             $this->more = " En fichero ".$t->getFile()." línea ".$t->getLine();
+        
+        // retorna la propia respuesta, para permitir chaining
+        return $this;
     }
     
 

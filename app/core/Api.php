@@ -60,14 +60,14 @@ class Api extends Kernel{
             $controlador = new $c(self::$request);
             
             // analiza el método HTTP (será el método a invocar en el controlador)
-            $this->metodo   = strtoupper(self::$request->method());
+            $this->metodo = strtoupper(self::$request->method());
             
             // si el método no está permitido por CORS, lanzaremos una excepción
             // que retornará 405 METHOD NOT ALLOWED
             if(!self::$request->allowedByCors())
                 throw new MethodNotAllowedException("Esta petición será bloqueada según la política CORS.");
             
-            // si el método es OPTIONS retornamos ya las
+            // si el método es OPTIONS retornamos ya las opciones disponibles
             if(strtoupper($this->metodo) == 'OPTIONS'){
                 header('Allow: '.ALLOW_METHODS);
                 return;
@@ -97,24 +97,25 @@ class Api extends Kernel{
             // crea una nueva respuesta de error.
             $response = new APIResponse([], '', 'text/plain', 500, 'INTERNAL SERVER ERROR');
             
-            // actualizar los datos de la respuesta en función del error 
-            $response->evaluateError($t);
-            
             // miramos si la petición fue XML o JSON para enviar errores en formato correcto
             // si queremos permitir más formatos, los tendremos que añadir.
             switch(strtoupper($this->formato)){
                 
                 // XML: generar XMLResponse y enviarla
-                case 'XML':  $response->toXMLResponse([], $t->getMessage())->send();
+                case 'XML':  $response->toXMLResponse([], $t->getMessage())
+                                      ->evaluateError($t)
+                                      ->send();
                              break;
                                    
                 // JSON: convertimos la respuesta a JsonResponse y la enviamos            
-                case 'JSON': $response->toJsonResponse([], $t->getMessage())->send();
+                case 'JSON': $response->toJsonResponse([], $t->getMessage())
+                                      ->evaluateError($t)
+                                      ->send();
                              break;
                         
                 // Otro formato: respuesta en text/plain             
                 default:    $response->setMessage($t->getMessage());
-                            $response->send();
+                            $response->evaluateError($t)->send();
             }
         }
     }  

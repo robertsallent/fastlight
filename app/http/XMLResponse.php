@@ -7,7 +7,7 @@
  * Última modificación: 10/04/2024.
  *
  * @author Robert Sallent <robertsallent@gmail.com>
- * @since v1.0.4
+ * @since v1.1.0
  */
 
 
@@ -33,14 +33,17 @@ class XMLResponse extends APIResponse{
      * @return string
      */
     public function __toString():string{
-        $respuesta = "<respuesta>\n
+        
+        $respuesta = "<?xml version='1.0' encoding='utf-8'>\n
+                      <respuesta>\n
                         \t<status>$this->status</status>\n
-                        \t<message>".htmlspecialchars($this->message)."</message>\n
+                        \t<timestamp>$this->timestamp</timestamp>\n
                         \t<results>$this->results</results>\n
+                        \t<message>".htmlspecialchars($this->message)."</message>\n
                         \t<data>".arrayToString($this->data, false, false)."</data>\n";
                         
         if(DEBUG)
-            $respuesta.= "\t<more>".htmlspecialchars($this->more ?? '')."</more>\n";
+            $respuesta.= "\t<more>".htmlspecialchars($this->more)."</more>\n";
          
         $respuesta .= "</respuesta>";
 

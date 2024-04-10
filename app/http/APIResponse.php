@@ -7,7 +7,7 @@
  * Última modificación: 10/04/2024.
  *
  * @author Robert Sallent <robertsallent@gmail.com>
- * @since v1.0.4
+ * @since v1.1.0
  */
 
 
@@ -160,12 +160,12 @@ class APIResponse extends Response{
      * 
      * @return string
      */
-    // TODO: completar este toString
     public function __toString():string{
         $respuesta = "STATUS: $this->status".
-                     "\nMESSAGE: ".htmlspecialchars($this->message).
+                     "\nTIMESTAMP: $this->timestamp".
                      "\nRESULTS: $this->results".
-                     "\nDATA: ".arrayToString($this->data, false, false).". ";
+                     "\nMESSAGE: ".htmlspecialchars($this->message).
+                     "\nDATA: ".arrayToString($this->data, false, false);
         
         if(DEBUG)
             $respuesta.= "\nMORE: ".htmlspecialchars($this->more ?? '').".";
