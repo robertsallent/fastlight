@@ -17,11 +17,12 @@
 
 // direcotrios para el autoload (no PSR-4) 
 define('AUTOLOAD_DIRECTORIES',  [
+    '../app/core',          // core 
+    '../app/http',          // peticiones y respuestas 
+    '../app/libraries',     // librerías
+    '../app/interfaces',    // interfaces
     '../mvc/controllers',   // controladores
     '../mvc/models',        // modelos 
-    '../app/libraries',     // librerías       
-    '../app/interfaces',    // interfaces
-    '../app/core',          // core 
     '../templates',         // plantillas para las vistas
     '../app/exceptions'     // excepciones
 ]);

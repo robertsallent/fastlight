@@ -12,7 +12,7 @@
  * Además trata los errores que se puedan producir, redirigiendo hacia la página de error y registrando
  * los mensajes en LOG y BDD (según lo configurado en el fichero config.php).
  *
- * Última revisión: 13/07/2023
+ * Última revisión: 10/04/2024
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
@@ -101,20 +101,17 @@ class App extends Kernel{
                 }
             }
             
-            // evalúa el tipo de error producido para preparar correctamente la respuesta HTTP
-            // y la vista de error personalizada.
-            $httpCode = 500;
-            $status   = 'INTERNAL SERVER ERROR';
-            Response::evaluateCodeFromException($t, $httpCode, $status);
+            // crea una nueva respuesta de error.
+            $response = new Response('text/html', 500, 'INTERNAL SERVER ERROR');
+            
+            // actualizar los datos de la respuesta en función del error
+            $response->evaluateError($t);
             
             // genera una respuesta con la vista de error
             // intentará cargar una vista personalizada, en caso que no exista cargará la de error genérica
-            Response::view(
-                !DEBUG && USE_CUSTOM_ERROR_VIEWS && viewExists("http_errors/$httpCode") ? "http_errors/$httpCode" : 'error',
-                ['mensaje' => $mensaje],
-                'text/html',
-                $httpCode,
-                $status
+            $response->sendView(
+                !DEBUG && USE_CUSTOM_ERROR_VIEWS && viewExists("http_errors/".$response->getHttpCode()) ? "http_errors/".$response->getHttpCode() : 'error',
+                ['mensaje' => $mensaje]
             );
         } 
     }  

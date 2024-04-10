@@ -4,7 +4,7 @@
  *
  * Controlador frontal para el desarrollo de Apis Restful
  *
- * Última revisión: 03/09/2023
+ * Última revisión: 10/04/2024
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  */
@@ -91,55 +91,29 @@ class Api extends Kernel{
                 case 3 : $controlador->$metodo($url[0], $url[1], $url[2]); break;
             }
 
-        // si se produce algún error...
+        // si se produce algún otro error...
         }catch(Throwable $t){ 
             
-            // evalúa el tipo de error producido para preparar correctamente la respuesta HTTP
-            // y la vista de error personalizada.
-            $httpCode = 500;
-            $status   = 'INTERNAL SERVER ERROR';
-            Response::evaluateCodeFromException($t, $httpCode, $status);
+            // crea una nueva respuesta de error.
+            $response = new APIResponse([], '', 'text/plain', 500, 'INTERNAL SERVER ERROR');
+            
+            // actualizar los datos de la respuesta en función del error 
+            $response->evaluateError($t);
             
             // miramos si la petición fue XML o JSON para enviar errores en formato correcto
             // si queremos permitir más formatos, los tendremos que añadir.
             switch(strtoupper($this->formato)){
                 
-                // TODO: mejorar XMLResponse y rehacer este código (como en el caso JSON)
-                // si la operación era XML
-                case 'XML':  header('Content-type:text/xml; charset=utf-8');
-                             http_response_code($httpCode);
-                             $respuesta = "<respuesta>\n
-                                            \t<status>ERROR</status>\n
-                                            \t<message>".htmlspecialchars($t->getMessage())."</message>\n
-                                            \t<data></data>\n";
-                            
-                             if(DEBUG){
-                                $respuesta.= "
-                                                \t<method>".htmlspecialchars($this->metodo)."</method>\n
-                                                \t<url>/".htmlspecialchars($this->url)."</url>\n";
-                             }
-                            
-                             $respuesta .= "</respuesta>";
-                             echo $respuesta;
+                // XML: generar XMLResponse y enviarla
+                case 'XML':  $response->toXMLResponse([], $t->getMessage())->send();
                              break;
                                    
-                // si la operación era JSON , preparamos una nueva JsonResponse            
-                case 'JSON': $response = new JsonResponse([], $t->getMessage(), $httpCode, $status);
-
-                             if(DEBUG) // en modo DEBUG se anexa más información
-                                 $response->more = " En fichero ".$t->getFile()." línea ".$t->getLine();
-                             
-                             $response->send();
+                // JSON: convertimos la respuesta a JsonResponse y la enviamos            
+                case 'JSON': $response->toJsonResponse([], $t->getMessage())->send();
                              break;
                         
-                // si la operación era con otro formato             
-                default:    $response = new Response(
-                                'text/plain',
-                                $httpCode,
-                                $status
-                            );
-                            
-                            $response->message = $t->getMessage();
+                // Otro formato: respuesta en text/plain             
+                default:    $response->setMessage($t->getMessage());
                             $response->send();
             }
         }
