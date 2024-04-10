@@ -64,8 +64,7 @@ class Response{
         $this->status = $status;
     }
     
-    
-    
+      
     /**
      * Setter de httpCode
      * 
@@ -74,9 +73,6 @@ class Response{
     public function setHttpCode(int $httpCode){
         $this->httpCode = $httpCode;
     }
-    
-    
-
     
     
     
@@ -120,6 +116,50 @@ class Response{
         view($name, $parameters);
     }
     
+    
+    
+    public static function evaluateCodeFromException(
+        Throwable $exception, 
+        int &$httpCode,
+        string &$status
+    ){
+        
+        switch(get_class($exception)){
+            case 'NothingToFindException':
+            case 'NotFoundException':   $httpCode = 404;
+                                        $status = 'NOT FOUND';
+                                        break;
+            
+            case 'MethodNotAllowedException':  $httpCode = 405;
+                                        $status = 'METHOD NOT ALLOWED';
+                                        break;
+            
+            case 'LoginException':
+            case 'AuthException':       $httpCode = 401;
+                                        $status = 'NOT AUTHORIZED';
+                                        break;
+            
+            case 'ForbiddenException':  $httpCode = 403;
+                                        $status = 'FORBIDDEN';
+                                        break;
+            
+            case 'JsonException':
+            case 'ApiException':        $httpCode = 400;
+                                        $status = 'BAD REQUEST';
+                                        break;
+            
+            case 'CsrfException':       $httpCode = 419;
+                                        $status = 'PAGE EXPIRED';
+                                        break;
+            
+            case 'ValidationException': $httpCode = 422;
+                                        $status = 'UNPROCESSABLE ENTITY';
+                                        break;
+            
+            default:                    $httpCode = 500;
+                                        $status = 'INTERNAL SERVER ERROR';
+        }
+    }
     
     
     /**

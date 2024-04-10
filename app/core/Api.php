@@ -94,39 +94,11 @@ class Api extends Kernel{
         // si se produce algún error...
         }catch(Throwable $t){ 
             
-            // evalúa el tipo de error producido para preparar correctamente la respuesta HTTP y la vista de error personalizada.
-            //FIXME: pasar esto, que está repetido en App y Api (salvo ApiException) a un método de Response
-            switch(get_class($t)){
-                case 'NothingToFindException':
-                case 'NotFoundException':   $httpCode = 404;
-                                            $status = 'NOT FOUND';
-                                            break;
-                
-                case 'MethodNotAllowedException':  $httpCode = 405;
-                                            $status = 'METHOD NOT ALLOWED';
-                                            break;
-                              
-                case 'LoginException':      
-                case 'AuthException':       $httpCode = 401;
-                                            $status = 'NOT AUTHORIZED';
-                                            break;
-                  
-                case 'JsonException':      
-                case 'ApiException':        $httpCode = 400;
-                                            $status = 'BAD REQUEST';
-                                            break;
-                
-                case 'CsrfException':       $httpCode = 419;
-                                            $status = 'PAGE EXPIRED';
-                                            break;
-                
-                case 'ValidationException': $httpCode = 422;
-                                            $status = 'UNPROCESSABLE ENTITY';
-                                            break;
-                
-                default:                    $httpCode = 500;
-                                            $status = 'INTERNAL SERVER ERROR';
-            }
+            // evalúa el tipo de error producido para preparar correctamente la respuesta HTTP
+            // y la vista de error personalizada.
+            $httpCode = 500;
+            $status   = 'INTERNAL SERVER ERROR';
+            Response::evaluateCodeFromException($t, $httpCode, $status);
             
             // miramos si la petición fue XML o JSON para enviar errores en formato correcto
             // si queremos permitir más formatos, los tendremos que añadir.
@@ -150,9 +122,7 @@ class Api extends Kernel{
                              $respuesta .= "</respuesta>";
                              echo $respuesta;
                              break;
-                
-                             
-                             
+                                   
                 // si la operación era JSON , preparamos una nueva JsonResponse            
                 case 'JSON': $response = new JsonResponse([], $t->getMessage(), $httpCode, $status);
 
@@ -161,9 +131,7 @@ class Api extends Kernel{
                              
                              $response->send();
                              break;
-                
-                             
-                             
+                        
                 // si la operación era con otro formato             
                 default:    $response = new Response(
                                 'text/plain',

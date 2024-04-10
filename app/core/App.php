@@ -72,28 +72,28 @@ class App extends Kernel{
 
             
         // si es un problema de usuario no identificado
-        }catch(NotIdentifiedException $error){ 
+        }catch(NotIdentifiedException $e){ 
             
             // no llevamos al usuario a error sino a login.
             Session::set('_pending_operation', '/'.self::$request->get('url'));
             redirect('/Login');
       
         // si se produce algún otro tipo de error...
-        }catch(Throwable $error){ 
+        }catch(Throwable $t){ 
             
             // en modo DEBUG, añade información adicional al mensaje
             $mensaje = DEBUG ?
-                Debug::errorInformation($error, $c, $m, $url):
-                $error->getMessage();
+                Debug::errorInformation($t, $c, $m, $url):
+                $t->getMessage();
             
             // si está activado el LOG de errores:
             if(LOG_ERRORS)
-                Log::addMessage(ERROR_LOG_FILE, get_class($error), $error->getMessage());
+                Log::addMessage(ERROR_LOG_FILE, get_class($t), $t->getMessage());
             
             // si está activada la opción de guardar errores en BDD
             if(DB_ERRORS){
                 try{
-                    AppError::new(get_class($error), $error->getMessage());
+                    AppError::new(get_class($t), $t->getMessage());
                     
                 }catch(SQLException $e){
                     view('error', ['mensaje' => $e->getMessage()]); 
@@ -101,33 +101,11 @@ class App extends Kernel{
                 }
             }
             
-            // evalúa el tipo de error producido para preparar correctamente la respuesta HTTP y la vista de error personalizada.
-            switch(get_class($error)){
-                case 'NothingToFindException':
-                case 'NotFoundException':   $httpCode = 404;
-                                            $status = 'Not Found';
-                                            break;
-                                          
-                case 'AuthException':       $httpCode = 401;
-                                            $status = 'Not Authorized';
-                                            break;
-                                          
-                case 'CsrfException':       $httpCode = 419;
-                                            $status = 'Page Expired';
-                                            break;
-                                          
-                case 'LoginException':      $httpCode = 401;
-                                            $status = 'Not Authorized';
-                                            break;
-                
-                case 'ValidationException': $httpCode = 422;
-                                            $status = 'Unprocessable Entity';
-                                            break;
-                
-                default:                    $httpCode = 500;
-                                            $status = 'Internal Server Error';
-            }
-            
+            // evalúa el tipo de error producido para preparar correctamente la respuesta HTTP
+            // y la vista de error personalizada.
+            $httpCode = 500;
+            $status   = 'INTERNAL SERVER ERROR';
+            Response::evaluateCodeFromException($t, $httpCode, $status);
             
             // genera una respuesta con la vista de error
             // intentará cargar una vista personalizada, en caso que no exista cargará la de error genérica
