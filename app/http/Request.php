@@ -399,7 +399,6 @@ class Request{
      *
      * @return array|NULL retorna un array de objetos creado a partir del XML
      */
-    //TODO: esto está sin probar ahún :D estamos trabajando en ello
     public function fromXML(
         string $class = 'stdClass'
     ):?array{

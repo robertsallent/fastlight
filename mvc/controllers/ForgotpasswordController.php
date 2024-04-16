@@ -13,7 +13,7 @@ class ForgotpasswordController extends Controller{
     
     /** Muestra el formulario que solicita una nueva clave. */
     public function index(){
-        Response::view('forgotpassword');
+        view('forgotpassword');
     } 
     
     /**

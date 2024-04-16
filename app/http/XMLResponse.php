@@ -32,6 +32,8 @@ class XMLResponse extends APIResponse{
      * 
      * @return string
      */
+    
+    // TODO: arreglar este método para que lo haga bien a partir de XML::encode()
     public function __toString():string{
         
         $respuesta = "<?xml version='1.0' encoding='utf-8'>\n
@@ -43,7 +45,7 @@ class XMLResponse extends APIResponse{
                         \t<data>".arrayToString($this->data, false, false)."</data>\n";
                         
         if(DEBUG)
-            $respuesta.= "\t<more>".htmlspecialchars($this->more)."</more>\n";
+            $respuesta.= "\t<debug>".htmlspecialchars($this->debug ?? '')."</debug>\n";
          
         $respuesta .= "</respuesta>";
 

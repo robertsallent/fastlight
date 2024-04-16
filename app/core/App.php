@@ -109,7 +109,7 @@ class App extends Kernel{
             
             // genera una respuesta con la vista de error
             // intentará cargar una vista personalizada, en caso que no exista cargará la de error genérica
-            $response->sendView(
+            $response->view(
                 !DEBUG && USE_CUSTOM_ERROR_VIEWS && viewExists("http_errors/".$response->getHttpCode()) ? "http_errors/".$response->getHttpCode() : 'error',
                 ['mensaje' => $mensaje]
             );

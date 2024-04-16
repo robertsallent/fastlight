@@ -76,7 +76,7 @@ abstract class Controller{
         int $httpCode       = 200,
         string $status      = 'OK'
     ){
-       Response::view($name, $parameters, $contentType, $httpCode, $status);
+       Response::withView($name, $parameters, $contentType, $httpCode, $status);
     }
 }
 

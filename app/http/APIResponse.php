@@ -167,8 +167,8 @@ class APIResponse extends Response{
                      "\nMESSAGE: ".htmlspecialchars($this->message).
                      "\nDATA: ".arrayToString($this->data, false, false);
         
-        if(DEBUG)
-            $respuesta.= "\nMORE: ".htmlspecialchars($this->more ?? '').".";
+        if(DEBUG && $this->debug)
+            $respuesta.= "\nDEBUG: ".htmlspecialchars($this->debug ?? '').".";
 
         return $respuesta;
     }

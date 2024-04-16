@@ -13,7 +13,7 @@ class WelcomeController extends Controller{
     
     /** Carga la vista de portada. */
     public function index(){
-        Response::view('welcome');
+        view('welcome');
     }  
 }
 

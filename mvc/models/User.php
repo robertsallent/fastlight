@@ -6,9 +6,10 @@
  *
  * @author Robert Sallent <robertsallent@gmail.com>
  * 
- * Última revisión: 28/06/23
+ * Última revisión: 16/04/2024
  */
 
+#[\AllowDynamicProperties]
 class User extends Model implements Authenticable{
 
     use Authorizable; // usa el trait authorizable
@@ -24,6 +25,7 @@ class User extends Model implements Authenticable{
      * 
      * @param string $phone número de teléfono.
      * @param string $email email.
+     * 
      * @return User|NULL el usuario recuperado o null si no existe la combinación de email y teléfono.
      */
     public static function getByPhoneAndMail(
@@ -52,6 +54,7 @@ class User extends Model implements Authenticable{
      * 
      * @param string $emailOrPhone email o teléfono.
      * @param string $password clave del usuario.
+     * 
      * @return User|NULL si la identificación es correcta retorna el usuario, en caso contrario NULL.
      */
     public static function authenticate(

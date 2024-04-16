@@ -13,6 +13,10 @@
 	Última modificación: 24/02/2023	
 */ 
 
+// CONFIGURA AQUÍ LAS EXTENSIONES PERMITIDAS
+// se configuran a modo de expresión regular
+const extensions = /\.(jpe?g|png|gif|webp)$/i;
+
 class Preview{
 	
 	// propiedades
@@ -37,7 +41,7 @@ window.addEventListener('load', function(){
 	// pone el manejador de eventos para el input
 	preview.fileInput.onchange = function() {	
 		// si el fichero no es de los tipos adecuados, no se hacen cambios
-		if(!this.files[0].name.match(/\.(jpe?g|png|gif)$/i)){
+		if(!this.files[0].name.match(extensions)){
 			alert('El tipo del fichero debe ser '+this.accept);
 			preview.image.src = preview.defaultImage; // pone de nuevo la imagen original
 			this.value = ''; 	    // borra el contenido del input	

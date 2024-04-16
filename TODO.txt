@@ -1,18 +1,41 @@
 
 -------------------------------------------------------------------------------------------------------------
-TODO LIST
+LISTA DE COSAS PENDIENTES - TODO LIST
+
+Lista de mecanismos y herramientas que se irán incorporando en próximas versiones
+del framework FastLight.
 
 Autor: Robert Sallent
-Última revisión: 06/04/24
+Última revisión: 16/04/24
 
 -------------------------------------------------------------------------------------------------------------
+- PRIORITARIO:
+	- PHP8.2: Añadir #[\AllowDynamicProperties] a las clases que lo necesiten
+	
+- CONFIG
+	- Ficheros de configuración de entorno.
+	- helper env()
 
-- CORE
+- CORE/HTTP
+	- Método json() en Response
+	- Método xml() en Response
+	- Método header() en Response que permite añadir un header
+	- Método headers() en Response que permiten añadir una lista de headers
+	- Método header() en Request que permite recuperar un header
+	- Método headers() en Request que permite recuperar los headers a modo de array asociativo
+	- Estudiar la posibilidad de tener JsonRequest y XmlRequest
+
 - LIBRARIES
 	- Añadir el código HTTP a las redirecciones.
 	- Añadir el manyToMany a Model.
 	- Métodos owns() e ownedBy() en Model.
 	- Implementar un sistema de seeding (uso de faker?).
+	- Mejorar el método XML::encode() para que sea recursivo y testearlo a fondo. Probarlo con APIs.
+
+- HELPERS
+	- helper response()
+	- helper jsonResponse()
+	- helper xmlResponse()	
 	
 - API
 	- implementar mecanismo de API Keys	

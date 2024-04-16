@@ -22,6 +22,8 @@ class XML{
      * 
      * @throws XMLException si no se puede cargar el XML.
      */
+    
+    // TODO: arreglar este método para que sea recursivo y genere un XML en condiciones
     public static function validateWithSchema(
         string $xml, 
         string $schema   

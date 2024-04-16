@@ -4,7 +4,7 @@
  *
  * Respuestas HTTP
  *
- * Última modificación: 10/04/2024.
+ * Última modificación: 16/04/2024.
  *
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.9.13
@@ -24,6 +24,9 @@ class Response{
 
     /** @var string $timestamp fecha y hora de la respuesta */
     public string $timestamp;  
+    
+    /** var string $string información adicional para el modo debug */
+    protected string $debug = '';
     
     /**
      * Constructor de Response
@@ -135,17 +138,24 @@ class Response{
      * @param string $contentType tipo MIME del contenido mostrado
      * @param int $httpCode código HTTP de estado
      * @param string $status mensaje HTTP de estado
+     * 
+     * @return Response la respuesta creada
      */
-    public static function view(
+    public static function withView(
         string $name,
         array $parameters = [],
         string $contentType = 'text/html',
         int $httpCode       = 200,
         string $status      = 'OK'
-    ){
+        
+    ):Response{
         $response = new self($contentType, $httpCode, $status);
-        $response->sendView($name, $parameters);
+        $response->view($name, $parameters);
+        
+        return $response;
     }
+    
+    
     
     /**
      * Carga una vista
@@ -153,7 +163,7 @@ class Response{
      * @param string $name
      * @param array $parameters
      */
-    public function sendView(
+    public function view(
         string $name,
         array $parameters = []
     ){
@@ -213,7 +223,7 @@ class Response{
                 
         // en modo DEBUG se anexa más información
         if(DEBUG) 
-            $this->more = " En fichero ".$t->getFile()." línea ".$t->getLine();
+            $this->debug = " En fichero ".$t->getFile()." línea ".$t->getLine();
         
         // retorna la propia respuesta, para permitir chaining
         return $this;

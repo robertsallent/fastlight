@@ -6,9 +6,11 @@
  * Modelo responsable de guardar los errores en base de datos.
  *
  * @author: Robert Sallent <robert@juegayestudia.com>
- * @version: 27.03.24
+ * 
+ * Última revisión: 16/04/2024
  */
 
+#[\AllowDynamicProperties]
 class AppError extends Model{
     
     /** @var string $table nombre de la tabla en la base de datos */ 
