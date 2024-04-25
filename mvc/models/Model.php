@@ -284,6 +284,37 @@ abstract class Model{
     
     
     /**
+     * Recupera entidades que tienen un campo concreto a NULL
+     * 
+     * @param string $field campo en el que buscar valores nulos
+     * @param string $orderField campo para ordenar resultados
+     * @param string $order sentido del orden (ASC o DESC)
+     * 
+     * @return array la lista de entidades con ese campo a NULL
+     */
+    public static function isNull(
+        string $field,
+        string $orderField = 'id',
+        string $order = 'ASC'
+    ):array{
+        
+        $table = self::getTable(); // recupera el nombre de la tabla
+        
+        $consulta="SELECT *
+                   FROM $table
+                   WHERE $field IS NULL
+                   ORDER BY $orderField $order";
+        
+        $entities = (DB_CLASS)::selectAll($consulta, get_called_class());
+        
+        
+        foreach($entities as $entity)
+            $entity->parseJsonFields();
+            
+        return $entities;
+    }
+    
+    /**
      * Recupera entidades a partir de un objeto Filter. Se combina con la paginación
      * gracias a los parámetros limit y offset.
      * 
@@ -657,6 +688,72 @@ abstract class Model{
             
             return $result->total;
     }
+    
+    
+    
+    /**
+     * Recupera las entidades relacionadas en una relación N a N
+     * 
+     * Este método calcula automáticamente:
+     * 
+     * - El nombre de la tabla intermedia, mediante la unión de los nombres de las tablas 
+     *   correspondientes a las entidades implicadas, en lower snake case y ordenadas alfabéticamente.
+     *   Por ejemplo, para las entidades Libro y Tema, buscará la tabla libros_temas.
+     * - Los nombres de las tablas de las entidades de los extremos, siguiendo los mismos criterios 
+     *   que los otros métodos de esta clase.
+     * - Las claves foráneas, haciendo id concatenado con el nombre de la entidad en minúsculas. 
+     * - Las claves primarias se llamarán por defecto id. 
+     * 
+     * Este comportamiento se puede cambiar mediante parámetros del método.
+     *
+     * 
+     * @param string $related entidad relacionada
+     * @param string $intermediateTable nombre de la tabla intermedia
+     * @param string $foreign1 nombre de la clave foránea relacionada con la entidad actual
+     * @param string $foreign2 nombre de la clave foránea relacionada con la entidad externa
+     * @param string $owner1 nombre de la clave primaria de la entidad actual
+     * @param string $owner2 nombre de la clave primaria de la entidad externa
+     * 
+     * @return array lista de entidades externas relacionadas
+     */
+    public function belongsToMany(
+        string $related,
+        string $intermediateTable = NULL,
+        string $foreign1 = NULL,
+        string $foreign2 = NULL,
+        string $owner1 = 'id',
+        string $owner2 = 'id'
+    ):array{
+        // cálculo de los nombres de la tablas
+        $tabla1 = self::getTable();
+        $tabla2 = $related::$table ?? strtolower($related).'s';
+        
+        // cálculo del nombre de la tabla intermedia
+        // es la unión de los nombres de las tablas ordenadas alfabéticamente y en
+        // snake case.
+        $tablas = [$tabla1, $tabla2];
+        sort($tablas);
+        $intermedia = $intermediateTable ?? $tablas[0]."_".$tablas[1];
+        
+        // cálculo de las foráneas
+        $foreign1 = $foreign1 ?? 'id'.strtolower(get_called_class());
+        $foreign2 = $foreign2 ?? 'id'.strtolower($related);
+        
+        // preparación de la consulta
+        $consulta="SELECT $tabla2.* FROM $tabla2
+                    INNER JOIN $intermedia ON $tabla2.$owner2 = $intermedia.$foreign2
+                    INNER JOIN $tabla1 ON $intermedia.$foreign1 = $tabla1.$owner1
+                WHERE $tabla1.$owner1 = ".$this->$owner1;
+        
+        // ejecución de la consulta
+        $entities =  (DB_CLASS)::selectAll($consulta, $related);
+        
+        foreach($entities as $entity)
+            $entity->parseJsonFields();
+            
+        return $entities;
+    }
+    
     
     
     /**

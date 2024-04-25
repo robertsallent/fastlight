@@ -242,7 +242,7 @@ class Response{
         string $message = ''
         
     ):JsonResponse{
-        return new JsonResponse($data, $message, $this->httpCode, $this->status);
+        return new JsonResponse($data, strip_tags($message), $this->httpCode, $this->status);
     }
     
     
@@ -259,7 +259,7 @@ class Response{
         string $message = ''
         
     ):XMLResponse{
-        return new XMLResponse($data, $message, $this->httpCode, $this->status);
+        return new XMLResponse($data, strip_tags($message), $this->httpCode, $this->status);
     }
     
     

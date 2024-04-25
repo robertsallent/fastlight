@@ -161,7 +161,7 @@ class Session{
             $parametrosCookie['domain'],    // dominio
             $parametrosCookie['secure'],    // http o https?
             $parametrosCookie['httponly'],  // accesible desde JS?
-            );
+        );
         
         session_destroy();      // cierra y elimina el fichero
     }
