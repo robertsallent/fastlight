@@ -22,12 +22,10 @@
 		<?= (TEMPLATE)::getBreadCrumbs(["LogIn" => "/Login"]) ?>
 		<?= (TEMPLATE)::getFlashes() ?>
 		
-		
 		<main>
-	
     		<form class="w50 bloque-centrado" method="POST" autocomplete="off" id="login" action="/Login/enter">
     			
-    			<h2>Acceso a la aplicación</h2>
+    			<h2>Acceso a <?= APP_NAME ?></h2>
 				<p>Introduce tus datos en el formulario para identificarte.</p>
 		
 				<div style="margin: 10px;">

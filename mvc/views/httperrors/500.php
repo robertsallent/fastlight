@@ -17,9 +17,9 @@
 	</head>
 	<body>
 		<?= (TEMPLATE)::getLogin() ?>
-		<?= (TEMPLATE)::getHeader('Error 401') ?>
+		<?= (TEMPLATE)::getHeader('Error 500') ?>
 		<?= (TEMPLATE)::getMenu() ?>
-		<?= (TEMPLATE)::getBreadCrumbs(["Error 400" => NULL]) ?>
+		<?= (TEMPLATE)::getBreadCrumbs(["Error 500" => NULL]) ?>
 		<?= (TEMPLATE)::getFlashes() ?>
 		
 		<main>

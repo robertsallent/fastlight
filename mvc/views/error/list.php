@@ -53,7 +53,7 @@
             			         'Usuario' => 'user',
             			         'Fecha' => 'date'
             			     ], 
-            			     'Mensaje',
+            			     'Tipo',
             			     'Fecha'
 		            );
 

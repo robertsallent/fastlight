@@ -2,16 +2,13 @@
 -------------------------------------------------------------------------------------------------------------
 LISTA DE COSAS PENDIENTES - TODO LIST
 
-Lista de mecanismos y herramientas que se irán incorporando en próximas versiones
+Lista de mecanismos y herramientas que se irán incorporando (o no) en próximas versiones
 del framework FastLight.
 
 Autor: Robert Sallent
-Última revisión: 16/04/24
+Última revisión: 27/04/24
 
 -------------------------------------------------------------------------------------------------------------
-- PRIORITARIO:
-	- PHP8.2: Añadir #[\AllowDynamicProperties] a las clases que lo necesiten
-	
 - CONFIG
 	- Ficheros de configuración de entorno.
 	- helper env()
@@ -27,10 +24,13 @@ Autor: Robert Sallent
 
 - LIBRARIES
 	- Añadir el código HTTP a las redirecciones.
-	- Añadir el manyToMany a Model.
 	- Métodos owns() e ownedBy() en Model.
+	- Método Model::insertRelated(entidad, idrelacionado, tabla)
 	- Implementar un sistema de seeding (uso de faker?).
 	- Mejorar el método XML::encode() para que sea recursivo y testearlo a fondo. Probarlo con APIs.
+
+- TEMPLATES
+	- Usar objetos template (las vistas deben tener acceso así que se deben mapear desde el helper view())
 
 - HELPERS
 	- helper response()

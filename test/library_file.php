@@ -1,15 +1,15 @@
 <?php
-    echo "<h1>Test de File</h1>";
+    echo "<h1>Test de la clase File</h1>";
 
     $fichero = new File('../public/favicon.ico');
     echo "<p>FICHERO: ".$fichero->getPath().".</p>";
     
     
     echo "<h2>Datos del fichero.</h2>";
-    echo "<p>Base Name: ".$fichero->getBaseName()."</p>.";
-    echo "<p>Name: ".$fichero->getName()."</p>.";
-    echo "<p>Extension: ".$fichero->getExtension()."</p>.";
-    echo "<p>Directory: ".$fichero->getFolder()."</p>.";
+    echo "<p>Base Name: ".$fichero->getBaseName()."</p>";
+    echo "<p>Name: ".$fichero->getName()."</p>";
+    echo "<p>Extension: ".$fichero->getExtension()."</p>";
+    echo "<p>Directory: ".$fichero->getFolder()."</p>";
     
     
     
@@ -37,7 +37,7 @@
     echo "<h3>Método File::mime()</h3>";
     
     echo "<p>Fichero de tipo php:</p>";
-    dump(File::mime('../tests/file.php'));      // php
+    dump(File::mime('../test/library_file.php'));      // php
     
     echo "<p>Fichero de tipo xml:</p>";
     dump(File::mime('../public/sitemap.xml'));  // xml
@@ -66,6 +66,48 @@
     
     echo "<p>un fichero de texto es image/jpeg o text/csv?</p>";
     dump(File::hasMime('../public/robots.txt', ['image/jpeg', 'text/csv']));  // false
+    
+    
+    
+    echo "<h2>Copiando, moviendo y eliminando ficheros</h2>";
+    $fichero = new File('../logs/readme.txt');
+    
+    echo "<p>Intentando <b>copiar</b> un fichero...</p>";
+    $ficheroCopiado = $fichero->copy('../logs/copyTest.txt');
+    echo "<p>Copiado a $ficheroCopiado.</p>";
+    
+    echo "<p>Comprobando si el fichero existe: ";
+    echo $ficheroCopiado->exists() ? 'SI' : 'NO';
+    echo "</p>";
+    
+    echo "<p>Comprobando si es legible: ";
+    echo $ficheroCopiado->isReadable() ? 'SI' : 'NO';
+    echo "</p>";
+    
+    echo "<p>Intentando <b>mover</b> un fichero...</p>";
+    $ficheroCopiado->move('../logs/moved.txt');
+    echo "<p>Movido a $ficheroCopiado.</p>";
+    
+    echo "<p>Comprobando si el fichero existe: ";
+    echo $ficheroCopiado->exists() ? 'SI' : 'NO';
+    echo "</p>";
+    
+    echo "<p>Comprobando si es legible: ";
+    echo $ficheroCopiado->isReadable() ? 'SI' : 'NO';
+    echo "</p>";
+    
+        
+    echo "<p>Intentando <b>eliminar</b> un fichero...</p>";
+    $ficheroCopiado->delete();
+    echo "<p>Se ha borrado de $ficheroCopiado.</p>";
+    
+    echo "<p>Comprobando si el fichero existe: ";
+    echo $ficheroCopiado->exists() ? 'SI' : 'NO';
+    echo "</p>";
+    
+    echo "<p>Comprobando si es legible: ";
+    echo $ficheroCopiado->isReadable() ? 'SI' : 'NO';
+    echo "</p>";
     
     
     

@@ -101,7 +101,7 @@ define('DB_LOGIN_ERRORS', false);                  // Guardar errores de login e
 
 
 // usar vistas personalizadas de error 401, 403...
-// se deben colocar en el directorio de vistas en la subcarpeta http_errors y el nombre
+// se deben colocar en el directorio de vistas en la subcarpeta httperrors y el nombre
 // del fichero debe ser el código del error, por ejemplo 404.php
 // solamente se muestran si no estamos en modo DEBUG
 define('USE_CUSTOM_ERROR_VIEWS', true);

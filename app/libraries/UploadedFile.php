@@ -4,7 +4,7 @@
  *
  * Para trabajar con ficheros subidos vía POST.
  *
- * Última mofidicación: 05/07/23.
+ * Última mofidicación: 15/05/2024.
  *
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.9.1
@@ -33,62 +33,55 @@ class UploadedFile extends File{
      * Constructor
      * 
      * @param string $key clave de $_FILES a recuperar.
+     * @param int $maxSize tamaño máximo del fichero (0 sin límite)
+     * @param array $mimes lista de tipos MIME permitidos. Lista vacía para cualquier tipo de fichero.
      * 
      * @throws UploadException en caso de que no exista la clave.
      */
-    public function __construct(string $key){
+
+    public function __construct(
+        string $key  = 'file', 
+        int $maxSize = 0,
+        array $mimes = []
+    ){
         
         if(empty($_FILES[$key]))
             throw new UploadException("No se ha recibido un fichero con clave $key.");
                 
-        parent::__construct($_FILES[$key]['name']);
+        parent::__construct($_FILES[$key]['tmp_name']);
             
         $this->size     = intval($_FILES[$key]['size']);
         $this->name     = $_FILES[$key]['name'];
         $this->tmp      = $_FILES[$key]['tmp_name'];   
         $this->error    = $_FILES[$key]['error'];
         $this->mime     = $_FILES[$key]['error'] ? '' : parent::mime($_FILES[$key]['tmp_name']);
-    }
-    
-
-    /**
-     * Comprueba errores y restrcciones sobre el fichero subido.
-     * 
-     * @param int $max tamaño máximo permitido en bytes, 0 para ilimitado.
-     * @param string $mime tipo mime permitido, se permiten comodines, por ejemplo: image/* o application/pdf.
-     *
-     * @return array lista de errores producidos.
-     */
-    public function errors(
-        int $max = 0,
-        string $mime = '.'
-        
-    ):array{
         
         if($this->error)
-            return ['upload' => "Se produjo un error $this->error al subir el fichero."];
-            
-        $errors = [];
-                
+            throw new UploadException("Se ha producido un error con código $this->error");
+
         // comprobar que el fichero no supera el tamaño máximo
-        if($max && $this->size > $max)
-            $errors['size'] = "El fichero supera los $max bytes.";
-            
-        // comprobar el tipo MIME
-        // retoques para que no falle la expresión regular en la comprobación
-        $mimeTmp = str_replace('*', '', $mime); //quito el * (si lo tiene)
-        $mimeTmp = preg_quote($mimeTmp, '/');      //escapo los caracteres especiales
+        if($maxSize && $this->size > $maxSize)
+            throw new UploadException("El fichero de $this->size bytes supera el tamaño permitido de $maxSize bytes.");
         
-        
-        if(!preg_match("/^$mimeTmp/i", $this->mime))
-            $errors['type'] = "El fichero no es de tipo $mime.";
-        
-        
-        return $errors;
+        // comprobar que el tipo MIME está entre los permitidos
+        if($mimes && !in_array($this->mime, $mimes))
+            throw new UploadException("El fichero es de tipo $this->mime, que no es ninguno de los aceptados: (".arrayToString($mimes, false, false).").");
     }
+        
     
     
+    /**
+     * Comprueba si llega un determinado fichero.
+     *
+     * @param string $key clave de $_FILES a comprobar.
+     * @return bool true si llega o false en caso contrario.
+     */
+     public static function check(string $key='file'):bool{
+        return !empty($_FILES[$key]) && $_FILES[$key]['error']!=4;
+     }
     
+    
+       
     /**
      * Guarda un fichero subido en su ubicación definitiva, generando un nombre único.
      * 
@@ -108,14 +101,14 @@ class UploadedFile extends File{
     ):string{
               
         // calcular el nombre del fichero, dependiendo de si tiene que ser único o no
-        $this->newName();
+        $this->newName($prefix, File::extension($this->name));
         
         // calcular la ruta final
         $this->path = $folder."/".$this->name;
         
         // MOVER EL FICHERO A DESTINO
         if(!move_uploaded_file($this->tmp, $this->path))
-            throw new FileException("Error al mover el fichero a $this->path.");
+            throw new UploadException("Error al mover el fichero a $this->path.");
             
         return $returnFullRoute ? $this->path : $this->name;
     }   
@@ -146,7 +139,7 @@ class UploadedFile extends File{
         
         // MOVER EL FICHERO A DESTINO
         if(!move_uploaded_file($this->tmp, $this->path))
-            throw new FileException("Error al mover el fichero a $this->path.");
+            throw new UploadException("Error al mover el fichero a $this->path.");
             
         return $returnFullRoute ? $this->path : $this->name;
     }   
@@ -157,12 +150,13 @@ class UploadedFile extends File{
      * @param sting $prefix prefijo para el nuevo nombre.
      * @param bool $moreEntropy añade más entropía al nombre generado.
      */
-    private function newName(
+    public function newName(
         string $prefix='',
+        string $extension = '',
         bool $moreEntropy = true
     ){     
         // genera el nombre único con un prefijo
-        $this->name = uniqid($prefix, $moreEntropy).'.'.$this->getExtension();
+        $this->name = uniqid($prefix, $moreEntropy).'.'.$extension;
         $this->path = $this->getFolder().'/'.$this->name;
     }
     

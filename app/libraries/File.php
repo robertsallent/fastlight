@@ -3,18 +3,19 @@
 /**
  * Clase File
  *
- * Facilita el trabajo con ficheros. Dispone de métodos 
+ * Facilita el trabajo con ficheros. Dispone de métodos interesantes
  * para trabajar con ficheros y para comprobar tipos MIME.
  *
+ * Última mofidicación: 15/05/2024.
+ * 
  * @author Robert Sallent
+ * @since v1.1.4 añadidos métodos para copiar y mover ficheros.
  * 
  */
 
     class File{
         
-        /**
-         * @var string $path ruta al fichero
-         */
+        /** @var string $path ruta al fichero */
         protected string $path;
         
         
@@ -35,18 +36,29 @@
          */
         public function getPath():string{
             return $this->path;
-        }
+        }     
+        
         
         
         /**
-         * Setter de la propiedad $path
+         * Comprueba si el fichero existe.
          * 
-         * @param string $path
+         * @return bool true si existe o false en caso contrario.
          */
-        public function setPath(string $path){
-            $this->path = $path;
+        public function exists():bool{
+            return file_exists($this->path);
         }
         
+        
+        
+        /**
+         * Comprueba si el fichero es legible.
+         * 
+         * @return bool true si es legible o false en caso contrario
+         */
+        public function isReadable():bool{
+            return is_readable($this->path);
+        }
         
         
         /**
@@ -55,7 +67,7 @@
          * @return string la extensión del fichero
          */
         public function getExtension():string{
-            return self::extension($this->path);
+            return pathinfo($this->path, PATHINFO_EXTENSION);
         }
         
         
@@ -78,7 +90,7 @@
          * @return string el nombre base del fichero
          */
         public function getBaseName():string{
-            return self::baseName($this->path);
+            return pathinfo($this->path, PATHINFO_BASENAME);
         }
         
         
@@ -101,7 +113,7 @@
          * @return string el nombre del fichero
          */
         public function getName():string{
-            return self::name($this->path);
+            return pathinfo($this->path, PATHINFO_FILENAME);
         }
         
         
@@ -124,7 +136,7 @@
          * @return string el nombre del fichero
          */
         public function getFolder():string{
-            return self::folder($this->path);
+            return pathinfo($this->path, PATHINFO_DIRNAME);
         }
         
         
@@ -143,20 +155,43 @@
         
         
         /**
-         * Muestra el contenido del fichero
          * 
-         * Muestra o descarga el contenido del fichero.
+         * Muestra o descarga el contenido de un fichero de texto
          * 
-         * @param string $file nombre con el que se descargará el fichero
-         * @param string $contentType tipo de fichero
+         * @param string $contentType tipo MIME del fichero
+         * @param ?string $file nombre con el que se descargará el fichero. NULL para el nombre original del fichero.
          * @param bool $download permite indicar si queremos forzar la descarga del fichero
          */
-        public function readFile(
-            string $fileName = 'file.txt',      // nombre para la descarga
-            string $contentType = 'text/plain', // tipo de fichero
-            bool $download = true               // descargar ?
+        public function read(        
+            string $contentType = 'text/plain',
+            ?string $fileName = NULL,
+            bool $download = false               
         ){
-            self::openTextFile($this->path, $fileName, $contentType, $download);
+            if(!$this->exists())
+               throw new FileException("No se encontró el fichero $this->path.");
+                
+            header("Content-Type: $contentType");
+                
+            if($download){
+                $fileName = $fileName ?? $this->getBaseName();
+                header("Content-disposition: attachment; filename=$fileName");
+            }
+            
+            echo file_get_contents($this->path);    
+        }
+        
+        
+        /**
+         * Descarga un fichero de texto
+         * 
+         * @param string $contentType tipo MIME del fichero
+         * @param ?string $file nombre con el que se descargará el fichero. NULL para el nombre original del fichero.
+         */ 
+        public function download(
+            string $contentType = 'text/plain',
+            ?string $fileName = NULL
+        ){
+            $this->read($contentType, $fileName, true);    
         }
         
         
@@ -167,17 +202,17 @@
          *
          *
          * @param string $route ruta del fichero
-         * @param string $file nombre con el que se descargará el fichero
+         * @param string $fileName nombre con el que se descargará el fichero
          * @param string $contentType tipo de fichero
          * @param bool $download permite indicar si queremos forzar la descarga del fichero
          * 
          * @return void
          */
         public static function openTextFile(
-            string $route,                      // ubicación del fichero
-            string $fileName = 'file.txt',      // nombre para la descarga
-            string $contentType = 'text/plain', // tipo de fichero
-            bool $download = true               // descargar ?
+            string $route,                      
+            string $fileName    = 'download.txt',      
+            string $contentType = 'text/plain', 
+            bool $download      = true               
         ){
                 
             if(!is_readable($route))
@@ -187,8 +222,58 @@
             
             if($download)
                 header("Content-disposition: attachment; filename=$fileName");
-                
+            
             echo file_get_contents($route);
+        }
+        
+        
+        /**
+         * Copia un fichero
+         * 
+         * @param string $path ruta de destino
+         * @param bool $exception se deben lanzar excepciones?
+         * @param bool $warnings se deben mostrar los warnings?
+         * 
+         * @return File un objeto File que referencia al nuevo fichero creado (la copia)
+         */
+        public function copy(
+            string $path, 
+            bool $exception = false,
+            bool $warnings = false
+        ):File{
+            $done = $warnings ? copy($this->path, $path) : @copy($this->path, $path);
+       
+            if(!$done && $exception)
+                throw new FileException("No se pudo copiar el fichero $this->path en $path");
+            
+            return new File($path);
+        }
+        
+        
+        
+        /**
+         * Mueve un fichero
+         *
+         * @param string $path ruta de destino
+         * @param bool $exception se deben lanzar excepciones?
+         * @param bool $warnings se deben mostrar los warnings?
+         *
+         * @return bool si lo ha conseguido o no
+         */
+        public function move(
+            string $path,
+            bool $exception = false,
+            bool $warnings = false
+        ):bool{
+            $done = $warnings ? rename($this->path, $path) : @rename($this->path, $path);
+                
+            if(!$done && $exception)
+                throw new FileException("No se pudo mover el fichero $this->path a $path");
+              
+            // al mover el fichero hay que actualizar el path    
+            $this->path = $path;
+            
+            return $done;
         }
         
         
@@ -207,7 +292,12 @@
             bool $exception = false,    // lanzar excepción si no puede borrar?
             bool $warnings = false      // mostrar warnings?
         ):bool{
-                return self::remove($this->path, $exception, $warnings);
+            $done = $warnings ? unlink($this->path) : @unlink($this->path);
+            
+            if(!$done && $exception)
+                throw new FileException("No se pudo eliminar el fichero.");
+                
+            return $done;
         }
         
         /**
@@ -229,12 +319,12 @@
             bool $warnings = false      // mostrar warnings?
         ):bool{
             
-            $ok = $warnings ? unlink($path) : @unlink($path);
+            $done = $warnings ? unlink($path) : @unlink($path);
             
-            if(!$ok && $exception)
+            if(!$done && $exception)
                 throw new FileException("No se pudo eliminar el fichero.");
             
-            return $ok;
+            return $done;
         }
         
         
@@ -247,7 +337,7 @@
          * @return string
          */
         public function getMime():string{
-            return self::mime($this->path);
+            return (new finfo(FILEINFO_MIME_TYPE))->file($this->path);
         }
         
         /**
@@ -352,6 +442,17 @@
          */
         public static function hasMime(string $path, array $mimes):bool{
             return in_array(self::mime($path), $mimes);
+        }
+        
+        
+        
+        /**
+         * Método __toString()
+         * 
+         * @return string
+         */
+        public function __toString():string{
+            return $this->path;
         }
         
     }

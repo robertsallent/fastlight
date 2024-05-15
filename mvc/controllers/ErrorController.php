@@ -73,8 +73,8 @@ class ErrorController extends Controller{
 
             if(DEBUG)
                 throw new ControllerException($e->getMessage());
-            else
-                redirect("/Error/list");
+            
+            redirect("/Error/list");
         }
     }
     
@@ -98,8 +98,8 @@ class ErrorController extends Controller{
            
             if(DEBUG)
                 throw new ControllerException($e->getMessage());
-            else
-                redirect("/Error/list");
+            
+            redirect("/Error/list");
         }
     }
 
@@ -116,14 +116,13 @@ class ErrorController extends Controller{
         Auth::admin(); // operación solamente para el administrador
         
         switch($fileType){
-            case 'errors' : $file = ERROR_LOG_FILE;     break;
-            case 'login'  : $file = LOGIN_ERRORS_FILE;  break;
-            default       : return;
+            case 'errors' : (new File(ERROR_LOG_FILE))->download();     
+                            break;
+            case 'login'  : (new File(LOGIN_ERRORS_FILE))->download();  
+                            break;
         }
-        
-        File::openTextFile($file, pathinfo($file, PATHINFO_BASENAME)); 
-        die();
     }
+    
     
     
     
@@ -138,8 +137,10 @@ class ErrorController extends Controller{
         Auth::admin(); // operación solamente para el administrador
 
         switch($fileType){
-            case 'errors' : $ok = File::remove(ERROR_LOG_FILE);      break;
-            case 'login'  : $ok = File::remove(LOGIN_ERRORS_FILE);   break;
+            case 'errors' : $ok = File::remove(ERROR_LOG_FILE);      
+                            break;
+            case 'login'  : $ok = File::remove(LOGIN_ERRORS_FILE);   
+                            break;
             default       : $ok = false;
         }
         
@@ -147,8 +148,7 @@ class ErrorController extends Controller{
             Session::success("Fichero borrado.");
         else
             Session::error("No se pudo eliminar el fichero, es probable que no 
-                            exista o que no se tengan los permisos adecuados en 
-                            el sistema de ficheros.");
+                            exista o que no se tengan los permisos adecuados.");
         
         redirect("/Error/list");
     }

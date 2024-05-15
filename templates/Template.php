@@ -199,7 +199,11 @@ class Template implements TemplateInterface{
         
     ){
         $html = "<form method='POST' class='filtro derecha' action='$action'>";
-        $html .= "<input type='text' name='texto' placeholder='Buscar...'> ";
+       
+        $html .= "<label>Buscar</label>";
+        $html .= "<input type='text' name='texto' placeholder='texto'> ";
+        
+        $html .= "<label>en</label>";
         $html .= "<select name='campo'>";
         
         foreach($fields as $nombre=>$valor){
@@ -210,7 +214,7 @@ class Template implements TemplateInterface{
         
         $html .= "</select>";
         
-        $html .= "<label>Ordenar por:</label>";
+        $html .= "<label>ordenado por</label>";
         $html .= "<select name='campoOrden'>";
         
         foreach($orders as $nombre=>$valor){
@@ -221,9 +225,9 @@ class Template implements TemplateInterface{
         
         return $html."</select>
     				<input type='radio' name='sentidoOrden' value='ASC'>
-    				<label>Ascendente</label>
+    				<label>ascendente</label>
     				<input type='radio' name='sentidoOrden' value='DESC' checked>
-    				<label>Descendente</label>
+    				<label>descendente</label>
     				<input class='button' type='submit' name='filtrar' value='Filtrar'>
     			</form>";
     }
@@ -249,21 +253,27 @@ class Template implements TemplateInterface{
     // retorna el footer
     public static function getFooter(){
         return "
-        <footer class='primary'>
+        <footer class='primary flex-container'>
             
-            <p>Desarrollado por <a href='https://robertsallent.com'>
-                Robert Sallent</a> para sus cursos de desarrollo de aplicaciones web (2023).
-
+            <div class='flex1'>
+                <p><a class='negrita' href='https://github.com/robertsallent/fastlight'>FastLight Framework</a></p>
+                <p>
+                    Desarrollado por <a href='https://robertsallent.com'>
+                    Robert Sallent</a> para sus cursos de desarrollo de aplicaciones web (2022-2024).
+                </p>
+            </div>
+            <div>
                 <a href='https://robertsallent.com'>
                     <img src='/images/template/logo.png' alt='Robert Sallent'>
                 </a>
                 <a href='https://www.linkedin.com/in/robert-sallent-l%C3%B3pez-4187a866'>
                     <img src='/images/template/linkedin.png' alt='LinkedIn'>
                 </a>
-                <a href='https://github.com/robertsallent/fastlight'>
+                <a href='https://github.com/robertsallent'>
                     <img src='/images/template/github.png' alt='GitHub'>
                 </a>
-            </p>
+            </div>
+            
         </footer>";
     }       
 }
