@@ -1,16 +1,16 @@
 <?php
 
 /*
- |==========================================================================
- | FUNCIONES HELPER
- |==========================================================================
- |
- | Funciones helper para realizar tareas habituales.
- |
- | Última revisión: 18/07/2023
- | @author Robert Sallent <robertsallent@gmail.com>
- |
- |
+ * Funciones helper para realizar tareas habituales.
+ * 
+ * Última revisión: 21/05/2024
+ * @author Robert Sallent <robertsallent@gmail.com>
+ * 
+*/
+
+
+
+/*
  |--------------------------------------------------------------------------
  | DEPURACIÓN Y VOLCADO DE DATOS SOBRE EL DOCUMENTO
  |--------------------------------------------------------------------------
@@ -31,6 +31,7 @@ function dump(...$things){
     
     echo "</pre>";
 }
+
 
 /**
  * Dump and Die, vuelca el contenido de variables sobre el documento 
@@ -82,13 +83,47 @@ function arrayToString(
 }
 
 
+/**
+ * Convierte un texto a párrafos HTML.
+ * 
+ * Añade las etiquetas <p> y </p> al inicio y final y reemplaza los saltos de línea \n
+ * por las etiquetas de cierre y apertura de párrafo. Además colapsa los espacios
+ * en blanco consecutivos.
+ * 
+ * @param string $text texto a convertir
+ * @param bool $edges coloca las etiquetas <p> y </p> al inicio y final del texto (por defecto true).
+ * @param bool $collapse une múltiples espacios en blanco en uno solo.
+ * 
+ * @return string texto metido en párrafos.
+ */
+function paragraph(
+    string $text = '', 
+    bool $edges = true,
+    bool $collapse = true
+):string{
+    
+    // cambia los saltos de línea por etiquetas HTML
+    $text =  str_replace("\n", "</p><p>", $edges ? "<p>$text</p>" : $text);
+    
+    if($collapse){
+        // elimina espacios en blanco consecutivos
+        $text = preg_replace('/\s+/', ' ', $text);
+        
+        // limpia espacios en blanco después de la apertura o antes del cierre
+        $text = preg_replace('/(\s<)/', '<', $text);
+        $text = preg_replace('/(>\s)/', '>', $text);
+    }
+    
+    return $text;
+}
+
+
 
 /*
  |--------------------------------------------------------------------------
  | REDIRECCIONES Y URLS
  |--------------------------------------------------------------------------
  */
-
 
 
 /**
@@ -121,11 +156,11 @@ function redirect(
 function abort(int $code, string $message = ''){
     header($_SERVER['SERVER_PROTOCOL']." $code", true, $code);
     
-    if(viewExists("http_errors/$code"))
-        view("http_errors/$code", ['message' => $message]);
+    if(viewExists("httperrors/$code"))
+        view("httperrors/$code", ['message' => $message]);
     else
         throw new ViewException("La vista para el error $code no existe.");
-    
+        
     die();
 }
 
@@ -219,11 +254,22 @@ function oldSelected(string $inputName, string $value):string{
  * 
  * @param string $inputName nombre del input.
  * @param string $value valor a comprobar.
+ * @param bool $default si debe estar marcado por defecto.
  * 
  * @return string checked o cadena vacía.
  */
-function oldChecked(string $inputName, string $value):string{
-    return Request::take()->previousInputs[$inputName] == $value ? ' checked ' : '';
+function oldChecked(
+    string $inputName, 
+    string $value,
+    bool $default = false
+):string{
+    
+    $oldValue = Request::take()->previousInputs[$inputName];
+    
+    if(!$oldValue && $default)
+        return ' checked';
+    
+    return $oldValue == $value ? ' checked ' : '';
 }
 
 

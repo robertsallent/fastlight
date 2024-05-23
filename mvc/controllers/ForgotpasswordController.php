@@ -4,7 +4,7 @@
  *
  * Se usa para regenerar la clave del usuario en caso de que lo solicite.
  *
- * Última revisión: 30/06/2023
+ * Última revisión: 20/05/2024
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  */   
@@ -25,8 +25,8 @@ class ForgotpasswordController extends Controller{
      */
     public function send(){
         
-       if(empty($_POST['nueva']))
-           throw new Exception("No se recibió el formulario.");
+       if(!$this->request->has('nueva'))
+           throw new FormException("No se recibió el formulario.");
            
        $email = $this->request->post('email'); // recupera el email
        $phone = $this->request->post('phone'); // recupera el teléfono
@@ -54,6 +54,7 @@ class ForgotpasswordController extends Controller{
             
             // envía el email
             (new Email($to, $from, $name, $subject, $message))->send();
+            
             Session::success("Nueva clave generada, consulta tu email.");
             redirect('/Login');
             
@@ -63,8 +64,8 @@ class ForgotpasswordController extends Controller{
         
            if(DEBUG)
                throw new Exception($e->getMessage());
-           else
-               redirect("/Login");
+           
+           redirect("/Login");
            
        // si no se pudo enviar el email
        }catch(EmailException $e){
@@ -72,8 +73,8 @@ class ForgotpasswordController extends Controller{
            
            if(DEBUG)
                throw new Exception($e->getMessage());
-           else
-               redirect("/Login");       
+           
+           redirect("/Login");       
        }
     }
 }

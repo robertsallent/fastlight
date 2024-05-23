@@ -1,0 +1,22 @@
+
+INFORMACIÓN IMPORTANTE
+=====================================================================================================
+
+FastLight Framework, desarrollado por Robert Sallent <robert@juegayestudia.com>
+linkedIn: https://www.linkedin.com/in/robert-sallent-l%C3%B3pez-4187a866/
+
+
+Este framework se distribuye bajo licencia Open Source con reconocimiento de autor. Se puede utilizar
+libremente para crear nuevos proyectos con la única condición de mencionar al autor.
+
+IMPORTANTE: ha sido desarrollado para su uso en DOCENCIA, con lo que no implementa de serie todos
+los mecanismos de seguridad adecuados y que deberían estar presentes en proyectos reales donde
+se requieran condiciones de seguridad y/o privacidad estrictas.
+
+El autor no se hará responsable de cualquier tipo de robo o pérdida de datos, ni de vulneración de la seguridad
+derivada de la utilización del framework. Las medidas o correcciones pertinentes para garantizar la seguridad corren por
+cuenta de los desarrolladores que hagan uso del mismo.
+
+
+
+ 

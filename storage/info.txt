@@ -1,0 +1,1 @@
+Carpeta por defecto para los ficheros subidos mediante la clase UploadedFile.

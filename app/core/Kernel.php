@@ -3,7 +3,7 @@
 /**
  * Clase de la que heredan las clases del núcleo como App o Api.
  * 
- * Última revisión: 06/07/23
+ * Última revisión: 21/05/24
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.9.3
  */
@@ -14,19 +14,18 @@ abstract class Kernel{
     protected static Request $request; 
    
     
-    
     /**
      * Constructordel nucleo de la aplicación.
      * 
      * @param Request $request petición realizada a la aplicación.
      */
-    public function __construct(Request $request){
+    public function __construct(){
+
+        // inicializa el sistema de login
+        Login::init();   
         
         // guarda el objeto Request en la propiedad estática $request.
-        self::$request = $request;  
-        
-        // inicializa el sistema de login
-        Login::init();              
+        self::$request = new Request(); 
     }
     
     

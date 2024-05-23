@@ -6,7 +6,7 @@ Lista de mecanismos y herramientas que se irán incorporando (o no) en próximas
 del framework FastLight.
 
 Autor: Robert Sallent
-Última revisión: 27/04/24
+Última revisión: 21/05/24
 
 -------------------------------------------------------------------------------------------------------------
 - CONFIG
@@ -23,19 +23,23 @@ Autor: Robert Sallent
 	- Estudiar la posibilidad de tener JsonRequest y XmlRequest
 
 - LIBRARIES
-	- Añadir el código HTTP a las redirecciones.
-	- Métodos owns() e ownedBy() en Model.
-	- Método Model::insertRelated(entidad, idrelacionado, tabla)
+	- Añadir código HTTP a las redirecciones (Response::redirect()).
 	- Implementar un sistema de seeding (uso de faker?).
 	- Mejorar el método XML::encode() para que sea recursivo y testearlo a fondo. Probarlo con APIs.
 
-- TEMPLATES
-	- Usar objetos template (las vistas deben tener acceso así que se deben mapear desde el helper view())
+- MODELO
+	- Métodos owns() e ownedBy() en Model.
+	- Método Model::insertRelated(entidad, idrelacionado, tabla)
+	
+- TEMPLATES Y VISTAS
+	- Usar objetos template (las vistas deben tener acceso, así que hay que pasarlo de forma automatizada)
+    - Mover las operaciones de view() hacia Response::view() y unificar parámetros y criterios. Testearlo todo.
+-   - Panel del administrador (Log, operaciones con usuarios...).
 
 - HELPERS
-	- helper response()
-	- helper jsonResponse()
-	- helper xmlResponse()	
+	- helper response() ?
+	- helper jsonResponse() ?
+	- helper xmlResponse()	?
 	
 - API
 	- implementar mecanismo de API Keys	

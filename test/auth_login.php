@@ -8,7 +8,9 @@
     <p>Comprobaciones con guest(), check() e isAdmin():</p>
     <?php     
         echo Login::guest() ? "Nadie<br>" : "Alguien<br>";  // nadie
+        
         echo Login::check() ? "Alguien<br>" : "Nadie<br>";  // nadie
+        
         echo Login::isAdmin() ? "Administrador<br>" : "No administrador<br>";  // NO
     ?> 
       
@@ -16,37 +18,44 @@
     <h2>Haciendo login</h2>
     <p> Vamos a loguear el usuario 1 (admin).</p>
     <?php     
-        $user = User::find(1);  // encuentra el usuario 1
-        dump($user);
-        Login::set($user);      // hace Login
+        Login::set(User::find(1));      // hace Login con el usuario 1
+    
+        dump(Login::user()); // datos del administrador        
     ?>
     
+    <h2>Comprobando si hay alguien identificado (lo está el admin)</h2>
     <p>Comprobaciones con guest(), check() e isAdmin():</p>
     <?php 
         echo Login::guest() ? "Nadie<br>" : "Alguien<br>";  // alguien
+        
         echo Login::check() ? "Alguien<br>" : "Nadie<br>";  // alguien
+        
         echo Login::isAdmin() ? "Administrador<br>" : "No administrador<br>";  // Administrador
     ?>   
      
-    <br> 
-    <p> Vamos a loguear el usuario 2.</p>
+    <h2>Comprobando sus roles</h2>
+    <p> Vamos a comprobar ahora sus roles (es user y admin).</p>
     <?php     
-        $user = User::find(2);  // encuentra el usuario 2
-        dump($user);
-        Login::set($user);      // hace Login
+        echo (Login::isAdmin() ? "Si " : "No ")."es ADMIN<br>"; // SI
+        
+        echo (Login::role("ROLE_USER") ? "Si " : "No ")."es USER<br>"; // SI
+        
+        echo (Login::role("ROLE_TEST") ? "Si " : "No ")."es TEST<br>"; // NO
+        
+        echo (Login::oneRole(["ROLE_TEST","ROLE_LIBRARIAN"]) ? "Si " : "No ")."es TEST ni LIBRARIAN<br>"; // NO
+        
+        echo (Login::allRoles(["ROLE_USER","ROLE_ADMIN"]) ? "Si " : "No ")."es USER y ADMIN<br>"; // SI       
     ?>
-    
-    <p>Comprobaciones con guest(), check() e isAdmin():</p>
-    <?php 
-        echo Login::guest() ? "Nadie<br>" : "Alguien<br>";  // alguien
-        echo Login::check() ? "Alguien<br>" : "Nadie<br>";  // alguien
-        echo Login::isAdmin() ? "Administrador<br>" : "No administrador<br>";  // Administrador
-     ?> 
+     
      
     <h2>Limpiando...</h2> 
     <p>Finalmente haremos logout con Login::clear().</p>
     
-    <?php  Login::clear() ?> 
+    <?php  
+        Login::clear();      // elimina el usuario de la sesión 
+        
+        dump(Login::user()); // NULL
+    ?> 
     
     
     

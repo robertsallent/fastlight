@@ -7,7 +7,7 @@
  * Carga el fichero de configuración, el autoload, las funciones helper
  * y arranca la aplicación Web o Api.
  *
- * Última revisión: 06/07/2023
+ * Última revisión: 21/05/2024
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since 0.1.0
@@ -25,7 +25,7 @@ switch(strtoupper(APP_TYPE)){
     
     // para las aplicaciones web
     case 'WEB' : 
-        (new App(new Request()))->boot();  // arranca la App
+        (new App())->boot();  // arranca la App
         break;
     
     // para Apis
@@ -36,7 +36,7 @@ switch(strtoupper(APP_TYPE)){
         header("Access-Control-Allow-Headers: ".ALLOW_HEADERS);
         header("Access-Control-Allow-Credentials: ".ALLOW_CREDENTIALS);
         
-        (new Api(new Request()))->boot();  // arranca la Api
+        (new Api())->boot();  // arranca la Api
         break;
     
     default    : die('El proyecto solamente puede ser WEB o API.');

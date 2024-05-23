@@ -78,17 +78,27 @@
                 				<th>Mensaje</th>
                 				<th>Usuario</th>
                 				<th>IP</th>
-                				<th>Operaciones</th>
+                				<th class="centrado">Acciones</th>
                 			</tr>
                     		<?php foreach($errores as $error){ ?>
                 				<tr>
                     				<td><?=$error->date?></td>
                     				<td class='negrita'><?=$error->level?></td>
-                    				<td class='cursiva'><?=$error->url?></td>
-                    				<td><?=$error->message?></td>
-                    				<td><?=$error->user ?? " -- "?></td>
+                    				<td class='cursiva'>
+                    					<a href="<?=$error->url?>"><?=$error->url?></a>
+                    				</td>
+                    				<td class="mini"><?=$error->message?></td>
+                    				<td>
+                    					<?php if($error->user){ ?>
+                    						<a href="mailto:<?= $error->user?>"><?=$error->user ?></a>
+                    					<?php }else{ 
+                    						echo "Invitado";
+                    				    }?>
+                					</td>
                     				<td><?=$error->ip?></td>
-                    				<td><a class="button" href="/Error/destroy/<?= $error->id ?>">Borrar</a></td>
+                    				<td class="centrado">
+                    					<a href="/Error/destroy/<?= $error->id ?>">Borrar</a>
+                					</td>
                 			   </tr>
                     		<?php } ?>
                 		</table>

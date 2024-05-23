@@ -4,7 +4,7 @@
  * 
  * Permitirá acceder a los datos de la petición fácilmente desde los controladores.
  * 
- * Última modificación: 09/04/2024.
+ * Última modificación: 21/05/2024.
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.6.5
@@ -43,9 +43,8 @@ class Request{
      */
     public function __construct(){
         
-        $this->user = Login::user();            // mete el usuario identificado en la Request
-        $this->url  = $_SERVER['REQUEST_URI'];  // mete la URL en la request
-        
+        $this->user   = Login::user(); // mete el usuario identificado en la Request
+        $this->url    = URL::get();    // mete la URL en la request
         $this->method = strtoupper($_SERVER['REQUEST_METHOD']); // método de la petición
         
         $this->csrfToken = apache_request_headers()['csrf_token'] ?? null;  // token CSRF que llega en los headers
@@ -134,11 +133,10 @@ class Request{
     
     
     /**
-     * comprueba si un método será permitido por las directivas CORS, 
+     * comprueba si el método de la petición será permitido por las directivas CORS, 
      * dependiendo de la configuración en config.php
      * 
-     * @param string $method método a comprobar
-     * @return bool retorna si será bloqueada la petición por CORS o no
+     * @return bool retorna si será permitida la petición por CORS o no
      */
     public function allowedByCors():bool{
         
@@ -174,32 +172,27 @@ class Request{
     
     
     
-        /**
+    /**
      * Recupera parámetros que llegan por POST.
-     * 
+     *
      * @param string $name nombre del parámetro a recuperar.
-     * 
+     *
      * @return string|NULL valor recuperado o NULL si no existe el parámetro.
      */
     public function post(
-        string $name        // nombre del campo a recuperar  
+        string $name        // nombre del campo a recuperar
     ): ?string{
         
-        if(!isset($_POST[$name])) // mira si llega el campo
-            return NULL; 
+        $data = filter_input(INPUT_POST, $name, FILTER_SANITIZE_STRING);
         
-        $data = $_POST[$name];    // toma el dato que llega
-        
-        // si hay que pasar la cadena vacía a NULL...
-        if(EMPTY_STRINGS_TO_NULL && $data === '')
-              return NULL;
-        
-        // retornamos los datos escapados
-        return  (DB_CLASS)::escape($data);
+        if(!$data || EMPTY_STRINGS_TO_NULL && trim($data === ''))
+            return NULL;
+            
+        return trim($data);
     }
     
-     
-   
+    
+    
     /**
      * Recupera parámetros que llegan por GET.
      *
@@ -209,20 +202,14 @@ class Request{
      */
     public function get(
         string $name        // nombre del parámetro a recuperar
-        
     ): ?string{
-            
-        if(!isset($_GET[$name])) // mira si llega el campo
+        
+        $data = filter_input(INPUT_GET, $name, FILTER_SANITIZE_STRING);
+        
+        if(!$data || EMPTY_STRINGS_TO_NULL && trim($data === ''))
             return NULL;
             
-        $data = $_GET[$name];    // toma el dato que llega
-            
-        // si hay que pasar la cadena vacía a NULL...
-        if(EMPTY_STRINGS_TO_NULL && $data === '')
-            return NULL;
-            
-        // retornamos los datos escapados
-        return  (DB_CLASS)::escape($data);
+        return trim($data);
     }
     
     
@@ -236,46 +223,18 @@ class Request{
      */
     public function cookie(
         string $name        // nombre de la cookie a recuperar
- 
+        
     ): ?string{
         
-        if(!isset($_COOKIE[$name])) // mira si llega el campo
-            return NULL;
-            
-        $data = $_COOKIE[$name];    // toma el dato que llega
-            
-        // si hay que pasar la cadena vacía a NULL...
-        if(EMPTY_STRINGS_TO_NULL && $data === '')
-            return NULL;
-                
-        // retornamos los datos escapados
-        return  (DB_CLASS)::escape($data);
-    }    
-    
-    
-
-
-    /**
-     * Retorna un array con todas las entradas de $_REQUEST saneadas.
-     * 
-     * @return array un array asociativo con las mismas claves que la 
-     * variable superglobal $_REQUEST y los valores saneados
-     */
-    public static function all():array{
-        $all = [];
+        $data = filter_input(INPUT_COOKIE, $name, FILTER_SANITIZE_STRING);
         
-        foreach($_REQUEST as $property => $value){
+        if(!$data || EMPTY_STRINGS_TO_NULL && trim($data === ''))
+            return NULL;
             
-            // si hay que pasar la cadena vacía a NULL...
-            if(EMPTY_STRINGS_TO_NULL && $value === '')
-                $value = NULL;
-            
-            $all[$property] =  $value ? (DB_CLASS)::escape($value) : NULL;
-        }
-        return $all;
+        return trim($data);
     }
-    
-    
+     
+      
     
     /**
      * Retorna un array con todas las entradas de $_POST saneadas.
@@ -288,11 +247,13 @@ class Request{
         
         foreach($_POST as $property => $value){
             
+            $value = filter_input(INPUT_POST, $property, FILTER_SANITIZE_STRING);
+            
             // si hay que pasar la cadena vacía a NULL...
-            if(EMPTY_STRINGS_TO_NULL && $value === '')
+            if(!$value || EMPTY_STRINGS_TO_NULL && trim($value) === '')
                 $value = NULL;
             
-            $all[$property] =  $value ? (DB_CLASS)::escape($value) : NULL;
+            $all[$property] =  trim($value);
         }
             
         return $all;
@@ -311,11 +272,13 @@ class Request{
         
         foreach($_GET as $property => $value){
             
+            $value = filter_input(INPUT_GET, $property, FILTER_SANITIZE_STRING);
+            
             // si hay que pasar la cadena vacía a NULL...
-            if(EMPTY_STRINGS_TO_NULL && $value === '')
+            if(!$value || EMPTY_STRINGS_TO_NULL && trim($value) === '')
                 $value = NULL;
             
-            $all[$property] =  $value ? (DB_CLASS)::escape($value) : NULL;
+            $all[$property] =  trim($value);
         }
             
         return $all;
@@ -334,13 +297,28 @@ class Request{
         
         foreach($_COOKIE as $property => $value){
             
+            $value = filter_input(INPUT_COOKIE, $property, FILTER_SANITIZE_STRING);
+            
             // si hay que pasar la cadena vacía a NULL...
-            if(EMPTY_STRINGS_TO_NULL && $value === '')
+            if(!$value || EMPTY_STRINGS_TO_NULL && trim($value) === '')
                 $value = NULL;
             
-            $all[$property] =  $value ? (DB_CLASS)::escape($value) : NULL;
+            $all[$property] =  trim($value);
         }
+        
         return $all;
+    }
+    
+    
+    
+    /**
+     * Retorna un array con todas las entradas de $_REQUEST saneadas.
+     *
+     * @return array un array asociativo con las mismas claves que la
+     * variable superglobal $_REQUEST y los valores saneados
+     */
+    public static function all():array{
+        return self::posts()+self::gets()+self::cookies();
     }
     
     
@@ -348,16 +326,22 @@ class Request{
     /**
      * Recupera un fichero subido desde un formulario.
      * 
-     * @param string $key nombre del input, clave en el array superglobal $_FILES.
+     * @param string $key clave de $_FILES a recuperar.
+     * @param int $maxSize tamaño máximo del fichero (0 sin límite)
+     * @param array $mimes lista de tipos MIME permitidos. Lista vacía para cualquier tipo de fichero.
      * 
      * @return UploadedFile|NULL un objeto de tipo UploadedFile o NULL si no existe la clave indicada.
      */
-    public function file(string $key):?UploadedFile{
-        try{
-            return new UploadedFile($key);
-        }catch(UploadException $e){
-            return NULL;
-        }
+    public function file(
+        string $key,
+        int $maxSize = UPLOAD_MAX_SIZE,  // definido en config.php
+        array $mimes = []
+    ):?UploadedFile{
+        
+        if(UploadedFile::check($key))
+            return new UploadedFile($key, $maxSize, $mimes);
+        
+        return NULL; 
     }
         
     

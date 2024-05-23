@@ -38,9 +38,9 @@ class Login{
         // Así evitamos que se haga la redirección en una identificación posterior
         
         // TODO: comprobar si esto también funciona correctamente para la API.
-        if(Session::has('_pending_operation') && !Request::take()->urlBeginsWith('/Login'))
+        if(Session::has('_pending_operation') && !URL::beginsWith('/Login')){
             Session::forget('_pending_operation');
-        
+        }
     }
 
     

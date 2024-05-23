@@ -41,7 +41,7 @@ class UploadedFile extends File{
 
     public function __construct(
         string $key  = 'file', 
-        int $maxSize = 0,
+        int $maxSize = UPLOAD_MAX_SIZE,  // definido en config.php
         array $mimes = []
     ){
         
@@ -94,7 +94,7 @@ class UploadedFile extends File{
      * @return string la ruta completa del fichero en el servidor o solamente el nombre.
      */
     public function store(
-        string $folder = '', 
+        string $folder = UPLOAD_FOLDER, // definido en config.php
         string $prefix = '',
         bool $returnFullRoute = false
         
@@ -119,13 +119,14 @@ class UploadedFile extends File{
      *
      * @param string $folder carpeta de destino.
      * @param string $name nombre del fichero, NULL mantiene el nombre original.
+     * @param bool $returnFullRoute permite seleccionar si el método debe retornar la ruta entera o solamente el nombre del fichero.
      *
      * @throws FileException si se puede mover el fichero a su ubicación definitiva.
      *
      * @return string la ruta completa del fichero en el servidor o solamente el nombre.
      */
     public function storeAs(
-        string $folder = '',
+        string $folder = UPLOAD_FOLDER,   // definido en config.php
         string|NULL $name = NULL,
         bool $returnFullRoute = false
         

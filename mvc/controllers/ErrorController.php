@@ -4,7 +4,7 @@
  * 
  * Controlador para gestionar errores. Trabaja con el modelo AppError.
  * 
- * Última revisión: 30/06/2023
+ * Última revisión: 15/05/2024
  * @author Robert Sallent <robertsallent@gmail.com>
  */
 
