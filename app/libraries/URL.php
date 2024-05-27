@@ -51,9 +51,7 @@ class URL{
         bool $die       = true           // detener ejecución tras redirección
     ){      
         header("Refresh:$delay; URL=$url");
-        
-        if($die) 
-            die();
+        if($die) die();
     }  
 }
 

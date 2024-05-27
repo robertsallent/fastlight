@@ -11,11 +11,15 @@
 
 class LoginController extends Controller{
     
+    
+    
     /** Muestra el formulario de login. */
     public function index(){
         Auth::guest();   // solo para usuarios no identificados
         view('login');   // carga la vista de login     
     }
+    
+    
     
     /**
      * Gestiona la identificación y da acceso o no a la aplicación.
@@ -48,12 +52,10 @@ class LoginController extends Controller{
         }
         
         Login::set($identificado); // vincula el usuario a la sesión
-        
-        
+              
         // toma la operación pendiente (si la hay) y la borra de sesión
         $pending = Session::get('_pending_operation');
         Session::forget('_pending_operation');
-        
         
         // redirección tras Login
         redirect($pending ?? REDIRECT_AFTER_LOGIN ?? '/');

@@ -27,7 +27,7 @@
     		<p class="http-message centrado">Not Found</p>
     
     		<p class='http-details centrado'>
-    			<?= $mensaje ?>
+    			<?= $message ?? $mensaje ?? '' ?>
 			</p>
 			
 			<nav class="enlaces centrado">

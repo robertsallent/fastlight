@@ -148,20 +148,19 @@ function redirect(
  * la vista personalizada si existe.
  * 
  * @param int $code código HTTP del error.
+ * @param string $status texto de estado http
  * @param string $message mensaje para mostrar.
  * 
  * @throws ViewException si no encuentra la vista.
  * 
  */
-function abort(int $code, string $message = ''){
-    header($_SERVER['SERVER_PROTOCOL']." $code", true, $code);
-    
-    if(viewExists("httperrors/$code"))
-        view("httperrors/$code", ['message' => $message]);
-    else
-        throw new ViewException("La vista para el error $code no existe.");
-        
-    die();
+
+function abort(
+    int $code, 
+    string $status,
+    string $message = ''
+){
+    (new Response('text/html', $code, $status))->abort(['mensaje'=>$message]);
 }
 
 
@@ -183,23 +182,7 @@ function view(
     string $name, 
     array $parameters = []
 ){
-    
-    // crea las variables a partir de las claves del array en este ámbito
-    foreach($parameters as $variable => $valor)
-        $$variable = $valor;
-        
-    // carga la vista indicada desde el directorio de vistas
-    try{
-        @require VIEWS_FOLDER."/$name.php";
-        
-    }catch(Throwable $e){
-        $message = DEBUG ?
-        "<p>ERROR en la vista <b>".VIEWS_FOLDER."/$name.php</b>.</p>
-         <p>INFORMACIÓN ADICIONAL: ".$e->getMessage()."</p>" :
-         "Error al cargar la página.";
-        
-        throw new ViewException($message);
-    }
+   (new View($name, $parameters))->load();
 }   
 
 
@@ -211,7 +194,7 @@ function view(
  * @return bool true si la vista existe y es legible, false en caso contrario.
  */
 function viewExists(string $name):bool{
-    return is_readable(VIEWS_FOLDER."/$name.php");
+    return View::exists($name);
 }
 
 

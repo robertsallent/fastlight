@@ -62,6 +62,9 @@ define('ADMIN_EMAIL', 'robert@juegayestudia.com');
 // tanto si llegan por GET, POST, COOKIE...
 define('EMPTY_STRINGS_TO_NULL', true);
 
+// Charset para las respuestas HTTP
+define('RESPONSE_CHARSET', 'utf-8');
+
 
 
 /* -------------------------------------------------------------

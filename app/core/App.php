@@ -96,23 +96,19 @@ class App extends Kernel{
                     AppError::new(get_class($t), $t->getMessage());
                     
                 }catch(SQLException $e){
-                    view('error', ['mensaje' => $e->getMessage()]); 
-                    die();
+                    $response = new Response('text/html', 500, 'INTERNAL SERVER ERROR');
+                    $response->abort(['message' => $e->getMessage()]);
                 }
             }
             
-            // crea una nueva respuesta de error.
+            // crea una nueva respuesta de error con código por defecto 500.
             $response = new Response('text/html', 500, 'INTERNAL SERVER ERROR');
-            
-            // actualizar los datos de la respuesta en función del error
+
+            // actualizar los datos de la respuesta en función del tipo de error ocurrido
             $response->evaluateError($t);
-            
-            // genera una respuesta con la vista de error
-            // intentará cargar una vista personalizada, en caso que no exista cargará la de error genérica
-            $response->view(
-                !DEBUG && USE_CUSTOM_ERROR_VIEWS && viewExists("httperrors/".$response->getHttpCode()) ? "httperrors/".$response->getHttpCode() : 'error',
-                ['mensaje' => $mensaje]
-            );
+                        
+            // intentará cargar una vista personalizada de error, en caso que no exista cargará la de error genérica
+            $response->abort(['message' => $mensaje]);
         } 
     }  
 }

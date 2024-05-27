@@ -23,6 +23,7 @@ Autor: Robert Sallent
 	- Estudiar la posibilidad de tener JsonRequest y XmlRequest
 
 - LIBRARIES
+	- Nueva librería Cookie para crear y comprobar la existencia de cookies
 	- Añadir código HTTP a las redirecciones (Response::redirect()).
 	- Implementar un sistema de seeding (uso de faker?).
 	- Mejorar el método XML::encode() para que sea recursivo y testearlo a fondo. Probarlo con APIs.
@@ -32,6 +33,7 @@ Autor: Robert Sallent
 	- Método Model::insertRelated(entidad, idrelacionado, tabla)
 	
 - TEMPLATES Y VISTAS
+	- Método en el template
 	- Usar objetos template (las vistas deben tener acceso, así que hay que pasarlo de forma automatizada)
     - Mover las operaciones de view() hacia Response::view() y unificar parámetros y criterios. Testearlo todo.
 -   - Panel del administrador (Log, operaciones con usuarios...).

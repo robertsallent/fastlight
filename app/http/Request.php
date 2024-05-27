@@ -183,7 +183,7 @@ class Request{
         string $name        // nombre del campo a recuperar
     ): ?string{
         
-        $data = filter_input(INPUT_POST, $name, FILTER_SANITIZE_STRING);
+        $data = filter_input(INPUT_POST, $name, FILTER_SANITIZE_SPECIAL_CHARS);
         
         if(!$data || EMPTY_STRINGS_TO_NULL && trim($data === ''))
             return NULL;
@@ -204,7 +204,7 @@ class Request{
         string $name        // nombre del parámetro a recuperar
     ): ?string{
         
-        $data = filter_input(INPUT_GET, $name, FILTER_SANITIZE_STRING);
+        $data = filter_input(INPUT_GET, $name, FILTER_SANITIZE_SPECIAL_CHARS);
         
         if(!$data || EMPTY_STRINGS_TO_NULL && trim($data === ''))
             return NULL;
@@ -226,7 +226,7 @@ class Request{
         
     ): ?string{
         
-        $data = filter_input(INPUT_COOKIE, $name, FILTER_SANITIZE_STRING);
+        $data = filter_input(INPUT_COOKIE, $name, FILTER_SANITIZE_SPECIAL_CHARS);
         
         if(!$data || EMPTY_STRINGS_TO_NULL && trim($data === ''))
             return NULL;
@@ -247,7 +247,7 @@ class Request{
         
         foreach($_POST as $property => $value){
             
-            $value = filter_input(INPUT_POST, $property, FILTER_SANITIZE_STRING);
+            $value = filter_input(INPUT_POST, $property, FILTER_SANITIZE_SPECIAL_CHARS);
             
             // si hay que pasar la cadena vacía a NULL...
             if(!$value || EMPTY_STRINGS_TO_NULL && trim($value) === '')
@@ -272,7 +272,7 @@ class Request{
         
         foreach($_GET as $property => $value){
             
-            $value = filter_input(INPUT_GET, $property, FILTER_SANITIZE_STRING);
+            $value = filter_input(INPUT_GET, $property, FILTER_SANITIZE_SPECIAL_CHARS);
             
             // si hay que pasar la cadena vacía a NULL...
             if(!$value || EMPTY_STRINGS_TO_NULL && trim($value) === '')
@@ -297,7 +297,7 @@ class Request{
         
         foreach($_COOKIE as $property => $value){
             
-            $value = filter_input(INPUT_COOKIE, $property, FILTER_SANITIZE_STRING);
+            $value = filter_input(INPUT_COOKIE, $property, FILTER_SANITIZE_SPECIAL_CHARS);
             
             // si hay que pasar la cadena vacía a NULL...
             if(!$value || EMPTY_STRINGS_TO_NULL && trim($value) === '')

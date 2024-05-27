@@ -31,7 +31,7 @@ INSERT INTO users(displayname, email, phone, password, roles) VALUES
 	('admin', 'admin@fastlight.com', '666666666', md5('1234'), '["ROLE_USER", "ROLE_ADMIN"]'),
 	('editor', 'editor@fastlight.com', '666666665', md5('1234'), '["ROLE_USER", "ROLE_EDITOR"]'),
 	('user', 'user@fastlight.com', '666666664', md5('1234'), '["ROLE_USER"]'),
-	('test', 'test@fastlight.com', '666666663', md5('1234'), '["ROLE_USER"]'),
+	('test', 'test@fastlight.com', '666666663', md5('1234'), '["ROLE_USER", "ROLE_TEST"]'),
 	('api', 'api@fastlight.com', '666666662', md5('1234'), '["ROLE_API"]')
 ;
 
