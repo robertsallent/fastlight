@@ -12,6 +12,7 @@
  * - Vistas y templates
  * - Paginador
  * - Subida de ficheros
+ * - Mensaje de "aceptar cookies"
  * - Herramientas de depuración (web)
  * - Tests
  * - API
@@ -23,6 +24,7 @@
  * @since 0.1.0
  * @since 1.0.0 se pueden configurar las vistas de error personalizadas
  * @since 1.1.5 añadidos los parámetros de configuración de subida de ficheros
+ * @since 1.2.2 se puede configurar el mensaje de "aceptar cookies"
  */
    
 
@@ -148,6 +150,25 @@ define('RESULTS_PER_PAGE', 10);  // Número de resultados por página
 
 define('UPLOAD_FOLDER', '../storage'); // carpeta por defecto para las subidas de ficheros
 define('UPLOAD_MAX_SIZE', 0);          // tamaño máximo para las subidas, en bytes (0 sin límite)
+
+
+
+/* -------------------------------------------------------------
+ * MENSAJE DE "ACEPTAR COOKIES"
+ * -------------------------------------------------------------*/
+
+define('ACCEPT_COOKIES', true);    // habilita el mensaje de "aceptar cookies"
+
+// mensaje que aparece en el formulario de "aceptar cookies"
+define(
+    'ACCEPT_COOKIES_MESSAGE', 
+    "Para visitar este sitio debes aceptar las cookies. Este cuado de diálogo se puede
+     configurar para que aparezca o no en el fichero config.php."
+);
+
+// características de la cookie que se guardará para saber que nos han aceptado las cookies
+define('ACCEPT_COOKIES_NAME', 'Optional-Cookies');    
+define('ACCEPT_COOKIES_EXPIRATION', time()+31557600); // 0 para sesión
 
 
 

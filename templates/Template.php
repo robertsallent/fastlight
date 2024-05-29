@@ -138,7 +138,24 @@ class Template implements TemplateInterface{
     } 
     
     
-        
+    /*****************************************************************************
+     * ACEPTAR COOKIES
+     *****************************************************************************/
+    public static function acceptCookies(){
+        return ACCEPT_COOKIES && !Cookie::get(ACCEPT_COOKIES_NAME) ?
+                   
+            "<div class='modal-background'>
+            	<form method='POST' id='accept-cookies' action='/Cookie/accept'>
+            		<h2>Aceptar cookies</h2>
+            		<p>".paragraph(ACCEPT_COOKIES_MESSAGE)."</p>
+            		<div class='centrado'>
+                        <input type='submit' class='button' name='accept' value='Aceptar'>
+                    </div>
+        		</form>
+            </div>"
+            
+            : '';
+    }
           
     /*****************************************************************************
      * MENSAJES FLASHEADOS DE ÉXITO Y ERROR
@@ -147,8 +164,8 @@ class Template implements TemplateInterface{
     public static function getSuccess(){
         
         return ($mensaje = Session::getFlash('success')) ?
-        "<div class='mensajeExito' onclick='this.remove()'>
-        	<div>
+        "<div class='modal-background' onclick='this.remove()'>
+        	<div class='success-message'>
         		<h2>Operación realizada con éxito</h2>
         		<p>$mensaje</p>
         		<p class='mini cursiva'>-- Clic para cerrar --</p>
@@ -159,8 +176,8 @@ class Template implements TemplateInterface{
     public static function getWarning(){
             
         return ($mensaje = Session::getFlash('warning')) ?
-        "<div class='mensajeWarning' onclick='this.remove()'>
-        	<div>
+        "<div class='modal-background' onclick='this.remove()'>
+        	<div class='warning-message'>
         		<h2>Hay advertencias:</h2>
         		<p>$mensaje</p>
         		<p class='mini cursiva'>-- Clic para cerrar --</p>
@@ -171,8 +188,8 @@ class Template implements TemplateInterface{
     public static function getError(){
 
         return ($mensaje = Session::getFlash('error')) ?
-        "<div class='mensajeError' onclick='this.remove()'>
-        	<div>
+        "<div class='modal-background' onclick='this.remove()'>
+        	<div class='error-message'>
         		<h2>Se ha producido un error</h2>
         		<p>$mensaje</p>
         		<p class='mini cursiva'>-- Clic para cerrar --</p>

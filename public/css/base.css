@@ -156,7 +156,7 @@ div.error, div.success, div.warning{
 	padding: 20px;
 }
 
-div.mensajeExito, div.mensajeError, div.mensajeWarning{
+div.modal-background{
 	position: fixed;
 	margin: 0px;
 	top: 0px;
@@ -169,48 +169,52 @@ div.mensajeExito, div.mensajeError, div.mensajeWarning{
 	text-align: center;
 }
 
-div.mensajeExito h2{
+div.success-message h2{
 	color: #090;
 	margin-bottom: 40px;
 }
 
-div.mensajeError h2{
+div.error-message h2{
 	color: #900;
 	margin-bottom: 40px;
 }
 
-div.mensajeWarning h2{
+div.warning-message h2{
 	color: #990;
 	margin-bottom: 40px;
 }
 
-div.mensajeExito>div, div.mensajeError>div, div.mensajeWarning>div{
+div.success-message, div.error-message, div.warning-message, #accept-cookies{
 	padding: 50px;
-	border-radius: 10px;
+	border-radius: 8px;
 	margin: auto;
 	font-size: 1.2em;
 }
 
-div.mensajeExito a:hover, div.mensajeError a:hover, div.mensajeWarning a:hover{
+div.success-message a:hover, div.error-message a:hover, div.warning-message a:hover{
 	text-decoration: underline;
 }
 
-div.mensajeExito>div{
+div.success-message{
 	color: #060;
 	background-color: #cfc;
-	border: solid 5px #060;
+	border: solid 3px #060;
 }
 
-div.mensajeError>div{
+div.error-message{
 	color: #600;
 	background-color: #fcc;
-	border: solid 5px #600;
+	border: solid 3px #600;
 }
 
-div.mensajeWarning>div{
+div.warning-message{
 	color: #660;
 	background-color: #ffc;
-	border: solid 5px #660;
+	border: solid 3px #660;
+}
+
+#accept-cookies{
+	background-color: white;
 }
 
 

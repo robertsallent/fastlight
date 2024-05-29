@@ -20,6 +20,7 @@
 		<?= (TEMPLATE)::getHeader('Portada') ?>
 		<?= (TEMPLATE)::getMenu() ?>
 		<?= (TEMPLATE)::getFlashes() ?>
+		<?= (TEMPLATE)::acceptCookies() ?>
 		
 		<main>
     		<h1><?= APP_NAME ?></h1>

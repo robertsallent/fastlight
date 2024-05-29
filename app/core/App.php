@@ -61,14 +61,8 @@ class App extends Kernel{
                 throw new NotFoundException("La operación indicada no existe.");
             
             // tras sacar controlador y método, lo que queda en $url son los parámetros.
-            // llamaremos al método del controlador pasando hasta tres parámetros
-            // (podemos poner más), los que no se necesiten serán omitidos.
-            switch(sizeof($url)){
-                case 0 : $controlador->$m(); break;
-                case 1 : $controlador->$m($url[0]); break;
-                case 2 : $controlador->$m($url[0], $url[1]); break;
-                case 3 : $controlador->$m($url[0], $url[1], $url[2]); break;
-            }
+            // llamaremos al método del controlador pasando los parámetros
+            $controlador->$m(...$url);
 
             
         // si es un problema de usuario no identificado

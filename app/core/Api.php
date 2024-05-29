@@ -81,15 +81,8 @@ class Api extends Kernel{
                 throw new MethodNotAllowedException("La operación $this->metodo para $this->entidad en $this->formato no existe.");
             
             // tras sacar formato y entidad, lo que queda en $url son los parámetros.
-            // llamaremos al método del controlador pasando hasta tres parámetros
-            // (podemos poner más), los que no se necesiten serán omitidos.
-            
-            switch(sizeof($url)){
-                case 0 : $controlador->$metodo(); break;
-                case 1 : $controlador->$metodo($url[0]); break;
-                case 2 : $controlador->$metodo($url[0], $url[1]); break;
-                case 3 : $controlador->$metodo($url[0], $url[1], $url[2]); break;
-            }
+            // llamaremos al método del controlador pasando los parámetros
+            $controlador->$metodo(...$url);
 
         // si se produce algún otro error...
         }catch(Throwable $t){ 
