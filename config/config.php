@@ -160,15 +160,19 @@ define('UPLOAD_MAX_SIZE', 0);          // tamaño máximo para las subidas, en b
 define('ACCEPT_COOKIES', true);    // habilita el mensaje de "aceptar cookies"
 
 // mensaje que aparece en el formulario de "aceptar cookies"
+// los saltos de línea en el mensaje se convertirán en cambio de párrafo
 define(
     'ACCEPT_COOKIES_MESSAGE', 
-    "Para visitar este sitio debes aceptar las cookies. Este cuado de diálogo se puede
-     configurar para que aparezca o no en el fichero config.php."
+    "Para visitar este sitio debes aceptar las cookies. 
+     Este cuado de diálogo se puede configurar para que aparezca o no en el fichero config.php."
 );
 
-// características de la cookie que se guardará para saber que nos han aceptado las cookies
-define('ACCEPT_COOKIES_NAME', 'Optional-Cookies');    
-define('ACCEPT_COOKIES_EXPIRATION', time()+31557600); // 0 para sesión
+// nombre de la cookie que se guardará para saber que nos han aceptado las cookies
+define('ACCEPT_COOKIES_NAME', 'accept-cookies');    
+
+// tiempo que durará la cookie de "aceptar cookies" en segundos.
+// por defecto un día, 0 para que tenga duración de sesión
+define('ACCEPT_COOKIES_EXPIRATION', time()+86400); 
 
 
 

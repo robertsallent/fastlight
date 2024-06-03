@@ -258,4 +258,22 @@ function oldChecked(
 
 
 
+/**
+ * Crea un token CSRF y un input hidden para colocarlo en el formulario
+ * 
+ * @return string el código del input
+ */
+function csrf():string{
+    // crea un nuevo token CSRF y lo guarda en sesión
+    CSRF::create();
+    
+    // retorna un input hidden para colocarlo en el formulario
+    return CSRF::createInput();
+}
+
+
+
+
+
+
 

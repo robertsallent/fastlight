@@ -12,7 +12,7 @@
  * Además trata los errores que se puedan producir, redirigiendo hacia la página de error y registrando
  * los mensajes en LOG y BDD (según lo configurado en el fichero config.php).
  *
- * Última revisión: 10/04/2024
+ * Última revisión: 29/05/2024
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0

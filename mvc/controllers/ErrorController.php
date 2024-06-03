@@ -24,7 +24,8 @@ class ErrorController extends Controller{
      */
     public function list(int $page = 1){
         
-        Auth::admin(); // operación solamente para el administrador
+        // operación solamente para el administrador o usuario con rol de test
+        Auth::oneRole([ADMIN_ROLE, "ROLE_TEST"]); 
         
         // Comprobar si hay filtros a aplicar/quitar/recuperar de sesión
         $filtro = Filter::apply('errores');
@@ -61,7 +62,8 @@ class ErrorController extends Controller{
      * @throws Exception en caso de que no se pueda eliminar el error de la BDD.
      */
     public function destroy(int $id = 0){
-        Auth::admin(); // operación solamente para el administrador
+        
+        Auth::oneRole([ADMIN_ROLE, "ROLE_TEST"]); 
         
         try{
             AppError::delete($id);

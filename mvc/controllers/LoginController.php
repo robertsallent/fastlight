@@ -4,7 +4,7 @@
  *
  * Gestiona la operación de LogIn
  *
- * Última revisión: 18/07/2023
+ * Última revisión: 29/05/2024
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  */
@@ -25,20 +25,26 @@ class LoginController extends Controller{
      * Gestiona la identificación y da acceso o no a la aplicación.
      */
     public function enter(){
-        Auth::guest();  // solo para usuarios no identificados
+        // esta operación tan solo la pueden realizar los usuarios no identificados
+        Auth::guest();  
         
-        // comprobar que llegan los datos
+        // comprobar que llega el formulario de Login
         if(!$this->request->has('login')){
             Session::error("No se recibió el formulario de LogIn.");
             redirect('/Login');
         }
         
-        // recuperar usuario (o email) y clave (encriptada)
+        // comprobar que llega el token CSRF
+        CSRF::check($this->request->post('csrf_token'));
+            
+        // recuperar usuario (email) y la clave (hay que encriptarla)
         $user       = $this->request->post('user');
         $password   = md5($this->request->post('password'));          
         
-        $identificado = (USER_PROVIDER)::authenticate($user, $password); // recuperar el usuario
+        // recuperamos el usuario con esos datos
+        $identificado = (USER_PROVIDER)::authenticate($user, $password); 
         
+        // si la identificación no es correcta...
         if(!$identificado){
             Session::error("Los datos de identificación no son correctos para $user.");
             
@@ -51,13 +57,15 @@ class LoginController extends Controller{
             redirect('/Login');
         }
         
+        // si las cosas han ido bien...
+        
         Login::set($identificado); // vincula el usuario a la sesión
               
         // toma la operación pendiente (si la hay) y la borra de sesión
         $pending = Session::get('_pending_operation');
         Session::forget('_pending_operation');
         
-        // redirección tras Login
+        // redirección a la operación pendiente o bien donde indique el config.php o bien a portada
         redirect($pending ?? REDIRECT_AFTER_LOGIN ?? '/');
     }
 }

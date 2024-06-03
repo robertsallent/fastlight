@@ -25,6 +25,8 @@
 		<main>
     		<form class="w50 bloque-centrado" method="POST" autocomplete="off" id="login" action="/Login/enter">
     			
+    			<?= csrf() ?>
+    			
     			<h2>Acceso a <?= APP_NAME ?></h2>
 				<p>Introduce tus datos en el formulario para identificarte.</p>
 		

@@ -28,7 +28,9 @@ class Test extends Template{
     		<link rel='shortcut icon' href='/favicon.ico' type='image/png'>	
             <link rel='stylesheet' type='text/css' href='/css/test.css'>
     	</head>
-    	<body>".self::getHeader("$file test");	
+    	<body>".self::getHeader("$file test")
+    	       .self::getMenu()
+               .self::getBreadCrumbs(['Test'=>NULL]);	
     }
     
     
@@ -55,7 +57,9 @@ class Test extends Template{
      */
     public static function bottom(){
         
-        return self::getFooter()."</body></html>";
+        return "<div class='centrado'>
+                    <a class='button' href='/'>Volver a inicio</a>
+                </div>".self::getFooter()."</body></html>";
 
     }  
 }

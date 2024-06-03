@@ -98,16 +98,17 @@ class Template implements TemplateInterface{
         $html  = "<menu>";
         $html .=   "<li><a href='/'>Inicio</a></li>";
         
-        // enlace a la gestión de errores (solamente administrador)
-        if(Login::isAdmin() && (DB_ERRORS || LOG_ERRORS || LOG_LOGIN_ERRORS))
+        // enlace a la gestión de errores (solamente administrador o rol de test)
+        if((Login::isAdmin() || Login::role('ROLE_TEST')) && (DB_ERRORS || LOG_ERRORS || LOG_LOGIN_ERRORS))
             $html .=   "<li><a href='/Error/list'>Errores</a></li>";
         
-        // enlace a los tests de ejemplo (solamente administrador)    
-        if(Login::isAdmin() && (DEBUG))
+        // enlace a los tests de ejemplo (solamente administrador o rol de test)    
+        if((Login::isAdmin() || Login::role('ROLE_TEST')) && DEBUG)
             $html .=   "<li><a href='/test'>Lista de test</a></li>";
     
-        // entrada adicional de ejemplo:
-        $html .=   "<li><a href='/'>TODO</a></li>";
+        // entradas adicionales de ejemplo:
+        $html .=   "<li><a href='/'>BAR</a></li>";
+        $html .=   "<li><a href='/'>FOO</a></li>";
         
         $html .= "</menu>";
 

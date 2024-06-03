@@ -12,7 +12,6 @@
 
 class CookieController extends Controller{
     
-    // TODO: usar librería Cookie
     /** Aceptar las cookies */
     public function accept(){
                 
@@ -20,9 +19,8 @@ class CookieController extends Controller{
         if($this->request->has('accept')){
             
             // crea la cookie para saber que han aceptado las cookies
-            setcookie(ACCEPT_COOKIES_NAME, true, ACCEPT_COOKIES_EXPIRATION, '/');
-            // header("Set-Cookie: ".ACCEPT_COOKIES_NAME."=true; Expires=".ACCEPT_COOKIES_EXPIRATION."; Path=/");
-           
+            Cookie::set(ACCEPT_COOKIES_NAME, true, ACCEPT_COOKIES_EXPIRATION, '/');
+            
             // redirige a la operación que se estuviera intentando hacer
             redirect($this->request->previousUrl);
         }

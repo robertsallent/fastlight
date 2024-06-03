@@ -63,7 +63,6 @@
                     <ul>
                     	<li>Autoload basado en namespaces (PSR-4)</li>
                     	<li>API Keys</li>
-                    	<li>Clase Response.</li>
                     	<li>Middleware.</li>
                     	<li>...</li>
 					</ul>

@@ -23,7 +23,10 @@ class CSRF{
     
     
     // método que compara el token que se le pasa con el guardado en sesión
-    public static function check(string $token = null){
+    public static function check(
+        string $token = null,
+        bool $forget  = true
+    ){
         
         if(!$token)
             throw new CsrfException("No se recibió el token CSRF.");
@@ -33,7 +36,9 @@ class CSRF{
             
         if($token != Session::get('csrf_token'))
             throw new CsrfException("No se pudo validar el token CSRF.");
-                
+              
+        if($forget)
+            self::forget();
     }
     
     

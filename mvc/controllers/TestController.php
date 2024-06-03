@@ -32,7 +32,10 @@ class TestController extends Controller{
         string $method, 
         array $arguments = []  // sin uso por el momento
     ){
-          
+        
+       // solamente podrá lanzar test el administrador o un usuario con ROLE_TEST
+       Auth::oneRole([ADMIN_ROLE, "ROLE_TEST"]);
+        
        // Usa el template de test para que el resultado se vea "bonito" 
        if(BEAUTIFUL_TEST) 
            echo (TEST_TEMPLATE)::top($method);
@@ -40,12 +43,11 @@ class TestController extends Controller{
        // va a buscar el test solicitado a la carpeta test
        @require TEST_FOLDER."/".str_replace('-','/', $method).".php";
        
-       
        // Usa el template de test para que el resultado se vea "bonito"
        if(BEAUTIFUL_TEST){
-           if($method != 'index')
-               echo (TEST_TEMPLATE)::end($method);
-           echo (TEST_TEMPLATE)::bottom();
+           echo $method != 'index' ?
+                (TEST_TEMPLATE)::end($method) :
+                (TEST_TEMPLATE)::bottom();
        }
     }
     

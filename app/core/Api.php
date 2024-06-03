@@ -4,7 +4,7 @@
  *
  * Controlador frontal para el desarrollo de Apis Restful
  *
- * Última revisión: 10/04/2024
+ * Última revisión: 29/05/2024
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  */
