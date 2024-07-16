@@ -19,26 +19,22 @@ if($file = $request->file('fichero')){
     
     echo "<h2>Validando el fichero subido</h2>";
     echo "<p>Mostrando errores si no es texto menor de 10Kb:</p>";
-    echo arrayToString($file->errors(10000, 'text/plain'));
+
+    /*
+    echo "<p>Moviendo a /tmp con el nombre original.</p>";
+    echo $file->storeAs('../tmp', NULL, true);
+   
+    echo "<p>Moviendo a /tmp con el nombre 'patata.png'.</p>";
+    echo $file->storeAs('../tmp', 'patata.png', true);
+    */
     
-    echo "<h2>Moviendo el fichero.</h2>";
+    echo "<p>Moviendo a /tmp con un nombre generado.</p>";
+    echo $file->store('../tmp', 'img_', true);
     
-    if(!$file->errors(50000, 'image/*')){
-        /*
-        echo "<p>Moviendo a /tmp con el nombre original.</p>";
-        echo $file->storeAs('../tmp', NULL, true);
-       
-        echo "<p>Moviendo a /tmp con el nombre 'patata.png'.</p>";
-        echo $file->storeAs('../tmp', 'patata.png', true);
-        */
-        
-        echo "<p>Moviendo a /tmp con un nombre generado.</p>";
-        echo $file->store('../tmp', 'img_', true);
-        
-        
-        echo "<p>Tras guardarlo queda como:</p>";
-        dump($file);
-    }
+    
+    echo "<p>Tras guardarlo queda como:</p>";
+    dump($file);
+    
     
 }else{
     echo "<p>Por favor adjunta un fichero.</p>";

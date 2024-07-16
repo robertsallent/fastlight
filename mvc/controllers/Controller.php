@@ -78,5 +78,18 @@ abstract class Controller{
     ){
         Response::withView($contentType, $httpCode, $status, $name, $parameters);
     }
+    
+    
+    
+    /**
+     * Retorna el usuario identificado
+     * 
+     * @return ?Authenticable usuario identificado
+     */
+    public function getUser():?Authenticable{
+        return Login::user();
+    }
+    
+    
 }
 

@@ -4,12 +4,20 @@
   *
   * Template para los tests.
   *
-  * Última revisión: 07/07/23
+  * Última revisión: 10/06/2024
+  * 
   * @author Robert Sallent <robertsallent@gmail.com>
 */
 
-class Test extends Template{
+class Test extends Base{
           
+    
+    /** lista de ficheros CSS para usar con este template */
+    protected array $css = [
+        '/css/test.css'
+    ];
+    
+    
     /**
      * Retorna la parte superior (header) para las vistas de test.
      * 
@@ -17,21 +25,20 @@ class Test extends Template{
      * 
      * @return string parte superior del documento de test.
      */
-    public static function top(string $file = ''):string{
+    public function top(string $file = ''):string{
         
         return "
-        <!DOCTYPE html>
-        <html lang='es'>
-            <head>
-            <meta charset='UTF-8'>
-            <title>$file test</title>
-    		<link rel='shortcut icon' href='/favicon.ico' type='image/png'>	
-            <link rel='stylesheet' type='text/css' href='/css/test.css'>
-    	</head>
-    	<body>".self::getHeader("$file test")
-    	       .self::getMenu()
-               .self::getBreadCrumbs(['Test'=>NULL]);	
-    }
+            <!DOCTYPE html>
+            <html lang='es'>
+                <head>
+                <meta charset='UTF-8'>
+                <title>$file test</title>
+        		".$this->css()."
+        	</head>
+        	<body>".$this->header("$file test")
+        	       .$this->menu()
+                   .$this->breadCrumbs(['Test'=>NULL]);	
+        }
     
     
     
@@ -40,12 +47,13 @@ class Test extends Template{
      *
      * @return string fin del fichero de test.
      */
-    public static function end(string $file=''){
+    public function end(string $file=''){
         return "
-            <p class='end'>Fin del test $file</p>
-        	<div class='inicio'>
+            
+        	<div class='centrado test-end'>
+                <p>Fin del test <code>$file</code></p>
                 <a class='button' href='/test'>Lista de tests.</a>
-            </div>";
+            </div>".$this->footer();
     }
     
     
@@ -55,11 +63,11 @@ class Test extends Template{
      * 
      * @return string parte inferior.
      */
-    public static function bottom(){
+    public function bottom(){
         
-        return "<div class='centrado'>
+        return "<div class='centrado test-end'>
                     <a class='button' href='/'>Volver a inicio</a>
-                </div>".self::getFooter()."</body></html>";
+                </div>".$this->footer()."</body></html>";
 
     }  
 }

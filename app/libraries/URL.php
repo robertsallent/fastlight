@@ -50,8 +50,7 @@ class URL{
         int $delay      = 0,             // tiempo
         bool $die       = true           // detener ejecución tras redirección
     ){      
-        header("Refresh:$delay; URL=$url");
-        if($die) die();
+       (new Response())->redirect($url, $delay, $die);
     }  
 }
 

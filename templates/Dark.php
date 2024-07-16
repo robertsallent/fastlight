@@ -1,10 +1,10 @@
 <?php
 
 
-class Dark extends Template{
+class Dark extends Base{
     
     // ficheros CSS para usar con este template
-    protected static array $css = ['/css/dark.css'];
+    protected array $css = ['/css/dark.css'];
     
 }
 

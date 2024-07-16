@@ -13,14 +13,14 @@
     		<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
     		
     		<!-- CSS -->
-    		<?= (TEMPLATE)::getCss() ?>
+    		<?= $template->css() ?>
     	</head>
     	<body>
-    		<?= (TEMPLATE)::getLogin() ?>
-    		<?= (TEMPLATE)::getHeader('Lista de errores') ?>
-    		<?= (TEMPLATE)::getMenu() ?>
-    		<?= (TEMPLATE)::getBreadCrumbs(["Lista de errores" => NULL]) ?>
-    		<?= (TEMPLATE)::getFlashes() ?>
+    		<?= $template->login() ?>
+    		<?= $template->header('Lista de errores') ?>
+    		<?= $template->menu() ?>
+    		<?= $template->breadCrumbs(["Lista de errores" => NULL]) ?>
+    		<?= $template->messages() ?>
     		
     		<main>
         		<h1><?= APP_NAME ?></h1>
@@ -37,16 +37,16 @@
         			
         			// coloca el formulario de filtro
         			echo isset($filtro) ?
-        			     (TEMPLATE)::removeFilterForm($filtro, '/Error/list'):
+        			     $template->removeFilterForm($filtro):
         			     
-        			     (TEMPLATE)::filterForm(
-            			     '/Error/list',
+        			     $template->filterForm(
             			     [
             			         'Tipo' => 'level',
             			         'URL' => 'url',
             			         'Mensaje' => 'message',
             			         'Usuario' => 'user'
-            			     ],[
+            			     ],
+            			     [
             			         'Tipo' => 'level',
             			         'URL' => 'url',
             			         'Mensaje' => 'message',
@@ -148,7 +148,7 @@
         		</nav>
         		
     		</main>
-    		<?= (TEMPLATE)::getFooter() ?>
+    		<?= $template->footer() ?>
     	</body>
     </html>
 

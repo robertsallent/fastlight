@@ -5,7 +5,7 @@
  *
  * Trabajo con vistas
  *
- * Última revisión: 24/05/2024
+ * Última revisión: 10/06/2024
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v1.3.0
@@ -47,14 +47,19 @@ class View{
     }
     
     
+    
     /**
-     * Carga la vista
+     * Carga la vista.
+     * 
      */
     public function load(){
         
-        // crea las variables a partir de las claves del array en este ámbito
+        // mapea las variables a partir de las claves del array
         foreach($this->parameters as $variable => $valor)
             $$variable = $valor;
+        
+        // añade el template
+        $template = new (TEMPLATE);
             
         // carga la vista indicada desde el directorio de vistas
         try{
@@ -82,7 +87,10 @@ class View{
         int $code, 
         array $parameters = []
     ){
+        // calcula el nombre de la vista a cargar
         $name = (!DEBUG && USE_CUSTOM_ERROR_VIEWS && viewExists("httperrors/".$code)) ? "httperrors/".$code : 'error';
+        
+        // carga la vista de error
         (new View($name, $parameters))->load();
     }
     

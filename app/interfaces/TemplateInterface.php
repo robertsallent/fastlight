@@ -1,23 +1,29 @@
 <?php
 
-    /* Intarface TemplateInterface
+    /** Intarface TemplateInterface
      *
-     * Métodos que deben implementar los Templates.
+     * Métodos que deben implementar los Templates. 
+     * Los implementa la clase Template, así que heredando de Template nos aseguraremos
+     * que nuestras clases ya los implementen.
      *
-     * autor: Robert Sallent
-     * última revisión: 163/03/2023
+     * @author Robert Sallent <robertsallent@gmail.com>
+     * última revisión: 10/06/2024
      *
      */
     
     interface TemplateInterface{
         
-       public static function getCSS();
-       public static function getLogin();
-       public static function getHeader();
-       public static function getMenu();
-       public static function getBreadCrumbs();
-       public static function getSuccess();
-       public static function getError();
-       public static function getFooter();
+       public function css();
+       
+       public function login();
+       public function header();
+       public function menu();
+       public function breadCrumbs();
+       public function acceptCookies();
+       public function footer();
+       
+       public function successMessage();
+       public function warningMessage();
+       public function errorMessage();
     }
 

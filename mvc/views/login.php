@@ -13,14 +13,14 @@
 		<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
 		
 		<!-- CSS -->
-		<?= (TEMPLATE)::getCss() ?>
+		<?= $template->css() ?>
 	</head>
 	<body>
-		<?= (TEMPLATE)::getLogin() ?>
-		<?= (TEMPLATE)::getHeader('LogIn') ?>
-		<?= (TEMPLATE)::getMenu() ?>
-		<?= (TEMPLATE)::getBreadCrumbs(["LogIn" => "/Login"]) ?>
-		<?= (TEMPLATE)::getFlashes() ?>
+		<?= $template->login() ?>
+		<?= $template->header('LogIn') ?>
+		<?= $template->menu() ?>
+		<?= $template->breadCrumbs(["LogIn" => "/Login"]) ?>
+		<?= $template->messages() ?>
 		
 		<main>
     		<form class="w50 bloque-centrado" method="POST" autocomplete="off" id="login" action="/Login/enter">
@@ -50,7 +50,7 @@
     		
 		</main>
 		
-		<?= (TEMPLATE)::getFooter() ?>
+		<?= $template->footer() ?>
 	</body>
 </html>
 

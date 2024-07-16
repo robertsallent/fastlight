@@ -4,12 +4,13 @@
  * 
  * Permitirá acceder a los datos de la petición fácilmente desde los controladores.
  * 
- * Última modificación: 21/05/2024.
+ * Última modificación: 15/07/2024.
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.6.5
  * @since v0.9.4 añadida propiedad $previousUrl y método sameAsPrevious()
  * @since v1.0.2 añadido métodos fromJson() y fromXML()
+ * @since v1.3.0 añadido el método header()
  */
 
 class Request{
@@ -47,7 +48,8 @@ class Request{
         $this->url    = URL::get();    // mete la URL en la request
         $this->method = strtoupper($_SERVER['REQUEST_METHOD']); // método de la petición
         
-        $this->csrfToken = apache_request_headers()['csrf_token'] ?? null;  // token CSRF que llega en los headers
+        // token CSRF que llega en los headers
+        $this->csrfToken = HttpHeader::get('csrf_token');  
         
         // recupera los inputs de la petición anterior.
         $this->previousInputs = Session::get('flashed_input') ?? [];
@@ -65,6 +67,7 @@ class Request{
     
     
     
+ 
     /**
      * Retorna si estamos realizando la misma petición (refresh).
      * 
@@ -88,7 +91,7 @@ class Request{
     
     
     /**
-     * Recupera la request.
+     * Permite recuperar el objeto Request desde cualquier punto de nuestro programa.
      * 
      * @return Request
      */
@@ -147,6 +150,8 @@ class Request{
         
         return in_array(strtoupper($this->method()), $permitidos);
     }
+    
+    
     
     /**
      * Comprueba si llega un determinado parámetro en la petición.
@@ -222,18 +227,26 @@ class Request{
      * @return string|NULL valor recuperado o NULL si no existe la cookie.
      */
     public function cookie(
-        string $name        // nombre de la cookie a recuperar
-        
-    ): ?string{
-        
-        $data = filter_input(INPUT_COOKIE, $name, FILTER_SANITIZE_SPECIAL_CHARS);
-        
-        if(!$data || EMPTY_STRINGS_TO_NULL && trim($data === ''))
-            return NULL;
-            
-        return trim($data);
+        string $name        
+    ):?string{  
+        return HttpCookie::get($name);
     }
      
+    
+    
+    
+    /**
+     * Recupera valores de los encabezados.
+     *
+     * @param string $name nombre del encabezado a recuperar.
+     *
+     * @return string|NULL valor recuperado o NULL si no existe .
+     */
+    public function header(
+        string $name        // nombre del encabezado a recuperar
+    ):?string{
+        return HttpHeader::get($name);
+    }
       
     
     /**
@@ -293,20 +306,7 @@ class Request{
      * variable superglobal $_COOKIE y los valores saneados
      */
     public static function cookies():array{
-        $all = [];
-        
-        foreach($_COOKIE as $property => $value){
-            
-            $value = filter_input(INPUT_COOKIE, $property, FILTER_SANITIZE_SPECIAL_CHARS);
-            
-            // si hay que pasar la cadena vacía a NULL...
-            if(!$value || EMPTY_STRINGS_TO_NULL && trim($value) === '')
-                $value = NULL;
-            
-            $all[$property] =  trim($value);
-        }
-        
-        return $all;
+        return HttpCookie::all();
     }
     
     

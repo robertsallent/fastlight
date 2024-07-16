@@ -19,8 +19,8 @@ class CookieController extends Controller{
         if($this->request->has('accept')){
             
             // crea la cookie para saber que han aceptado las cookies
-            Cookie::set(ACCEPT_COOKIES_NAME, true, ACCEPT_COOKIES_EXPIRATION, '/');
-            
+            Response::addCookie(ACCEPT_COOKIES_NAME, true, ACCEPT_COOKIES_EXPIRATION, '/');
+
             // redirige a la operación que se estuviera intentando hacer
             redirect($this->request->previousUrl);
         }

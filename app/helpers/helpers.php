@@ -3,7 +3,7 @@
 /*
  * Funciones helper para realizar tareas habituales.
  * 
- * Última revisión: 21/05/2024
+ * Última revisión: 15/07/2024
  * @author Robert Sallent <robertsallent@gmail.com>
  * 
 */
@@ -122,6 +122,47 @@ function paragraph(
 
 /*
  |--------------------------------------------------------------------------
+ | TRABAJANDO CON RESPONSES Y VIEWS
+ |--------------------------------------------------------------------------
+ */
+
+/**
+ * Carga una vista a partir del nombre y una lista de parámetros.
+ *
+ * @param string $name nombre de la vista, sin la extensión.
+ * @param array $parameters array asociativo con los datos que se le pasan a la vista.
+ * @param int $httpCode código HTTP
+ * @param string $status frase de estado HTTP
+ * @param string $contentType tipo MIME de la respuesta
+ *
+ * @throws ViewException en caso de que algo falle.
+ */
+function view(
+    string $name,
+    array $parameters   = [],
+    int $httpCode       = 200,
+    string $status      = 'OK',
+    string $contentType = 'text/html'
+    ){
+        (new Response($contentType, $httpCode, $status))->view($name, $parameters);
+}
+
+
+/**
+ * Comprueba si una vista existe y es legible.
+ *
+ * @param string $name nombre de la vista.
+ *
+ * @return bool true si la vista existe y es legible, false en caso contrario.
+ */
+function viewExists(string $name):bool{
+    return View::exists($name);
+}
+
+
+
+/*
+ |--------------------------------------------------------------------------
  | REDIRECCIONES Y URLS
  |--------------------------------------------------------------------------
  */
@@ -132,14 +173,20 @@ function paragraph(
  * 
  * @param string $url URL a la que queremos redireccionar.
  * @param int $delay retardo en la redirección.
+ * @param int $httpCode código HTTP
+ * @param string $status frase de estado HTTP
+ * @param string $contentType tipo MIME de la respuesta
  * @param bool $die finalizar la ejecución tras la redirección?
  */
 function redirect(
     string $url = '/', 
     int $delay = 0,
-    bool $die = true
+    int $httpCode       = 302,
+    string $status      = 'FOUND',
+    string $contentType = 'text/html',
+    bool $die = true,
 ){
-    URL::redirect($url, $delay, $die);
+    (new Response($contentType, $httpCode, $status))->redirect($url, $delay, $die);
 }
 
 
@@ -159,44 +206,14 @@ function redirect(
 function abort(
     int $code, 
     string $status,
-    string $message = ''
+    string $message     = '',
+    string $contentType = 'text/html'
 ){
-    (new Response('text/html', $code, $status))->abort(['mensaje'=>$message]);
+    (new Response($contentType, $code, $status))->abort(['mensaje' => $message]);
 }
 
 
-/*
- |--------------------------------------------------------------------------
- | VISTAS
- |--------------------------------------------------------------------------
- */
 
-/**
- * Carga una vista a partir del nombre y una lista de parámetros.
- * 
- * @param string $name nombre de la vista, sin la extensión.
- * @param array $parameters array asociativo con los datos que se le pasan a la vista.
- * 
- * @throws ViewException en caso de que algo falle.
- */
-function view(
-    string $name, 
-    array $parameters = []
-){
-   (new View($name, $parameters))->load();
-}   
-
-
-/**
- * Comprueba si una vista existe y es legible.
- * 
- * @param string $name nombre de la vista.
- * 
- * @return bool true si la vista existe y es legible, false en caso contrario.
- */
-function viewExists(string $name):bool{
-    return View::exists($name);
-}
 
 
 /*
@@ -272,6 +289,11 @@ function csrf():string{
 }
 
 
+/*
+ |--------------------------------------------------------------------------
+ | HTTP
+ |--------------------------------------------------------------------------
+ */
 
 
 

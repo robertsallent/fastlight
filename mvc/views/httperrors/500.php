@@ -13,14 +13,14 @@
 		<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
 		
 		<!-- CSS -->
-		<?= (TEMPLATE)::getCss() ?>
+		<?= $template->css() ?>
 	</head>
 	<body>
-		<?= (TEMPLATE)::getLogin() ?>
-		<?= (TEMPLATE)::getHeader('Error 500') ?>
-		<?= (TEMPLATE)::getMenu() ?>
-		<?= (TEMPLATE)::getBreadCrumbs(["Error 500" => NULL]) ?>
-		<?= (TEMPLATE)::getFlashes() ?>
+		<?= $template->login() ?>
+		<?= $template->header('Error 500') ?>
+		<?= $template->menu() ?>
+		<?= $template->breadCrumbs(["Error 500" => NULL]) ?>
+		<?= $template->messages() ?>
 		
 		<main>
     		<h2 class="http-code">500</h2>
@@ -35,7 +35,7 @@
     		</nav>
     		
     	</main>
-		<?= (TEMPLATE)::getFooter() ?>
+		<?= $template->footer() ?>
 	</body>
 </html>
 

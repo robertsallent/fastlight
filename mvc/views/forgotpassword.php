@@ -13,19 +13,14 @@
 		<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
 		
 		<!-- CSS -->
-		<?= (TEMPLATE)::getCss() ?>
+		<?= $template->css() ?>
 	</head>
 	<body>
-		<?= (TEMPLATE)::getLogin() ?>
-		<?= (TEMPLATE)::getHeader('Nueva clave') ?>
-		<?= (TEMPLATE)::getMenu() ?>
-		<?= 
-		  (TEMPLATE)::getBreadCrumbs([
-		    "LogIn" => "/Login",
-		    "Nueva clave" => NULL
-		  ]) 
-		?>
-		<?= (TEMPLATE)::getFlashes() ?>
+		<?= $template->login() ?>
+		<?= $template->header('Nueva clave') ?>
+		<?= $template->menu() ?>
+		<?= $template->breadCrumbs(["LogIn" => "/Login", "Nueva clave" => NULL]) ?>
+		<?= $template->messages() ?>
 		
 		<main>
 			
@@ -57,7 +52,7 @@
     		
 		</main>
 		
-		<?= (TEMPLATE)::getFooter() ?>
+		<?= $template->footer() ?>
 	</body>
 </html>
 

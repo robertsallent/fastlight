@@ -52,6 +52,8 @@ define('AUTOLOAD_DIRECTORIES',  [
 define('APP_NAME','FastLight Framework'); // Título de la aplicación.
 define('APP_TYPE', 'WEB');                // Tipo de aplicación: WEB o API.
 
+define('HTTP_VERSION', '1.1'); // versión de HTTP usada.
+
 // Controlador y método por defecto (solamente para APP_TYPE WEB).
 define('DEFAULT_CONTROLLER', 'WelcomeController');
 define('DEFAULT_METHOD', 'index');
@@ -131,8 +133,8 @@ define('DB_LOGIN_ERRORS', false);                  // Guardar errores de login e
 define('VIEWS_FOLDER', '../mvc/views');     // Carpeta para las vistas.
 
 // Template a usar en las vistas (en la carpeta templates).
-// Las opciones disponibles por defecto son Template, Dark, Neon o Retro.
-define('TEMPLATE', 'Template');
+// Las opciones disponibles por defecto son Base, Dark, Neon o Retro.
+define('TEMPLATE', 'Base');
 
 
 

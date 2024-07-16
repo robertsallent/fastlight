@@ -15,7 +15,7 @@
  * Por ejemplo:
  * la URL /Test/models-libro ejecutará el fichero en test/models/libro.php
  * 
- * Última revisión: 22/06/2023
+ * Última revisión: 10/06/2024
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  */
@@ -36,18 +36,18 @@ class TestController extends Controller{
        // solamente podrá lanzar test el administrador o un usuario con ROLE_TEST
        Auth::oneRole([ADMIN_ROLE, "ROLE_TEST"]);
         
-       // Usa el template de test para que el resultado se vea "bonito" 
-       if(BEAUTIFUL_TEST) 
-           echo (TEST_TEMPLATE)::top($method);
-        
+       // Usa el template de test para que el resultado se vea "bonito"
+       if(BEAUTIFUL_TEST){
+            $template = new (TEST_TEMPLATE);
+            echo $template->top($method);
+       }
+       
        // va a buscar el test solicitado a la carpeta test
        @require TEST_FOLDER."/".str_replace('-','/', $method).".php";
        
        // Usa el template de test para que el resultado se vea "bonito"
        if(BEAUTIFUL_TEST){
-           echo $method != 'index' ?
-                (TEST_TEMPLATE)::end($method) :
-                (TEST_TEMPLATE)::bottom();
+           echo $method != 'index' ? $template->end($method) : $template->bottom();
        }
     }
     

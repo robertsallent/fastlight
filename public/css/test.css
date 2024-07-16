@@ -2,7 +2,7 @@
 	FICHERO CON EL ESTILO PARA LOS TEST UNITARIOS
 	
 	Autor: Robert Sallent
-	Última revisión: 27/03/2023
+	Última revisión: 10/06/2024
 */
 
 @import "base.css";
@@ -11,7 +11,7 @@
 pre{
 	font-size: 0.8rem;
 	font-family: 'lucida console', arial;
-	line-height: 1.15rem;
+	line-height: 1.10rem;
 	margin: 10px 15px;
 }
 
@@ -29,4 +29,13 @@ pre{
 	padding: 5px;
 }
 
+.test-end{
+	margin-bottom: 20px;
+	margin-top: 40px;
+}
+
+.test-end p{
+	font-size: 1.35rem;
+	color: #A33;	
+}
 

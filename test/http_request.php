@@ -41,6 +41,18 @@
 <?php    
     dump($request->all());
 ?>   
+
+
+<h2>Probando el método <code>cookie()</code></h2>     
+<?php    
+    dump($request->cookie('PHPSESSID'));
+?>  
+
+<h2>Probando el método <code>header()</code></h2>     
+<?php    
+    dump($request->header('User-Agent'));
+?>   
+    
     
 
 

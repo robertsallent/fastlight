@@ -13,14 +13,14 @@
 		<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
 		
 		<!-- CSS -->
-		<?= (TEMPLATE)::getCss() ?>
+		<?= $template->css() ?>
 	</head>
 	<body>
-		<?= (TEMPLATE)::getLogin() ?>
-		<?= (TEMPLATE)::getHeader('Error 403') ?>
-		<?= (TEMPLATE)::getMenu() ?>
-		<?= (TEMPLATE)::getBreadCrumbs(["Error 403" => NULL]) ?>
-		<?= (TEMPLATE)::getFlashes() ?>
+		<?= $template->login() ?>
+		<?= $template->header('Error 403') ?>
+		<?= $template->menu() ?>
+		<?= $template->breadCrumbs(["Error 403" => NULL]) ?>
+		<?= $template->messages() ?>
 		
 		<main>
     		<h2 class="http-code">403</h2>
@@ -35,7 +35,7 @@
     		</nav>
     		
     	</main>
-		<?= (TEMPLATE)::getFooter() ?>
+		<?= $template->footer() ?>
 	</body>
 </html>
 

@@ -13,14 +13,14 @@
 		<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
 		
 		<!-- CSS -->
-		<?= (TEMPLATE)::getCss() ?>
+		<?= $template->css() ?>
 	</head>
 	<body>
-		<?= (TEMPLATE)::getLogin() ?>
-		<?= (TEMPLATE)::getHeader('Portada') ?>
-		<?= (TEMPLATE)::getMenu() ?>
-		<?= (TEMPLATE)::getFlashes() ?>
-		<?= (TEMPLATE)::acceptCookies() ?>
+		<?= $template->login() ?>
+		<?= $template->header('Portada') ?>
+		<?= $template->menu() ?>
+		<?= $template->messages() ?>
+		<?= $template->acceptCookies() ?>
 		
 		<main>
     		<h1><?= APP_NAME ?></h1>
@@ -42,7 +42,7 @@
                     	<li>Gestión integrada de errores y herramientas de depuración.</li>
                     	<li>Motor de plantillas.</li>
                     	<li>Sistema para tests unitarios.</li>
-                    	<li>Mecanismos de filtrado y paginación.</li>
+                    	<li>Mecanismos de búsqueda y paginación de resultados.</li>
                     	<li>Autenticación y autorización basada en roles.</li>
                     	<li>Protección CSRF para formularios y APIs.</li>
                     	<li>Herramientas para generación rápida de APIs.</li>
@@ -55,13 +55,14 @@
                     <ul>
                     	<li>Formulario de contacto con envío de email.</li>
                     	<li>Espacio personal (home).</li>
-                    	<li>Registro y baja de usuario.</li>
+                    	<li>Operaciones de registro y baja de usuario.</li>
+                    	<li>Gestión de usuarios y roles.</li>
+                    	<li>Otras operaciones del administrador.</li>
                     	<li>...</li>
 					</ul>
 
                		<h3>Lo que incoroprará en futuras versiones:</h3>
                     <ul>
-                    	<li>Autoload basado en namespaces (PSR-4)</li>
                     	<li>API Keys</li>
                     	<li>Middleware.</li>
                     	<li>...</li>
@@ -82,7 +83,7 @@
     		   estructura para de tabla users y algunos usuarios de ejemplo.</p>
 		   	   
 		</main>
-		<?= (TEMPLATE)::getFooter() ?>
+		<?= $template->footer() ?>
 	</body>
 </html>
 

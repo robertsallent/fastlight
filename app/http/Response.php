@@ -4,15 +4,18 @@
  *
  * Respuestas HTTP
  *
- * Última modificación: 24/05/2024.
+ * Última modificación: 15/07/2024
  *
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.9.13
- * @since c1.3.0 nuevo método abort()
+ * @since v1.3.0 nuevo método abort()
  */
 
 
 class Response{
+        
+    /** @var string $version versión HTTP a usar en la respuesta */
+    protected string $version;
     
     /** @var string $contentType tipo MIME del contenido */
     protected string $contentType;
@@ -26,16 +29,20 @@ class Response{
     /** @var string $timestamp fecha y hora de la respuesta */
     public string $timestamp;  
     
-    /** @var array $headers cabeceras HTTP que se deben incluir en la respuesta */
-    protected array $headers;
-
-    /** @var array $cookies cookies para añadir en la respuesta */
-    protected array $cokies;
-    
-    /** var string $string información adicional para el modo debug */
+    /** var string $debug información adicional para el modo debug */
     protected string $debug = '';
     
-    //TODO: response body?
+    
+    
+    /** @var HttpHeaderBag $headers cabeceras HTTP que se deben incluir en la respuesta */
+    protected static ?HttpHeaderBag $headers = null;
+    
+    /** @var HttpCookieBag $cookies cookies para añadir en la respuesta */
+    protected static ?HttpCookieBag $cookies = null;
+    
+    
+
+    
     
     /**
      * Constructor de Response
@@ -43,27 +50,60 @@ class Response{
      * @param string $contentType tipo de contenido
      * @param int $httpCode código HTTP
      * @param string $status frase correspondiente al estado
+     * @param string $content contenido en el body de la respuesta
      */
     public function __construct(
         string $contentType = 'text/html',
         int $httpCode       = 200,
-        string $status      = 'OK'    
+        string $status      = 'OK'
     ){    
+        
+        // propiedades básicas
+        $this->version      = HTTP_VERSION;
         $this->contentType  = $contentType;
         $this->httpCode     = $httpCode;  
         $this->status       = $status;
+        
         $this->timestamp    = date('Y-m-d H:i:s');
 
-        $this->headers      = [
+        // añade algunas cabeceras HTTP
+        self::addHeader(
             "Content-type:$this->contentType; charset=".RESPONSE_CHARSET,
             $_SERVER['SERVER_PROTOCOL']." $this->httpCode $this->status"
-        ];
+        );
         
-        $this->cookies      = [];
+        self::addHeader("Framework: FastLight <fastlight@robertsallent.com>");
+        self::addHeader("Author: Robert Sallent <robert@juegayestudia.com>");
     }
     
     
- 
+    
+    /* ============================================================================
+     * SETTERS Y GETTERS
+     * ============================================================================
+     */
+    
+    /**
+     * Getter de version
+     *
+     * @return string $version
+     */
+    public function getVersion():string{
+        return $this->version;
+    }
+    
+    
+    /**
+     * Setter de version
+     *
+     * @param string $version versión HTTP de la respuesta
+     */
+    public function setVersion(string $version){
+        $this->version = $version;
+    }
+    
+    
+    
     /**
      * Getter de status
      * 
@@ -121,23 +161,70 @@ class Response{
     public function setContentType(string $contentType){
         $this->contentType = $contentType;
     }
-      
+
     
+    
+    
+    /* ============================================================================
+     * TRABAJANDO CON COOKIES Y ENCABEZADOS
+     * ============================================================================ */
     
     /**
-     * Permite añadir cabeceras adicionales a la respuesta
+     * Crea una nueva cookie y la almacena en la bolsa de cookies que serán adjuntadas
+     * a la Response.
      *
-     * @param string $header el header a añadir
+     * @param string $name nombre de la cookie
+     * @param string $value valor de la cookie
+     * @param int $expires tiempo de expiración, 0 para cookie de sesión.
+     * @param string $path ruta para la que se debe adjuntar la cookie
+     * @param string $domain dominio
+     * @param bool $secure transmitir solo por https
+     * @param bool $httponly accesible solo en el lado del servidor
+     *
      */
-    public function addHeader(string $header){
-        $this->headers[] = $header;
+    public static function addCookie(
+        string $name,
+        string $value   = "",
+        int $expires    = 0,
+        string $path    = "",
+        string $domain  = "",
+        bool $secure    = false,
+        bool $httpOnly  = false
+    ){
+        // por si no se había creado la bolsa de cookies...
+        self::$cookies = self::$cookies ?? new HttpCookieBag();
+        
+        // crea la cookie y la añade a una bolsa de cookies que se adjuntarán a la respuesta
+        self::$cookies->push(
+            new HttpCookie($name, $value, $expires, $path, $domain, $secure, $httpOnly)
+        );
     }
     
     
     
-    // TODO: addCookie() que añade objetos de tipo Cookie
+    /**
+     * Crea un nuevo encabezado y lo adjunta a la bolsa de encabezados que serán adjuntados en la Response
+     *
+     * @param string $header
+     * @param bool $replace
+     * @param int $responseCode
+     *
+     */
+    public static function addHeader(
+        string $header,
+        bool $replace     = true,
+        int $responseCode = 0
+    ){
+        // por si no se había creado la bolsa de headers...
+        self::$headers = self::$headers ?? new HttpHeaderBag();
+        
+        // añade el header a la bolsa de headers que se adjuntarán con la Response
+        self::$headers->push(
+            new HttpHeader($header, $replace, $responseCode)
+        );
+    }
     
-    
+     
     
 /* ============================================================================
  * PREPARACIÓN DE LAS RESPUESTAS
@@ -150,16 +237,16 @@ class Response{
      *  @return Response el mismo objeto Response.
      */
     protected function prepare():Response{
-        // añade los encabezados
-        foreach($this->headers as $header)
-            header($header);
+        // añade los encabezados a la respuesta
+        if(self::$headers)
+            foreach(self::$headers->getItems() as $header)
+                $header->send();
+            
+        // anexa las cookies a la respuesta   
+        if(self::$cookies)
+            foreach(self::$cookies->getItems() as $cookie)
+                $cookie->send();
           
-        // TODO: anexar las cookies    
-        /*
-        foreach($this->cookies as $cookie)
-            set_cookie();
-        */
-        
         // retorna la misma respuesta para permitir chaining
         return $this;
     }
@@ -224,7 +311,9 @@ class Response{
         return $this;
     }
     
-
+    
+    
+    
    /* ============================================================================
     * MÉTODOS QUE CARGAN VISTAS (y finalizan la ejecución)
     * ============================================================================
@@ -241,8 +330,17 @@ class Response{
         string $name,
         array $parameters = []
     ){
+
+        // añade las cookies y las cabeceras http a la respuesta
         $this->prepare();
+        
+        // añade el template
+        $template = new (TEMPLATE);
+        
+        // carga la vista
         (new View($name, $parameters))->load();
+        
+        // finaliza la ejecución
         die();
     }
     
@@ -257,10 +355,42 @@ class Response{
     public function abort(
         array $parameters = []
     ){
+        
+        // añade las cookies y las cabeceras http a la respuesta
         $this->prepare();
+        
+        // carga la vista de error, dependiendo del código HTTP 
         View::loadHttpErrorView($this->httpCode, $parameters);
+        
+        // finaliza la ejecución
         die();
     }
+    
+  
+    
+    /**
+     * Realiza una redirección HTTP
+     * 
+     * @param string $url url a la que redireccionar
+     * @param int $delay retardo en la redirección
+     * @return Response
+     */
+    public function redirect(
+        string $url  = '/', 
+        int $delay   = 0,
+        bool $die    = true
+    ){
+        
+        // añade el header para hacer una redirección HTTP
+        self::addHeader("Refresh:$delay; URL=$url");
+        
+        // prepara la respuesta
+        $this->prepare();
+        
+        // evita que se ejecuten otras operaciones
+        if($die) die();
+    }
+
     
     
     /**
@@ -269,23 +399,22 @@ class Response{
      * @param string $contentType tipo MIME del contenido mostrado
      * @param int $httpCode código HTTP de estado
      * @param string $status mensaje HTTP de estado
-     * @param string $viewName nombre de la vista a cargar
-     * @param array $viewParameters array de parámetros para mostrar en la vista
+     * @param string $name nombre de la vista a cargar
+     * @param array $parameters array de parámetros para mostrar en la vista
      *
      */
     public static function withView(
         string $contentType = 'text/html',
         int $httpCode       = 200,
         string $status      = 'OK',
-        string $viewName    = '',
-        array $viewParameters = []
-        ){
-            // crea la response
-            (new self($contentType, $httpCode, $status))->view($viewName, $viewParameters);
+        string $name    = '',
+        array $parameters = []
+    ){
+        // crea la response y carga la vista
+        (new self($contentType, $httpCode, $status))->view($name, $parameters);
     }
     
     
-
     
     
     // TODO: revisar este método, en principio está pensado para APIs

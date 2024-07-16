@@ -13,14 +13,14 @@
 		<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
 		
 		<!-- CSS -->
-		<?= (TEMPLATE)::getCss() ?>
+		<?= $template->css() ?>
 	</head>
 	<body>
-		<?= (TEMPLATE)::getLogin() ?>
-		<?= (TEMPLATE)::getHeader('Error 401') ?>
-		<?= (TEMPLATE)::getMenu() ?>
-		<?= (TEMPLATE)::getBreadCrumbs(["Error 401" => NULL]) ?>
-		<?= (TEMPLATE)::getFlashes() ?>
+		<?= $template->login() ?>
+		<?= $template->header('Error 401') ?>
+		<?= $template->menu() ?>
+		<?= $template->breadCrumbs(["Error 401" => NULL]) ?>
+		<?= $template->messages() ?>
 		
 		<main>
     		<h2 class="http-code">401</h2>
@@ -35,7 +35,7 @@
     		</nav>
     		
     	</main>
-		<?= (TEMPLATE)::getFooter() ?>
+		<?= $template->footer() ?>
 	</body>
 </html>
 

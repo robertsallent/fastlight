@@ -13,14 +13,14 @@
 		<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
 		
 		<!-- CSS -->
-		<?= (TEMPLATE)::getCss() ?>
+		<?= $template->css() ?>
 	</head>
 	<body>
-		<?= (TEMPLATE)::getLogin() ?>
-		<?= (TEMPLATE)::getHeader('Éxito') ?>
-		<?= (TEMPLATE)::getMenu() ?>
-		<?= (TEMPLATE)::getBreadCrumbs(["Éxito" => NULL]) ?>
-		<?= (TEMPLATE)::getFlashes() ?>
+		<?= $template->login() ?>
+		<?= $template->header('Éxito') ?>
+		<?= $template->menu() ?>
+		<?= $template->breadCrumbs(["Éxito" => NULL]) ?>
+		<?= $template->messages() ?>
 		
 		<main>
     		<h2>Éxito en la operación solicitada</h2>
@@ -34,7 +34,7 @@
     		</nav>
     		
 		</main>
-		<?= (TEMPLATE)::getFooter() ?>
+		<?= $template->footer() ?>
 	</body>
 </html>
 
