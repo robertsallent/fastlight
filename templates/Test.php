@@ -35,7 +35,8 @@ class Test extends Base{
                 <title>$file test</title>
         		".$this->css()."
         	</head>
-        	<body>".$this->header("$file test")
+        	<body>".$this->login()
+        	       .$this->header("$file test")
         	       .$this->menu()
                    .$this->breadCrumbs(['Test'=>NULL]);	
         }

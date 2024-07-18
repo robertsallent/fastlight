@@ -70,17 +70,29 @@ main a{
 header.primary{
 	color: rgb(255, 0, 128);
 	font-family: mistral;
+	background-image: url(../images/template/header_neon.jpg);
 }
 
 
 header.primary h1{
 	color: rgb(255, 0, 128);
-	font-size: 5rem;
+	text-shadow: 0px 0px 10px black;
+	background-color: transparent;
+	font-size: 6rem;
 }
 
+header.primary h1 .small{
+	font-size: 3rem;
+}
+
+header.primary figure{
+	max-width: 150px;
+	padding: 10px;
+}
 
 footer.primary{
 	background-color: rgb(255, 0, 128);
+	background-image: none;
 }
 
 footer.primary a{

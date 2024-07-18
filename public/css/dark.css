@@ -8,6 +8,10 @@
 
 @import 'base.css';
 
+footer.primary{
+	background-image: none;
+}
+
 
 body{
 	color: white;

@@ -101,7 +101,7 @@ class Base implements TemplateInterface{
             <header class='primary'>
                 <figure>
                     <a href='/'>
-                        <img style='width:100%;' alt='FastLight Logo' src='/images/template/fastlight.png'>
+                        <img style='width:100%;' alt='FastLight Logo' src='/images/template/fastlight_base.png'>
                     </a>
                 </figure>
                 <hgroup>

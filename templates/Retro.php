@@ -14,12 +14,12 @@ class Retro extends Base{
         return "
             <header class='primary flex-container'>
                 <hgroup class='flex4'>
-            	  <h1>$title en ".APP_NAME."</h1>
+            	  <h1>$title <span class='small'>en ".APP_NAME."</span></h1>
                   <p>".($subtitle ?? '')."</p>
                 </hgroup>  
                 <figure class='flex1 derecha'>
                     <a href='/'>
-                        <img style='width:100%;' src='/images/template/fastlight_bw.png'>
+                        <img style='width:100%;' src='/images/template/fastlight_retro.png'>
                     </a>
                 </figure>
             </header>";
