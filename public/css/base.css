@@ -5,12 +5,12 @@
 	Última revisión: 27/03/2023
 */
 
+
 *{
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
 }
-
 
 
 /* ------------------------  FLEX --------------------- */
@@ -90,7 +90,7 @@
 .oculto							{ display: none }
 
 
-/* ----------------- Para las vistas de error HTTP ----------------- */
+/* ---------------------- VISTAS DE ERROR HTTP ---------------------- */
 
 h2.http-code{
 	font-size: 6rem;
@@ -132,7 +132,51 @@ figcaption{
 
 
 
-/* éxito y error */
+
+/* ----------------- MODALES ----------------- */
+
+div.modal-background{
+	position: fixed;
+	margin: 0px;
+	top: 0px;
+	left: 0px;
+	background-color: rgba(120, 120, 120, 0.8);
+	width: 100vw;
+	min-height: 100vh;
+	padding: 15%;
+	z-index: 10;
+	text-align: center;
+}
+
+
+/* para las imágenes que se hacen grandes */
+.enlarge-image{
+	cursor: pointer;
+}
+
+#modal-big-picture{
+	padding: 2vh;
+	cursor: pointer;
+}
+
+figure.big-picture{
+	height: 96vh;
+	margin: auto;
+}
+
+figure.big-picture img{
+	height: 90%;
+}
+
+figure.big-picture figcaption{
+	height: 10%;	
+	color: white;
+	font-size: 1.25rem;
+}
+
+
+/* ----------------- MENSAJES DE ERROR Y ÉXITO ----------------- */
+
 .success{
 	background-color: #efe;
 	color: #363;
@@ -156,18 +200,6 @@ div.error, div.success, div.warning{
 	padding: 20px;
 }
 
-div.modal-background{
-	position: fixed;
-	margin: 0px;
-	top: 0px;
-	left: 0px;
-	background-color: rgba(120, 120, 120, 0.8);
-	width: 100vw;
-	min-height: 100vh;
-	padding: 15%;
-	z-index: 10;
-	text-align: center;
-}
 
 div.success-message h2{
 	color: #090;
@@ -218,7 +250,7 @@ div.warning-message{
 }
 
 
-/* distintos elementos */
+/* ----------------- ELEMENTOS BÁSICOS HTML ----------------- */
 h1, h2, h3{
 	margin-top: 1rem;
 	margin-bottom: 1.1rem;
@@ -244,7 +276,7 @@ a{
 }
 
 
-/* estructura de la página */
+/* ----------------- ESTRUCTURA DE LA PÁGINA ----------------- */
 body{
 	color: rgb(90, 90, 90);
 	padding: 10px 2%;

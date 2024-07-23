@@ -83,7 +83,7 @@ define('DB_NAME','fastlight');  // Nombre de la base de datos.
 define('DB_PORT',  3306);       // Puerto.
 define('DB_CHARSET','utf8');    // Codificación de caracteres.
 
-define('DB_CLASS','DB');        // Clase a usar, puede ser DB (mysqli) o DBPDO (PDO).
+define('DB_CLASS','DBPDO');     // Clase a usar, puede ser DB (mysqli) o DBPDO (PDO).
 define('SGDB','mysql');         // Driver que debe usar PDO (solamente para PDO).
 
 

@@ -4,7 +4,7 @@
 	Se usa para mostrar previsualizaciones de imágenes en formularios con inputs de tipo file
 	
 	Funcionamiento:
-	- Incluir este fichero con <script src="/js/preview.js"></script>.
+	- Incluir este fichero con <script src="/js/Preview.js"></script>.
 	- Poner una imagen en el formulario con id "preview-image" y una imagen por defecto.
 	- Colocar un input de tipo file con id "file-with-preview".
 	- Si hay un input tipo hidden MAX_FILE_SIZE antes del input, se comprobará también el tamaño.
