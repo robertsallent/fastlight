@@ -1,20 +1,25 @@
 <?php
 
-/** TestTemplate
-  *
-  * Template para los tests.
-  *
-  * Última revisión: 10/06/2024
-  * 
-  * @author Robert Sallent <robertsallent@gmail.com>
-*/
+/** DARK TEMPLATE
+ *
+ * Template para la sección de test del framework.
+ *
+ * Última revisión: 25/07/2024
+ *
+ * @author Robert Sallent <robertsallent@gmail.com>
+ *
+ */
+
 
 class Test extends Base{
           
     
     /** lista de ficheros CSS para usar con este template */
     protected array $css = [
-        '/css/test.css'
+        'standard'  => '/css/test.css',
+        'tablet'    => null,
+        'phone'     => '/css/phone.css',
+        'printer'   => '/css/printer.css'
     ];
     
     

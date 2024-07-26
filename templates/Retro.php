@@ -1,10 +1,27 @@
 <?php
 
+/** RETRO TEMPLATE
+ *
+ * Template que hereda del template base y que modifica los CSS y alguno
+ * de los métodos existentes en la clase padre.
+ *
+ * Última revisión: 25/07/2024
+ *
+ * @author Robert Sallent <robertsallent@gmail.com>
+ *
+ */
+
 
 class Retro extends Base{
     
     // ficheros CSS para usar con este template
-    protected array $css = ['/css/retro.css'];
+    protected array $css = [
+        'standard'  => '/css/retro.css',
+        'tablet'    => null,
+        'phone'     => '/css/phone.css',
+        'printer'   => '/css/printer.css'
+    ];
+    
     
     // retorna el header
     public function header(

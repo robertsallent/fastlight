@@ -20,6 +20,11 @@ body{
 
 main{ background-color: transparent; }
 
+section{
+	box-shadow: none;
+	background-color: rgb(30,30,30);
+}
+
 table{border: solid 1px rgb(60, 100, 160); }
 table tr:nth-of-type(odd){ background-color: #666; }
 table tr:nth-of-type(even){ background-color: #777; }

@@ -64,6 +64,10 @@ main a{
 	color: rgb(0, 255, 255)
 }
 
+section{
+	box-shadow: none;
+	background-color: rgb(60,60,60);
+}
 
 
 /* header y footer principales */

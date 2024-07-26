@@ -26,7 +26,7 @@
         		<h1><?= APP_NAME ?></h1>
         		
         		<?php if(DB_ERRORS){ ?>
-        		<section>
+        		
         		
             		<h2>Lista completa de errores</h2>
         			
@@ -62,7 +62,7 @@
      	
          				<div class="flex-container">
          					<div class="flex1">
-            					<a class="button" href="/Error/clear">Vaciar lista</a>
+            					<a class="button button-danger" href="/Error/clear">Vaciar lista</a>
             				</div>
             				<div class="flex1 derecha">
             					<?= $paginator->stats()?>
@@ -97,7 +97,7 @@
                 					</td>
                     				<td><?=$error->ip?></td>
                     				<td class="centrado">
-                    					<a href="/Error/destroy/<?= $error->id ?>">Borrar</a>
+                    					<a class="button button-danger" href="/Error/destroy/<?= $error->id ?>">Borrar</a>
                 					</td>
                 			   </tr>
                     		<?php } ?>
@@ -108,7 +108,7 @@
             		<?php }else{ ?>
             			<p class="success">No hay errores que mostrar.</p>
             		<?php } ?>
-            	</section>
+            	
             	<?php } ?>
         		
         		<?php if(LOG_ERRORS || LOG_LOGIN_ERRORS){ ?>
@@ -134,11 +134,11 @@
             		   (no se muestran si no existen ficheros de LOG).</p>
             		   
             		<?php if(LOG_ERRORS && is_readable(ERROR_LOG_FILE)){ ?>
-            		<a class="button" href="/Error/erase">Borrar LOG</a>
+            		<a class="button button-danger" href="/Error/erase">Borrar LOG</a>
             		<?php } ?>
             		
             		<?php if(LOG_LOGIN_ERRORS && is_readable(LOGIN_ERRORS_FILE)){ ?>
-        			<a class="button" href="/Error/erase/login">Borrar LOG de Login</a>
+        			<a class="button button-danger" href="/Error/erase/login">Borrar LOG de Login</a>
         			<?php } ?>
         		</section>
         		<?php } ?>

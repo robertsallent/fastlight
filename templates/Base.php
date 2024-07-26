@@ -1,10 +1,10 @@
 <?php
 
-/** Clase Base
+/** BASE TEMPLATE
  *
  * Se usa para generar las partes comunes de todas las vistas
  *
- * Última revisión: 10/06/2024
+ * Última revisión: 25/07/2024
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  *
@@ -13,10 +13,20 @@ class Base implements TemplateInterface{
     
     /** lista de ficheros CSS para usar con este template */
     protected array $css = [
-        '/css/base.css'
+        'standard'  => '/css/base.css',
+        'tablet'    => null,
+        'phone'     => '/css/phone.css',
+        'printer'   => '/css/printer.css'
     ];
     
-    
+    /** media queries para cargar distintos ficheros para cada dispositivo
+     *  o resolución de pantalla. */
+    protected array $mediaQueries = [
+        'standard'  => 'screen',
+        'tablet'    => 'screen and (max-width: 850px) and (min-width: 451px)',
+        'phone'     => 'screen and (max-width: 450px)',
+        'printer'   => 'print'
+    ];
     
     
     /* ****************************************************************************
@@ -24,15 +34,17 @@ class Base implements TemplateInterface{
      *****************************************************************************/
     
     /**
-     * Prepara el HTML con los links a todos los ficheros CSS configurados mediante la propiedad $css.
+     * Prepara el HTML con los links a todos los ficheros CSS configurados mediante 
+     * las propiedades $css y $mediaQueries.
      * 
      * @return string HTML con los links a los ficheros CSS.
      */
     public function css(){
-        $html = "";
+        $html = "\n";
         
-        foreach($this->css as $file)
-            $html .= "\t<link rel='stylesheet' type='text/css' href='$file'>\n";
+        foreach($this->css as $device => $file)
+            if($file)
+                $html .= "\t\t<link rel='stylesheet' media='".($this->mediaQueries[$device])."' type='text/css' href='$file'>\n";
             
         return $html;
     }
@@ -51,33 +63,28 @@ class Base implements TemplateInterface{
     public function login(){
         
         // si el usuario no está identificado, retorna el botón de LogIn
-        if(Login::guest())
-            return "
+        if(Login::guest()){
+            $html = "
                <div class='derecha'>
                     <a class='button' href='/Login'>LogIn</a>
                </div>";
-        
-        $user = Login::user(); // recupera el usuario identificado
+        }else{
+            $user = Login::user(); // recupera el usuario identificado
           
-        // si el usuario es administrador...
-        if(Login::isAdmin())
-            return "
-                 <div class='derecha'>
-                    <span>Bienvenido <a class='negrita' href='/User/home'>$user->displayname</a> 
-                    (<span class='cursiva'>$user->email</span>)
-                    , eres <a class='negrita' href='/Admin'>administrador</a>.</span> 
-                    <a class='button' href='/Logout'>LogOut</a>
-                 </div>";  
-        
-        // si el usuario no es administrador...
-        if(Login::check())
-            return "
-                 <div class='derecha'>
-                    <span>Bienvenido <a href='/User/home'>$user->displayname</a>
-                    (<span class='cursiva'>$user->email</span>).</span> 
-                    <a class='button' href='/Logout'>LogOut</a>
-                 </div>";    
-    
+            $html = "<div class='derecha'>
+                        <span class='pc'>Bienvenido</span> 
+                        <a class='negrita' href='/User/home'>$user->displayname</a>
+                        <span class='pc cursiva'>&lt;$user->email&gt;</span>";
+            
+            // si el usuario es administrador...
+            if($user->isAdmin())
+                 $html .= "<span class='pc'> eres <a class='negrita' href='/Admin'>administrador</a>.</span>";
+            
+            $html .= "  <a class='button' href='/Logout'>LogOut</a>
+                     </div>";
+
+        }
+        return $html;
     }
         
         
@@ -101,7 +108,7 @@ class Base implements TemplateInterface{
             <header class='primary'>
                 <figure>
                     <a href='/'>
-                        <img style='width:100%;' alt='FastLight Logo' src='/images/template/fastlight_base.png'>
+                        <img alt='FastLight Logo' src='/images/template/fastlight_base.png'>
                     </a>
                 </figure>
                 <hgroup>
@@ -124,7 +131,7 @@ class Base implements TemplateInterface{
      * @return string HTML del menú principal de la página.
      */
     public function menu(){ 
-        $html  = "<menu>";
+        $html  = "<menu class='primary'>";
         $html .=   "<li><a href='/'>Inicio</a></li>";
         
         // enlace a la gestión de errores (solamente administrador o rol de test)
@@ -336,7 +343,7 @@ class Base implements TemplateInterface{
     				<label>ascendente</label>
     				<input type='radio' name='sentidoOrden' value='DESC' checked>
     				<label>descendente</label>
-    				<input class='button' type='submit' name='filtrar' value='Filtrar'>
+    				<input class='button button-success' type='submit' name='filtrar' value='Filtrar'>
     			</form>";
     }
     
@@ -358,7 +365,7 @@ class Base implements TemplateInterface{
         
         return "<form class='filtro derecha' method='POST' action='".($action ?? URL::get())."'>
 					<label>$filter</label>
-					<input class='button' style='display:inline' type='submit' 
+					<input class='button button-danger' style='display:inline' type='submit' 
 					       name='quitarFiltro' value='Quitar filtro'>
 				</form>";
     }
@@ -387,8 +394,8 @@ class Base implements TemplateInterface{
                     Robert Sallent</a> para sus cursos de desarrollo de aplicaciones web (2022-2024).
                 </p>
             </div>
-            <div>
-                <a href='https://robertsallent.com'>
+            <div class='links'>
+                <a href='https://robertsallent.com' rel='author'>
                     <img src='/images/template/logo.png' alt='Robert Sallent'>
                 </a>
                 <a href='https://www.linkedin.com/in/robert-sallent-l%C3%B3pez-4187a866'>
@@ -396,6 +403,9 @@ class Base implements TemplateInterface{
                 </a>
                 <a href='https://github.com/robertsallent'>
                     <img src='/images/template/github.png' alt='GitHub'>
+                </a>
+                <a href='https://juegayestudia.com'>
+                    <img src='/images/template/juegayestudia.png' alt='Juega y Estudia'>
                 </a>
             </div>
             

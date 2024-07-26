@@ -1,0 +1,113 @@
+/* 
+	FICHERO CON EL ESTILO PARA IMPRESORA
+	
+	Autor: Robert Sallent
+	Última revisión: 25/07/2024
+*/
+
+@page{
+  size:  auto;   	  /* auto is the initial value */
+  margin: 15mm 10mm;  /* this affects the margin in the printer settings */
+	
+/*
+  @bottom-right-corner {
+    content: "Pàgina " counter(page);
+  }
+  
+  @bottom-center {
+    content: "FastLight Framework, by Robert Sallent";
+  }
+  
+  @top-right-corner {
+    content: url(../images/logos/cifo.png);
+  }
+  
+  @bottom-left-corner {
+    content: url(../images/logos/generalitat.png);
+  }
+*/  
+}
+
+*{
+	color: #006 !important;
+	border:none;
+}
+
+.pagebreak { 
+	page-break-before: always; 
+}
+
+.print{
+	display:initial !important;
+}
+
+main .flex-container{
+	display: initial;
+}
+
+body{
+	width: 100%; 
+	border:none;
+	box-shadow: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+main{
+	 border: none; 
+	 padding: 0px;
+}	
+
+
+nav, #migas, #login, #logout, .pc{
+	display:none !important;
+}
+
+header, header figure img{
+	border: none !important;
+	padding: 0px;
+	margin: 0px;
+}
+
+header h1{
+	color: #09c; 
+	text-shadow: none;
+	font-size: 2em;
+}
+
+p{
+	margin-bottom: 1.2rem;
+}
+
+
+footer p{
+	color: grey;
+	font-style: italic;
+}
+
+/* TABLAS */
+
+table{
+	border: solid 1px lightgrey;
+	/* page-break-inside: avoid; */
+}
+table tr, table td{
+	border: none !important;
+	font-size: 0.8rem !important;
+}
+table th, table td{
+	background-color: transparent !important;
+}
+table th{
+	border-bottom: solid 1px lightgrey !important;
+	font-size: 1rem !important;
+}
+table tr:nth-of-type(even){
+  background-color: unset;
+  box-shadow: inset 0 0 0 200px #eee; 
+}
+table tr:nth-of-type(odd){
+	background-color: #fff;
+}
+
+

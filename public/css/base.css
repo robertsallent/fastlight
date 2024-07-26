@@ -20,6 +20,10 @@
 	flex-wrap: wrap;
 }
 
+.flex-container>section, .flex-container>div, .flex-container>form, .flex-container>figure{
+	min-width: 200px;
+}
+
 .flex1{flex:1}
 .flex2{flex:2}
 .flex3{flex:3}
@@ -130,7 +134,13 @@ figcaption{
 	font-style: italic;
 }
 
-
+section{
+	box-shadow: 1px 1px 3px rgba(160, 160, 160, 0.4);
+	border-radius: 3px;
+	background-color: white;
+	padding: 2%;
+	margin: 2% 0%;
+}
 
 
 /* ----------------- MODALES ----------------- */
@@ -194,6 +204,16 @@ figure.big-picture figcaption{
 
 p.error, p.success{
 	padding: 20px;
+	margin: 20px 0px;
+	
+}
+
+p.error, div.error{
+	box-shadow: 0px 0px 2px rgba(150, 30, 30, 0.5);
+}
+
+p.success, div.success{
+	box-shadow: 0px 0px 2px rgba(30, 150, 30, 0.5);
 }
 
 div.error, div.success, div.warning{
@@ -309,18 +329,20 @@ main ul li{
 	margin-bottom: 10px;
 }
 
-/* header y footer principales */
+/* ----------------- HEADER Y FOOTER PRINCIPALES ----------------- */
 header.primary{
 	display: flex;
-	flex-wrap:wrap;
-	padding: 20px 5px 20px;
+	flex-wrap: nowrap;
+	padding: 20px 2%;
 	background-image: url(../images/template/header_base.jpg);
 	background-size: cover;
+	align-items: center;
 }
 
 header.primary figure{
-	max-width: 120px;
-	padding: 10px;
+	min-width: 5%;
+	max-width: 140px;
+	padding: 1%;
 }
 
 header.primary img{
@@ -330,24 +352,27 @@ header.primary img{
 
 header.primary hgroup{
 	margin: auto 0;
-	padding: 0 2%;
+	padding: 0 1%;
+	
+	min-width: 40%;
+	max-width: 80%;
 }
 
 header.primary h1{
 	color: rgb(60, 100, 160);
 	background-color: rgba(255,255,255,0.8);
 	padding: 10px;
-	font-size: 2.8rem;
-}
-
-
-
-.flex-container>section:not(:first-of-type){
-	border-left: dashed 2px grey;
+	font-size: 2.6rem;
+	
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 
 footer.primary{
+	align-items: center;
 	font-size: 0.85rem;
 	text-align: right;
 	padding: 20px;
@@ -390,31 +415,31 @@ footer.primary{
 
 
 /* Barra de navegación */
-menu{
+menu.primary{
 	padding: 8px 20px;
 	background-color: rgb(60, 100, 160);
 	color: white;
 	border-radius: 5px;
 }
 
-menu li{
+menu.primary li{
 	text-align: center;
 	display: inline-block;
 	list-style-type: none;
 }
 
-menu li a{
+menu.primary li a{
 	display: block;
 	padding: 10px 20px;
 	margin: 0px;
 	transition: 0.2s;
 }
-menu li a:hover{
+menu.primary li a:hover{
 	background-color: white;
 	color: #006;
 }
 
-menu li:not(:first-of-type){
+menu.primary li:not(:first-of-type){
 	border-left: dotted 2px white;
 }
 
@@ -534,6 +559,26 @@ form.filtro input:not(.button), form.filtro select{
 .buttonLight:hover{
 	background-color: rgb(100, 140, 200);
 }
+
+
+
+.button-success{
+	background-color: rgb(120, 210, 120);
+}
+
+.button-success:hover{
+	background-color: rgb(140, 230, 140);
+}
+
+.button-danger, .button-error{
+	background-color: rgb(220, 120, 120);
+}
+
+.button-danger:hover, .button-error:hover{
+	background-color: rgb(240, 140, 140);
+}
+
+
 
 /* paginador */
 .paginator-links{
