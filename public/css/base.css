@@ -1,97 +1,599 @@
+@charset "UTF-8";
+
 /* 
-	FICHERO CON LA BASE PARA LOS ESTILOS
+	FICHERO BASE PARA LOS ESTILOS DE FASTLIGHT
 	
 	Autor: Robert Sallent
-	Última revisión: 27/03/2023
+	Última revisión: 19/11/2024
+
+	Estructura del documento CSS:
+	- Regla para todos los elementos
+	- Clases para los elementos HTML (columnas, anchos genéricos, textos, elementos ocultos...)
+	- Reglas para los elementos básicos HTML
+	- Grupos de reglas para:
+		- Formularios
+		- Botones
+		- Tablas
+		- Listas
+		- Figuras e imágenes
+	- Reglas para la estructura de la página (contenedores principales y elementos contenidos)
+	- Conjuntos de reglas para herramientas UI:
+		- Paginador
+		- Vistas de error HTTP
+		- Modales
+		- Mensajes de error y éxito
+
+
+
+	TODO list:
+	- Adaptar los templates y vistas a las clases definidas
+	- Añadir más clases genéricas para las figuras e imágenes
+	- Limpiar un poco el código redundante
+	- Revisar a partir de "formularios" hasta el final
+	- Más comentarios
+
 */
+
+/* =========================  PARA TODOS LOS ELEMENTOS ======================= */
 
 
 *{
 	box-sizing: border-box;
-	margin: 0;
+	margin:  0;
 	padding: 0;
 }
 
+/* ==================================  CLASES  ============================== */
 
-/* ------------------------  FLEX --------------------- */
-/* para el flex */
+/* Columnas con FLEX -------------------------------------------------------- */
+
 .flex-container{
 	display: flex;
 	flex-wrap: wrap;
 }
 
-.flex-container>section, .flex-container>div, .flex-container>form, .flex-container>figure{
+.flex-container>section, 
+.flex-container>div, 
+.flex-container>form, 
+.flex-container>figure{
 	min-width: 200px;
 }
 
-.flex1{flex:1}
-.flex2{flex:2}
-.flex3{flex:3}
-.flex4{flex:4}
-.flex5{flex:5}
-.flex6{flex:6}
-.flex7{flex:7}
-.flex8{flex:8}
+.flex1{flex:1 }
+.flex2{flex:2 }
+.flex3{flex:3 }
+.flex4{flex:4 }
+.flex5{flex:5 }
+.flex6{flex:6 }
+.flex7{flex:7 }
+.flex8{flex:8 }
 
-/* ------------------ ELEMENTOS FLOTANTES --------------------- */
-.float-right{float:right}
-.float-left{float:left}
-.clear-both{clear: both}
+/* Elementos flotantes ---------------------------------------------------- */
 
-/* --------------------------- TEXTOS --------------------------- */
-.centrado, .centered{ text-align: center;}
-.justificado, .justified{ text-align: justify;}
-.izquierda, .left{ text-align: left;}
-.derecha, .right{ text-align: right;}
+.float-right			{float: right }
+.float-left 			{float: left  }
+.clear-both 			{clear: both  }
 
-.mayusculas, .uppercase{ text-transform: uppercase; }
-.minusculas, .lowercase{ text-transform: lowercase; }
+/* Texto y párrafos ------------------------------------------------------- */
 
-.cursiva, .italic{font-style: italic; }
-.negrita, .bold{font-weight: bold; }
+.centrado, .centered    { text-align: center  }
+.justificado, .justified{ text-align: justify }
+.izquierda, .left       { text-align: left    }
+.derecha, .right        { text-align: right   }
 
-.mini{ font-size: 0.8rem; }
-.maxi{ font-size: 1.2rem; }
+.mayusculas, .uppercase { text-transform: uppercase }
+.minusculas, .lowercase { text-transform: lowercase }
+
+.cursiva, .italic       { font-style: italic  }
+.negrita, .bold         { font-weight: bold   }
+
+.mini   				{ font-size: 0.8rem   }
+.maxi   				{ font-size: 1.2rem   }
 
 .bloque-centrado, .centered-block{
 	margin-left: auto;
 	margin-right: auto;
 }
 
-
-/* -------------------- PADDING, MARGIN Y ANCHO --------------------- */
-.p1								{ padding: 1%; }
-.p2								{ padding: 2%; }
-.p3								{ padding: 5%; }
-.p4								{ padding: 10%; }
-.p5								{ padding: 20%; }
-
-/* Margins genéricos */
-.m1								{ margin: 1% }
-.m2								{ margin: 2% }
-.m3								{ margin: 5% }
-.m4								{ margin: 10% }
-.m5								{ margin: 20% }
-
-/* anchos */
-.w10							{ width: 10% }
-.w25							{ width: 25% }
-.w50							{ width: 50% }
-.w100							{ width: 100% }
-
-.minw100						{ min-width: 100px }
-.minw250						{ min-width: 250px }
-.minw500						{ min-width: 500px }
-.minw1000						{ min-width: 1000px }
-
-.max100							{ max-width: 100px }
-.maxw250						{ max-width: 250px }
-.maxw500						{ max-width: 500px }
-.maxw1000						{ max-width: 1000px }
+.software{
+	font-family: italic;
+}
 
 
-/* --------------------- ELEMENTOS OCULTOS ------------------------ */
-.oculto							{ display: none }
+/* Rellenos y márgenes estándar (5 niveles) ------------------------------- */
+
+.p1						{ padding: 1%  }
+.p2						{ padding: 2%  }
+.p3						{ padding: 5%  }
+.p4						{ padding: 10% }
+.p5						{ padding: 20% }
+
+.m1						{ margin: 1%  }
+.m2						{ margin: 2%  }
+.m3						{ margin: 5%  }
+.m4						{ margin: 10% }
+.m5						{ margin: 20% }
+
+.mx1					{ margin-left: 1%; margin-right: 1%   }
+.mx2					{ margin-left: 2%; margin-right: 2%   }
+.mx3					{ margin-left: 5%; margin-right: 5%   }
+.mx4					{ margin-left: 10%; margin-right: 10% }
+.mx5					{ margin-left: 20%; margin-right: 20% }
+
+.my1					{ margin-top: 1%; margin-bottom: 1%   }
+.my2					{ margin-top: 2%; margin-bottom: 2%   }
+.my3					{ margin-top: 5%; margin-bottom: 5%   }
+.my4					{ margin-top: 10%; margin-bottom: 10% }
+.my5					{ margin-top: 20%; margin-bottom: 20% }
+
+/* Anchos estándar (5 niveles) ------------------------------------------ */
+.w5						{ width: 5%   }
+.w10					{ width: 10%  }
+.w25					{ width: 25%  }
+.w50					{ width: 50%  }
+.w75					{ width: 75%  }
+.w100					{ width: 100% }
+
+/* Elementos ocultos o transparentes ------------------------------------ */
+
+.oculto					{ display: none      }
+.no-visible				{ visibility: hidden }
+
+.transparente, .transparent 	    	{ opacity: 0    } 
+.claro, .clear 					    	{ opacity: 0.25 }
+.casi-transparente, .almost-transparent	{ opacity: 0.5  } 
+.casi-opaco, .almost-opaque				{ opacity: 0.75 }
+.opaco, .opaque							{ opacity: 1    }
+
+
+
+/* ========================  ELEMENTOS BÁSICOS HTML ======================= */
+
+h1, h2, h3{
+	margin-top:    1rem;
+	margin-bottom: 1.1rem;
+}
+
+h1 .small{
+	font-size: 1.25rem;
+}
+
+h2{
+	margin:  1rem 0;
+	padding: 1rem 0;
+}
+
+p{
+	margin-bottom: 1.1rem;
+	line-height:   1.5rem;
+}
+
+a{
+	color: inherit;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+hr{
+	margin: 2rem auto;
+	width: 80%;
+	color: rgb(180, 200, 220);
+}
+
+
+/* Botones -------------------------------------------------------- */
+.button, .button-light, .button-success, .button-warning, .button-danger{
+	display: inline-block;
+	white-space: nowrap;
+	color: white;
+	font: caption;
+	font-size: 1.05em;
+	padding: 8px 20px;
+	margin: 4px;
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+.button.current, .button.active{
+	border: solid 2px rgb(60, 100, 160);
+}
+
+.button{
+	background-color: rgb(60, 100, 160);
+}
+
+.button:hover{
+	background-color: rgb(100, 140, 200);
+}
+
+.buttonLight, .button-light{
+	outline: solid 1px rgb(80, 120, 180);
+	color: rgb(60, 100, 160);
+	background-color: white;
+}
+
+.buttonLight:hover, .button-light:hover{
+	background-color: rgb(100, 140, 200);
+	color: white;
+}
+
+.button-success{
+	background-color: rgb(100, 230, 100);
+}
+
+.button-success:hover{
+	background-color: rgb(120, 250, 120);
+}
+
+.button-danger, .button-error{
+	background-color: rgb(230, 100, 100);
+}
+
+.button-danger:hover, .button-error:hover{
+	background-color: rgb(250, 120, 120);
+}
+
+.button-warning{
+	background-color: rgb(220, 220, 60);
+}
+.button-warning:hover{
+	background-color: rgb(230, 230, 80);
+}
+
+
+
+
+
+/* Tablas -------------------------------------------------------- */
+.table{
+	margin-bottom: 1rem;
+}
+
+.table.border{
+	border: solid 1px rgb(120, 140, 200);
+}
+
+.table th{
+	color: white;
+	background-color: rgb(60, 100, 160);
+	padding: 10px;
+	font-size: 1.1rem;
+	text-align: left;
+}
+
+.table tr:nth-of-type(odd){
+	background-color: white;
+}
+
+.table tr:nth-of-type(even){
+	background-color: #e9e9e9;
+}
+
+.table tr, table td{
+	padding: 8px;
+}
+
+.table tfoot td{
+	background-color: #89a9c9;
+	color: white;
+	padding: 10px;
+}
+
+.big-cell td{
+	padding: 20px;
+}
+
+
+/* Listas -------------------------------------------------------- */
+ul.listado li, ol.listado li{
+	margin: 10px 0px 5px 20px;
+	
+}
+
+/* Figuras e imágenes -------------------------------------------------------- */
+
+figure.centrada{
+	margin: auto;
+	text-align: center;
+}
+
+figure>img{
+	width: 96%;
+}
+
+figcaption{
+	font-size: 0.8rem;
+	font-style: italic;
+}
+
+.cover-mini{
+	width: 100%;
+	max-width: 80px;
+	max-height: 120px;
+}
+
+.cover{
+	width: 100%;
+	max-width: 280px;
+	max-height: 400px;
+	margin: 10px;
+}
+
+
+
+/* Formularios -------------------------------------------------------- */
+
+form{
+	padding: 5px;
+	margin: 5px auto;
+}
+
+/* formularios de la zona principal de la página */
+main form{
+	border: solid 1px rgb(80, 120, 180);
+	background-color: white;
+	border-radius: 5px;
+}
+
+/* formularios dentro de celdas (botones para realizar operaciones vía POST) */
+td form{
+	padding: 0px;
+	margin: 0px;
+}
+
+label{
+  display: inline-block;
+  min-width: 90px; 
+  margin: 12px 10px;
+  font-style: italic;
+}
+
+
+input, select, textarea{
+	padding: 8px 12px;
+}
+
+
+input[type='radio']+label, input[type='checkbox']+label{
+	margin-left: 0px;
+}
+
+textarea{
+	vertical-align: text-top;
+	resize: none;
+	min-width: 300px;
+	min-height: 200px;
+}
+
+
+/* Formulario para realizar búsquedas filtradas (en el Template) */
+form.filtro{
+	padding: 10px;
+}
+
+form.filtro select+input[type='radio']{
+	margin-left: 10px;
+}
+
+form.filtro label{
+	min-width: 0px;
+}
+
+form.filtro input:not(.button), form.filtro select{
+	padding: 4px 6px;
+}
+
+
+/* Paginador -------------------------------------------------------- */
+.paginator-links{
+	text-align: center;
+	color: #33a;
+}
+
+.paginator-links .current{
+	background-color: white;
+	color: #99a;
+}
+
+.paginator-stats{
+	text-align: right;
+}
+
+
+
+
+
+
+
+/* Mapa */
+#mapa{
+	width: 100%;
+	min-height: 360px;
+}
+
+
+
+
+
+/* ========================= ESTRUCTURA DE LA PÁGINA ========================= */
+
+body{
+	color: rgb(90, 90, 110);
+	padding: 10px 2%;
+	font-family: arial, verdana, helvetica;
+	width: 100%;	
+	margin: 0px auto 20px auto;
+}
+
+/* ------------------------  CONTENEDORES HTML 4/5 --------------------- */
+
+section{
+	box-shadow: 1px 1px 3px rgba(160, 160, 160, 0.4);
+	border-radius: 3px;
+	background-color: white;
+	padding: 2%;
+	margin: 2% 0%;
+}
+
+
+main{
+	padding: 2%;	
+	margin: 0 0 1%;
+	
+	background-color: #f9f9f9;
+}
+
+main a{
+	color: rgb(0, 128, 212);
+}
+
+main a:not(.button):hover{
+	text-decoration: underline;
+}
+
+main ul{
+	margin: 20px 10px;
+}
+
+main ul li{
+	margin-left: 40px;
+	margin-bottom: 10px;
+}
+
+/* header principal (directamente dentro del body) */
+body>header{
+	display: flex;
+	flex-wrap: nowrap;
+	padding: 20px 2%;
+	background-image: url(../images/template/header_base.jpg);
+	background-size: cover;
+	align-items: center;
+}
+
+body>header figure{
+	min-width: 5%;
+	max-width: 140px;
+	padding: 1%;
+}
+
+body>header img{
+	width: 100%;
+	vertical-align: middle;
+}
+
+body>header hgroup{
+	margin: auto 0;
+	padding: 0 1%;
+	min-width: 40%;
+	max-width: 80%;
+}
+
+body>header h1{
+	color: rgb(60, 100, 160);
+	background-color: #fffe;
+	padding: 10px;
+	font-size: 2.6rem;
+	
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+
+/* footer principal de la página (directamente dentro del body) */
+body>footer{
+	background-image: url(../images/template/header_base.jpg);
+	background-size: cover;
+}
+
+body>footer>div{
+	background-color: #fffc;
+}
+
+body>footer p{
+	margin-bottom: 0.5rem;
+}
+
+body>footer a{
+	font-size: 1rem;
+	color: rgb(60, 100, 160);
+}
+
+body>footer figure{
+	min-width: 50px !important;
+	text-align:center;
+}
+
+body>footer img{
+	max-width: 80px;
+}
+
+
+
+/* formulario de login */
+#login{
+	min-width: 340px;
+	padding: 20px 5%;
+	text-align: center;
+}
+
+
+/* Barra de navegación */
+menu.primary{
+	padding: 8px 20px;
+	background-color: rgb(60, 100, 160);
+	color: white;
+	border-radius: 5px;
+	font-size: 0;
+}
+
+menu.primary li{
+	text-align: center;
+	display: inline-block;
+	list-style-type: none;
+	font-size: 1rem;
+}
+
+menu.primary li a{
+	display: block;
+	padding: 10px 20px;
+	margin: 0px;
+	transition: 0.2s;
+}
+menu.primary li a:hover{
+	background-color: white;
+	color: #006;
+}
+
+menu.primary li:not(:first-of-type){
+	border-left: dotted 2px white;
+}
+
+/* migas */
+nav.breadcrumbs ul{
+	display: inline-block;
+}
+
+nav.breadcrumbs li{
+	list-style-type: none;
+	display: inline-block;
+	padding: 10px 5px;
+}
+
+nav.breadcrumbs li a:hover{
+	text-decoration: underline;
+}
+
+nav.breadcrumbs li:not(:last-of-type):after{
+	content: " >> ";
+}
+
+nav.breadcrumbs li:last-of-type{
+	font-weight: bold;
+}
+
 
 
 /* ---------------------- VISTAS DE ERROR HTTP ---------------------- */
@@ -122,26 +624,6 @@ div.http-error{
 }
 
 
-/* ----------------- FIGURAS E IMÁGENES ----------------- */
-
-figure.centrada{
-	margin: auto;
-	text-align: center;
-}
-
-figcaption{
-	font-size: 0.8rem;
-	font-style: italic;
-}
-
-section{
-	box-shadow: 1px 1px 3px rgba(160, 160, 160, 0.4);
-	border-radius: 3px;
-	background-color: white;
-	padding: 2%;
-	margin: 2% 0%;
-}
-
 
 /* ----------------- MODALES ----------------- */
 
@@ -153,9 +635,20 @@ div.modal-background{
 	background-color: rgba(120, 120, 120, 0.8);
 	width: 100vw;
 	min-height: 100vh;
-	padding: 15%;
 	z-index: 10;
 	text-align: center;
+	display:flex;
+	align-items: middle;
+}
+
+
+div.success-message, div.error-message, div.warning-message, #accept-cookies{
+	height: 70%;
+	width: 70%;
+	padding: 50px;
+	border-radius: 8px;
+	margin: auto;
+	font-size: 1.2em;
 }
 
 
@@ -236,13 +729,6 @@ div.warning-message h2{
 	margin-bottom: 40px;
 }
 
-div.success-message, div.error-message, div.warning-message, #accept-cookies{
-	padding: 50px;
-	border-radius: 8px;
-	margin: auto;
-	font-size: 1.2em;
-}
-
 div.success-message a:hover, div.error-message a:hover, div.warning-message a:hover{
 	text-decoration: underline;
 }
@@ -268,387 +754,3 @@ div.warning-message{
 #accept-cookies{
 	background-color: white;
 }
-
-
-/* ----------------- ELEMENTOS BÁSICOS HTML ----------------- */
-h1, h2, h3{
-	margin-top: 1rem;
-	margin-bottom: 1.1rem;
-}
-
-h1 .small{
-	font-size: 1.25rem;
-}
-
-h2{
-	margin: 10px 0px;
-	padding: 10px 0px;
-}
-
-p{
-	margin-bottom: 1.1rem;
-}
-
-a{
-	color: inherit;
-	text-decoration: none;
-	cursor: pointer;
-}
-
-
-/* ----------------- ESTRUCTURA DE LA PÁGINA ----------------- */
-body{
-	color: rgb(90, 90, 90);
-	padding: 10px 2%;
-	font-family: arial, verdana, helvetica;
-	width: 100%;	
-	margin: 0px auto 20px auto;
-}
-
-main{
-	padding: 2%;	
-	margin: 0px auto;
-	border-radius: 5px;
-	background-color: #f9f9f9;
-}
-
-main a{
-	color: rgb(0, 128, 212);
-}
-
-main a:not(.button):hover{
-	text-decoration: underline;
-}
-
-main ul{
-	margin: 20px 10px;
-}
-
-main ul li{
-	margin-left: 40px;
-	margin-bottom: 10px;
-}
-
-/* ----------------- HEADER Y FOOTER PRINCIPALES ----------------- */
-header.primary{
-	display: flex;
-	flex-wrap: nowrap;
-	padding: 20px 2%;
-	background-image: url(../images/template/header_base.jpg);
-	background-size: cover;
-	align-items: center;
-}
-
-header.primary figure{
-	min-width: 5%;
-	max-width: 140px;
-	padding: 1%;
-}
-
-header.primary img{
-	width: 100%;
-	vertical-align: middle;
-}
-
-header.primary hgroup{
-	margin: auto 0;
-	padding: 0 1%;
-	
-	min-width: 40%;
-	max-width: 80%;
-}
-
-header.primary h1{
-	color: rgb(60, 100, 160);
-	background-color: rgba(255,255,255,0.8);
-	padding: 10px;
-	font-size: 2.6rem;
-	
-	width: 100%;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-
-
-footer.primary{
-	align-items: center;
-	font-size: 0.85rem;
-	text-align: right;
-	padding: 20px;
-	background-image: url(../images/template/header_base.jpg);
-	background-size: 40%;
-	background-position: 0%;
-	background-repeat: no-repeat;
-}
-
-footer.primary a{
-	font-style: italic;
-	font-size: 0.95rem;
-	color: rgb(60, 100, 160);
-}
-
-footer.primary p{
-	margin-bottom: 0.2rem;
-}
-
-footer.primary img{
-	height: 40px;
-	width: 40px;
-	margin-left: 6px;
-	vertical-align: middle;
-}
-
-footer.primary{
-	border-top: solid 2px lightgrey;
-}
-
-/* formulario de login */
-#login{
-	min-width: 300px;
-	border: solid 1px rgb(60, 100, 160);
-	background-color: white;
-	padding: 20px 5%;
-	border-radius: 5px;
-	text-align: center;
-}
-
-
-/* Barra de navegación */
-menu.primary{
-	padding: 8px 20px;
-	background-color: rgb(60, 100, 160);
-	color: white;
-	border-radius: 5px;
-}
-
-menu.primary li{
-	text-align: center;
-	display: inline-block;
-	list-style-type: none;
-}
-
-menu.primary li a{
-	display: block;
-	padding: 10px 20px;
-	margin: 0px;
-	transition: 0.2s;
-}
-menu.primary li a:hover{
-	background-color: white;
-	color: #006;
-}
-
-menu.primary li:not(:first-of-type){
-	border-left: dotted 2px white;
-}
-
-/* migas */
-nav.breadcrumbs li{
-	list-style-type: none;
-	display: inline-block;
-	padding: 10px 5px;
-}
-
-nav.breadcrumbs li a:hover{
-	text-decoration: underline;
-}
-
-nav.breadcrumbs li:not(:last-of-type):after{
-	content: " >> ";
-}
-
-nav.breadcrumbs li:last-of-type{
-	font-weight: bold;
-}
-
-
-/* formularios */
-form{
-	padding: 5px;
-	margin: 5px auto;
-}
-
-td form{
-	padding: 0px;
-	margin: 0px;
-}
-
-
-
-
-label{
-  display: inline-block;
-  min-width: 90px; 
-  margin: 12px 10px;
-  font-style: italic;
-}
-
-
-input, select, textarea{
-	padding: 8px 12px;
-}
-
-
-input[type='radio']+label, input[type='checkbox']+label{
-	margin-left: 0px;
-}
-
-textarea{
-	vertical-align: text-top;
-	resize: none;
-	min-width: 300px;
-	min-height: 200px;
-}
-
-
-/* Formulario para realizar búsquedas filtradas (en el Template) */
-form.filtro{
-	padding: 10px;
-}
-
-form.filtro select+input[type='radio']{
-	margin-left: 10px;
-}
-
-form.filtro label{
-	min-width: 0px;
-}
-
-form.filtro input:not(.button), form.filtro select{
-	padding: 4px 6px;
-}
-
-
-
-/* botones */
-.button, a{
-	font-size: 1rem;
-}
-
-.button{
-	color: white;
-	padding: 8px 20px;
-	margin: 4px;
-	border-radius: 3px;
-	background-color: rgb(60, 100, 160);
-	white-space: nowrap;
-	display: inline-block;
-	cursor: pointer;
-	border: none;
-}
-
-.button.current, .button.active{
-	border: solid 2px rgb(60, 100, 160);
-}
-
-.button:hover{
-	background-color: #3f9fff;
-}
-
-.buttonLight{
-	color: white;
-	border: solid 2px rgb(80, 120, 180);
-	padding: 4px 12px;
-	border-radius: 5px;
-	background-color: rgb(120, 170, 220);
-	display: inline-block;
-	cursor: pointer;
-}
-
-.buttonLight:hover{
-	background-color: rgb(100, 140, 200);
-}
-
-
-
-.button-success{
-	background-color: rgb(120, 210, 120);
-}
-
-.button-success:hover{
-	background-color: rgb(140, 230, 140);
-}
-
-.button-danger, .button-error{
-	background-color: rgb(220, 120, 120);
-}
-
-.button-danger:hover, .button-error:hover{
-	background-color: rgb(240, 140, 140);
-}
-
-
-
-/* paginador */
-.paginator-links{
-	color: #33a;
-}
-
-.paginator-links .current{
-	background-color: white;
-	color: #99a;
-}
-
-/* tablas */
-table{
-	border: solid 1px rgb(60, 100, 160);
-	width: 100%;
-	margin: 5px auto;
-}
-
-table th{
-	color: white;
-	background-color: rgb(60, 100, 160);
-	padding: 10px;
-	font-size: 1.2rem;
-	text-align: left;
-}
-
-table tr:nth-of-type(odd){
-	background-color: white;
-}
-
-table tr:nth-of-type(even){
-	background-color: #e9e9e9;
-}
-
-table tr, table td{
-	padding: 8px;
-}
-
-/* paginador*/
-.paginator-stats{
-	text-align: right;
-}
-
-.paginator-links{
-	text-align: center;
-}
-
-/* listas genéricas */
-ul.listado li, ol.listado li{
-	margin: 10px 0px 5px 20px;
-	
-}
-
-/* imágenes */
-.cover-mini{
-	width: 100%;
-	max-width: 80px;
-	max-height: 120px;
-}
-
-.cover{
-	width: 100%;
-	max-width: 280px;
-	max-height: 400px;
-	margin: 10px;
-}
-
-/* Mapa */
-#mapa{
-	width: 100%;
-	min-height: 360px;
-}
-

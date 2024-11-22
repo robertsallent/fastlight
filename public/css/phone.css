@@ -70,6 +70,18 @@ menu.primary li:not(:last-of-type){
 	border-bottom: dotted 2px white;
 }
 
+
+/* ------------------------ MODALES Y MENSAJES -------------------------  */
+div.success-message, div.error-message, div.warning-message, #accept-cookies{
+	padding: 20px;
+	height: 90%;
+	width: 90%;
+}
+
+div.modal-background{
+	padding: 5%;
+}
+
 /* ------------------------------- FOOTER  -------------------------------  */
 footer.primary{
 	background-size: cover;

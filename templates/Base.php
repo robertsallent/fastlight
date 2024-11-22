@@ -105,7 +105,7 @@ class Base implements TemplateInterface{
         ?string $subtitle = NULL
     ){ 
         return "
-            <header class='primary'>
+            <header>
                 <figure>
                     <a href='/'>
                         <img alt='FastLight Logo' src='/images/template/fastlight_base.png'>
@@ -199,6 +199,7 @@ class Base implements TemplateInterface{
         
         // prepara el migas a partir del array 
         $html = "<nav aria-label='Breadcrumb' class='breadcrumbs'>";
+        $html .= "<span class='mini'>Te encuentras en: </span>";
         $html .= "<ul>";
         
         foreach($migas as $miga => $ruta){
@@ -385,28 +386,32 @@ class Base implements TemplateInterface{
      */
     public function footer(){
         return "
-        <footer class='primary flex-container'>
+        <footer class='flex-container izquierda'>
             
-            <div class='flex1'>
-                <p><a class='negrita' href='https://github.com/robertsallent/fastlight'>FastLight Framework</a></p>
+            <div class='flex4 p2'>
+                <p><a class='negrita maxi cursiva' href='https://github.com/robertsallent/fastlight'>FastLight Framework</a></p>
                 <p>
                     Desarrollado por <a href='https://robertsallent.com'>
                     Robert Sallent</a> para sus cursos de desarrollo de aplicaciones web (2022-2024).
                 </p>
             </div>
-            <div class='links'>
-                <a href='https://robertsallent.com' rel='author'>
-                    <img src='/images/template/logo.png' alt='Robert Sallent'>
-                </a>
-                <a href='https://www.linkedin.com/in/robert-sallent-l%C3%B3pez-4187a866'>
-                    <img src='/images/template/linkedin.png' alt='LinkedIn'>
-                </a>
-                <a href='https://github.com/robertsallent'>
-                    <img src='/images/template/github.png' alt='GitHub'>
-                </a>
-                <a href='https://juegayestudia.com'>
-                    <img src='/images/template/juegayestudia.png' alt='Juega y Estudia'>
-                </a>
+
+            <div class='flex1 flex-container p2'>
+                <figure class='flex1 p1 centrada'>
+                    <a href='https://robertsallent.com' rel='author'>
+                        <img class='w100' src='/images/template/logo.png' alt='Robert Sallent'>
+                    </a>
+                </figure>
+                <figure class='flex1 p1 centrada'>
+                    <a href='https://www.linkedin.com/in/robert-sallent-l%C3%B3pez-4187a866'>
+                        <img class='w100' src='/images/template/linkedin.png' alt='LinkedIn'>
+                    </a>
+                </figure>
+                <figure class='flex1 p1 centrada'>
+                    <a href='https://github.com/robertsallent'>
+                        <img class='w100' src='/images/template/github.png' alt='GitHub'>
+                    </a>
+                </figure>
             </div>
             
         </footer>";

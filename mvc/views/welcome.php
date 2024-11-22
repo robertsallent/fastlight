@@ -19,20 +19,28 @@
 		<?= $template->login() ?>
 		<?= $template->header('Portada') ?>
 		<?= $template->menu() ?>
+		<?= $template->breadCrumbs() ?>
 		<?= $template->messages() ?>
 		<?= $template->acceptCookies() ?>
 		
 		<main>
     		<h1><?= APP_NAME ?></h1>
-    		<h2>Portada del sitio web</h2>
+    		<h2>Portada</h2>
     		
     		<p><a href="https://github.com/robertsallent/fastlight">FastLight</a> es un framework 
     			rápido y ligero para desarrollar <b>aplicaciones web PHP</b> o <b>APIs RESTFUL</b>.</p>
     		
-		   	<p>Está pensado expresamente para docencia, con 
-		   	  lo que incorpora las características esenciales, pero no otras 
-			  funcionalidades que desarrollamos en clase.</p>
-		   	   
+		   	<p>Está <b>pensado para docencia</b>, con lo que incorpora las características 
+		   	  esenciales para desarrollo de un proyecto web, pero no
+			  incluye algunas funcionalidades que desarrollamos en clase. Todas las herramientas 
+			   que incorpora han sido creadas expresamente para él, aunque 
+		       está basado en frameworks PHP anteriores que he ido implementando desde 2013, 
+		       cogiendo las ideas más interesantes en cada caso.</p>
+		       
+		    <p>Su modo de empleo está inspirado en Laravel (aunque los frameworks originarios
+		       se inspiraban más en CodeIgniter), lo que deriva en una transición muy sencilla
+		       desde FastLight hacia Laravel, Symfony u otros frameworks MVC en PHP.</p>
+		          	   
             <div class="flex-container">
             	<div class="flex1"> 
             		<h3>Lo que incorpora de serie:</h3>
@@ -74,8 +82,8 @@
 		   	   
 		   	<p>Ha sido desarrollado completamente desde cero por 
 		   		<a href="https://robertsallent.com">Robert Sallent</a> y no tiene dependencias
-		   	   con paquetes externos. Su funcionamiento se explica en detalle en los cursos de PHP y desarrollo web, 
-		   	   que imparte desde 2010, en distintos <b>Centros de Innovación y Formación Ocupacional</b> (CIFO) 
+		   	   con paquetes externos. Su funcionamiento se explica en detalle en los cursos de <a href="https://php.net">PHP</a> y desarrollo web, 
+		   	   que imparte desde 2010, en distintos <a href="https://serveiocupacio.gencat.cat/es/soc/com-ens-organitzem/centres-propis-formacio-cifo-cfpa/centres-dinnovacio-i-formacio-ocupacional-cifo/index.html">Centros de Innovación y Formación Ocupacional</a> (CIFO) 
 		   	   de la província de Barcelona para la Generalitat de Catalunya.</p>
 		   	   
 	   	   <p>En la carpeta database hay el SQL para una pequeña

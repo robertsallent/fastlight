@@ -215,7 +215,7 @@ define('USE_CUSTOM_ERROR_VIEWS', true);
 
 define('TEST_FOLDER', '../test');  // Carpeta para los test.
 define('BEAUTIFUL_TEST', true);    // ¿Usar template en los tests?
-define('TEST_TEMPLATE', 'Test');   // Ubicación del template para los tests.
+define('TEST_TEMPLATE', 'Test');   // Template a usar para los tests.
 
    
 /* -------------------------------------------------------------

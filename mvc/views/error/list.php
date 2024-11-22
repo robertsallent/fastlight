@@ -70,7 +70,7 @@
             			</div>
             			
             			
-            			<table>
+            			<table class="table w100">
                 			<tr>
                 				<th>Fecha</th>
                 				<th>Tipo</th>
