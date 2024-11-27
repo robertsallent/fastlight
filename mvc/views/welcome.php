@@ -78,8 +78,6 @@
                </div>
            </div>
 		   	   
-		   
-		   	   
 		   	<p>Ha sido desarrollado completamente desde cero por 
 		   		<a href="https://robertsallent.com">Robert Sallent</a> y no tiene dependencias
 		   	   con paquetes externos. Su funcionamiento se explica en detalle en los cursos de <a href="https://php.net">PHP</a> y desarrollo web, 

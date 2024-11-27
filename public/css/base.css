@@ -95,9 +95,12 @@
 	margin-right: auto;
 }
 
-.software{
-	font-family: italic;
+
+/* Cursores ---------------------------------------------------------------*/
+.pointer{
+	cursor: pointer;
 }
+
 
 
 /* Rellenos y márgenes estándar (5 niveles) ------------------------------- */
@@ -150,7 +153,7 @@
 /* ========================  ELEMENTOS BÁSICOS HTML ======================= */
 
 h1, h2, h3{
-	margin-top:    1rem;
+	margin-top:    1.5rem;
 	margin-bottom: 1.1rem;
 }
 
@@ -164,21 +167,38 @@ h2{
 }
 
 p{
-	margin-bottom: 1.1rem;
-	line-height:   1.5rem;
+	margin: 		1.1rem 0;
+	line-height:   	1.5rem;
 }
 
 a{
 	color: inherit;
 	text-decoration: none;
 	cursor: pointer;
+	color: rgb(0, 128, 212);
 }
+
 
 hr{
 	margin: 2rem auto;
 	width: 80%;
 	color: rgb(180, 200, 220);
 }
+
+
+/* Bordes -------------------------------------------------------- */
+.border{
+	border: solid 1px rgb(120, 140, 200);
+}
+
+.dashed-border{
+	border: dashed 1px rgb(120, 140, 200);
+}
+
+.dotted-border{
+	border: dotted 1px rgb(120, 140, 200);
+}
+
 
 
 /* Botones -------------------------------------------------------- */
@@ -250,10 +270,6 @@ hr{
 	margin-bottom: 1rem;
 }
 
-.table.border{
-	border: solid 1px rgb(120, 140, 200);
-}
-
 .table th{
 	color: white;
 	background-color: rgb(60, 100, 160);
@@ -284,21 +300,40 @@ hr{
 	padding: 20px;
 }
 
+.table-image{
+	width: 100%;
+	max-width: 80px;
+	max-height: 120px;
+}
+
+
 
 /* Listas -------------------------------------------------------- */
-ul.listado li, ol.listado li{
-	margin: 10px 0px 5px 20px;
-	
+ul li, ol li{
+	margin: 10px 0px 1rem 20px;	
+}
+
+dt{
+	font-weight: bold;
+	font-style: italic;
+	margin-bottom: 0.2rem;
+}
+
+dt::after{
+	content: ':';
+}
+
+dd{
+	margin: 0px 0px 0.5rem 20px;
 }
 
 /* Figuras e imágenes -------------------------------------------------------- */
 
-figure.centrada{
-	margin: auto;
+figure{
 	text-align: center;
 }
 
-figure>img{
+figure img{
 	width: 96%;
 }
 
@@ -307,12 +342,20 @@ figcaption{
 	font-style: italic;
 }
 
-.cover-mini{
-	width: 100%;
-	max-width: 80px;
-	max-height: 120px;
+figure.card{
+	background: white;
+	border-radius: 8px;
+	padding: 20px;
+	box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
+figure.x-small		{ max-width: 100px; }
+figure.small		{ max-width: 200px; }
+figure.medium		{ max-width: 400px; }
+figure.large		{ max-width: 600px; }
+figure.x-large		{ max-width: 800px; }
+
+/* Carátulas (para las listas de productos o detalles) ---------------*/
 .cover{
 	width: 100%;
 	max-width: 280px;
@@ -321,42 +364,78 @@ figcaption{
 }
 
 
+/* Galería -------------------------------------------------------- */
+.galeria, .gallery{
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	justify-content: center;
+}
+
+.galeria>figure{
+	flex: 1;
+}
+
+
 
 /* Formularios -------------------------------------------------------- */
 
 form{
-	padding: 5px;
+	padding: 2%;
 	margin: 5px auto;
-}
-
-/* formularios de la zona principal de la página */
-main form{
-	border: solid 1px rgb(80, 120, 180);
-	background-color: white;
+	border: 1px solid #ccc;
 	border-radius: 5px;
+	box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+	background-color: white;
 }
 
-/* formularios dentro de celdas (botones para realizar operaciones vía POST) */
-td form{
-	padding: 0px;
-	margin: 0px;
+form fieldset{
+	padding: 1%;
+	margin: 1%;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+}
+
+form legend{
+	font-size: 0.8rem;
+	color: #333;
 }
 
 label{
   display: inline-block;
+  width: 20%;
   min-width: 90px; 
-  margin: 12px 10px;
+  margin: 1rem 10px;
   font-style: italic;
+ 
+}
+
+input[type="checkbox"], input[type="radio"]{
+	min-width: 0;
+	margin-left: 10px;
+}
+
+input[type="checkbox"]+label, input[type="radio"]+label{
+	min-width: 0;
 }
 
 
 input, select, textarea{
 	padding: 8px 12px;
+	min-width: 100px;
+	background-color: #f6f6f6;
+	border: solid 1px #ccd;
 }
 
 
 input[type='radio']+label, input[type='checkbox']+label{
-	margin-left: 0px;
+	margin-left: 0;
+	width: auto;
+}
+
+input[type="file"]{
+	background-color: transparent;
+	border: none;
 }
 
 textarea{
@@ -367,22 +446,58 @@ textarea{
 }
 
 
-/* Formulario para realizar búsquedas filtradas (en el Template) */
-form.filtro{
-	padding: 10px;
+form .short{
+	width: 30%;
 }
 
-form.filtro select+input[type='radio']{
-	margin-left: 10px;
+form .medium{
+	width: 50%;
 }
 
-form.filtro label{
+form .long{
+	width: 70%;
+}
+
+
+/* formularios dentro de celdas (botones para realizar operaciones vía POST) */
+td form{
+	padding: 0;
+	margin: 0;
+	border-radius: 0;
+	box-shadow: 0 0 0 transparent;
+	background-color: transparent;
+}
+
+
+/* formulario de login ----------------------------------------------------- */
+
+#login{
+	min-width: 340px;
+	text-align: center;
+}
+
+
+/* Formulario para realizar búsquedas filtradas (en el Template) ------------ */
+
+#filtro{
+	padding: 8px;
+	margin: 5px auto;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-shadow: 0 0 0 transparent;
+	background-color: white;
+}
+
+#filtro select+input[type='radio']{
+	margin-left: 8px;
+}
+
+#filtro label{
 	min-width: 0px;
+	width: auto;
 }
 
-form.filtro input:not(.button), form.filtro select{
-	padding: 4px 6px;
-}
+
 
 
 /* Paginador -------------------------------------------------------- */
@@ -426,42 +541,8 @@ body{
 	margin: 0px auto 20px auto;
 }
 
-/* ------------------------  CONTENEDORES HTML 4/5 --------------------- */
 
-section{
-	box-shadow: 1px 1px 3px rgba(160, 160, 160, 0.4);
-	border-radius: 3px;
-	background-color: white;
-	padding: 2%;
-	margin: 2% 0%;
-}
-
-
-main{
-	padding: 2%;	
-	margin: 0 0 1%;
-	
-	background-color: #f9f9f9;
-}
-
-main a{
-	color: rgb(0, 128, 212);
-}
-
-main a:not(.button):hover{
-	text-decoration: underline;
-}
-
-main ul{
-	margin: 20px 10px;
-}
-
-main ul li{
-	margin-left: 40px;
-	margin-bottom: 10px;
-}
-
-/* header principal (directamente dentro del body) */
+/* header principal (directamente dentro del body)---------------------------- */
 body>header{
 	display: flex;
 	flex-wrap: nowrap;
@@ -502,6 +583,84 @@ body>header h1{
 }
 
 
+/* Menú -------------------------------------------------------- */
+.menu{
+	padding: 8px 20px;
+	background-color: rgb(60, 100, 160);
+	color: white;
+	border-radius: 5px;
+	font-size: 0;
+}
+
+.menu li{
+	margin: 0;
+	text-align: center;
+	display: inline-block;
+	list-style-type: none;
+	font-size: 1rem;
+}
+
+.menu li a{
+	display: block;
+	padding: 10px 20px;
+	margin: 0;
+	transition: 0.2s;
+	color: white;
+}
+
+.menu li a:hover{
+	background-color: white;
+	color: #006;
+}
+
+.menu li:not(:first-of-type){
+	border-left: solid 2px white;
+}
+
+
+/* Migas -----------------------------------------------------------*/
+.breadcrumbs ul{
+	display: inline-block;
+}
+
+.breadcrumbs li{
+	list-style-type: none;
+	display: inline-block;
+	margin:  0;
+	padding: 10px 5px;
+}
+
+.breadcrumbs li a:hover{
+	text-decoration: underline;
+}
+
+.breadcrumbs li:not(:last-of-type):after{
+	content: " >> ";
+}
+
+.breadcrumbs li:last-of-type{
+	font-weight: bold;
+}
+
+
+
+section{
+	box-shadow: 1px 1px 3px rgba(160, 160, 160, 0.4);
+	border-radius: 3px;
+	background-color: white;
+	padding: 2%;
+	margin: 2% 0%;
+}
+
+
+main{
+	padding: 2%;	
+	margin: 0 0 1%;
+	background-color: #f9f9f9;
+}
+
+
+
 /* footer principal de la página (directamente dentro del body) */
 body>footer{
 	background-image: url(../images/template/header_base.jpg);
@@ -532,67 +691,6 @@ body>footer img{
 
 
 
-/* formulario de login */
-#login{
-	min-width: 340px;
-	padding: 20px 5%;
-	text-align: center;
-}
-
-
-/* Barra de navegación */
-menu.primary{
-	padding: 8px 20px;
-	background-color: rgb(60, 100, 160);
-	color: white;
-	border-radius: 5px;
-	font-size: 0;
-}
-
-menu.primary li{
-	text-align: center;
-	display: inline-block;
-	list-style-type: none;
-	font-size: 1rem;
-}
-
-menu.primary li a{
-	display: block;
-	padding: 10px 20px;
-	margin: 0px;
-	transition: 0.2s;
-}
-menu.primary li a:hover{
-	background-color: white;
-	color: #006;
-}
-
-menu.primary li:not(:first-of-type){
-	border-left: dotted 2px white;
-}
-
-/* migas */
-nav.breadcrumbs ul{
-	display: inline-block;
-}
-
-nav.breadcrumbs li{
-	list-style-type: none;
-	display: inline-block;
-	padding: 10px 5px;
-}
-
-nav.breadcrumbs li a:hover{
-	text-decoration: underline;
-}
-
-nav.breadcrumbs li:not(:last-of-type):after{
-	content: " >> ";
-}
-
-nav.breadcrumbs li:last-of-type{
-	font-weight: bold;
-}
 
 
 
@@ -625,21 +723,48 @@ div.http-error{
 
 
 
-/* ----------------- MODALES ----------------- */
+/* =============================== MODALES =============================== */
 
-div.modal-background{
+/* Contenedor del modal con el fondo semistransparente */
+.modal{
 	position: fixed;
-	margin: 0px;
+	margin:   0;
+	padding:  2vh;
 	top: 0px;
 	left: 0px;
-	background-color: rgba(120, 120, 120, 0.8);
 	width: 100vw;
 	min-height: 100vh;
+	background-color: rgba(120, 120, 120, 0.8);
 	z-index: 10;
 	text-align: center;
 	display:flex;
 	align-items: middle;
 }
+
+/* figura dentro del modal */
+.modal figure{
+	height: 96vh;
+	margin: auto;
+	max-width: fit-content;
+}
+
+.modal figure img{
+	height: 90%;
+}
+
+.modal figure figcaption{
+	height: 10%;	
+	font-size: 1.2rem;
+}
+
+.modal figure p{
+	height: 10%;	
+	font-size: 1rem;
+}
+
+
+
+/* ----------------- MENSAJES DE ERROR Y ÉXITO ----------------- */
 
 
 div.success-message, div.error-message, div.warning-message, #accept-cookies{
@@ -652,46 +777,18 @@ div.success-message, div.error-message, div.warning-message, #accept-cookies{
 }
 
 
-/* para las imágenes que se hacen grandes */
-.enlarge-image{
-	cursor: pointer;
-}
-
-#modal-big-picture{
-	padding: 2vh;
-	cursor: pointer;
-}
-
-figure.big-picture{
-	height: 96vh;
-	margin: auto;
-}
-
-figure.big-picture img{
-	height: 90%;
-}
-
-figure.big-picture figcaption{
-	height: 10%;	
-	color: white;
-	font-size: 1.25rem;
-}
-
-
-/* ----------------- MENSAJES DE ERROR Y ÉXITO ----------------- */
-
 .success{
-	background-color: #efe;
+	background-color: #dfd;
 	color: #363;
 }
 
 .warning{
-	background-color: #ffe;
+	background-color: #ffd;
 	color: #663;
 }
 
-.error{
-	background-color: #fee;
+.error, .danger{
+	background-color: #fdd;
 	color: #633;
 }
 

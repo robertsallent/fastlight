@@ -131,7 +131,7 @@ class Base implements TemplateInterface{
      * @return string HTML del menú principal de la página.
      */
     public function menu(){ 
-        $html  = "<menu class='primary'>";
+        $html  = "<menu class='menu'>";
         $html .=   "<li><a href='/'>Inicio</a></li>";
         
         // enlace a la gestión de errores (solamente administrador o rol de test)
@@ -165,7 +165,7 @@ class Base implements TemplateInterface{
      */
     public function acceptCookies(){
         return ACCEPT_COOKIES && !HttpCookie::get(ACCEPT_COOKIES_NAME) ?
-            "<div class='modal-background'>
+            "<div class='modal'>
             	<form method='POST' id='accept-cookies' action='/Cookie/accept'>
             		<h2>Aceptar cookies</h2>
             		<p>".paragraph(ACCEPT_COOKIES_MESSAGE)."</p>
@@ -230,7 +230,7 @@ class Base implements TemplateInterface{
     public function successMessage(){
         
         return ($mensaje = Session::getFlash('success')) ?
-            "<div class='modal-background' onclick='this.remove()'>
+            "<div class='modal' onclick='this.remove()'>
             	<div class='success-message'>
             		<h2>Operación realizada con éxito</h2>
             		<p>$mensaje</p>
@@ -249,7 +249,7 @@ class Base implements TemplateInterface{
     public function warningMessage(){
             
         return ($mensaje = Session::getFlash('warning')) ?
-            "<div class='modal-background' onclick='this.remove()'>
+            "<div class='modal' onclick='this.remove()'>
             	<div class='warning-message'>
             		<h2>Hay advertencias:</h2>
             		<p>$mensaje</p>
@@ -269,7 +269,7 @@ class Base implements TemplateInterface{
     public function errorMessage(){
 
         return ($mensaje = Session::getFlash('error')) ?
-            "<div class='modal-background' onclick='this.remove()'>
+            "<div class='modal' onclick='this.remove()'>
             	<div class='error-message'>
             		<h2>Se ha producido un error</h2>
             		<p>$mensaje</p>
@@ -314,7 +314,7 @@ class Base implements TemplateInterface{
         ? string $action      = NULL, 
     ){
         
-        $html = "<form method='POST' class='filtro derecha' action='".($action ?? URL::get())."'>";
+        $html = "<form method='POST' id='filtro' class='derecha' action='".($action ?? URL::get())."'>";
        
         $html .= "<label>Buscar</label>";
         $html .= "<input type='text' name='texto' placeholder='texto'> ";
@@ -344,7 +344,7 @@ class Base implements TemplateInterface{
     				<label>ascendente</label>
     				<input type='radio' name='sentidoOrden' value='DESC' checked>
     				<label>descendente</label>
-    				<input class='button button-success' type='submit' name='filtrar' value='Filtrar'>
+    				<input class='button' type='submit' name='filtrar' value='Filtrar'>
     			</form>";
     }
     

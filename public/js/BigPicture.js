@@ -21,14 +21,13 @@ class BigPicture{
 	// método que crea la nueva figura grande en un modal
 	open(){
 		let container = document.createElement('div');
-		container.className = 'modal-background';
-		container.id = 'modal-big-picture';
+		container.className = 'modal';
 		container.onclick = function(){ 
 			this.remove(); 
 		};
 		
 		let figure  = document.createElement('figure');
-		figure.className = 'big-picture';
+		figure.className = 'card';
 		
 		let image   = document.createElement('img');
 		image.src = this.imagen.src;

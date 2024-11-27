@@ -34,8 +34,7 @@ Autor: Robert Sallent
 	
 - TEMPLATES Y VISTAS
 	- Método en el template
-	- Usar objetos template (las vistas deben tener acceso, así que hay que pasarlo de forma automatizada)
-    - Mover las operaciones de view() hacia Response::view() y unificar parámetros y criterios. Testearlo todo.
+	- Mover las operaciones de view() hacia Response::view() y unificar parámetros y criterios. Testearlo todo.
 -   - Panel del administrador (Log, operaciones con usuarios...).
 
 - HELPERS
