@@ -32,6 +32,10 @@ class Test extends Base{
      */
     public function top(string $file = ''):string{
         
+        $breadCrumbsLinks = $file == 'index' ?
+            ['Test' => NULL] :
+            ['Test' => '/test', $file => NULL];
+        
         return "
             <!DOCTYPE html>
             <html lang='es'>
@@ -43,7 +47,7 @@ class Test extends Base{
         	<body>".$this->login()
         	       .$this->header("$file test")
         	       .$this->menu()
-                   .$this->breadCrumbs(['Test'=>NULL]);	
+        	       .$this->breadCrumbs($breadCrumbsLinks);	
         }
     
     

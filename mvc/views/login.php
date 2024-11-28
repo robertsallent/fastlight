@@ -31,7 +31,7 @@
 				<p>Introduce tus datos en el formulario para identificarte.</p>
 		
 				<div class="m1">
-        			<label for="email">email:</label>
+        			<label for="email">Email:</label>
         			<input type="email" name="user" id="email" value="<?= old('user') ?>" required>
         			<br>
         			<label for="password">Password:</label>

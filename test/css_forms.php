@@ -19,7 +19,7 @@
     	<p>Introduce tus datos en el formulario para identificarte.</p>
     
     	<div class="m1">
-    		<label for="email">email:</label>
+    		<label for="email">Email:</label>
     		<input type="email" name="user" id="email" required>
     		<br>
     		<label for="password">Password:</label>
@@ -77,9 +77,8 @@
     y controles, aunque para las etiquetas no es necesario indicar nada.</p>
     
     <form method="POST" class="w75">
-    	<h2>Registro de usuarios</h2>
-    	<p>Por favor, rellena el formulario con tus datos.</p>
-    	
+    	<h2 class="centrado">Registro de usuario</h2>
+
    		<label>Nombre:</label>
 		<input type="text" name="nombre" class="long">
 		<br>
@@ -110,8 +109,12 @@
 		<span id="teles" style="font-weight: bold;">5</span>
 		<br>
 				
-		<label>Foto de perfil:</label>
+		<label>Imagen:</label>
 		<input type="file" class="medium">
+		<br>
+		
+		<label>Color favorito:</label>
+		<input type="color" class="short" value="#ffffff">
 		<br>
 		
 		<div class="centrado">
@@ -122,11 +125,13 @@
     
     <h3>Formulario con fieldsets en columnas</h3>
     
+    <p>El formulario tiene en su interior un contenedor de clase <code>flex-container</code>
+     y cada columna es un <code>fieldset</code> de clase
+     <code>flex1</code> o <code>flex2</code>... según el ancho deseado.</p>
     
      <form method="POST">
-    	<h2>Registro de usuarios</h2>
-    	<p>Por favor, rellena el formulario con tus datos. Cada columna es un <code>fieldset</code> 
-    	dentro de un contenedor de clase <code>flex-container</code>.</p>
+    	<h2 class="centrado">Registro de usuario</h2>
+    	<p>Por favor, rellena el formulario con tus datos.</p>
     	
     	<div class="flex-container">
         	<fieldset class="flex1">
@@ -136,7 +141,7 @@
         		<input type="text" name="nombre" class="long">
         		<br>
         		
-        		<label>Sexo</label>
+        		<label>Sexo:</label>
         		<select name="sexo" class="long">
         			<option value="H">Hombre</option>
         			<option value="M">Mujer</option>
@@ -154,11 +159,19 @@
         		
         		<label>Sitio web:</label>
         		<input type="url" name="web" class="long">
-        		<br>
 			</fieldset>
 			
 			<fieldset class="flex1">
 				<legend>Vehículos</legend>
+				
+				<label class="short">Carné de conducir</label>
+        		<input type="radio" name="carne" value="A">
+        		<label>A</label>
+        		<input type="radio" name="carne" value="B" checked>
+        		<label>B</label>
+        		<input type="radio" name="carne" value="C">
+        		<label>C</label>
+        		<br>
            		
         		<input type="checkbox" name="coche" value="1">
         		<label>Coche</label>
@@ -169,22 +182,12 @@
         		<input type="checkbox" name="bici" value="1">
         		<label>Bici</label>
         		<br>
-        					       		
-        		<label>Carné de conducir</label>
-        		<input type="radio" name="carne" value="A">
-        		<label>A</label>
-        		<input type="radio" name="carne" value="B" checked>
-        		<label>B</label>
-        		<input type="radio" name="carne" value="C">
-        		<label>C</label>
-        		<br>
-        		
+        					       		      			
         		<label>Marca:</label>
         		<input type="text" name="marca" class="long">
         		<br>
         		<label>Modelo:</label>
         		<input type="text" name="modelo" class="long">
-        		<br>
 			</fieldset>
 			
 		</div>			
@@ -197,6 +200,62 @@
     </form>
     
     <h3>Formulario con previsualización de imagen</h3>
-    <p>TODO.</p>
+    <p>FastLight incorpora un pequeño script que nos permite realizar previsualizaciones
+       de los ficheros de imagen que seleccionamos en los <code>inputs</code> de tipo <code>file</code>.
+       Para usarlo, tan solo hay que añadir el fichero con 
+       <code>&lt;script src="/js/preview.js"&gt;&lt;/script&gt;</code> y añadir las clases:</p>
+       <ul>
+       		<li><code>file-with-preview</code> al input de formulario.</li>
+       		<li><code>preview-image</code> a la imagen.</li>
+       </ul>
+    
+    
+    <script src="/js/preview.js"></script>
+    
+    <form method="POST" enctype="multipart/form-data" class="w75">
+    	<h2 class="centrado">Registro de usuario</h2>
+    	<p>Por favor, rellena el formulario con tus datos. Observa que en la imagen
+    	de la derecha se mostrará una previsualización del fichero elegido como foto de perfil.</p>
+    	
+    	<div class="flex-container">
+        	<fieldset class="flex2">
+        		<legend>Datos de usuario</legend>
+        		
+           		<label>Nombre:</label>
+        		<input type="text" name="nombre" class="long">
+        		<br>
+        		
+        		<label>Sexo:</label>
+        		<select name="sexo" class="long">
+        			<option value="H">Hombre</option>
+        			<option value="M">Mujer</option>
+        			<option value="N">No binario</option>
+        		</select>
+        		<br>
+        				
+            	<label>Fecha:</label>
+        		<input type="date" name="nacimiento" class="short">
+        		<br>
+        		
+        		<label>Imagen:</label>
+        		<input type="file" accept="image/*" id="file-with-preview">
+			</fieldset>
+			
+			<figure class="flex1 centrado">
+    			<img src="/images/template/logo.png" id="preview-image" 
+				     alt="Previsualización de la imagen de perfil">
+			     <figcaption>Previsualización de la imagen de perfil</figcaption>
+			</figure>    
+			
+		</div>			
+		
+		
+		<div class="centrado">
+           <input type="submit" class="button" name="registro" value="Enviar">
+           <input type="reset" class="button-light" value="Reset">
+        </div>
+    </form>
+    
+    
     
 </main>

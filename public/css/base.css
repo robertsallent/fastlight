@@ -97,9 +97,7 @@
 
 
 /* Cursores ---------------------------------------------------------------*/
-.pointer{
-	cursor: pointer;
-}
+.pointer{	cursor: pointer; }
 
 
 
@@ -139,8 +137,8 @@
 
 /* Elementos ocultos o transparentes ------------------------------------ */
 
-.oculto					{ display: none      }
-.no-visible				{ visibility: hidden }
+.oculto, .hidden						{ display: none      }
+.no-visible, .not-visible				{ visibility: hidden }
 
 .transparente, .transparent 	    	{ opacity: 0    } 
 .claro, .clear 					    	{ opacity: 0.25 }
@@ -181,7 +179,7 @@ a{
 
 hr{
 	margin: 2rem auto;
-	width: 80%;
+	width: 75%;
 	color: rgb(180, 200, 220);
 }
 
@@ -264,7 +262,6 @@ hr{
 
 
 
-
 /* Tablas -------------------------------------------------------- */
 .table{
 	margin-bottom: 1rem;
@@ -327,10 +324,12 @@ dd{
 	margin: 0px 0px 0.5rem 20px;
 }
 
+
 /* Figuras e imágenes -------------------------------------------------------- */
 
 figure{
 	text-align: center;
+	padding: 2%;
 }
 
 figure img{
@@ -377,6 +376,21 @@ figure.x-large		{ max-width: 800px; }
 }
 
 
+/* Filtros de imagen -------------------------------------------------------- */
+.blur  	  			{ filter: blur(10px) }
+.bright   			{ filter: brightness(120%) }
+.dark   			{ filter: brightness(80%) }
+.high-contrast 		{ filter: contrast(120%) }
+.low-contrast 		{ filter: contrast(80%) }
+.shadow 			{ filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.5)) }
+.grayscale 			{ filter: grayscale(1) }
+.invert 			{ filter: invert(100%) }
+.high-saturation 	{ filter: saturate(120%) }
+.low-saturation 	{ filter: saturate(80%) }
+.sepia 				{ filter: sepia(100%) }
+.hue90				{ filter: hue-rotate(90deg) }
+.hue180				{ filter: hue-rotate(180deg) }
+.hue270				{ filter: hue-rotate(270deg) }
 
 /* Formularios -------------------------------------------------------- */
 
@@ -387,6 +401,10 @@ form{
 	border-radius: 5px;
 	box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 	background-color: white;
+}
+
+form h2{
+	padding: 0 0 1rem 0;
 }
 
 form fieldset{
@@ -438,6 +456,10 @@ input[type="file"]{
 	border: none;
 }
 
+input[type="color"]{
+	padding: 2px;
+}
+
 textarea{
 	vertical-align: text-top;
 	resize: none;
@@ -475,6 +497,7 @@ td form{
 	min-width: 340px;
 	text-align: center;
 }
+
 
 
 /* Formulario para realizar búsquedas filtradas (en el Template) ------------ */
@@ -739,6 +762,7 @@ div.http-error{
 	text-align: center;
 	display:flex;
 	align-items: middle;
+	cursor: pointer;
 }
 
 /* figura dentro del modal */
@@ -749,20 +773,26 @@ div.http-error{
 }
 
 .modal figure img{
-	height: 90%;
+	height: 80%;
+}
+
+.modal figure img.no-description{
+	height: 95%;
 }
 
 .modal figure figcaption{
-	height: 10%;	
+	height: 5%;	
 	font-size: 1.2rem;
 }
 
 .modal figure p{
-	height: 10%;	
+	height: 15%;	
 	font-size: 1rem;
 }
 
-
+.enlarge-image{
+	cursor: pointer;
+}
 
 /* ----------------- MENSAJES DE ERROR Y ÉXITO ----------------- */
 

@@ -120,10 +120,10 @@
    		<li><code>table</code>: formato de tabla.</li>
    		<li><code>border</code>: coloca un borde fino alrededor de la tabla.</li>
    		<li><code>centered-block</code>: alinea en el centro horizontalmente.</li>
-   		<li><code>w75</code>: ocupa el 75% del ancho disponible.</li>
+   		<li><code>w50</code>: ocupa el 50% del ancho disponible.</li>
 	</ul>
     
-    <table class="table centered-block border w75">
+    <table class="table centered-block border w50">
         <thead>
             <tr>
                 <th>Alumno</th>

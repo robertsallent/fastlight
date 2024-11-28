@@ -35,7 +35,7 @@
     
     <h2>Ejemplo de modal con imagen</h2>
     
-    <p>Los modales son contenedores a los que les colocaremos la clase <code>modal</code>.</p>
+    <p>Los <b>modales</b> son contenedores a los que les colocaremos la clase <code>modal</code>.</p>
     
     <p>FastLight automatiza la creación de modales con imágenes mediante 
        el fichero <code>public/js/BigPicture.js</code>. Para usarlo, tan solo tenemos que incluir el fichero con 
@@ -46,10 +46,15 @@
     <p>La clase <code>pointer</code> sirve para que se muestre el cursor tipo "mano" al pasar
     el ratón por encima, con lo que el usuario intuirá que se puede hacer clic.</p>
     
+    <p>Podemos añadir un par de líneas de texto oculto, que sí se mostrará en el modal, 
+    usando la propiedad <code>data-description</code> de HTML en la imagen.</p>
+    
     <script src="/js/BigPicture.js"></script>
     
-    <figure class="small card pointer">
-    	<img class="enlarge-image" src="/images/template/logo.png" alt="FastLight">
+    <figure class="small card">
+    	<img class="enlarge-image" src="/images/template/logo.png" alt="FastLight"
+    	data-description="Este texto se encuentra en la propiedad data-description, no
+    	se muestra en la imagen pequeña pero sí en el modal.">
     	<figcaption>Ejemplo de figura.</figcaption>
     </figure> 
     
@@ -79,25 +84,104 @@
     
     
     <div class="gallery w75 centered-block my2">
-    	<figure class="small card pointer">
-    		<img class="enlarge-image" src="/images/template/logo.png" alt="FastLight">
+    	<figure class="small card">
+    		<img class="enlarge-image" src="/images/template/logo.png" alt="Robert Sallent">
     		<figcaption>Ejemplo de figura.</figcaption>
     	</figure>
     		
-    	<figure class="small card pointer">
-    		<img class="enlarge-image" src="/images/template/github.png" alt="FastLight">
+    	<figure class="small card">
+    		<img class="enlarge-image" src="/images/template/github.png" alt="GitHub"
+    		data-description="https://github.com/robertsallent/fastlight">
     		<figcaption>Ejemplo de figura.</figcaption>
     	</figure>
     	
-    	<figure class="small card pointer">
-    		<img class="enlarge-image" src="/images/template/linkedin.png" alt="FastLight">
+    	<figure class="small card">
+    		<img class="enlarge-image" src="/images/template/linkedin.png" alt="LinkedIn"
+    		data-description="Robert Sallent en LinkedIn">
     		<figcaption>Ejemplo de figura.</figcaption>
     	</figure>
     	
-    	<figure class="small card pointer">
-    		<img class="enlarge-image" src="/images/template/fastlight_base.png" alt="FastLight">
+    	<figure class="small card">
+    		<img class="enlarge-image" src="/images/template/fastlight_base.png" alt="FastLight"
+    		data-description="FastLight es un framework chulo.">
     		<figcaption>Ejemplo de figura.</figcaption>
+    	</figure> 
+    </div>
+    
+    
+    
+    <h2>Ejemplo de galería con filtros en las imágenes</h2>
+     
+    <div class="gallery my2">
+    	<figure class="small card">
+    		<img class="blur" src="/images/template/logo.png" alt="Robert Sallent">
+    		<figcaption>.blur</figcaption>
+    	</figure>
+    		
+    	<figure class="small card">
+    		<img class="bright" src="/images/template/logo.png" alt="Robert Sallent">
+    		<figcaption>.bright</figcaption>
+    	</figure>
+    	    	
+    	<figure class="small card">
+    		<img class="dark" src="/images/template/logo.png" alt="Robert Sallent">
+    		<figcaption>.dark</figcaption>
+    	</figure>
+    	
+    	<figure class="small card">
+    		<img class="high-contrast" src="/images/template/logo.png" alt="Robert Sallent">
+    		<figcaption>.high-contrast</figcaption>
+    	</figure>
+    	
+    	<figure class="small card">
+    		<img class="low-contrast" src="/images/template/logo.png" alt="Robert Sallent">
+    		<figcaption>.low-contrast</figcaption>
+    	</figure>
+    	
+    	<figure class="small card">
+    		<img class="shadow" src="/images/template/logo.png" alt="Robert Sallent">
+    		<figcaption>.shadow</figcaption>
     	</figure>
     	 
+    	 <figure class="small card">
+    		<img class="grayscale" src="/images/template/logo.png" alt="Robert Sallent">
+    		<figcaption>.grayscale</figcaption>
+    	</figure>
+    	
+    	<figure class="small card">
+    		<img class="invert" src="/images/template/logo.png" alt="Robert Sallent">
+    		<figcaption>.invert</figcaption>
+    	</figure>
+    	
+    	<figure class="small card">
+    		<img class="high-saturation" src="/images/template/logo.png" alt="Robert Sallent">
+    		<figcaption>.high-saturation</figcaption>
+    	</figure>
+    	
+    	<figure class="small card">
+    		<img class="low-saturation" src="/images/template/logo.png" alt="Robert Sallent">
+    		<figcaption>.low-saturation</figcaption>
+    	</figure>
+    	
+    	<figure class="small card">
+    		<img class="sepia" src="/images/template/logo.png" alt="Robert Sallent">
+    		<figcaption>.sepia</figcaption>
+    	</figure>
+    	
+    	<figure class="small card">
+    		<img class="hue90" src="/images/template/logo.png" alt="Robert Sallent">
+    		<figcaption>.hue90</figcaption>
+    	</figure>
+    	
+    	<figure class="small card">
+    		<img class="hue180" src="/images/template/logo.png" alt="Robert Sallent">
+    		<figcaption>.hue180</figcaption>
+    	</figure>
+    	
+    	<figure class="small card">
+    		<img class="hue270" src="/images/template/logo.png" alt="Robert Sallent">
+    		<figcaption>.hue270</figcaption>
+    	</figure>
+    	
     </div>
 </main>
