@@ -11,6 +11,9 @@
  * @since v1.3.0 nuevo método abort()
  */
 
+// TODO: revisar los métodos de clase (pasarlos a métodos de objeto?) --> para la v1.4.0
+// esto tendrá implicaciones en clases herederas y librerías REVISAR!
+
 
 class Response{
         
@@ -33,7 +36,6 @@ class Response{
     protected string $debug = '';
     
     
-    
     /** @var HttpHeaderBag $headers cabeceras HTTP que se deben incluir en la respuesta */
     protected static ?HttpHeaderBag $headers = null;
     
@@ -41,9 +43,7 @@ class Response{
     protected static ?HttpCookieBag $cookies = null;
     
     
-
-    
-    
+  
     /**
      * Constructor de Response
      * 
@@ -426,6 +426,7 @@ class Response{
         echo $this;
     }
     
+    
     /**
      * Retorna una JsonResponse a partir de la Response actual
      * 
@@ -458,9 +459,7 @@ class Response{
         return new XMLResponse($data, strip_tags($message), $this->httpCode, $this->status);
     }
     
-    
-       
-    
+      
     /**
      * @return string
      */

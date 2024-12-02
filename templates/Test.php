@@ -63,7 +63,7 @@ class Test extends Base{
         	<div class='centrado test-end'>
                 <p>Fin del test <code>$file</code></p>
                 <a class='button' href='/test'>Lista de tests.</a>
-            </div>".$this->footer();
+            </div>".$this->footer()."\n\t</body>\n</html>";
     }
     
     
@@ -77,7 +77,7 @@ class Test extends Base{
         
         return "<div class='centrado test-end'>
                     <a class='button' href='/'>Volver a inicio</a>
-                </div>".$this->footer()."</body></html>";
+                </div>".$this->footer()."\n\t</body>\n</html>";
 
     }  
 }

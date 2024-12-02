@@ -6,10 +6,11 @@
  * Facilita el trabajo con ficheros. Dispone de métodos interesantes
  * para trabajar con ficheros y para comprobar tipos MIME.
  *
- * Última mofidicación: 15/05/2024.
+ * Última mofidicación: 02/12/2024.
  * 
  * @author Robert Sallent
  * @since v1.1.4 añadidos métodos para copiar y mover ficheros.
+ * @since v1.3.7 añadido el método getSize() y su alias size().
  * 
  */
 
@@ -68,6 +69,26 @@
          */
         public function getExtension():string{
             return pathinfo($this->path, PATHINFO_EXTENSION);
+        }
+        
+        
+        /**
+         * Recupera el tamaño del fichero en bytes.
+         *
+         * @return int|false el número de bytes que ocupa el fichero
+         */
+        public function getSize():string{
+            return filesize($this->path);
+        }
+        
+        
+        /**
+         * alias de getSize()
+         *
+         * @return int|false el número de bytes que ocupa el fichero
+         */
+        public function size():string{
+            return $this->getSize();
         }
         
         

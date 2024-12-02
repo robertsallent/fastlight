@@ -68,8 +68,10 @@ class App extends Kernel{
         // si es un problema de usuario no identificado
         }catch(NotIdentifiedException $e){ 
             
-            // no llevamos al usuario a error sino a login.
+            // recordamos la operación que estaba intentando hacer...
             Session::set('_pending_operation', '/'.self::$request->get('url'));
+            
+            // ... y no llevamos a error sino a login (tras el login recuperaremos la operación pendiente).
             redirect('/Login');
       
         // si se produce algún otro tipo de error...
