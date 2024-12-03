@@ -23,11 +23,11 @@
         <h2>Enlaces</h2>
         <p> Estos son enlaces que simulan botones.</p>
         
-        <a href="/test" class="button">Enlace normal</a>
-        <a href="/test" class="button-light">Enlace claro</a>
-        <a href="/test" class="button-success">Éxito</a>
-        <a href="/test" class="button-warning">Cuidado</a>
-        <a href="/test" class="button-danger">Peligro</a>
+        <a href="#" class="button">Enlace normal</a>
+        <a href="#" class="button-light">Enlace claro</a>
+        <a href="#" class="button-success">Éxito</a>
+        <a href="#" class="button-warning">Cuidado</a>
+        <a href="#" class="button-danger">Peligro</a>
     </section>
  </main>   
     

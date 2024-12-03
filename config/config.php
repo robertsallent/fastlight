@@ -210,12 +210,11 @@ define('USE_CUSTOM_ERROR_VIEWS', true);
 
 
 /* -------------------------------------------------------------
- * TESTS
+ * TESTS Y EJEMPLOS
  * -------------------------------------------------------------*/
 
 define('TEST_FOLDER', '../test');  // Carpeta para los test.
-define('BEAUTIFUL_TEST', true);    // ¿Usar template en los tests?
-define('TEST_TEMPLATE', 'Test');   // Template a usar para los tests.
+define('EXAMPLE_FOLDER', '../mvc/views/examples/source');  // Carpeta para los ejemplos de maquetación.
 
    
 /* -------------------------------------------------------------

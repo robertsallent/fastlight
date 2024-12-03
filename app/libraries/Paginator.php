@@ -287,7 +287,7 @@ class Paginator{
      * @return string el código HTML listo para imprimir en las vistas
      */
     public function stats(
-        string $cssClasses = 'paginator-stats'   // clases para el CSS del contenedor
+        string $cssClasses = 'paginator-stats my1'   // clases para el CSS del contenedor
     ):string{
         $pagina = number_format($this->page, 0, ',', '.');
         $paginas = number_format($this->pages, 0, ',', '.');

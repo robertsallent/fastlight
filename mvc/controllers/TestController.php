@@ -4,20 +4,22 @@
  *
  * Controlador para realizar pruebas en la aplicación.
  * 
- * Los test se realizan en la carpeta test y deben tener el nombre
- * del segundo parámetro de la URL.
+ * Los test se realizan en la carpeta de test y coinciden en nombre
+ * con el segundo parámetro de la URL.
  * 
  * Por ejemplo:
- * la URL /Test/usuarios  ejecutará el fichero en test/usuarios.php
+ * la URL /test/usuarios  ejecutará el fichero en test/usuarios.php
  *
  * Se permite el uso de subcarpetas mediante guiones en la URL
  * 
  * Por ejemplo:
- * la URL /Test/models-libro ejecutará el fichero en test/models/libro.php
+ * la URL /test/models-libro ejecutará el fichero en test/models/libro.php
  * 
- * Última revisión: 10/06/2024
+ * Última revisión: 03/12/2024
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
+ * 
+ * @since v1.4.0 se ha eliminado el Template y el css específicos de test, ya no son necesarios
  */
     
 class TestController extends Controller{
@@ -29,26 +31,15 @@ class TestController extends Controller{
      * @param array $arguments parámetros adicionales, sin uso por el momento.
      */
     public function __call(
-        string $method, 
+        string $method   = 'index', 
         array $arguments = []  // sin uso por el momento
     ){
         
        // solamente podrá lanzar test el administrador o un usuario con ROLE_TEST
        Auth::oneRole([ADMIN_ROLE, "ROLE_TEST"]);
         
-       // Usa el template de test para que el resultado se vea "bonito"
-       if(BEAUTIFUL_TEST){
-            $template = new (TEST_TEMPLATE);
-            echo $template->top($method);
-       }
-       
-       // va a buscar el test solicitado a la carpeta test
-       @require TEST_FOLDER."/".str_replace('-','/', $method).".php";
-       
-       // Usa el template de test para que el resultado se vea "bonito"
-       if(BEAUTIFUL_TEST){
-           echo $method != 'index' ? $template->end($method) : $template->bottom();
-       }
+       // carga el índice o la vista que mostrará el resultado de ejecutar el test
+       view($method == "index" ? 'test/index' : 'test/frame', ["test" => $method]);
     }
     
 }
