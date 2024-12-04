@@ -15,6 +15,8 @@
 		<!-- CSS -->
 		<?= $template->css() ?>
 	</head>
+	
+	
 	<body>
 		<?= $template->login() ?>
 		<?= $template->header("Test de $test") ?>
@@ -23,7 +25,16 @@
 		<?= $template->messages() ?>
 		<?= $template->acceptCookies() ?>
 		
-		<?php @require TEST_FOLDER."/".str_replace('-','/', $test).".php" ?>
+		<?php 
+    		try{
+    		    @require TEST_FOLDER."/".str_replace('-','/', $test).".php";
+    		}catch(Throwable $t){
+	    ?>
+			<div class="danger my2 p2 w75 centered centered-block box-shadow">
+				<h2>ERROR</h2>
+				<p>No se encontró el test <b><?= $test ?></b>.</p>
+			</div>  
+    	<?php } ?>
 		
 		<div class='centrado m2'>
                 <p class="maxi">Fin del test <code><?= $test ?></code></p>
@@ -31,6 +42,7 @@
         </div>
             
 		<?= $template->footer() ?>
+		<?= $template->version() ?>
 	</body>
 </html>
 

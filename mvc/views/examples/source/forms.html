@@ -26,7 +26,7 @@
     		<input type="password" name="password" id="password" required>
     	</div>
     	
-    	<div class="centered">
+    	<div class="centered m2">
     		<input type="submit" class="button" name="login" value="LogIn">
     	</div>
     	<div class="right">
@@ -198,64 +198,5 @@
            <input type="reset" class="button-light" value="Reset">
         </div>
     </form>
-    
-    <h3>Formulario con previsualización de imagen</h3>
-    <p>FastLight incorpora un pequeño script que nos permite realizar previsualizaciones
-       de los ficheros de imagen que seleccionamos en los <code>inputs</code> de tipo <code>file</code>.
-       Para usarlo, tan solo hay que añadir el fichero con 
-       <code>&lt;script src="/js/preview.js"&gt;&lt;/script&gt;</code> y añadir las clases:</p>
-       <ul>
-       		<li><code>file-with-preview</code> al input de formulario.</li>
-       		<li><code>preview-image</code> a la imagen.</li>
-       </ul>
-    
-    
-    <script src="/js/preview.js"></script>
-    
-    <form method="POST" enctype="multipart/form-data" class="w75">
-    	<h2 class="centrado">Registro de usuario</h2>
-    	<p>Por favor, rellena el formulario con tus datos. Observa que en la imagen
-    	de la derecha se mostrará una previsualización del fichero elegido como foto de perfil.</p>
-    	
-    	<div class="flex-container">
-        	<fieldset class="flex2">
-        		<legend>Datos de usuario</legend>
-        		
-           		<label>Nombre:</label>
-        		<input type="text" name="nombre" class="long">
-        		<br>
-        		
-        		<label>Sexo:</label>
-        		<select name="sexo" class="long">
-        			<option value="H">Hombre</option>
-        			<option value="M">Mujer</option>
-        			<option value="N">No binario</option>
-        		</select>
-        		<br>
-        				
-            	<label>Fecha:</label>
-        		<input type="date" name="nacimiento" class="short">
-        		<br>
-        		
-        		<label>Imagen:</label>
-        		<input type="file" accept="image/*" id="file-with-preview">
-			</fieldset>
-			
-			<figure class="flex1 centrado">
-    			<img src="/images/template/logo.png" id="preview-image" 
-				     alt="Previsualización de la imagen de perfil">
-			     <figcaption>Previsualización de la imagen de perfil</figcaption>
-			</figure>    
-			
-		</div>			
-		
-		
-		<div class="centrado">
-           <input type="submit" class="button" name="registro" value="Enviar">
-           <input type="reset" class="button-light" value="Reset">
-        </div>
-    </form>
-    
-    
-    
+  
 </main>

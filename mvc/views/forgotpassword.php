@@ -40,10 +40,10 @@
             			<input type="text" name="phone" id="phone" value="<?= old('phone') ?>" required>
         			</div>
         			
-        			<div class="centrado">
+        			<div class="centered m2">
         				<input type="submit" class="button" name="nueva" value="Nueva clave">
         			</div>  
-        			<div class="derecha">
+        			<div class="right">
     				<a href="/Login">Volver a Login</a>
     			</div>      			
         		</form>
@@ -53,6 +53,7 @@
 		</main>
 		
 		<?= $template->footer() ?>
+		<?= $template->version() ?>
 	</body>
 </html>
 

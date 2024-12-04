@@ -35,6 +35,7 @@
     		
 		</main>
 		<?= $template->footer() ?>
+		<?= $template->version() ?>
 	</body>
 </html>
 

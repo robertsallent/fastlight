@@ -23,7 +23,16 @@
 		<?= $template->messages() ?>
 		<?= $template->acceptCookies() ?>
 		
-		<?php @require EXAMPLE_FOLDER."/".str_replace('-','/', $example).".php" ?>
+		<?php 
+    		try{
+    		    @require EXAMPLE_FOLDER."/".str_replace('-','/', $example).".html";
+    		}catch(Throwable $t){
+	    ?>
+			<div class="danger my2 p2 w75 centered centered-block box-shadow">
+				<h2>ERROR</h2>
+				<p>No se encontró el ejemplo <b><?= $example ?></b>.</p>
+			</div>  
+    	<?php } ?>
 		
 		<div class='centrado m2'>
                 <p class="maxi">Fin del ejemplo <code><?= $example ?></code></p>
@@ -31,6 +40,7 @@
         </div>
             
 		<?= $template->footer() ?>
+		<?= $template->version() ?>
 	</body>
 </html>
 

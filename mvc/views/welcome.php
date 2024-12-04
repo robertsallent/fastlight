@@ -25,7 +25,6 @@
 		
 		<main>
     		<h1><?= APP_NAME ?></h1>
-    		
 
     		<section>
         		<h2>Bienvenido!</h2>
@@ -119,6 +118,8 @@
 		   	   
 		</main>
 		<?= $template->footer() ?>
+		<?= $template->version() ?>
+		
 	</body>
 </html>
 

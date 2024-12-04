@@ -48,45 +48,46 @@ header.primary h1{
 header.primary h2{font-size: 1.15rem}
 
 /* ------------------------------- MENU  -------------------------------  */
-menu.primary{
+.menu{
 	padding: 0px;
 	border-radius: 0px;
 }
 
-menu.primary li{
+.menu li{
 	display: block;
 }
 
-menu.primary li a{
+.menu li a{
 	padding: 10px 20px;
 }
 
 
-menu.primary li:not(:first-of-type){
+.menu li:not(:first-of-type){
 	border-left: none
 }
 
-menu.primary li:not(:last-of-type){
+.menu li:not(:last-of-type){
 	border-bottom: dotted 2px white;
 }
 
 
 /* ------------------------ MODALES Y MENSAJES -------------------------  */
-div.success-message, div.error-message, div.warning-message, #accept-cookies{
-	padding: 20px;
+.success-message, .error-message, .warning-message, #accept-cookies{
+	padding: 10px;
 	height: 90%;
 	width: 90%;
 }
 
-div.modal-background{
-	padding: 5%;
+.modal{
+	padding: 4%;
 }
 
+
 /* ------------------------------- FOOTER  -------------------------------  */
-footer.primary{
+.footer{
 	background-size: cover;
 }
-footer.primary>div{
+.footer>div{
 	width: 100%;
 	text-align: center;
 	margin: 5px;
@@ -94,18 +95,18 @@ footer.primary>div{
 	background-color: rgba(255,255,255,0.8);
 }
 
-footer.primary div.links{
+.footer div.links{
 	width: 100%;
 	display: flex;
 }
 
-footer.primary div.links a{
+.footer div.links a{
 	display: block;
 	flex: 1;
 	text-align: center;
 }
 
-footer.primary div.links img{
+.primary div.links img{
 	width: 80%;
 	height: auto;
 }

@@ -31,15 +31,26 @@ class TestController extends Controller{
      * @param array $arguments parámetros adicionales, sin uso por el momento.
      */
     public function __call(
-        string $method   = 'index', 
+        string $method, 
         array $arguments = []  // sin uso por el momento
     ){
         
        // solamente podrá lanzar test el administrador o un usuario con ROLE_TEST
        Auth::oneRole([ADMIN_ROLE, "ROLE_TEST"]);
-        
-       // carga el índice o la vista que mostrará el resultado de ejecutar el test
-       view($method == "index" ? 'test/index' : 'test/frame', ["test" => $method]);
+       
+       if($method == "index"){
+           // recupera la lista de tests
+           $tests = FileList::get(TEST_FOLDER, ['php']);
+           
+           // carga la vista
+           view('test/index', ["tests" => $tests]);
+           
+           return;
+       }
+       
+       // en caso contrario se está solicitando un test concreto...  
+       // carga la vista que mostrará el resultado de ejecutar el test
+       view('test/frame', ["test" => $method]);
     }
     
 }

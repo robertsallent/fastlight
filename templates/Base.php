@@ -141,7 +141,7 @@ class Base implements TemplateInterface{
             $html .=   "<li><a href='/error/list'>Errores</a></li>";
         
         // enlace a los tests de ejemplo (solamente administrador o rol de test)    
-        if((Login::isAdmin() || Login::role('ROLE_TEST')) && DEBUG)
+        if((Login::isAdmin() || Login::role('ROLE_TEST')))
             $html .=   "<li><a href='/test'>Lista de test</a></li>";
     
         $html .= "</menu>";
@@ -413,6 +413,16 @@ class Base implements TemplateInterface{
             </div>
             
         </footer>";
-    }       
+    }  
+    
+    
+    /**
+     * muestra la versión del framework usada
+     * 
+     * @return string
+     */
+    public function version(){
+        return SHOW_VERSION ? "<p id='version' class='right m0 mx1 italic mini'>".CURRENT_VERSION."</p>" : "";
+    }
 }
 

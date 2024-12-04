@@ -38,10 +38,10 @@
         			<input type="password" name="password" id="password" required>
     			</div>
     			
-    			<div class="centrado">
+    			<div class="centered m2">
     				<input type="submit" class="button" name="login" value="LogIn">
     			</div>
-    			<div class="derecha">
+    			<div class="right">
     				<a href="/Forgotpassword">Olvidé mi clave</a>
     			</div>
     			
@@ -51,6 +51,7 @@
 		</main>
 		
 		<?= $template->footer() ?>
+		<?= $template->version() ?>
 	</body>
 </html>
 

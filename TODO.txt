@@ -6,7 +6,7 @@ Lista de mecanismos y herramientas que se irán incorporando (o no) en próximas
 del framework FastLight.
 
 Autor: Robert Sallent
-Última revisión: 03/12/24
+Última revisión: 04/12/24
 
 -------------------------------------------------------------------------------------------------------------
 - CONFIG

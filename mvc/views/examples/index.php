@@ -50,11 +50,7 @@
             	
             	<ul id="test-list" class="two-columns">
                 <?php
-                    
-                // recupera los ficheros php en la carpeta para los ejemplos
-                $examples = FileList::get(EXAMPLE_FOLDER, ['php']);
-                   
-                
+
                 foreach ($examples as $source){
                     
                     $file = new File($source);
@@ -82,6 +78,7 @@
         
         </main>	
 		<?= $template->footer() ?>
+		<?= $template->version() ?>
 	</body>
 </html>
 

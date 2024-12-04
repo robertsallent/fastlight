@@ -49,10 +49,14 @@ define('AUTOLOAD_DIRECTORIES',  [
 /* -------------------------------------------------------------
  * APLICACIÓN
  * -------------------------------------------------------------*/
-define('APP_NAME','FastLight Framework'); // Título de la aplicación.
-define('APP_TYPE', 'WEB');                // Tipo de aplicación: WEB o API.
+define('APP_NAME','FastLight Framework');   // Título de la aplicación.
+define('APP_TYPE', 'WEB');                  // Tipo de aplicación: WEB o API.
 
-define('HTTP_VERSION', '1.1'); // versión de HTTP usada.
+// versión actual del framework (cambiar por la de la aplicación)
+define('CURRENT_VERSION', 'versión 1.4.0 (04/12/2024)'); 
+define('SHOW_VERSION', true); 
+
+define('HTTP_VERSION', '1.1'); // versión de HTTP a usar.
 
 // Controlador y método por defecto (solamente para APP_TYPE WEB).
 define('DEFAULT_CONTROLLER', 'WelcomeController');

@@ -27,11 +27,26 @@ class ExampleController extends Controller{
      * @param array $arguments parámetros adicionales, sin uso por el momento.
      */
     public function __call(
-        string $method   = "index", 
+        string $method, 
         array $arguments = []  // sin uso por el momento
     ){
-        // carga el índice o el ejemplo de maquetación
-        view($method == "index" ? 'examples/index' : 'examples/frame', ["example" => $method]);
+        
+        // si se solicita la lista de ejemplos...
+        if($method == "index"){
+            
+            // recupera los ficheros  en la carpeta para los ejemplos
+            $examples = FileList::get(EXAMPLE_FOLDER, ['html']);
+            
+            // carga la vista del listado de ejemplos
+            view('examples/index', ["examples" => $examples]);
+            return;
+        }
+        
+        // en caso contrario se está solicitando un ejemplo concreto...        
+        // carga el índice o la vista que mostrará el resultado de ejecutar el test
+        view('examples/frame', [
+            "example"  => $method
+        ]);
     }
     
 }

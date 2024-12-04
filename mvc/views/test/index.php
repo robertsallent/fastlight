@@ -48,8 +48,6 @@
             	<ul id="test-list" class="three-columns">
                 <?php
                     
-                $tests = FileList::get(TEST_FOLDER, ['php']);
-                
                 foreach ($tests as $fichero){
                     
                     $file = new File($fichero);
@@ -94,6 +92,7 @@
         
         </main>
 		<?= $template->footer() ?>
+		<?= $template->version() ?>
 	</body>
 </html>
 
