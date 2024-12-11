@@ -15,12 +15,12 @@ body{
 
 
 
-/* ------------------------------- HEADER  -------------------------------  */
-header.primary{
+/* Header principal (en el body)  -------------------------------  */
+body>header{
 	padding: 5px;
 }
 
-header.primary figure{
+body>header figure{
 	min-width: 19%;
     max-width: 19%;
     margin: 0px auto;
@@ -28,24 +28,25 @@ header.primary figure{
     padding: 0px;
 }
 
-header.primary img{
+body>header img{
 	width: 100%;
 }
 	
-header.primary hgroup{
+body>header hgroup{
   min-width: 80%;
   max-width: 80%;
   margin: 0px auto;
   padding: 0px;
 }
 
-header.primary h1{
+body>header h1{
 	padding: 15px 0px;
 	font-size: 2rem;
 	text-align: center;
 	white-space: wrap;
 }
-header.primary h2{font-size: 1.15rem}
+body>header h2{font-size: 1.15rem}
+
 
 /* ------------------------------- MENU  -------------------------------  */
 .menu{
@@ -70,6 +71,11 @@ header.primary h2{font-size: 1.15rem}
 	border-bottom: dotted 2px white;
 }
 
+/* Formularios -------------------------------------  */
+form .long, form .short, form .medium{
+	width: 90%;
+	margin: 5px 5%;
+}
 
 /* ------------------------ MODALES Y MENSAJES -------------------------  */
 .success-message, .error-message, .warning-message, #accept-cookies{
@@ -79,7 +85,28 @@ header.primary h2{font-size: 1.15rem}
 }
 
 .modal{
-	padding: 4%;
+	margin: 0;
+	padding: 4% 1%;
+}
+
+.modal figure{
+	margin: auto;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+  	justify-content: space-evenly;
+}
+
+.modal figure img, .modal figure img.no-description{
+	width: 90%;
+	height: auto;
+}
+
+
+/* Imágenes y galerías ----- */
+figure.card{
+	margin: 0;
+	padding: 10px;
 }
 
 
@@ -106,9 +133,11 @@ header.primary h2{font-size: 1.15rem}
 	text-align: center;
 }
 
-.primary div.links img{
+div.links img{
 	width: 80%;
 	height: auto;
 }
 
-/* TODO */
+
+
+

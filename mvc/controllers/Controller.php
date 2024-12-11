@@ -22,6 +22,10 @@ abstract class Controller{
      */
     public function __construct(Request $request){
         $this->request = $request;
+        
+        // si hay que almacenar estadísticas de visitas para las URLs
+        if(SAVE_STATS)
+            Stat::saveOrIncrement($request->url);   
     }
     
     

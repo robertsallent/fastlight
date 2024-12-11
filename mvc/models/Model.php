@@ -18,6 +18,7 @@
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
  * @since v0.9.2 añadido belongsToAny() y hasAny()
+ * @since v1.4.1 añadido el método whereExactMatch()
  */
 
 
@@ -411,6 +412,46 @@ abstract class Model{
     
     
     /**
+     * Recupera entidades a partir de múltiples condiciones de filtrado. Búsqueda exacta.
+     *
+     * @param array $condiciones array asociativo campo => valor con las condiciones.
+     * @param string $orden orden para los resultados.
+     * @param string $sentido sentido ascendente o descendente.
+     *
+     * @return array lista de entidades con los filtros aplicados.
+     */
+    public static function whereExactMatch(
+        array $condiciones = [],
+        string $orden = 'id',
+        string $sentido = 'ASC'
+    ):array{
+            
+        $tabla = self::getTable(); // recupera el nombre de la tabla
+        
+        $consulta="SELECT * FROM $tabla ";
+        
+        if(sizeof($condiciones)){
+            $consulta .= "WHERE ";
+            
+            foreach($condiciones as $campo => $valor)
+                $consulta .= " $campo='$valor' AND ";
+                
+                $consulta = substr($consulta, 0, strlen($consulta)-4);
+        }
+        
+        $consulta .= "ORDER BY $orden $sentido";
+        
+        $entities = (DB_CLASS)::selectAll($consulta, get_called_class());
+        
+        foreach($entities as $entity)
+            $entity->parseJsonFields();
+            
+        return $entities;
+    }
+    
+    
+    
+    /**
      * Guarda una entidad en la base de datos.
      * 
      * @return int el autonumérico asignado en la base de datos o 0 si la tabla no dispone de autonumérico.
@@ -674,19 +715,19 @@ abstract class Model{
         string $related,
         string $foreignKey = null,
         string $ownerKey = 'id'
-        ):bool{
+    ):bool{
             
-            $table = $related::$table ?? strtolower($related).'s';   // cálculo del nombre de la tabla
-            
-            $foreignKey = $foreignKey ?? 'id'.strtolower($related);  // cálculo  foranea
-            
-            $query="SELECT COUNT(*) AS total
-                       FROM $table 
-                       WHERE $ownerKey = ".$this->$foreignKey;
-            
-            $result = (DB_CLASS)::select($query);
-            
-            return $result->total;
+        $table = $related::$table ?? strtolower($related).'s';   // cálculo del nombre de la tabla
+        
+        $foreignKey = $foreignKey ?? 'id'.strtolower($related);  // cálculo  foranea
+        
+        $query="SELECT COUNT(*) AS total
+                   FROM $table 
+                   WHERE $ownerKey = ".$this->$foreignKey;
+        
+        $result = (DB_CLASS)::select($query);
+        
+        return $result->total;
     }
     
     

@@ -134,15 +134,20 @@ class Base implements TemplateInterface{
         $html  = "<menu class='menu'>";
         $html .=   "<li><a href='/'>Inicio</a></li>";
         $html .=   "<li><a href='https://github.com/robertsallent/fastlight'>Docs (TODO)</a></li>";
-        $html .=   "<li><a href='/example'>Ejemplos de maquetación</a></li>";
+        $html .=   "<li><a href='/Example'>Ejemplos de maquetación</a></li>";
         
         // enlace a la gestión de errores (solamente administrador o rol de test)
         if((Login::isAdmin() || Login::role('ROLE_TEST')) && (DB_ERRORS || LOG_ERRORS || LOG_LOGIN_ERRORS))
-            $html .=   "<li><a href='/error/list'>Errores</a></li>";
+            $html .=   "<li><a href='/Error/list'>Errores</a></li>";
+        
+            
+        // enlace a las estadística de visitas (solamente administrador o rol de test)
+        if((Login::isAdmin() || Login::role('ROLE_TEST')))
+            $html .=   "<li><a href='/Stats'>Visitas</a></li>";
         
         // enlace a los tests de ejemplo (solamente administrador o rol de test)    
         if((Login::isAdmin() || Login::role('ROLE_TEST')))
-            $html .=   "<li><a href='/test'>Lista de test</a></li>";
+            $html .=   "<li><a href='/Test'>Lista de test</a></li>";
     
         $html .= "</menu>";
 
@@ -370,8 +375,7 @@ class Base implements TemplateInterface{
     }
     
     
-    
-    
+ 
     /* ****************************************************************************
      * FOOTER
      *****************************************************************************/

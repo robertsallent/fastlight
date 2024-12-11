@@ -3,10 +3,13 @@
 -- se incluye:
 --  la tabla para usuarios, con algunos usuarios para pruebas.
 --  la tabla errores, permite registrar los errores de la aplicación en BDD.
+--  la tabla stats, para contar las visitas de cada URL de la aplicación.
 
 --  una tabla products para pruebas (POSIBLE EJERCICIO: implementar un CRUD de productos).
 --  una tabla customers.
 --  una tabla sales.
+
+-- Última modificación: 10/12/2024
 
 
 DROP DATABASE IF EXISTS fastlight;
@@ -41,6 +44,16 @@ CREATE TABLE errors(
 	message VARCHAR(256) NOT NULL,
 	user VARCHAR(128) DEFAULT NULL,
 	ip CHAR(15) NOT NULL
+);
+
+-- tabla stats
+-- por si queremos registrar las estadísticas de visitas a las disintas URLs de nuestra aplicación.
+CREATE TABLE stats(
+	id INT PRIMARY KEY auto_increment,
+    url VARCHAR(256) NOT NULL UNIQUE KEY,
+	count INT NOT NULL DEFAULT 1,
+	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 );
 
 

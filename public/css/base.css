@@ -68,6 +68,7 @@
 .flex7{flex:7 }
 .flex8{flex:8 }
 
+
 /* Elementos flotantes ---------------------------------------------------- */
 
 .float-right			{float: right }
@@ -170,26 +171,26 @@
 /* ========================  ELEMENTOS BÁSICOS HTML ======================= */
 
 h1, h2, h3{
-	margin-top:    1.5rem;
-	margin-bottom: 1.1rem;
+	margin-top:    1.5em;
+	margin-bottom: 1.1em;
 }
 
-h1{	font-size: 2rem; }
-h2{	font-size: 1.75rem; }
-h3{	font-size: 1.5rem; }
+h1{	font-size: 2em; }
+h2{	font-size: 1.75em; }
+h3{	font-size: 1.5em; }
 
 h1 .small{
 	font-size: 1.25rem;
 }
 
-h2{
-	margin:  1rem 0;
-	padding: 1rem 0;
+h2, h3{
+	margin:  1em 0;
+	padding: 0;
 }
 
 p{
-	margin: 		1.1rem 0;
-	line-height:   	1.5rem;
+	margin: 		1.1em 0;
+	line-height:   	1.5em;
 }
 
 a{
@@ -212,6 +213,7 @@ hr{
 	color: rgb(180, 200, 220);
 }
 
+code { font-size: 0.9rem }
 
 
 /* Bordes -------------------------------------------------------- */
@@ -345,6 +347,10 @@ hr{
 /* Listas -------------------------------------------------------- */
 ul li, ol li{
 	margin: 0 0 1rem 30px;	
+}
+
+li ul{
+	margin: 1rem 0;
 }
 
 dt{
@@ -726,8 +732,29 @@ main{
 }
 
 
+/* Mapa web --------------------------------------------------------*/
+.web-map{
+	padding: 10px 4%;
+	margin: 0 auto;
+	font-size: 1.3em;
+}
 
-/* footer principal de la página (directamente dentro del body) */
+.web-map h2{
+	font-size: 1em;
+	margin: 0 0 0.5em;
+}
+
+.web-map ul{
+	margin: 0 1%;
+}
+
+.web-map li{
+	margin: 0.35em;
+	font-size: 0.8em;
+}
+
+
+/* footer principal de la página (directamente dentro del body) ---- */
 body>footer{
 	background-image: url(../images/template/header_base.jpg);
 	background-size: cover;

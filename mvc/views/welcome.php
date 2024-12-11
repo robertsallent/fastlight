@@ -117,6 +117,47 @@
 		   </section>
 		   	   
 		</main>
+		
+		<!-- este mapa web solamente se muestra en pantallas grandes -->
+		<nav class="web-map pc">  
+		<h2>Links</h2>
+		
+    	<ul class="flex-container">   		
+    		<li class="flex1"><a href="#">Recursos</a>
+    			<ul>
+	    			<li><a href="https://github.com/robertsallent/fastlight">GitHub</a></li>
+	    			<li><a href="#">Docs (TODO)</a></li>
+	    			<li><a href="#">API (TODO)</a></li>
+    			</ul>
+    		</li>
+    		
+    		<li class="flex1"><a href="/example">Maquetación</a>
+    			<ul>
+	    			<li><a href="/example/buttons">Buttons</a></li>
+	    			<li><a href="/example/forms">Forms</a></li>
+	    			<li><a href="/example/modals">Modals</a></li>
+	    			<li><a href="/example">...</a></li>
+    			</ul>
+    		</li>
+    		
+    		<li class="flex1"><a href="#">Ejemplos de clase</a>
+    			<ul>
+	    			<li><a href="https://larabikes8.robertsallent.com">Larabikes <code>(Laravel)</code></a></li>
+	    			<li><a href="https://symfofilms.robertsallent.com">SymfoFilms <code>(Symfony)</code></a></li>
+	    			<li><a href="https://biblio24.robertsallent.com">Biblio24 <code>(FastLight)</code></a></li>
+    			</ul>
+    		</li>
+    		
+    		<li class="flex1"><a href="#">Otros proyectos</a>
+    			<ul>
+	    			<li><a href="https://juegayestudia.com">Juega y Estudia</a></li>
+    			</ul>
+    		</li>
+    		
+    		
+    	</ul>
+    </nav>
+    
 		<?= $template->footer() ?>
 		<?= $template->version() ?>
 		

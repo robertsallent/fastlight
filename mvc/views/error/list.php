@@ -28,7 +28,7 @@
         		<?php if(DB_ERRORS){ ?>
         		
         		
-            		<h2>Lista completa de errores</h2>
+            		<h2>Errores detectados</h2>
         			
         			<p>Utiliza el formulario de búsqueda para filtrar resultados. Las búsquedas 
         			   se mantendrán guardadas aunque cambies de página.</p>
@@ -106,7 +106,9 @@
                 		<?= $paginator->ellipsisLinks() ?>
             		
             		<?php }else{ ?>
-            			<p class="success">No hay errores que mostrar.</p>
+            			<div class="success my2">
+            				<p>No hay errores que mostrar.</p>
+            			</div>
             		<?php } ?>
             	
             	<?php } ?>
