@@ -30,7 +30,7 @@
 	    ?>
 			<div class="danger my2 p2 w75 centered centered-block box-shadow">
 				<h2>ERROR</h2>
-				<p>No se encontró el ejemplo <b><?= $example ?></b>.</p>
+				<p>Se produjo un error al cargar el ejemplo <b><?= $example ?></b>.</p>
 			</div>  
     	<?php } ?>
 		

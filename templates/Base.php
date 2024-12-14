@@ -137,16 +137,16 @@ class Base implements TemplateInterface{
         $html .=   "<li><a href='/Example'>Ejemplos de maquetación</a></li>";
         
         // enlace a la gestión de errores (solamente administrador o rol de test)
-        if((Login::isAdmin() || Login::role('ROLE_TEST')) && (DB_ERRORS || LOG_ERRORS || LOG_LOGIN_ERRORS))
+        if((Login::oneRole(ERROR_ROLES)) && (DB_ERRORS || LOG_ERRORS || LOG_LOGIN_ERRORS))
             $html .=   "<li><a href='/Error/list'>Errores</a></li>";
         
             
         // enlace a las estadística de visitas (solamente administrador o rol de test)
-        if((Login::isAdmin() || Login::role('ROLE_TEST')))
+        if((Login::oneRole(STATS_ROLES)))
             $html .=   "<li><a href='/Stats'>Visitas</a></li>";
         
         // enlace a los tests de ejemplo (solamente administrador o rol de test)    
-        if((Login::isAdmin() || Login::role('ROLE_TEST')))
+        if((Login::oneRole(TEST_ROLES)))
             $html .=   "<li><a href='/Test'>Lista de test</a></li>";
     
         $html .= "</menu>";
@@ -426,7 +426,22 @@ class Base implements TemplateInterface{
      * @return string
      */
     public function version(){
-        return SHOW_VERSION ? "<p id='version' class='right m0 mx1 italic mini'>".CURRENT_VERSION."</p>" : "";
+        $text = '';
+        
+        if(SHOW_VERSION){
+            $text .= "<p id='version' class='right m1 italic mini'>";
+            $text .= APP_NAME." ";
+            $text .= "versión ".APP_VERSION;
+            $text .= " para ".TESTED_PHP_VERSION;
+            $text .= " con ".DATABASE_VERSION;
+            
+            if(SHOW_CURRENT_PHP_VERSION) 
+                $text .= ". Actualmente funcionando en PHP ".phpversion();
+            
+            $text .="</p>";
+        }
+
+        return $text;
     }
 }
 

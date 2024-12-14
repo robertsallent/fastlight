@@ -18,8 +18,6 @@ Autor: Robert Sallent
 	- Método xml() en Response
 	- Método header() en Response que permite añadir un header
 	- Método headers() en Response que permiten añadir una lista de headers
-	- Método header() en Request que permite recuperar un header
-	- Método headers() en Request que permite recuperar los headers a modo de array asociativo
 	- Estudiar la posibilidad de tener JsonRequest y XmlRequest
 
 - LIBRARIES

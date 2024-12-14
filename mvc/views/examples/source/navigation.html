@@ -21,72 +21,74 @@
     </menu>
     
     
+    <section>
+	    <h2>Migas</h2>
+	    
+	    <p>Para hacer el "migas", usamos un elemento <code>nav</code> de clase <code>breadcrumbs</code>.
+	       La lista con los enlaces se encuentra dentro del elemento <code>nav</code>.</p>
+	       
+	    <p>Este migas de ejemplo tiene las clases: <code>breadcrumbs</code> y <code>dashed-border</code>.</p>
+	    
+	    <p>La creación del "migas" <b>se puede automatizar</b>, usando el método <code>breadCrumbs()</code> del objeto 
+	    <code>$template</code> que tendremos disponible en todas las vistas. Este método recibe
+	    un array asociativo con pares de <i>textoEnlace => url</i>. Para más información
+	    consultad la documentación del método.</p>
+	    
+	    
+	    <nav aria-label='Breadcrumb' class='breadcrumbs dashed-border'>
+	    	<ul>
+	    		<li><a href='/'>Inicio</a></li>
+	    		<li><a href='#'>Categoria</a></li>
+	    		<li><a href='#'>Sección</a></li>
+	    		<li>Página</li>
+	    	</ul>
+	    </nav>
+	    
+	    <p>Si no queremos mostrar el "migas" en pantallas pequeñas, podemos añadirle la clase <code>pc</code>. 
+	    Los elementos de clase <code>pc</code> no se muestran en pantallas de teléfono.</p>
+	</section>    
     
-    <h2>Migas</h2>
-    
-    <p>Para hacer el "migas", usamos un elemento <code>nav</code> de clase <code>breadcrumbs</code>.
-       La lista con los enlaces se encuentra dentro del elemento <code>nav</code>.</p>
-       
-    <p>Este migas de ejemplo tiene las clases: <code>breadcrumbs</code> y <code>dashed-border</code>.</p>
-    
-    <p>La creación del "migas" <b>se puede automatizar</b>, usando el método <code>breadCrumbs()</code> del objeto 
-    <code>$template</code> que tendremos disponible en todas las vistas. Este método recibe
-    un array asociativo con pares de <i>textoEnlace => url</i>. Para más información
-    consultad la documentación del método.</p>
-    
-    
-    <nav aria-label='Breadcrumb' class='breadcrumbs dashed-border'>
-    	<ul>
-    		<li><a href='/'>Inicio</a></li>
-    		<li><a href='#'>Categoria</a></li>
-    		<li><a href='#'>Sección</a></li>
-    		<li>Página</li>
-    	</ul>
-    </nav>
-    
-    <p>Si no queremos mostrar el "migas" en pantallas pequeñas, podemos añadirle la clase <code>pc</code>. 
-    Los elementos de clase <code>pc</code> no se muestran en pantallas de teléfono.</p>
-    
-    
-    <h2>Mapa web</h2>
-    
-    <p>El mapa web simplemente es un elemento de navegación con clase <code>web-map</code>.
-       En su interior podemos colocar listas, con o sin sublistas, en columnas.</p>
-       
-    <p>Podemos <b>automatizar la creación del mapa web</b> usando el método <code>map()</code>
-    del objeto <code>$template</code>, disponible en todas las vistas. Para más información
-    consultad la documentación del método.</p>   
-    
-	<nav class="web-map">  
-    	<ul class="flex-container">
-    		<li class="flex1"><a href="#">Categoría</a>
-    			<ul>
-	    			<li><a href="#">Sección</a></li>
-	    			<li><a href="#">Sección</a></li>
-	    			<li><a href="#">Sección</a></li>
-    			</ul>
-    		</li>
-    		<li class="flex1"><a href="#">Categoría</a>
-    			<ul>
-	    			<li><a href="#">Sección</a></li>
-	    			<li><a href="#">Sección</a></li>
-	    			<li><a href="#">Sección</a></li>
-    			</ul>
-    		</li>
-    		<li class="flex1"><a href="#">Categoría</a>
-    			<ul>
-	    			<li><a href="#">Sección</a></li>
-	    			<li><a href="#">Sección</a></li>
-	    			<li><a href="#">Sección</a></li>
-    			</ul>
-    		</li>
-    		<li class="flex1"><a href="#">Categoría</a>
-    			<ul>
-	    			<li><a href="#">Sección</a></li>
-	    			<li><a href="#">Sección</a></li>
-	    			<li><a href="#">Sección</a></li>
-    			</ul>
-    		</li>
-    	</ul>
-    </nav>
+    <section>
+	    <h2>Mapa web</h2>
+	    
+	    <p>El mapa web simplemente es un elemento de navegación con clase <code>web-map</code>.
+	       En su interior podemos colocar listas, con o sin sublistas, en columnas.</p>
+	       
+	    <p>Podemos <b>automatizar la creación del mapa web</b> usando el método <code>map()</code>
+	    del objeto <code>$template</code>, disponible en todas las vistas. Para más información
+	    consultad la documentación del método.</p>   
+	    
+		<nav class="web-map">  
+	    	<ul class="flex-container">
+	    		<li class="flex1"><a href="#">Categoría</a>
+	    			<ul>
+		    			<li><a href="#">Sección</a></li>
+		    			<li><a href="#">Sección</a></li>
+		    			<li><a href="#">Sección</a></li>
+	    			</ul>
+	    		</li>
+	    		<li class="flex1"><a href="#">Categoría</a>
+	    			<ul>
+		    			<li><a href="#">Sección</a></li>
+		    			<li><a href="#">Sección</a></li>
+		    			<li><a href="#">Sección</a></li>
+	    			</ul>
+	    		</li>
+	    		<li class="flex1"><a href="#">Categoría</a>
+	    			<ul>
+		    			<li><a href="#">Sección</a></li>
+		    			<li><a href="#">Sección</a></li>
+		    			<li><a href="#">Sección</a></li>
+	    			</ul>
+	    		</li>
+	    		<li class="flex1"><a href="#">Categoría</a>
+	    			<ul>
+		    			<li><a href="#">Sección</a></li>
+		    			<li><a href="#">Sección</a></li>
+		    			<li><a href="#">Sección</a></li>
+	    			</ul>
+	    		</li>
+	    	</ul>
+	    </nav>
+   </section>
 </main> 

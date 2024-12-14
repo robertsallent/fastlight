@@ -38,7 +38,9 @@ class Stat extends Model{
      */
     private static function add(string $url):int{
         $stat = new self();
-        $stat->url = $url;              
+        $stat->url = $url; 
+        $stat->ip  = Request::take()->ip;
+        $stat->user  = Request::take()->user ? Request::take()->user->email : NULL;
         return $stat->save() ? 1 : 0;
     }    
     
@@ -68,6 +70,16 @@ class Stat extends Model{
      */
     public static function saveOrIncrement(string $url):int{
         return self::statExists($url) ? self::increment($url) : self::add($url);
+    }
+    
+    
+    /**
+     * Vacía la tabla de estadísticas en la base de datos.
+     *
+     * @return int número de estadísticas borradas.
+     */
+    public static function clear():int{
+        return (DB_CLASS)::delete("DELETE FROM ".STATS_TABLE);
     }
     
 }

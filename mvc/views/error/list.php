@@ -60,16 +60,10 @@
         			     
         			if($errores) { ?>
      	
-         				<div class="flex-container">
-         					<div class="flex1">
-            					<a class="button button-danger" href="/Error/clear">Vaciar lista</a>
-            				</div>
-            				<div class="flex1 derecha">
-            					<?= $paginator->stats()?>
-            				</div>
-            			</div>
-            			
-            			
+        				<div class="derecha">
+        					<?= $paginator->stats()?>
+        				</div>
+        		
             			<table class="table w100">
                 			<tr>
                 				<th>Fecha</th>
@@ -105,6 +99,10 @@
                 		
                 		<?= $paginator->ellipsisLinks() ?>
             		
+     					<div>
+        					<a class="button button-danger" href="/Error/clear">Vaciar lista</a>
+        				</div>
+
             		<?php }else{ ?>
             			<div class="success my2">
             				<p>No hay errores que mostrar.</p>
@@ -116,7 +114,12 @@
         		<?php if(LOG_ERRORS || LOG_LOGIN_ERRORS){ ?>
         		<section>
             		<h2>Ficheros de LOG</h2>
-            		<p>Los ficheros de log sirven para registrar errores en disco.</p>
+            		<p>Los ficheros de <i>log</i> sirven para guardar los errores producidos en ficheros. 
+            		Sus datos no se borran al vaciar la lista de errores, para hacerlo 
+            		se debe eliminar expresamente el fichero pulsando el botón "borrar" o directamente en el sistema de 
+            		ficheros del servidor.</p>
+            		
+            		<p class="mini">TODO: limitar el tamaño máximo de los ficheros.</p>
             		
             		<h3>Descargar</h3>
             		

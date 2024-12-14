@@ -4,14 +4,17 @@
  * 
  * Permitirá acceder a los datos de la petición fácilmente desde los controladores.
  * 
- * Última modificación: 15/07/2024.
+ * Última modificación: 11/12/2024.
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.6.5
  * @since v0.9.4 añadida propiedad $previousUrl y método sameAsPrevious()
  * @since v1.0.2 añadido métodos fromJson() y fromXML()
  * @since v1.3.0 añadido el método header()
+ * @since v1.4.2 añadida la propiedad $ip
+ * @since v1.4.2 añadido el método headers()
  */
+
 
 class Request{
     
@@ -31,6 +34,9 @@ class Request{
     /** @var string|null $csrfToken token CSRF que llega con la petición. */
     public ?string $csrfToken;
     
+    /** @var string|null $ip ip del cliente */
+    public ?string $ip;
+    
     /** @var $previousInputs inputs de la petición anterior, útil para recuperar los 
      *  valores de la petición anterior en los formularios y evitar que se borren cuando
      *  se produce un error. 
@@ -47,6 +53,7 @@ class Request{
         $this->user   = Login::user(); // mete el usuario identificado en la Request
         $this->url    = URL::get();    // mete la URL en la request
         $this->method = strtoupper($_SERVER['REQUEST_METHOD']); // método de la petición
+        $this->ip     = $_SERVER['REMOTE_ADDR'];
         
         // token CSRF que llega en los headers
         $this->csrfToken = HttpHeader::get('csrf_token');  
@@ -92,6 +99,7 @@ class Request{
     
     /**
      * Permite recuperar el objeto Request desde cualquier punto de nuestro programa.
+     * Como alternativa podemos usar el método estático Kernel::getRequest() o el helper request().
      * 
      * @return Request
      */
@@ -242,12 +250,22 @@ class Request{
      *
      * @return string|NULL valor recuperado o NULL si no existe .
      */
-    public function header(
-        string $name        // nombre del encabezado a recuperar
-    ):?string{
+    public function header(string $name):?string{
         return HttpHeader::get($name);
     }
+    
+    
+    
+    /**
+     * Retorna todas las cabeceras recibidas en la Request.
+     * 
+     * @return array lista con las cabeceras recibidas.
+     */
+    public function headers():array{
+        return HttpHeader::all();
+    }
       
+    
     
     /**
      * Retorna un array con todas las entradas de $_POST saneadas.

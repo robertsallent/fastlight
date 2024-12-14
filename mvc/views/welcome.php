@@ -35,7 +35,7 @@
         		
     		   	<p>Este <i>framework</i> está <b>pensado para docencia</b>, con lo que incorpora las 
     		   	 características  esenciales para desarrollo de una aplicación web rápida, sólida y fiable, pero no
-    			  incluye muchas funcionalidades complejas que desarrollamos en clase. </p>
+    			  incluye algunas funcionalidades complejas que desarrollamos en clase (pero que encontraréis en la documentación). </p>
     			  
     			<p>Todas las herramientas que incorpora han sido creadas expresamente para él, aunque 
     		       está basado en <i>frameworks</i> <code>PHP</code> anteriores que he ido implementando desde 2013, 
@@ -95,27 +95,40 @@
                </div>
            </section>
            
-           <section class="warning">
+            <section class="warning">
 		    	<h2>IMPORTANTE</h2>
 		    	<p>En unos meses <b>se hará pública la documentación</b> sobre cómo implementar proyectos
 		    	web completos haciendo uso de este framework. Estad atentos a mi 
  				<a href='https://www.linkedin.com/in/robert-sallent-l%C3%B3pez-4187a866'>LinkedIn</a>.</p>
 		    </section>
-		   	  
-		   	<section>
-		   	 	<h2>Consideraciones</h2>
-    		   	<p>Ha sido desarrollado completamente desde cero por 
-    		   		<a href="https://robertsallent.com">Robert Sallent</a> y no tiene dependencias
-    		   	   con paquetes externos. Su funcionamiento se explica en detalle en los cursos de <a href="https://php.net">PHP</a> y desarrollo web, 
-    		   	   que imparte desde 2010, en distintos <a href="https://serveiocupacio.gencat.cat/es/soc/com-ens-organitzem/centres-propis-formacio-cifo-cfpa/centres-dinnovacio-i-formacio-ocupacional-cifo/index.html">Centros de Innovación y Formación Ocupacional</a> (CIFO) 
-    		   	   de la província de Barcelona para la Generalitat de Catalunya.</p>
-    		   	   
-    	   	   <p>En la carpeta <code>database_examples</code> se encuentra el SQL para una pequeña
-        		   base de datos de test. Contiene también el ejemplo de la 
-        		   estructura para de tabla users y algunos usuarios de ejemplo.</p>
-    		   
-		   </section>
-		   	   
+		    
+		   <div class="flex-container gap2 space-between"> 
+               <section class="flex1">
+               		<h2>Requisitos</h2>
+               		<p>En docencia, trabajamos cada año	con las últimas versiones de 
+               		<code>PHP</code>. En este sentido, el código del <i>framework</i> se va adaptando 
+               		para funcionar en versiones nuevas, eliminando el soporte para las antiguas.</p>
+               		 
+               		<p>Actualmente, <b>la versión <?= APP_VERSION ?> del framework</b> ha sido 
+               		testeada en <b><?= TESTED_PHP_VERSION ?></b> con <b><?= DATABASE_VERSION ?></b>.
+               		Esto no quiere decir que no funcione en versiones ligeramente anteriores o posteriores,
+               		pero no se garantiza que lo haga.</p>
+               </section>
+               
+               <section class="flex1 gap2 space-between">
+    		   	 	<h2>Consideraciones</h2>
+        		   	<p>Ha sido desarrollado completamente desde cero por 
+        		   		<a href="https://robertsallent.com">Robert Sallent</a> y no tiene dependencias
+        		   	   con paquetes externos. Su funcionamiento se explica en detalle en los cursos de <a href="https://php.net">PHP</a> y desarrollo web, 
+        		   	   que imparte desde 2010, en distintos <a href="https://serveiocupacio.gencat.cat/es/soc/com-ens-organitzem/centres-propis-formacio-cifo-cfpa/centres-dinnovacio-i-formacio-ocupacional-cifo/index.html">Centros de Innovación y Formación Ocupacional</a> (CIFO) 
+        		   	   de la província de Barcelona para la Generalitat de Catalunya.</p>
+        		   	   
+        	   	   <p>En la carpeta <code>database_examples</code> se encuentra el SQL para una pequeña
+            		   base de datos de test. Contiene también el ejemplo de la 
+            		   estructura para de tabla users y algunos usuarios de ejemplo.</p>
+        		   
+    		   </section>
+		   	</div>   
 		</main>
 		
 		<!-- este mapa web solamente se muestra en pantallas grandes -->

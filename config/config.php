@@ -52,19 +52,20 @@ define('AUTOLOAD_DIRECTORIES',  [
 define('APP_NAME','FastLight Framework');   // Título de la aplicación.
 define('APP_TYPE', 'WEB');                  // Tipo de aplicación: WEB o API.
 
-// versión actual del framework (cambiar por la de la aplicación)
-define('CURRENT_VERSION', 'versión 1.4.1 (10/12/2024)'); 
-define('SHOW_VERSION', true); 
+// versión actual del framework (o la aplicación desarrollada) y de PHP
+// se pueden cambiar estos datos por los de la aplicación que estemos desarrollando
+define('APP_VERSION', '1.4.2'); 
+define('TESTED_PHP_VERSION', 'PHP 8.1.1 y PHP 8.2.12');      // minima testeada (no quiere decir que no funcione en anteriores pero...) 
+define('DATABASE_VERSION', 'MySQL 5.7, MySQL 8+ y MariaDB 10.4+');  // minima testeada
+
+define('SHOW_VERSION', true);             // muestra la versión de la app en el footer (templates/Base.php)
+define('SHOW_CURRENT_PHP_VERSION', true); // muestra la versión de PHP en el footer (templates/Base.php)
 
 define('HTTP_VERSION', '1.1'); // versión de HTTP a usar.
 
 // Controlador y método por defecto (solamente para APP_TYPE WEB).
 define('DEFAULT_CONTROLLER', 'WelcomeController');
 define('DEFAULT_METHOD', 'index');
-
-// Si queremos guardar estadísticas del número de visitas de cada URL
-define('SAVE_STATS', true);
-define('STATS_TABLE', 'stats'); // nombre de la tabla en la BDD
    
 // Email del administrador, para la operación de "contacto"
 define('ADMIN_EMAIL', 'robert@juegayestudia.com');
@@ -207,8 +208,11 @@ define('DEBUG_INFO', [
 define('LOG_ERRORS', true);                        // Guardar errores en fichero de log.
 define('ERROR_LOG_FILE', '../logs/error.log');     // Nombre del fichero de log.
 
-define('DB_ERRORS', true);                        // Guardar errores en la base de datos.
+define('DB_ERRORS', true);                         // Guardar errores en la base de datos.
 define('ERROR_DB_TABLE', 'errors');                // Nombre de la tabla en la BDD para los errores.
+
+// usuarios que tienen acceso al listado de errores
+define('ERROR_ROLES', [ADMIN_ROLE, 'ROLE_TEST']);
 
 // usar vistas personalizadas de error 401, 403...
 // se deben colocar en el directorio de vistas en la subcarpeta httperrors y el nombre
@@ -221,10 +225,31 @@ define('USE_CUSTOM_ERROR_VIEWS', true);
  * TESTS Y EJEMPLOS
  * -------------------------------------------------------------*/
 
-define('TEST_FOLDER', '../test');  // Carpeta para los test.
-define('EXAMPLE_FOLDER', '../mvc/views/examples/source');  // Carpeta para los ejemplos de maquetación.
+// Carpeta para los test.
+define('TEST_FOLDER', '../test');  
 
+// roles que tienen autorización para ver y ejecutar test
+define('TEST_ROLES', [ADMIN_ROLE, 'ROLE_TEST']); 
+
+// Carpeta para los ejemplos de maquetación.
+define('EXAMPLE_FOLDER', '../mvc/views/examples/source'); 
    
+
+/* -------------------------------------------------------------
+ * ESTADÍSTICAS DE VISITAS
+ * -------------------------------------------------------------*/
+
+// Si queremos guardar estadísticas del número de visitas de cada URL
+define('SAVE_STATS', true);
+
+// nombre de la tabla para las estadísticas de visitas en la BDD
+define('STATS_TABLE', 'stats');
+
+// roles que tienen autorización para ver las estadísticas
+define('STATS_ROLES', [ADMIN_ROLE, 'ROLE_TEST']);
+
+
+
 /* -------------------------------------------------------------
  * API
  * -------------------------------------------------------------*/

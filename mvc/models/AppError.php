@@ -7,7 +7,7 @@
  *
  * @author: Robert Sallent <robert@juegayestudia.com>
  * 
- * Última revisión: 16/04/2024
+ * Última revisión: 12/12/2024
  */
 
 #[\AllowDynamicProperties]
@@ -16,29 +16,39 @@ class AppError extends Model{
     /** @var string $table nombre de la tabla en la base de datos */ 
     protected static string $table = ERROR_DB_TABLE;
     
+    
+    
     /**
      * Permite crear un nuevo objeto AppError y guardarlo en base de datos.
      * 
      * @static  
      * @param string $level     nivel de severidad o tipo de error
      * @param string $message   mensaje
+     * 
      * @return void
      */
     public static function new(
         string $level = 'Error', 
         string $message = ''     
     ){
-        $error = new self();
+        // crea un nuevo objeto AppError
+        $e = new self();
         
-        $error->level = $level;
-        $error->url = $_SERVER['REQUEST_URI'];
-        $error->message = (DB_CLASS)::escape($message);
-        $error->user = Login::user() ? Login::user()->email : NULL;
-        $error->ip = $_SERVER['REMOTE_ADDR'];
+        // prepara el nivel y el mensaje de error
+        $e->level   = $level;
+        $e->message = (DB_CLASS)::escape($message);
+        
+        // recupera la URL, usuario e IP de la Request
+        $request    = Request::take();
+        $e->url     = $request->url;
+        $e->user    = $request->user ? $request->user->email : NULL;
+        $e->ip      = $request->ip;
         
         // guarda el error en base de datos
-        $error->save();
+        $e->save();
     }    
+    
+    
     
     /**
      * Vacía la tabla de errores en la base de datos.
@@ -48,6 +58,8 @@ class AppError extends Model{
     public static function clear():int{
         return (DB_CLASS)::delete("DELETE FROM ".ERROR_DB_TABLE);
     }
+    
+    
     
     /**
      * Elmina los últimos errores.

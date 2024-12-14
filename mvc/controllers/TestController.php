@@ -36,8 +36,10 @@ class TestController extends Controller{
     ){
         
        // solamente podrá lanzar test el administrador o un usuario con ROLE_TEST
-       Auth::oneRole([ADMIN_ROLE, "ROLE_TEST"]);
+       Auth::oneRole(TEST_ROLES);
        
+       
+       // en el caso de que se solicite el índice de tests...
        if($method == "index"){
            // recupera la lista de tests
            $tests = FileList::get(TEST_FOLDER, ['php']);
@@ -48,10 +50,18 @@ class TestController extends Controller{
            return;
        }
        
-       // en caso contrario se está solicitando un test concreto...  
-       // carga la vista que mostrará el resultado de ejecutar el test
-       view('test/frame', ["test" => $method]);
-    }
-    
+       // en caso contrario se está solicitando un test concreto  
+       
+       // primero comprobaremos si existe y es legible
+       $fileToLoad = new File(TEST_FOLDER."/".str_replace('-','/', $method).".php");
+       
+       if(!$fileToLoad->isReadable())
+           throw new NotFoundException("No se encontró el test $method.");
+           
+       // y luego cargaremos la vista que mostrará el resultado de ejecutar el test
+       view('test/frame', [
+           "test" => $method,
+           "file" => $fileToLoad
+       ]);
+    }    
 }
-

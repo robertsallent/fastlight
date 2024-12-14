@@ -1,10 +1,13 @@
 <?php
 
-/*
+/**
  * Funciones helper para realizar tareas habituales.
  * 
- * Última revisión: 15/07/2024
+ * Última revisión: 14/12/2024
+ * 
  * @author Robert Sallent <robertsallent@gmail.com>
+ * @since v1.4.2 añadido el helper request() que retorna el objeto Request con información de la petición.
+ * @since v1.4.2 añadido el helper user() que retorna el usuario identificado.
  * 
 */
 
@@ -122,7 +125,25 @@ function paragraph(
 
 /*
  |--------------------------------------------------------------------------
- | TRABAJANDO CON RESPONSES Y VIEWS
+ | REQUESTS
+ |--------------------------------------------------------------------------
+ */
+
+
+/**
+ * Retorna la petición mediante un objeto de tipo Request.
+ *
+ * @return Request el objeto Request con la información de la petición.
+ */
+function request(){
+    return Kernel::getRequest();
+}
+
+
+
+/*
+ |--------------------------------------------------------------------------
+ | RESPONSES Y VIEWS
  |--------------------------------------------------------------------------
  */
 
@@ -214,6 +235,22 @@ function abort(
 
 
 
+/*
+ |--------------------------------------------------------------------------
+ | USUARIOS
+ |--------------------------------------------------------------------------
+ */
+
+
+/**
+ * Retorna el usuario identificado en la sesión.
+ * 
+ * @return User el usuario identificado
+ */
+function user(){
+    return Login::user();    
+}
+
 
 
 /*
@@ -287,14 +324,6 @@ function csrf():string{
     // retorna un input hidden para colocarlo en el formulario
     return CSRF::createInput();
 }
-
-
-/*
- |--------------------------------------------------------------------------
- | HTTP
- |--------------------------------------------------------------------------
- */
-
 
 
 

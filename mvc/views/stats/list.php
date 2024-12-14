@@ -13,10 +13,7 @@
     		<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
     		
     		<!-- CSS -->
-    		<?= $template->css() ?>
-    		
-    		<!-- JS -->
-    		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    		<?= $template->css() ?>    		
     	</head>
     	<body>
     		<?= $template->login() ?>
@@ -45,26 +42,27 @@
         			     $template->filterForm(
             			     [
             			         'URL' => 'url',
+            			         'Último usuario' => 'user',
+            			         'Última IP' => 'ip',
             			     ],
             			     [
             			         'URL'    => 'url',
             			         'Cuenta' => 'count',
             			         'Primera visita'     => 'created_at',
-            			         'Última visita'  => 'updated_at'
+            			         'Última visita'  => 'updated_at',
+            			         'Último usuario' => 'user',
             			     ], 
             			     'URL',
             			     'Cuenta'
 		            );
 
         			     
-        			if($stats) { ?>
-     	
-         				
+        			if($stats) { ?> 					
+
         				<div class="derecha">
         					<?= $paginator->stats()?>
         				</div>
-            		
-            			
+            		           		         			
             			
             			<table class="table w100">
                 			<tr>
@@ -72,6 +70,8 @@
                 				<th>Visitas</th>
                 				<th>Primera visita</th>
                 				<th>Última visita</th>
+                				<th>Último usuario</th>
+                				<th>Última IP</th>
                 			</tr>
                     		<?php foreach($stats as $stat){ ?>
                 				<tr>
@@ -80,21 +80,25 @@
                     				
                     				<td><?=$stat->created_at?></td>
                     				<td><?=$stat->updated_at ?? 'Sin datos'?></td>
+                    				<td><?=$stat->user ?? 'Sin datos'?></td>
+                    				<td><?=$stat->ip ?? 'Sin datos'?></td>
                 			   </tr>
                     		<?php } ?>
                 		</table>
                 		
                 		<?= $paginator->ellipsisLinks() ?>
             		
+            			<div>
+        					<a class="button button-danger" href="/Stats/clear">Vaciar lista</a>
+        				</div>
+            				
             		<?php }else{ ?>
             			<div class="warning my2">
             				<p>No hay estadísticas que mostrar.</p>
             			</div>
-            		<?php } ?>
-            	
+            		<?php } ?>            	
             	<?php } ?>
-        		
-        		
+        			
     		</main>
     		<?= $template->footer() ?>
     		<?= $template->version() ?>

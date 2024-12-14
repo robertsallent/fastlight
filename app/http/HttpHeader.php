@@ -9,6 +9,7 @@
  *
  *   @author Robert Sallent <robertsallent@gmail.com>
  *   @since v1.3.0
+ *   @since v1.4.2 añadido el método all() que retorna un array con todas las cabeceras recibidas
  */
 class HttpHeader{
     
@@ -36,6 +37,18 @@ class HttpHeader{
      */
     public static function get(string $name):?string{
         return apache_request_headers()[$name] ?? null;
+    }
+    
+    
+    
+    /**
+     * Recupera todos los encabezados HTTP
+     *
+     *
+     * @return array lista de todas las cabeceras HTTP
+     */
+    public static function all():array{
+        return apache_request_headers();
     }
     
     

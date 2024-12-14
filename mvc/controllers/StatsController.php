@@ -63,7 +63,7 @@ class StatsController extends Controller{
      */
     public function destroy(int $id = 0){
         
-        Auth::oneRole([ADMIN_ROLE, "ROLE_TEST"]); 
+        Auth::oneRole(STATS_ROLES); 
         
         try{
             Stat::delete($id);
@@ -76,6 +76,34 @@ class StatsController extends Controller{
             if(DEBUG)
                 throw new ControllerException($e->getMessage());
             
+            redirect("/Stats/list");
+        }
+    }
+    
+    
+    
+    /**
+     * Vacía la tabla de estadísticas de la base de datos.
+     *
+     * @throws Exception si no puede vaciar la tabla.
+     */
+    public function clear(){
+        
+        // operación solamente para los roles autorizados a trabajar con errores
+        // se configura en el fichero de configuración
+        Auth::oneRole(STATS_ROLES);
+        
+        try{
+            $rows = Stat::clear();
+            Session::success("Lista de estadísticas vaciada correctamente. Se eliminaron $rows registros.");
+            redirect("/Stats/list");
+            
+        }catch(SQLException $e){
+            Session::error("No se pudo vaciar la lista de estadísticas.");
+            
+            if(DEBUG)
+                throw new ControllerException($e->getMessage());
+                
             redirect("/Stats/list");
         }
     }

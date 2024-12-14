@@ -24,8 +24,9 @@ class ErrorController extends Controller{
      */
     public function list(int $page = 1){
         
-        // operación solamente para el administrador o usuario con rol de test
-        Auth::oneRole([ADMIN_ROLE, "ROLE_TEST"]); 
+        // operación solamente para los roles autorizados a trabajar con errores
+        // se configura en el fichero de configuración
+        Auth::oneRole(ERROR_ROLES); 
         
         // Comprobar si hay filtros a aplicar/quitar/recuperar de sesión
         $filtro = Filter::apply('errores');
@@ -45,6 +46,7 @@ class ErrorController extends Controller{
               AppError::filter($filtro, $limit, $paginator->getOffset()):         // filtrados
               AppError::orderBy('date', 'DESC', $limit, $paginator->getOffset()); // sin filtrar
         
+              
         // cargamos la vista y le pasamos la lista de entidades, el paginador y el filtro
         view('error/list', [
             'errores'   => $errores,
@@ -63,7 +65,9 @@ class ErrorController extends Controller{
      */
     public function destroy(int $id = 0){
         
-        Auth::oneRole([ADMIN_ROLE, "ROLE_TEST"]); 
+        // operación solamente para los roles autorizados a trabajar con errores
+        // se configura en el fichero de configuración
+        Auth::oneRole(ERROR_ROLES); 
         
         try{
             AppError::delete($id);
@@ -88,7 +92,10 @@ class ErrorController extends Controller{
      * @throws Exception si no puede vaciar la tabla.
      */
     public function clear(){
-        Auth::admin(); // operación solamente para el administrador
+        
+        // operación solamente para los roles autorizados a trabajar con errores
+        // se configura en el fichero de configuración
+        Auth::oneRole(ERROR_ROLES); 
         
         try{
             $rows = AppError::clear();
@@ -115,7 +122,9 @@ class ErrorController extends Controller{
     public function download(
         string $fileType = 'errors'
     ){
-        Auth::admin(); // operación solamente para el administrador
+        // operación solamente para los roles autorizados a trabajar con errores
+        // se configura en el fichero de configuración
+        Auth::oneRole(ERROR_ROLES); 
         
         switch($fileType){
             case 'errors' : (new File(ERROR_LOG_FILE))->download();     
@@ -136,7 +145,9 @@ class ErrorController extends Controller{
     public function erase(
         string $fileType = 'errors'
     ){
-        Auth::admin(); // operación solamente para el administrador
+        // operación solamente para los roles autorizados a trabajar con errores
+        // se configura en el fichero de configuración
+        Auth::oneRole(ERROR_ROLES); 
 
         switch($fileType){
             case 'errors' : $ok = File::remove(ERROR_LOG_FILE);      

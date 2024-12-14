@@ -10,7 +10,7 @@
     
     <p>El helper <code>oldChecked()</code> se usa para los checkboxes y botones de radio.</p>
     
-    <?php $request = Request::take(); ?>
+    <?php $request = request(); ?>
     
     <section>
         <h2>Old Inputs en la Request</h2>
@@ -19,7 +19,7 @@
         
             // fuerza una redirección extra tras el envio del formulario
             // lo hago para comprobar que los helpers funcionan correctamente
-            if(Request::take()->has('enviar')){
+            if(request()->has('enviar')){
                 redirect(URL::get());
             }
             
