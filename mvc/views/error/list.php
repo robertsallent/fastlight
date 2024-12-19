@@ -64,7 +64,7 @@
         					<?= $paginator->stats()?>
         				</div>
         		
-            			<table class="table w100">
+            			<table class="table w100 drop-shadow">
                 			<tr>
                 				<th>Fecha</th>
                 				<th>Tipo</th>
@@ -104,7 +104,7 @@
         				</div>
 
             		<?php }else{ ?>
-            			<div class="success my2">
+            			<div class="success my2 p3 centrado">
             				<p>No hay errores que mostrar.</p>
             			</div>
             		<?php } ?>

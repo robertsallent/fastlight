@@ -25,7 +25,7 @@
 		<main>
     		<h2>Error en la operación solicitada</h2>
     
-    		<div class='error'>
+    		<div class='danger p2'>
     			<?= $message ?? $mensaje ?? '' ?>
 			</div>
 			

@@ -64,7 +64,7 @@
         				</div>
             		           		         			
             			
-            			<table class="table w100">
+            			<table class="table w100 drop-shadow">
                 			<tr>
                 				<th>URL</th>
                 				<th>Visitas</th>
@@ -93,7 +93,7 @@
         				</div>
             				
             		<?php }else{ ?>
-            			<div class="warning my2">
+            			<div class="warning my2 p3 centrado">
             				<p>No hay estadísticas que mostrar.</p>
             			</div>
             		<?php } ?>            	

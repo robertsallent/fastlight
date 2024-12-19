@@ -4,23 +4,35 @@
  *
  * Se usa para generar las partes comunes de todas las vistas
  *
- * Última revisión: 25/07/2024
+ * Última revisión: 19/12/2024
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  *
  */
 class Base implements TemplateInterface{
     
-    /** lista de ficheros CSS para usar con este template */
+    /** lista de ficheros CSS para usar con este template 
+     * 
+     *    Si tienes otros templates que hereden de éste, puedes redefinir el array 
+     *    para usar otras hojas de estilo. En ese caso, sería interesante que la 
+     *    hoja de estilos principal que uses importe la hoja base.css 
+     *    
+     * */
     protected array $css = [
-        'standard'  => '/css/base.css',
-        'tablet'    => null,
-        'phone'     => '/css/phone.css',
-        'printer'   => '/css/printer.css'
+        'standard'  => '/css/base.css',     // hoja de estilo para PC
+        'tablet'    => null,                // hoja de estilo para tablet
+        'phone'     => '/css/phone.css',    // hoja de estilo para teléfono
+        'printer'   => '/css/printer.css'   // hoja de estilo para impresora    
     ];
     
-    /** media queries para cargar distintos ficheros para cada dispositivo
-     *  o resolución de pantalla. */
+    
+    
+    /** media queries para cargar distintos ficheros para cada dispositivo o resolución de pantalla.
+     * 
+     *      Se pueden cambiar los rangos de resolución para los distintos tipos de pantalla.
+     *      Adaptar al gusto.
+     *  
+     *  */
     protected array $mediaQueries = [
         'standard'  => 'screen',
         'tablet'    => 'screen and (max-width: 850px) and (min-width: 451px)',
@@ -30,22 +42,27 @@ class Base implements TemplateInterface{
     
     
     /* ****************************************************************************
-     * CSS
+     * CARGA DE FICHEROS CSS
      *****************************************************************************/
     
     /**
-     * Prepara el HTML con los links a todos los ficheros CSS configurados mediante 
-     * las propiedades $css y $mediaQueries.
+     * Prepara el HTML con las etiquetas <link> a todos los ficheros CSS, configurados mediante 
+     * las propiedades $css y $mediaQueries definidas más arriba.
      * 
      * @return string HTML con los links a los ficheros CSS.
      */
     public function css(){
         $html = "\n";
         
-        foreach($this->css as $device => $file)
-            if($file)
-                $html .= "\t\t<link rel='stylesheet' media='".($this->mediaQueries[$device])."' type='text/css' href='$file'>\n";
+        // para cada fichero CSS a cargar...
+        foreach($this->css as $device => $file){
             
+            // si no es null...
+            if($file){
+                // añade la etiqueta <link> para cargar el fichero CSS al HTML, incluyendo la media query
+                $html .= "\t\t<link rel='stylesheet' media='".($this->mediaQueries[$device])."' type='text/css' href='$file'>\n";
+            }
+        }
         return $html;
     }
     
@@ -131,32 +148,35 @@ class Base implements TemplateInterface{
      * @return string HTML del menú principal de la página.
      */
     public function menu(){ 
-        $html  = "<menu class='menu'>";
+        
+        // parte izquierda (operaciones para todos los usuarios)
+        $html = "<menu class='menu'>";
         $html .=   "<li><a href='/'>Inicio</a></li>";
-        $html .=   "<li><a href='https://github.com/robertsallent/fastlight'>Docs (TODO)</a></li>";
+        $html .=   "<li><a href='https://github.com/robertsallent/fastlight'>Documentación</a></li>";
         $html .=   "<li><a href='/Example'>Ejemplos de maquetación</a></li>";
+          
+        // parte derecha (solamente para usuarios concretos)
+ 
+        // enlace a los tests de ejemplo (solamente administrador o rol de test)
+        if((Login::oneRole(TEST_ROLES)))
+            $html .=   "<li><a href='/Test'>Test</a></li>";
         
-        // enlace a la gestión de errores (solamente administrador o rol de test)
-        if((Login::oneRole(ERROR_ROLES)) && (DB_ERRORS || LOG_ERRORS || LOG_LOGIN_ERRORS))
-            $html .=   "<li><a href='/Error/list'>Errores</a></li>";
-        
-            
         // enlace a las estadística de visitas (solamente administrador o rol de test)
         if((Login::oneRole(STATS_ROLES)))
             $html .=   "<li><a href='/Stats'>Visitas</a></li>";
         
-        // enlace a los tests de ejemplo (solamente administrador o rol de test)    
-        if((Login::oneRole(TEST_ROLES)))
-            $html .=   "<li><a href='/Test'>Lista de test</a></li>";
-    
+        // enlace a la gestión de errores (solamente administrador o rol de test)
+        if((Login::oneRole(ERROR_ROLES)) && (DB_ERRORS || LOG_ERRORS || LOG_LOGIN_ERRORS))
+            $html .=   "<li><a href='/Error/list'>Errores</a></li>";
+          
         $html .= "</menu>";
-
+        $html .= "</nav>";
+        
         return $html;
     } 
         
     
-    
-    
+
     /* ****************************************************************************
      * ACEPTAR COOKIES
      *****************************************************************************/
@@ -169,7 +189,7 @@ class Base implements TemplateInterface{
     public function acceptCookies(){
         return ACCEPT_COOKIES && !HttpCookie::get(ACCEPT_COOKIES_NAME) ?
             "<div class='modal'>
-            	<form method='POST' id='accept-cookies' action='/Cookie/accept'>
+            	<form method='POST' class='message' id='accept-cookies' action='/Cookie/accept'>
             		<h2>Aceptar cookies</h2>
             		<p>".paragraph(ACCEPT_COOKIES_MESSAGE)."</p>
             		<div class='centrado'>
@@ -234,7 +254,7 @@ class Base implements TemplateInterface{
         
         return ($mensaje = Session::getFlash('success')) ?
             "<div class='modal' onclick='this.remove()'>
-            	<div class='success-message'>
+            	<div class='message success'>
             		<h2>Operación realizada con éxito</h2>
             		<p>$mensaje</p>
             		<p class='mini cursiva'>-- Clic para cerrar --</p>
@@ -253,7 +273,7 @@ class Base implements TemplateInterface{
             
         return ($mensaje = Session::getFlash('warning')) ?
             "<div class='modal' onclick='this.remove()'>
-            	<div class='warning-message'>
+            	<div class='message warning'>
             		<h2>Hay advertencias:</h2>
             		<p>$mensaje</p>
             		<p class='mini cursiva'>-- Clic para cerrar --</p>
@@ -273,7 +293,7 @@ class Base implements TemplateInterface{
 
         return ($mensaje = Session::getFlash('error')) ?
             "<div class='modal' onclick='this.remove()'>
-            	<div class='error-message'>
+            	<div class='message danger'>
             		<h2>Se ha producido un error</h2>
             		<p>$mensaje</p>
             		<p class='mini cursiva'>-- Clic para cerrar --</p>

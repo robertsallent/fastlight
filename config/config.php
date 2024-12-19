@@ -19,12 +19,14 @@
  * 
  * Todas las directivas se encuentran documentadas en el mismo fichero config.php.
  * 
- * Última revisión: 20/05/24
+ * Última revisión: 14/12/24
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since 0.1.0
  * @since 1.0.0 se pueden configurar las vistas de error personalizadas
  * @since 1.1.5 añadidos los parámetros de configuración de subida de ficheros
  * @since 1.2.2 se puede configurar el mensaje de "aceptar cookies"
+ * @since 1.4.2 se pueden configurar los roles que pueden ver test, errores y ejemplos HTML
+ * @since 1.4.2 se puede indicar la versión de la aplicación, PHP y BDD.
  */
    
 
@@ -54,7 +56,7 @@ define('APP_TYPE', 'WEB');                  // Tipo de aplicación: WEB o API.
 
 // versión actual del framework (o la aplicación desarrollada) y de PHP
 // se pueden cambiar estos datos por los de la aplicación que estemos desarrollando
-define('APP_VERSION', '1.4.2'); 
+define('APP_VERSION', '1.4.3'); 
 define('TESTED_PHP_VERSION', 'PHP 8.1.1 y PHP 8.2.12');      // minima testeada (no quiere decir que no funcione en anteriores pero...) 
 define('DATABASE_VERSION', 'MySQL 5.7, MySQL 8+ y MariaDB 10.4+');  // minima testeada
 

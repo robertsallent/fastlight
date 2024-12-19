@@ -2,11 +2,10 @@
 -------------------------------------------------------------------------------------------------------------
 LISTA DE COSAS PENDIENTES - TODO LIST
 
-Lista de mecanismos y herramientas que se irán incorporando (o no) en próximas versiones
-del framework FastLight.
+Lista de mecanismos y herramientas que se irán incorporando (o no) en próximas versiones del framework FastLight.
 
 Autor: Robert Sallent
-Última revisión: 04/12/24
+Última revisión: 18/12/24
 
 -------------------------------------------------------------------------------------------------------------
 - CONFIG
@@ -23,8 +22,8 @@ Autor: Robert Sallent
 - LIBRARIES
 	- (v1.5.0) Revisar las respuestas HTTP y pasar métodos estáticos de cookies y headers a métodos de objeto.
 	- Nueva librería Cookie para crear y comprobar la existencia de cookies
-	- Añadir código HTTP a las redirecciones (Response::redirect()).
-	- Implementar un sistema de seeding (uso de faker?).
+	- Añadir el código HTTP a las redirecciones (Response::redirect()).
+	- ? Implementar un sistema de seeding (faker?).
 	- Mejorar el método XML::encode() para que sea recursivo y testearlo a fondo. Probarlo con APIs.
 
 - MODELO
@@ -33,27 +32,31 @@ Autor: Robert Sallent
 	
 - TEMPLATES Y VISTAS
 	- Mover las operaciones de view() hacia Response::view() y unificar parámetros y criterios. Testearlo todo.
-    - Panel del administrador (Log, operaciones con usuarios...).
 
-- HELPERS
-	- helper response() ?
-	- helper jsonResponse() ?
-	- helper xmlResponse()	?
+- TEST
+	- Mejorar la documentación y los ejemplos en los test.
+	- ? Separar por carpetas los distintos tipos de test, actualizando el índice para agrupar por carpeta.
 	
+- HELPERS
+	- helper response()
+	- ? helper jsonResponse()
+	- ? helper xmlResponse()
+		
 - API
 	- implementar mecanismo de API Keys	
 
 - PETICIONES ASÍNCRONAS.
-	- Añadir un controlador para procesar las peticiones asíncronas y retornar respuestas JSON (y XML?)
+	- Añadir un controlador específico para procesar las peticiones asíncronas y retornar respuestas JSON (XML?)
 
 - EXTRAS:
-	- En la vista del listado de errores, mostrar algunos gráficos de totales con chart.js
+	- ? En la vista del listado de errores, mostrar algunos gráficos de totales con chart.js
+	- Mejorar el mecanismo de password hashing para hacerlo más seguro 
 	
 
 -------------------------------------------------------------------------------------------------------------
  A evaluar... tal vez no se implemente por motivos docentes y se deja para los cursos de Laravel o Symfony
 -------------------------------------------------------------------------------------------------------------
-- Incoporar middleware.
+- Middleware.
 - Hacer uso de PSR4 para el autoload (poco probable que se implemente).
 
                 

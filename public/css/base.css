@@ -4,9 +4,10 @@
 	FICHERO BASE PARA LOS ESTILOS DE FASTLIGHT
 	
 	Autor: Robert Sallent
-	Última revisión: 28/11/2024
+	Última revisión: 19/12/2024
 
 	Estructura del documento CSS:
+	- Colores
 	- Regla para todos los elementos
 	- Clases para los elementos HTML (columnas, anchos genéricos, textos, elementos ocultos...)
 	- Reglas para los elementos básicos HTML
@@ -23,17 +24,74 @@
 		- Modales
 		- Mensajes de error y éxito
 
-
-
 	TODO list:
-	- Adaptar los templates y vistas a las clases definidas
+	- Adaptar los templates para hacer un uso correcto de las clases CSS
 	- Añadir más clases genéricas para las figuras e imágenes
 	- Limpiar un poco el código redundante
-	- Revisar a partir de "formularios" hasta el final
 	- Más comentarios
-	- Añadir algunas animaciones (rotar...)
+	- ?Añadir algunas animaciones (rotar...)
+	- ?Transiciones
 
 */
+
+/* =========================  VARIABLES ======================= */
+
+:root {
+  --primary-bg-color: rgb(60, 100, 160);
+  --primary-font-color: rgb(255, 255, 255);
+  --primary-soft-color: rgb(120, 160, 220);
+  
+  --secondary-bg-color: rgb(60, 160, 100);
+  --secondary-font-color: rgb(255, 255, 255);
+  --secondary-soft-color: rgb(100, 200, 140);
+
+  --shadow-color: rgba(60, 60, 60, 0.3);
+  --font-shadow-color: rgba(0, 0, 0, 0.3);
+  
+  --bg-color: white;
+  --font-color: rgb(100, 100, 120);
+  --border-color:  rgb(200, 200, 200);
+  
+  --a-color: rgb(60, 100, 180);
+  
+  --main-bg-color: rgb(250, 250, 253);
+  
+  
+  --th-bg-color: rgb(60, 100, 160);
+  --th-font-color: rgb(255, 255, 255);
+  
+  --td-odd-bg-color: rgb(255, 255, 255);
+  --td-even-bg-color: rgb(245, 245, 250);
+    
+  --tfoot-bg-color: rgb(160, 180, 220);
+  --tfoot-font-color: rgb(255, 255, 255);
+    
+  --form-bg-color: rgb(255, 255, 255);
+  --input-bg-color: rgb(250, 250, 250);
+  
+  --footer-bg-color: rgba(255, 255, 255, 0.85);
+  --modal-bg-color: rgba(120, 120, 120, 0.85);
+    
+  --success-bg-color: #dfd;
+  --success-font-color: #363;
+  --success-btn-color: rgb(100, 230, 100);
+  --success-btn-hover-color: rgb(110, 250, 110);
+  
+  --warning-bg-color: #ffd;
+  --warning-font-color: #663;
+  --warning-btn-color: rgb(220, 220, 60);
+  --warning-btn-hover-color: rgb(230, 230, 80);
+  
+  
+  --danger-bg-color: #fdd;
+  --danger-font-color: #753;
+  --danger-btn-color: rgb(230, 100, 100);
+  --danger-btn-hover-color: rgb(250, 120, 120); 
+  
+  --min-width: 280px; 
+}
+
+	
 
 /* =========================  PARA TODOS LOS ELEMENTOS ======================= */
 
@@ -56,7 +114,7 @@
 .flex-container>section, 
 .flex-container>div, 
 .flex-container>figure{
-	min-width: 200px;
+	min-width: var(--min-width);
 }
 
 .flex1{flex:1 }
@@ -74,8 +132,8 @@
 .gap4{ gap: 4% }
 .gap5{ gap: 5% }
 
-.space-between{	justify-content: space-between }
-.space-around {	justify-content: space-around  }
+.space-between			{	justify-content: space-between }
+.space-around 			{	justify-content: space-around  }
 
 
 /* Elementos flotantes ---------------------------------------------------- */
@@ -110,8 +168,13 @@
 .three-columns			{ column-count: 3 }
 .four-columns			{ column-count: 4 }
 
+
+.inline-block			{display: inline-block 	}
+.block					{display: block 		}
+.inline 				{display: inline 		}
+
 /* Cursores ---------------------------------------------------------------*/
-.pointer{	cursor: pointer; }
+.pointer				{ cursor: pointer }
 
 
 
@@ -194,8 +257,8 @@
 
 
 /* Sombras -----------------------------------------------------------------*/
-.drop-shadow { filter: drop-shadow(0px 0px 2px rgba(0,0,0,0.5)); }
-.box-shadow  { box-shadow: 0px 0px 2px rgba(0,0,0,0.5); }
+.drop-shadow { filter: drop-shadow(0px 0px 2px var(--shadow-color)) }
+.box-shadow  { box-shadow: 0px 0px 2px var(--shadow-color) }
 
 
 /* Posicionamiento  --------------------------------------------------------*/
@@ -235,10 +298,9 @@ p{
 }
 
 a{
-	color: inherit;
 	text-decoration: none;
 	cursor: pointer;
-	color: rgb(0, 128, 212);
+	color: var(--a-color);
 }
 
 pre{
@@ -251,7 +313,7 @@ pre{
 hr{
 	margin: 2rem auto;
 	width: 75%;
-	color: rgb(180, 200, 220);
+	color: var(--a-color);
 }
 
 code { font-size: 0.9rem }
@@ -259,15 +321,15 @@ code { font-size: 0.9rem }
 
 /* Bordes -------------------------------------------------------- */
 .border{
-	border: solid 1px rgb(120, 140, 200);
+	border: solid 1px var(--border-color);
 }
 
 .dashed-border{
-	border: dashed 1px rgb(120, 140, 200);
+	border: dashed 1px var(--border-color);
 }
 
 .dotted-border{
-	border: dotted 1px rgb(120, 140, 200);
+	border: dotted 1px var(--border-color);
 }
 
 
@@ -276,7 +338,7 @@ code { font-size: 0.9rem }
 .button, .button-light, .button-success, .button-warning, .button-danger{
 	display: inline-block;
 	white-space: nowrap;
-	color: white;
+	color: var(--primary-font-color);
 	font: caption;
 	font-size: 1.05em;
 	padding: 8px 20px;
@@ -284,53 +346,51 @@ code { font-size: 0.9rem }
 	border: none;
 	border-radius: 3px;
 	cursor: pointer;
-	box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	box-shadow: 0 1px 3px var(--shadow-color);
 }
 
 .button.current, .button.active{
-	border: solid 2px rgb(60, 100, 160);
+	border: solid 2px var(--primary-bg-color);
 }
 
 .button{
-	background-color: rgb(60, 100, 160);
+	background-color: var(--primary-bg-color);
 }
-
 .button:hover{
-	background-color: rgb(100, 140, 200);
+	background-color: var(--primary-soft-color);
 }
 
 .buttonLight, .button-light{
-	outline: solid 1px rgb(80, 120, 180);
-	color: rgb(60, 100, 160);
-	background-color: white;
+	outline: solid 1px var(--primary-bg-color);
+	color: var(--primary-bg-color);
+	background-color: var(--primary-font-color);
 }
 
 .buttonLight:hover, .button-light:hover{
-	background-color: rgb(100, 140, 200);
-	color: white;
+	outline: none;
+	background-color: var(--primary-soft-color);
+	color: var(--primary-font-color);
 }
 
 .button-success{
-	background-color: rgb(100, 230, 100);
+	background-color: var(--success-btn-color);
 }
-
 .button-success:hover{
-	background-color: rgb(120, 250, 120);
+	background-color: var(--success-btn-hover-color);
 }
 
 .button-danger, .button-error{
-	background-color: rgb(230, 100, 100);
+	background-color: var(--danger-btn-color);
 }
-
 .button-danger:hover, .button-error:hover{
-	background-color: rgb(250, 120, 120);
+	background-color: var(--danger-btn-hover-color);
 }
 
 .button-warning{
-	background-color: rgb(220, 220, 60);
+	background-color: var(--warning-btn-color);
 }
 .button-warning:hover{
-	background-color: rgb(230, 230, 80);
+	background-color: var(--warning-btn-hover-color);
 }
 
 
@@ -343,9 +403,9 @@ code { font-size: 0.9rem }
 
 .table th{
 	font-family: helvetica;
-	color: white;
-	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
-	background-color: rgb(60, 100, 160);
+	color: var(--th-font-color);
+	text-shadow: 2px 2px 2px var(--text-shadow);
+	background-color: var(--th-bg-color);
 	padding: 10px;
 	font-size: 1.1rem;
 	text-align: left;
@@ -356,11 +416,11 @@ code { font-size: 0.9rem }
 }
 
 .table tr:nth-of-type(odd){
-	background-color: white;
+	background-color: var(--td-odd-bg-color);
 }
 
 .table tr:nth-of-type(even){
-	background-color: #e9e9e9;
+	background-color: var(--td-even-bg-color);
 }
 
 .table tr, table td{
@@ -368,8 +428,9 @@ code { font-size: 0.9rem }
 }
 
 .table tfoot td{
-	background-color: #8ac;
+	background-color: var(--tfoot-bg-color);
 	color: white;
+	font-style: italic;
 	padding: 10px;
 }
 
@@ -429,7 +490,7 @@ figure.card{
 	background: white;
 	border-radius: 8px;
 	padding: 20px;
-	box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+	box-shadow: 0 4px 8px var(--shadow-color);
 }
 
 figure.x-small		{ max-width: 100px; }
@@ -481,11 +542,11 @@ figure.x-large		{ max-width: 800px; }
 form{
 	padding: 2%;
 	margin: 5px auto;
-	border: 1px solid #ccc;
+	border: 1px solid var(--border-color);
 	border-radius: 5px;
-	box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-	background-color: white;
-	min-width: 280px;
+	box-shadow: 1px 1px 2px var(--shadow-color);
+	background-color: var(--form-bg-color);
+	min-width: var(--min-width);
 }
 
 form h2{
@@ -496,13 +557,13 @@ form fieldset{
 	padding: 1%;
 	margin: 1%;
 	border-radius: 5px;
-	border: 1px solid #ccc;
-	min-width: 260px;
+	border: 1px solid var(--border-color);
+	min-width: var(--min-width);
 }
 
 form legend{
 	font-size: 0.8rem;
-	color: #333;
+	font-style: italic;
 }
 
 label{
@@ -527,8 +588,8 @@ input[type="checkbox"]+label, input[type="radio"]+label{
 input, select, textarea{
 	padding: 8px 12px;
 	min-width: 100px;
-	background-color: #f6f6f6;
-	border: solid 1px #ccd;
+	background-color: var(--input-bg-color);
+	border: solid 1px var(--border-color);
 }
 
 
@@ -549,8 +610,8 @@ input[type="color"]{
 textarea{
 	vertical-align: text-top;
 	resize: none;
-	min-width: 300px;
-	min-height: 200px;
+	min-width: var(--min-width);
+	min-height: 240px;
 }
 
 
@@ -580,10 +641,9 @@ td form{
 /* formulario de login ----------------------------------------------------- */
 
 #login{
-	min-width: 340px;
+	min-width: var(--min-width);
 	text-align: center;
 }
-
 
 
 /* Formulario para realizar búsquedas filtradas (en el Template) ------------ */
@@ -591,10 +651,10 @@ td form{
 #filtro{
 	padding: 8px;
 	margin: 5px auto;
-	border: 1px solid #ccc;
+	border: 1px solid var(--border-color);
 	border-radius: 5px;
 	box-shadow: 0 0 0 transparent;
-	background-color: white;
+	background-color: var(--form-bg-color);
 }
 
 #filtro select+input[type='radio']{
@@ -612,21 +672,17 @@ td form{
 /* Paginador -------------------------------------------------------- */
 .paginator-links{
 	text-align: center;
-	color: #33a;
+	color: var(--primary-bg-color);
 }
 
 .paginator-links .current{
-	background-color: white;
-	color: #99a;
+	background-color: var(--primary-font-color);
+	color: var(--primary-bg-color);
 }
 
 .paginator-stats{
 	text-align: right;
 }
-
-
-
-
 
 
 
@@ -643,7 +699,7 @@ td form{
 /* ========================= ESTRUCTURA DE LA PÁGINA ========================= */
 
 body{
-	color: rgb(90, 90, 110);
+	color: var(--font-color);
 	padding: 10px 2%;
 	font-family: arial, verdana, helvetica;
 	width: 100%;	
@@ -680,11 +736,10 @@ body>header hgroup{
 }
 
 body>header h1{
-	color: rgb(60, 100, 160);
-	background-color: #fffe;
+	color: var(--primary-bg-color);
+	background-color: var(--primary-font-color);
 	padding: 10px;
-	font-size: 2.6rem;
-	
+	font-size: 2.25em;
 	width: 100%;
 	overflow: hidden;
 	white-space: nowrap;
@@ -695,14 +750,16 @@ body>header h1{
 /* Menú -------------------------------------------------------- */
 .menu{
 	padding: 8px 20px;
-	background-color: rgb(60, 100, 160);
-	color: white;
-	border-radius: 5px;
+	background-color: var(--primary-bg-color);
+	color: var(--primary-font-color);
+	border-radius: 3px;
 	font-size: 0;
+	min-width: var(--min-width);
 }
 
 .menu li{
 	margin: 0;
+	padding: 0 4px;
 	text-align: center;
 	display: inline-block;
 	list-style-type: none;
@@ -713,17 +770,17 @@ body>header h1{
 	display: block;
 	padding: 10px 20px;
 	margin: 0;
-	transition: 0.2s;
-	color: white;
+	transition: 0.4s;
+	color: var(--primary-font-color);
 }
 
 .menu li a:hover{
-	background-color: white;
-	color: #006;
+	background-color: var(--primary-font-color);
+	color: var(--primary-bg-color);
 }
 
 .menu li:not(:first-of-type){
-	border-left: solid 2px white;
+	border-left: dotted 2px var(--primary-font-color);
 }
 
 
@@ -754,9 +811,9 @@ body>header h1{
 
 
 section{
-	box-shadow: 1px 1px 3px rgba(160, 160, 160, 0.4);
+	box-shadow: 1px 1px 3px var(--shadow-color);
 	border-radius: 3px;
-	background-color: white;
+	background-color: var(--bg-color);
 	padding: 2%;
 	margin: 2% 0%;
 }
@@ -769,7 +826,7 @@ section h2{
 main{
 	padding: 2%;	
 	margin: 0 0 1%;
-	background-color: #f9f9f9;
+	background-color: var(--main-bg-color);
 }
 
 
@@ -802,7 +859,7 @@ body>footer{
 }
 
 body>footer>div{
-	background-color: #fffc;
+	background-color: var(--footer-bg-color);
 }
 
 body>footer p{
@@ -810,8 +867,7 @@ body>footer p{
 }
 
 body>footer a{
-	font-size: 1rem;
-	color: rgb(60, 100, 160);
+	font-size: 1em;
 }
 
 body>footer figure{
@@ -822,9 +878,6 @@ body>footer figure{
 body>footer img{
 	max-width: 80px;
 }
-
-
-
 
 
 
@@ -868,11 +921,10 @@ div.http-error{
 	left: 0px;
 	width: 100vw;
 	min-height: 100vh;
-	background-color: rgba(120, 120, 120, 0.8);
+	background-color: var(--modal-bg-color);
 	z-index: 10;
 	text-align: center;
 	display:flex;
-	align-items: middle;
 	cursor: pointer;
 }
 
@@ -907,88 +959,33 @@ div.http-error{
 
 /* ----------------- MENSAJES DE ERROR Y ÉXITO ----------------- */
 
-
-div.success-message, div.error-message, div.warning-message, #accept-cookies{
+.message{
 	height: 70%;
 	width: 70%;
 	padding: 50px;
-	border-radius: 8px;
+	border-radius: 5px;
 	margin: auto;
 	font-size: 1.2em;
 }
 
-
 .success{
-	background-color: #dfd;
-	color: #363;
+	background-color: var(--success-bg-color);;
+	color: var(--success-font-color);
 }
 
 .warning{
-	background-color: #ffd;
-	color: #663;
+	background-color: var(--warning-bg-color);
+	color: var(--warning-font-color);
 }
 
 .error, .danger{
-	background-color: #fdd;
-	color: #633;
-}
-
-p.error, p.success{
-	padding: 20px;
-	margin: 20px 0px;
-	
-}
-
-p.error, div.error{
-	box-shadow: 0px 0px 2px rgba(150, 30, 30, 0.5);
-}
-
-p.success, div.success{
-	box-shadow: 0px 0px 2px rgba(30, 150, 30, 0.5);
-}
-
-div.error, div.success, div.warning{
-	padding: 20px;
+	background-color: var(--danger-bg-color);
+	color: var(--danger-font-color);
 }
 
 
-div.success-message h2{
-	color: #090;
-	margin-bottom: 40px;
-}
-
-div.error-message h2{
-	color: #900;
-	margin-bottom: 40px;
-}
-
-div.warning-message h2{
-	color: #990;
-	margin-bottom: 40px;
-}
-
-div.success-message a:hover, div.error-message a:hover, div.warning-message a:hover{
-	text-decoration: underline;
-}
-
-div.success-message{
-	color: #060;
-	background-color: #cfc;
-	border: solid 3px #060;
-}
-
-div.error-message{
-	color: #600;
-	background-color: #fcc;
-	border: solid 3px #600;
-}
-
-div.warning-message{
-	color: #660;
-	background-color: #ffc;
-	border: solid 3px #660;
-}
+/* ----------------- ACEPTAR COOKIES ----------------- */
 
 #accept-cookies{
-	background-color: white;
+	background-color: var(--bg-color);
 }

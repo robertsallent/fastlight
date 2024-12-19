@@ -6,7 +6,7 @@
 --  la tabla errores, permite registrar los errores de la aplicación en BDD.
 --  la tabla stats, para contar las visitas de cada URL de la aplicación.
 
--- Última modificación: 10/12/2024
+-- Última modificación: 19/12/2024
 
 
 DROP DATABASE IF EXISTS fastlight;
@@ -22,7 +22,7 @@ CREATE TABLE users(
 	displayname VARCHAR(32) NOT NULL,
 	email VARCHAR(128) NOT NULL UNIQUE KEY,
 	phone VARCHAR(32) NOT NULL UNIQUE KEY,
-	password VARCHAR(32) NOT NULL,
+	password VARCHAR(255) NOT NULL,
 	roles JSON NOT NULL,
 	picture VARCHAR(256) DEFAULT NULL,
 	blocked_at TIMESTAMP NULL DEFAULT NULL,

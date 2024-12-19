@@ -24,12 +24,11 @@
 		
 		<main>
 			
-    			
         		<form class="w50 bloque-centrado" method="POST" autocomplete="off" id="login" action="/Forgotpassword/send">
         			
         			<h2>Recuperación de password</h2>
-    				<p class="justificado">Introduce tus datos y se te enviará una 
-    					nueva clave con la que podrás acceder a la aplicación. 
+    				<p class="justificado">Rellena este formulario para recibir una 
+    					nueva clave en tu <i>email</i> con la que podrás acceder a la aplicación. 
     					Recuerda que debes cambiarla lo antes posible.</p>
     		
     				<div style="margin: 10px;">

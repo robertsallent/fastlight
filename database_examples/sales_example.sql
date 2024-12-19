@@ -2,14 +2,14 @@
 
 -- se incluye:
 --  la tabla para usuarios, con algunos usuarios para pruebas.
---  la tabla errores, permite registrar los errores de la aplicaci√≥n en BDD.
---  la tabla stats, para contar las visitas de cada URL de la aplicaci√≥n.
+--  la tabla errores, permite registrar los errores de la aplicaciÛn en BDD.
+--  la tabla stats, para contar las visitas de cada URL de la aplicaciÛn.
 
 --  una tabla products para pruebas (POSIBLE EJERCICIO: implementar un CRUD de productos).
 --  una tabla customers.
 --  una tabla sales.
 
--- √öltima modificaci√≥n: 10/12/2024
+-- √öltima modificaciÛn: 19/12/2024
 
 
 DROP DATABASE IF EXISTS fastlight;
@@ -19,13 +19,13 @@ CREATE DATABASE fastlight DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_
 USE fastlight;
 
 -- tabla users
--- pod√©is crear los campos adicionales que necesit√©is.
+-- podÈis crear los campos adicionales que necesitÈis.
 CREATE TABLE users(
 	id INT PRIMARY KEY auto_increment,
 	displayname VARCHAR(32) NOT NULL,
 	email VARCHAR(128) NOT NULL UNIQUE KEY,
 	phone VARCHAR(32) NOT NULL UNIQUE KEY,
-	password VARCHAR(32) NOT NULL,
+	password VARCHAR(255) NOT NULL,
 	roles JSON NOT NULL,
 	picture VARCHAR(256) DEFAULT NULL,
 	blocked_at TIMESTAMP NULL DEFAULT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE errors(
 );
 
 -- tabla stats
--- por si queremos registrar las estad√≠sticas de visitas a las disintas URLs de nuestra aplicaci√≥n.
+-- por si queremos registrar las estadÌsticas de visitas a las disintas URLs de nuestra aplicaciÛn.
 CREATE TABLE stats(
 	id INT PRIMARY KEY auto_increment,
     url VARCHAR(256) NOT NULL UNIQUE KEY,
@@ -95,7 +95,7 @@ CREATE TABLE sales(
 
 
 
--- usuarios para las pruebas, pod√©is crear tantos como necesit√©is
+-- usuarios para las pruebas, podÈis crear tantos como necesit√©is
 INSERT INTO users(displayname, email, phone, password, roles) VALUES 
 	('admin', 'admin@fastlight.com', '666666666', md5('1234'), '["ROLE_USER", "ROLE_ADMIN"]'),
 	('editor', 'editor@fastlight.com', '666666665', md5('1234'), '["ROLE_USER", "ROLE_EDITOR"]'),
@@ -105,7 +105,7 @@ INSERT INTO users(displayname, email, phone, password, roles) VALUES
 ;
 
 
--- algunos productos para las pruebas, pod√©is crear tantos como necesit√©is
+-- algunos productos para las pruebas, podÈis crear tantos como necesit√©is
 INSERT INTO products(name, vendor, price) VALUES 
 	('Computer', 'Apple', 2000),
     ('Folder', 'Cambridge', 10),
