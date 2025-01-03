@@ -75,13 +75,13 @@
                 			</tr>
                     		<?php foreach($stats as $stat){ ?>
                 				<tr>
-                    				<td><?=$stat->url?></td>
-                    				<td class='negrita'><?=$stat->count?></td>
+                    				<td class="url"><?= "<a href='$stat->url'>$stat->url</a>" ?></td>
+                    				<td class='negrita'><?= $stat->count ?></td>
                     				
-                    				<td><?=$stat->created_at?></td>
-                    				<td><?=$stat->updated_at ?? 'Sin datos'?></td>
-                    				<td><?=$stat->user ?? 'Sin datos'?></td>
-                    				<td><?=$stat->ip ?? 'Sin datos'?></td>
+                    				<td><?= $stat->created_at ?></td>
+                    				<td><?= $stat->updated_at ?? 'Sin datos' ?></td>
+                    				<td><?= $stat->user ? "<a href='mailto:$stat->user'>$stat->user</a>" : 'Sin datos' ?></td>
+                    				<td><?= $stat->ip ?? 'Sin datos' ?></td>
                 			   </tr>
                     		<?php } ?>
                 		</table>

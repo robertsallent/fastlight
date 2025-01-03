@@ -56,12 +56,12 @@ define('APP_TYPE', 'WEB');                  // Tipo de aplicación: WEB o API.
 
 // versión actual del framework (o la aplicación desarrollada) y de PHP
 // se pueden cambiar estos datos por los de la aplicación que estemos desarrollando
-define('APP_VERSION', '1.4.3'); 
+define('APP_VERSION', '1.4.4'); 
 define('TESTED_PHP_VERSION', 'PHP 8.1.1 y PHP 8.2.12');      // minima testeada (no quiere decir que no funcione en anteriores pero...) 
 define('DATABASE_VERSION', 'MySQL 5.7, MySQL 8+ y MariaDB 10.4+');  // minima testeada
 
 define('SHOW_VERSION', true);             // muestra la versión de la app en el footer (templates/Base.php)
-define('SHOW_CURRENT_PHP_VERSION', true); // muestra la versión de PHP en el footer (templates/Base.php)
+define('SHOW_CURRENT_PHP_VERSION', true); // muestra la versión de PHP la portada (mvc/views/Welcome.php)
 
 define('HTTP_VERSION', '1.1'); // versión de HTTP a usar.
 

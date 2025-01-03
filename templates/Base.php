@@ -450,14 +450,7 @@ class Base implements TemplateInterface{
         
         if(SHOW_VERSION){
             $text .= "<p id='version' class='right m1 italic mini'>";
-            $text .= APP_NAME." ";
-            $text .= "versión ".APP_VERSION;
-            $text .= " para ".TESTED_PHP_VERSION;
-            $text .= " con ".DATABASE_VERSION;
-            
-            if(SHOW_CURRENT_PHP_VERSION) 
-                $text .= ". Actualmente funcionando en PHP ".phpversion();
-            
+            $text .= APP_NAME.",  versión ".APP_VERSION;
             $text .="</p>";
         }
 

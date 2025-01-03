@@ -113,6 +113,11 @@
                		testeada en <b><?= TESTED_PHP_VERSION ?></b> con <b><?= DATABASE_VERSION ?></b>.
                		Esto no quiere decir que no funcione en versiones ligeramente anteriores o posteriores,
                		pero no se garantiza que lo haga.</p>
+               		
+               		<?php 
+               		   if(SHOW_CURRENT_PHP_VERSION)
+               		       echo "Esta aplicación corre en un servidor con <b>PHP ".phpversion().".</b>";	
+               		?>
                </section>
                
                <section class="flex1 gap2 space-between">

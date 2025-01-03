@@ -8,26 +8,40 @@
 
 @import 'base.css';
 
-footer.primary{
-	background-image: none;
+:root {
+  --primary-bg-color: rgb(40, 80, 120);
+  --primary-font-color: rgb(255, 255, 255);
+  --primary-soft-color: rgb(100, 120, 180);
+  
+  --secondary-bg-color: rgb(20, 120, 80);
+  --secondary-font-color: rgb(255, 255, 255);
+  --secondary-soft-color: rgb(80, 160, 100);
+
+  --shadow-color: rgba(160, 160, 160, 0.3);
+  --font-shadow-color: rgba(0, 0, 0, 0.3);
+  
+  --bg-color: rgb(100, 100, 120);
+  --font-color: rgb(220, 220, 220);
+  --border-color:  rgb(20, 20, 20);
+  
+  --a-color: rgb(100, 140, 220);
+  
+  --main-bg-color: rgb(120, 120, 125);
+  
+  --th-bg-color: rgb(60, 100, 160);
+  --th-font-color: rgb(255, 255, 255);
+  
+  --td-odd-bg-color: var(--bg-color);
+  --td-even-bg-color: rgb(90, 90, 90);
+    
+  --tfoot-bg-color: rgb(120, 120, 120);
+  --tfoot-font-color: rgb(255, 255, 255);
+    
+  --form-bg-color: var(--bg-color);
+  --input-bg-color: rgb(160, 160, 160);
+  
+  --footer-bg-color: rgba(60, 60, 60, 0.85);
+  --modal-bg-color: rgba(120, 120, 120, 0.85);
+    
 }
-
-
-body{
-	color: white;
-	background-color: #333;
-}
-
-main{ background-color: transparent; }
-
-section{
-	box-shadow: none;
-	background-color: rgb(30,30,30);
-}
-
-table{border: solid 1px rgb(60, 100, 160); }
-table tr:nth-of-type(odd){ background-color: #666; }
-table tr:nth-of-type(even){ background-color: #777; }
-
-#login{ color: #666; }
 

@@ -66,9 +66,9 @@
         		
             			<table class="table w100 drop-shadow">
                 			<tr>
-                				<th>Fecha</th>
-                				<th>Tipo</th>
                 				<th>URL</th>
+                				<th>Tipo</th>
+                				<th>Fecha</th>
                 				<th>Mensaje</th>
                 				<th>Usuario</th>
                 				<th>IP</th>
@@ -76,11 +76,11 @@
                 			</tr>
                     		<?php foreach($errores as $error){ ?>
                 				<tr>
-                    				<td><?=$error->date?></td>
-                    				<td class='negrita'><?=$error->level?></td>
-                    				<td class='cursiva'>
+                					<td class='url'>
                     					<a href="<?=$error->url?>"><?=$error->url?></a>
                     				</td>
+                    				<td class='negrita'><?=$error->level?></td>
+                    				<td><?=$error->date?></td>
                     				<td class="mini"><?=$error->message?></td>
                     				<td>
                     					<?php if($error->user){ ?>

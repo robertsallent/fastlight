@@ -5,8 +5,13 @@
 	Última revisión: 25/07/2024
 */
 
-.pc{display: none !important;}
 
+/* Correcciones de clases genéricas */
+.pc{display: none !important;}
+.w50, .w75, .w100 { width: 100% }
+
+
+/* Elementos estructurales */
 body{
 	margin: 0;
 	padding: 0;
