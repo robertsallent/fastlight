@@ -110,14 +110,11 @@
                		para funcionar en versiones nuevas, eliminando el soporte para las antiguas.</p>
                		 
                		<p>Actualmente, <b>la versión <?= APP_VERSION ?> del framework</b> ha sido 
-               		testeada en <b><?= TESTED_PHP_VERSION ?></b> con <b><?= DATABASE_VERSION ?></b>.
+               		testeada en <b>PHP 8.1.1 y PHP 8.2.12</b> con <b>MySQL 5.7, MySQL 8+ y MariaDB 10.4+</b>.
                		Esto no quiere decir que no funcione en versiones ligeramente anteriores o posteriores,
                		pero no se garantiza que lo haga.</p>
                		
-               		<?php 
-               		   if(SHOW_CURRENT_PHP_VERSION)
-               		       echo "Esta aplicación corre en un servidor con <b>PHP ".phpversion().".</b>";	
-               		?>
+               		<?= "Actualmente este servidor dispone de <b>PHP ".phpversion().".</b>" ?>
                </section>
                
                <section class="flex1 gap2 space-between">

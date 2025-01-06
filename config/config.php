@@ -19,14 +19,15 @@
  * 
  * Todas las directivas se encuentran documentadas en el mismo fichero config.php.
  * 
- * Última revisión: 14/12/24
+ * Última revisión: 03/01/25
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since 0.1.0
  * @since 1.0.0 se pueden configurar las vistas de error personalizadas
  * @since 1.1.5 añadidos los parámetros de configuración de subida de ficheros
  * @since 1.2.2 se puede configurar el mensaje de "aceptar cookies"
  * @since 1.4.2 se pueden configurar los roles que pueden ver test, errores y ejemplos HTML
- * @since 1.4.2 se puede indicar la versión de la aplicación, PHP y BDD.
+ * @since 1.4.2 se puede indicar la versión de la aplicación.
+ * @since 1.4.5 se puede indicar que queremos que se compruebe la versión de PHP del servidor
  */
    
 
@@ -34,7 +35,7 @@
  * AUTOLOAD
  * -------------------------------------------------------------*/
 
-// direcotrios para el autoload (no PSR-4) 
+// directorios para el autoload (no PSR-4) 
 define('AUTOLOAD_DIRECTORIES',  [
     '../app/core',          // core 
     '../app/http',          // peticiones y respuestas 
@@ -51,19 +52,13 @@ define('AUTOLOAD_DIRECTORIES',  [
 /* -------------------------------------------------------------
  * APLICACIÓN
  * -------------------------------------------------------------*/
+
 define('APP_NAME','FastLight Framework');   // Título de la aplicación.
 define('APP_TYPE', 'WEB');                  // Tipo de aplicación: WEB o API.
 
-// versión actual del framework (o la aplicación desarrollada) y de PHP
-// se pueden cambiar estos datos por los de la aplicación que estemos desarrollando
-define('APP_VERSION', '1.4.4'); 
-define('TESTED_PHP_VERSION', 'PHP 8.1.1 y PHP 8.2.12');      // minima testeada (no quiere decir que no funcione en anteriores pero...) 
-define('DATABASE_VERSION', 'MySQL 5.7, MySQL 8+ y MariaDB 10.4+');  // minima testeada
+define('APP_VERSION', '1.4.5');  // versión actual del framework o aplicación desarrollada
+define('SHOW_VERSION', true);    // muestra la versión de la app en el footer (templates/Base.php)
 
-define('SHOW_VERSION', true);             // muestra la versión de la app en el footer (templates/Base.php)
-define('SHOW_CURRENT_PHP_VERSION', true); // muestra la versión de PHP la portada (mvc/views/Welcome.php)
-
-define('HTTP_VERSION', '1.1'); // versión de HTTP a usar.
 
 // Controlador y método por defecto (solamente para APP_TYPE WEB).
 define('DEFAULT_CONTROLLER', 'WelcomeController');
@@ -77,8 +72,24 @@ define('ADMIN_EMAIL', 'robert@juegayestudia.com');
 // tanto si llegan por GET, POST, COOKIE...
 define('EMPTY_STRINGS_TO_NULL', true);
 
-// Charset para las respuestas HTTP
-define('RESPONSE_CHARSET', 'utf-8');
+
+
+/* -------------------------------------------------------------
+ * VERSIONES DE PHP Y HTTP
+ * -------------------------------------------------------------*/
+
+// versión de PHP necesaria para ejecutar el framework o aplicación
+// podría funcionar en versiones anteriores pero no se garantiza que lo haga
+define('MIN_PHP_VERSION', '8.1.1');  
+
+// comprobación de la versión de PHP del servidor
+// si está a true impide que se ejecute la aplicación en servidores con versiones
+// de PHP anteriores a MIN_PHP_VERSION.
+define('CHECK_PHP_VERSION', true);
+
+
+define('HTTP_VERSION', '1.1');       // versión de HTTP a usar en las respuestas
+define('RESPONSE_CHARSET', 'utf-8'); // charset para las respuestas HTTP
 
 
 

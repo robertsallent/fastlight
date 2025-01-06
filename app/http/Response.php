@@ -11,7 +11,7 @@
  * @since v1.3.0 nuevo método abort()
  */
 
-// TODO: revisar los métodos de clase (pasarlos a métodos de objeto?) --> para la v1.4.0
+// TODO: revisar los métodos de clase (pasarlos a métodos de objeto?)
 // esto tendrá implicaciones en clases herederas y librerías REVISAR!
 
 

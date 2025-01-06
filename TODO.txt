@@ -5,33 +5,38 @@ LISTA DE COSAS PENDIENTES - TODO LIST
 Lista de mecanismos y herramientas que se irán incorporando (o no) en próximas versiones del framework FastLight.
 
 Autor: Robert Sallent
-Última revisión: 18/12/24
+Última revisión: 06/01/25
+
+Los cambios marcados con un ? están en fase de evaluación.
 
 -------------------------------------------------------------------------------------------------------------
 - CONFIG
-	- Ficheros de configuración de entorno.
-	- helper env()
+	- (v2.0.0) Ficheros de configuración de entorno.
+	- (v2.0.0) helper env()
 
 - CORE/HTTP
-	- Método json() en Response
-	- Método xml() en Response
-	- Método header() en Response que permite añadir un header
-	- Método headers() en Response que permiten añadir una lista de headers
-	- Estudiar la posibilidad de tener JsonRequest y XmlRequest
+	- (v1.5.0) Rehacer la clase Response:
+		- Pasar los métodos estáticos a métodos de objeto
+		- Pasar métodos estáticos de cookies y headers a métodos de objeto.
+		- Añadir el código HTTP a las redirecciones (Response::redirect()).
+		- Método json() en Response
+		- Método xml() en Response
+		- Método header() en Response que permite añadir un header
+		- Método headers() en Response que permiten añadir una lista de headers
+	- ? JsonRequest y XmlRequest
 
 - LIBRARIES
-	- (v1.5.0) Revisar las respuestas HTTP y pasar métodos estáticos de cookies y headers a métodos de objeto.
-	- Nueva librería Cookie para crear y comprobar la existencia de cookies
-	- Añadir el código HTTP a las redirecciones (Response::redirect()).
+	- (v1.5.0) Nueva librería Cookie para crear y comprobar la existencia de cookies
 	- ? Implementar un sistema de seeding (faker?).
 	- Mejorar el método XML::encode() para que sea recursivo y testearlo a fondo. Probarlo con APIs.
 
 - MODELO
-	- Métodos owns() e ownedBy() en Model.
-	- Método Model::insertRelated(entidad, idrelacionado, tabla)
+	- ? Métodos owns() e ownedBy() en Model.
+	- ? Nuevo método Model::insertRelated(entidad, idrelacionado, tabla)
 	
 - TEMPLATES Y VISTAS
 	- Mover las operaciones de view() hacia Response::view() y unificar parámetros y criterios. Testearlo todo.
+	- ? Hacer uso de <dialog> para modales
 
 - TEST
 	- Mejorar la documentación y los ejemplos en los test.
