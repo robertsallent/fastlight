@@ -12,8 +12,8 @@
 class WelcomeController extends Controller{
     
     /** Carga la vista de portada. */
-    public function index(){
-        view('welcome');
+    public function index():ViewResponse{
+        return view('welcome');
     }  
 }
 

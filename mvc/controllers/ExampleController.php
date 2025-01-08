@@ -29,7 +29,7 @@ class ExampleController extends Controller{
     public function __call(
         string $method, 
         array $arguments = []  // sin uso por el momento
-    ){
+    ):ViewResponse{
         
         // si se solicita la lista de ejemplos...
         if($method == "index"){
@@ -38,13 +38,12 @@ class ExampleController extends Controller{
             $examples = FileList::get(EXAMPLE_FOLDER, ['html']);
             
             // carga la vista del listado de ejemplos
-            view('examples/index', ["examples" => $examples]);
-            return;
+            return view('examples/index', ["examples" => $examples]);
         }
         
         // en caso contrario se está solicitando un ejemplo concreto...        
         // carga el índice o la vista que mostrará el resultado de ejecutar el test
-        view('examples/frame', [
+        return view('examples/frame', [
             "example"  => $method
         ]);
     }

@@ -12,8 +12,8 @@
 class ForgotpasswordController extends Controller{
     
     /** Muestra el formulario que solicita una nueva clave. */
-    public function index(){
-        view('forgotpassword');
+    public function index():ViewResponse{
+        return view('forgotpassword');
     } 
     
     /**

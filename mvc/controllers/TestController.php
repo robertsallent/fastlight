@@ -33,7 +33,7 @@ class TestController extends Controller{
     public function __call(
         string $method, 
         array $arguments = []  // sin uso por el momento
-    ){
+    ):ViewResponse{
         
        // solamente podrá lanzar test el administrador o un usuario con ROLE_TEST
        Auth::oneRole(TEST_ROLES);
@@ -45,9 +45,7 @@ class TestController extends Controller{
            $tests = FileList::get(TEST_FOLDER, ['php']);
            
            // carga la vista
-           view('test/index', ["tests" => $tests]);
-           
-           return;
+           return view('test/index', ["tests" => $tests]);
        }
        
        // en caso contrario se está solicitando un test concreto  
@@ -59,7 +57,7 @@ class TestController extends Controller{
            throw new NotFoundException("No se encontró el test $method.");
            
        // y luego cargaremos la vista que mostrará el resultado de ejecutar el test
-       view('test/frame', [
+       return view('test/frame', [
            "test" => $method,
            "file" => $fileToLoad
        ]);

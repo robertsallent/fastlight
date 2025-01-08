@@ -14,9 +14,9 @@ class LoginController extends Controller{
     
     
     /** Muestra el formulario de login. */
-    public function index(){
+    public function index():ViewResponse{
         Auth::guest();   // solo para usuarios no identificados
-        view('login');   // carga la vista de login     
+        return view('login');   // carga la vista de login     
     }
     
     

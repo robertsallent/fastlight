@@ -2,21 +2,20 @@
 
 /** App
  *
- * Controlador frontal, núcleo de las aplicaciones web en FastLight.
+ * Núcleo de las aplicaciones web en FastLight.
+ * Realiza las tareas de inicialización y arranque de la aplicación.
+ * También actúa como un dispatcher, que enruta la petición hacia el método 
+ * y controlador adecuado.
  * 
- * El controlador frontal realiza las tareas de inicialización y arranque de la aplicación: 
- * gestión de sesiones, del sistema de identificación...
- 
- * También actúa como un dispatcher que enruta la petición hacia el método y controlador adecuado.
- * 
- * Además trata los errores que se puedan producir, redirigiendo hacia la página de error y registrando
- * los mensajes en LOG y BDD (según lo configurado en el fichero config.php).
+ * Además trata los errores que se puedan producir, abortando hacia las páginas 
+ * de error y registrando los mensajes en LOG y BDD (según lo configurado en config.php).
  *
- * Última revisión: 29/05/2024
+ * Última revisión: 08/01/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
  * @since v0.9.1 se ha cambiado el nombre de FrontController a App.
+ * @since v1.5.0 el método boot() retorna un objeto de tipo Response.
  */
  
 class App extends Kernel{
@@ -27,7 +26,7 @@ class App extends Kernel{
      * @throws NotFoundException en caso de no encontrar el controlador o método asociados a 
      * la operación solicitada.
      */
-    public function boot(){
+    public function boot():Response{
         try{
             // DISPATCHER: evalúa las peticiones y redirige al controlador adecuado
             // mira la url que llega por el parámetro url y la descompone en un array
@@ -62,7 +61,7 @@ class App extends Kernel{
             
             // tras sacar controlador y método, lo que queda en $url son los parámetros.
             // llamaremos al método del controlador pasando los parámetros
-            $controlador->$m(...$url);
+            return $controlador->$m(...$url);
 
             
         // si es un problema de usuario no identificado
@@ -87,24 +86,17 @@ class App extends Kernel{
                 Log::addMessage(ERROR_LOG_FILE, get_class($t), $t->getMessage());
             
             // si está activada la opción de guardar errores en BDD
+            // hay que vigilar si de nuevo se produce otra excepción
             if(DB_ERRORS){
                 try{
                     AppError::new(get_class($t), $t->getMessage());
-                    
-                }catch(SQLException $e){
-                    $response = new Response('text/html', 500, 'INTERNAL SERVER ERROR');
-                    $response->abort(['message' => $e->getMessage()]);
+                }catch(Throwable $t){
+                    abort(500, 'INTERNAL SERVER ERROR', $mensaje, $t);
                 }
             }
             
-            // crea una nueva respuesta de error con código por defecto 500.
-            $response = new Response('text/html', 500, 'INTERNAL SERVER ERROR');
-
-            // actualizar los datos de la respuesta en función del tipo de error ocurrido
-            $response->evaluateError($t);
-                        
-            // intentará cargar una vista personalizada de error, en caso que no exista cargará la de error genérica
-            $response->abort(['message' => $mensaje]);
+            // aborta la ejecución y carga la vista de error
+            abort(500, 'INTERNAL SERVER ERROR', $mensaje, $t);
         } 
     }  
 }

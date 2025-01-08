@@ -152,10 +152,12 @@ function request(){
  *
  * @param string $name nombre de la vista, sin la extensión.
  * @param array $parameters array asociativo con los datos que se le pasan a la vista.
- * @param int $httpCode código HTTP
+ * @param int $httpcode código HTTP de la respuesta
  * @param string $status frase de estado HTTP
- * @param string $contentType tipo MIME de la respuesta
- *
+
+ * 
+ * @return ViewResponse
+ * 
  * @throws ViewException en caso de que algo falle.
  */
 function view(
@@ -163,9 +165,8 @@ function view(
     array $parameters   = [],
     int $httpCode       = 200,
     string $status      = 'OK',
-    string $contentType = 'text/html'
-    ){
-        (new Response($contentType, $httpCode, $status))->view($name, $parameters);
+):ViewResponse{
+    return (new ViewResponse($name, $parameters, $httpCode, $status));
 }
 
 
@@ -178,6 +179,30 @@ function view(
  */
 function viewExists(string $name):bool{
     return View::exists($name);
+}
+
+
+/**
+ * Aborta la operación y retorna una respuesta de error, cargando
+ * la vista personalizada si existe.
+ *
+ * @param int $code código HTTP del error.
+ * @param string $status texto de estado http
+ * @param string $message mensaje para mostrar.
+ * @param Throwable $t error o excepción producida, para preparar mejor la respuesta
+ *
+ * @throws ViewException si no encuentra la vista.
+ *
+ */
+
+function abort(
+    int $code           = 500,
+    string $status      = 'INTERNAL SERVER ERROR',
+    string $message     = '',
+    Throwable $t        = null
+){
+    $response = new ViewErrorResponse($t, $code, $status, $message);
+    $response->send();
 }
 
 
@@ -212,26 +237,6 @@ function redirect(
 
 
 
-/**
- * Aborta la operación y retorna una respuesta de error, cargando
- * la vista personalizada si existe.
- * 
- * @param int $code código HTTP del error.
- * @param string $status texto de estado http
- * @param string $message mensaje para mostrar.
- * 
- * @throws ViewException si no encuentra la vista.
- * 
- */
-
-function abort(
-    int $code, 
-    string $status,
-    string $message     = '',
-    string $contentType = 'text/html'
-){
-    (new Response($contentType, $code, $status))->abort(['mensaje' => $message]);
-}
 
 
 

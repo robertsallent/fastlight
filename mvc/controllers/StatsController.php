@@ -11,8 +11,8 @@
 class StatsController extends Controller{
     
     /** Operación por defecto, redirige al método list(). */
-    public function index(){
-        $this->list();          // redirige al método $list
+    public function index():ViewResponse{
+        return $this->list();          // redirige al método $list
     }
     
     
@@ -22,7 +22,7 @@ class StatsController extends Controller{
      * 
      * @param int $page número de página.
      */
-    public function list(int $page = 1){
+    public function list(int $page = 1):ViewResponse{
         
         // operación solamente para el administrador o usuario con rol de test
         Auth::oneRole([ADMIN_ROLE, "ROLE_TEST"]); 
@@ -46,7 +46,7 @@ class StatsController extends Controller{
               Stat::orderBy('count', 'DESC', $limit, $paginator->getOffset()); // sin filtrar
         
         // cargamos la vista y le pasamos la lista de entidades, el paginador y el filtro
-        view('stats/list', [
+        return view('stats/list', [
             'stats'   => $stats,
             'paginator' => $paginator,   // pasamos el objeto Paginator a la vista 
             'filtro'    => $filtro       // pasamos el objeto filter a la vista

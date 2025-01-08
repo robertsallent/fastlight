@@ -1,14 +1,15 @@
 <?php
 
-/** Response
+/** RedirectResponse
  *
- * Respuestas HTTP
+ * Respuestas de redirección HTTP
  *
  * Última modificación: 08/01/2025
  *
  * @author Robert Sallent <robertsallent@gmail.com>
- * @since v0.9.13
+ * @since v1.5.0
   */
+
 
 class Response{
         

@@ -26,7 +26,6 @@ Los cambios marcados con un ? están en fase de evaluación.
 	- ? JsonRequest y XmlRequest
 
 - LIBRARIES
-	- (v1.5.0) Nueva librería Cookie para crear y comprobar la existencia de cookies
 	- ? Implementar un sistema de seeding (faker?).
 	- Mejorar el método XML::encode() para que sea recursivo y testearlo a fondo. Probarlo con APIs.
 

@@ -4,7 +4,7 @@
  *
  * Controlador frontal para el desarrollo de Apis Restful
  *
- * Última revisión: 29/05/2024
+ * Última revisión: 08/01/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  */
@@ -30,7 +30,7 @@ class Api extends Kernel{
      * @throws ApiException si se produce algún error.
      * @throws NotFoundException si no existe la operación indicada
      */
-    public function boot(){
+    public function boot():Response{
         try{     
             // DISPATCHER: evalúa las peticiones y redirige al controlador adecuado.
             // /xml/libro/3 se convierte en ['xml','libro','3']
@@ -70,7 +70,7 @@ class Api extends Kernel{
             // si el método es OPTIONS retornamos ya las opciones disponibles
             if(strtoupper($this->metodo) == 'OPTIONS'){
                 header('Allow: '.ALLOW_METHODS);
-                return;
+                return new APIResponse();
             }
             
             // para otros métodos que no sean options...
@@ -82,7 +82,7 @@ class Api extends Kernel{
             
             // tras sacar formato y entidad, lo que queda en $url son los parámetros.
             // llamaremos al método del controlador pasando los parámetros
-            $controlador->$metodo(...$url);
+            return $controlador->$metodo(...$url);
 
         // si se produce algún otro error...
         }catch(Throwable $t){ 
@@ -110,6 +110,9 @@ class Api extends Kernel{
                 default:    $response->setMessage($t->getMessage());
                             $response->evaluateError($t)->send();
             }
+            
+            // evía la respuesta de error
+            $response->send();
         }
     }  
 }

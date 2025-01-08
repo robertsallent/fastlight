@@ -11,8 +11,8 @@
 class ErrorController extends Controller{
     
     /** Operación por defecto, redirige al método list(). */
-    public function index(){
-        $this->list();          // redirige al método $list
+    public function index():ViewResponse{
+        return $this->list();          // redirige al método $list
     }
     
     
@@ -22,7 +22,7 @@ class ErrorController extends Controller{
      * 
      * @param int $page número de página.
      */
-    public function list(int $page = 1){
+    public function list(int $page = 1):ViewResponse{
         
         // operación solamente para los roles autorizados a trabajar con errores
         // se configura en el fichero de configuración
@@ -48,7 +48,7 @@ class ErrorController extends Controller{
         
               
         // cargamos la vista y le pasamos la lista de entidades, el paginador y el filtro
-        view('error/list', [
+        return view('error/list', [
             'errores'   => $errores,
             'paginator' => $paginator,   // pasamos el objeto Paginator a la vista 
             'filtro'    => $filtro       // pasamos el objeto filter a la vista
