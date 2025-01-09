@@ -4,14 +4,15 @@
  * 
  * Controlador para gestionar estadísticas de visitas a las URL.
  * 
- * Última revisión: 15/05/2024
+ * Última revisión: 09/01/2025
+ * 
  * @author Robert Sallent <robertsallent@gmail.com>
  */
 
 class StatsController extends Controller{
     
     /** Operación por defecto, redirige al método list(). */
-    public function index():ViewResponse{
+    public function index():Response{
         return $this->list();          // redirige al método $list
     }
     
@@ -22,7 +23,7 @@ class StatsController extends Controller{
      * 
      * @param int $page número de página.
      */
-    public function list(int $page = 1):ViewResponse{
+    public function list(int $page = 1):Response{
         
         // operación solamente para el administrador o usuario con rol de test
         Auth::oneRole([ADMIN_ROLE, "ROLE_TEST"]); 
@@ -61,14 +62,14 @@ class StatsController extends Controller{
      * 
      * @throws Exception en caso de que no se pueda eliminar de la BDD.
      */
-    public function destroy(int $id = 0){
+    public function destroy(int $id = 0):Response{
         
         Auth::oneRole(STATS_ROLES); 
         
         try{
             Stat::delete($id);
             Session::success("Estadística borrada.");
-            redirect("/Stats/list");
+            return redirect("/Stats/list");
             
         }catch(SQLException $e){
             Session::error("No se pudo borrar la estadística.");
@@ -76,7 +77,7 @@ class StatsController extends Controller{
             if(DEBUG)
                 throw new ControllerException($e->getMessage());
             
-            redirect("/Stats/list");
+            return redirect("/Stats/list");
         }
     }
     

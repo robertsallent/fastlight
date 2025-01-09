@@ -12,7 +12,7 @@
 class ForgotpasswordController extends Controller{
     
     /** Muestra el formulario que solicita una nueva clave. */
-    public function index():ViewResponse{
+    public function index():Response{
         return view('forgotpassword');
     } 
     
@@ -23,7 +23,7 @@ class ForgotpasswordController extends Controller{
      * si no se puede generar y guardar la nueva clave o si no se
      * pudo enviar el email.
      */
-    public function send(){
+    public function send():Response{
         
        if(!$this->request->has('nueva'))
            throw new FormException("No se recibió el formulario.");
@@ -35,7 +35,7 @@ class ForgotpasswordController extends Controller{
        
        if(!$user){
             Session::error("Los datos no son válidos.");
-            redirect('/Forgotpassword');
+            return redirect('/Forgotpassword');
        }
        
        $password = uniqid();                // genera el nuevo password
@@ -56,7 +56,7 @@ class ForgotpasswordController extends Controller{
             (new Email($to, $from, $name, $subject, $message))->send();
             
             Session::success("Nueva clave generada, consulta tu email.");
-            redirect('/Login');
+            return redirect('/Login');
             
        // si no se pudo actualizar el password
        }catch(SQLException $e){
@@ -65,7 +65,7 @@ class ForgotpasswordController extends Controller{
            if(DEBUG)
                throw new Exception($e->getMessage());
            
-           redirect("/Login");
+           return redirect("/Login");
            
        // si no se pudo enviar el email
        }catch(EmailException $e){
@@ -74,7 +74,7 @@ class ForgotpasswordController extends Controller{
            if(DEBUG)
                throw new Exception($e->getMessage());
            
-           redirect("/Login");       
+           return redirect("/Login");       
        }
     }
 }

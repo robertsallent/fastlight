@@ -4,14 +4,19 @@
  * 
  * Controlador para gestionar errores. Trabaja con el modelo AppError.
  * 
- * Última revisión: 15/05/2024
+ * Última revisión: 09/01/2025
+ * 
  * @author Robert Sallent <robertsallent@gmail.com>
  */
 
 class ErrorController extends Controller{
     
-    /** Operación por defecto, redirige al método list(). */
-    public function index():ViewResponse{
+    /** 
+     * Operación por defecto, redirige a la operación list()
+     * 
+     * @return Response
+     */
+    public function index():Response{
         return $this->list();          // redirige al método $list
     }
     
@@ -21,8 +26,9 @@ class ErrorController extends Controller{
      * Listado de errores, con paginación.
      * 
      * @param int $page número de página.
+     * @return Response
      */
-    public function list(int $page = 1):ViewResponse{
+    public function list(int $page = 1):Response{
         
         // operación solamente para los roles autorizados a trabajar con errores
         // se configura en el fichero de configuración
@@ -42,7 +48,7 @@ class ErrorController extends Controller{
         $paginator = new Paginator('/Error/list', $page, $limit, $total);
         
         // recupera los resultados para la página actual 
-        $errores = $filtro ?    // hay filtro?
+        $errores = $filtro ?                                            // hay filtro?
               AppError::filter($filtro, $limit, $paginator->getOffset()):         // filtrados
               AppError::orderBy('date', 'DESC', $limit, $paginator->getOffset()); // sin filtrar
         
@@ -60,10 +66,10 @@ class ErrorController extends Controller{
      * Elimina un error de la base de datos.
      * 
      * @param int $id identificador del error a eliminar.
-     * 
-     * @throws Exception en caso de que no se pueda eliminar el error de la BDD.
+     * @return Response
+     * @throws ControllerException en caso de que no se pueda eliminar el error de la BDD y estemos en modo DEBUG.
      */
-    public function destroy(int $id = 0){
+    public function destroy(int $id = 0):Response{
         
         // operación solamente para los roles autorizados a trabajar con errores
         // se configura en el fichero de configuración
@@ -72,7 +78,7 @@ class ErrorController extends Controller{
         try{
             AppError::delete($id);
             Session::success("Error borrado.");
-            redirect("/Error/list");
+            return redirect("/Error/list");
             
         }catch(SQLException $e){
             Session::error("No se pudo borrar el error.");
@@ -80,7 +86,7 @@ class ErrorController extends Controller{
             if(DEBUG)
                 throw new ControllerException($e->getMessage());
             
-            redirect("/Error/list");
+            return redirect("/Error/list");
         }
     }
     
@@ -89,9 +95,10 @@ class ErrorController extends Controller{
     /**
      * Vacía la tabla de errores de la base de datos.
      * 
-     * @throws Exception si no puede vaciar la tabla.
+     * @return Response
+     * @throws Exception si no puede vaciar la tabla y estamos en modo DEBUG.
      */
-    public function clear(){
+    public function clear():Response{
         
         // operación solamente para los roles autorizados a trabajar con errores
         // se configura en el fichero de configuración
@@ -100,7 +107,7 @@ class ErrorController extends Controller{
         try{
             $rows = AppError::clear();
             Session::success("Lista de errores vaciada correctamente. Se eliminaron $rows registros.");
-            redirect("/Error/list");
+            return redirect("/Error/list");
             
         }catch(SQLException $e){
             Session::error("No se pudo vaciar la lista de errores.");
@@ -108,7 +115,7 @@ class ErrorController extends Controller{
             if(DEBUG)
                 throw new ControllerException($e->getMessage());
             
-            redirect("/Error/list");
+            return redirect("/Error/list");
         }
     }
 
@@ -118,20 +125,24 @@ class ErrorController extends Controller{
      * Descarga los ficheros de LOG.
      * 
      * @param string $fileType tipo de fichero, de momento puede ser "errors" o "login".
+     * @return Response
      */
-    public function download(
-        string $fileType = 'errors'
-    ){
+    public function download(string $fileType = 'errors'):Response{
+        
         // operación solamente para los roles autorizados a trabajar con errores
         // se configura en el fichero de configuración
         Auth::oneRole(ERROR_ROLES); 
         
+        // mira qué fichero hay que descargar
         switch($fileType){
-            case 'errors' : (new File(ERROR_LOG_FILE))->download();     
+            case 'errors' : $response = new FileResponse(ERROR_LOG_FILE);     
                             break;
-            case 'login'  : (new File(LOGIN_ERRORS_FILE))->download();  
+            case 'login'  : $response = new FileResponse(LOGIN_ERRORS_FILE);  
                             break;
         }
+        
+        // retorna la FileResponse con el fichero
+        return $response;
     }
     
     
@@ -140,11 +151,10 @@ class ErrorController extends Controller{
     /**
      * Elimina los ficheros de LOG.
      *
-     * @param string $fileType tipo de fichero, de momento puede ser "errors" o "login".
+     * @param string $fileType tipo de fichero, puede ser "errors" o "login".
+     * @return Response
      */
-    public function erase(
-        string $fileType = 'errors'
-    ){
+    public function erase(string $fileType = 'errors'):Response{
         // operación solamente para los roles autorizados a trabajar con errores
         // se configura en el fichero de configuración
         Auth::oneRole(ERROR_ROLES); 
@@ -163,7 +173,7 @@ class ErrorController extends Controller{
             Session::error("No se pudo eliminar el fichero, es probable que no 
                             exista o que no se tengan los permisos adecuados.");
         
-        redirect("/Error/list");
+        return redirect("/Error/list");
     }
 }
 

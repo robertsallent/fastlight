@@ -11,7 +11,7 @@
  * la URL /example/tables mostrará el fichero en mvc/views/examples/source/tables.php
  *
  * 
- * Última revisión: 03/12/2024
+ * Última revisión: 09/01/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * 
@@ -25,11 +25,13 @@ class ExampleController extends Controller{
      * 
      * @param string $method operación a ejecutar (nombre del fichero en la carpeta example).
      * @param array $arguments parámetros adicionales, sin uso por el momento.
+     * 
+     * @return Response
      */
     public function __call(
         string $method, 
         array $arguments = []  // sin uso por el momento
-    ):ViewResponse{
+    ):Response{
         
         // si se solicita la lista de ejemplos...
         if($method == "index"){

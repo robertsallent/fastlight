@@ -4,7 +4,8 @@
  *
  * Controlador para el login en JSON mediante API
  *
- * Última revisión: 09/04/2024
+ * Última revisión: 09/01/2025
+ * 
  * @author Robert Sallent <robertsallent@gmail.com>
  */
 
@@ -15,7 +16,7 @@ class JsonLoginController extends Controller{
      * 
      * @throws LoginException si la identificación es incorrecta.
      */
-    public function post(){
+    public function post():Response{
         
         Auth::guest();   // solo para usuarios no identificados
         
@@ -55,8 +56,7 @@ class JsonLoginController extends Controller{
             $response->sessionId = session_id();
        
         
-        // retorna la respuesta en JSON
-        $response->send();
+        return $response; // retorna la respuesta en JSON
     }
     
     
@@ -64,11 +64,9 @@ class JsonLoginController extends Controller{
     /**
      * Realiza el logout si llega una petición vía DELETE.
      */
-    public function delete(){
+    public function delete():Response{
         Login::clear();  // elimina los datos de sesión y desvincula el usuario
-        
-        $response = new JsonResponse([], 'Hasta la vista, baby');
-        $response->send();
+        return new JsonResponse([], 'Hasta la vista, baby');
     }
 }
 

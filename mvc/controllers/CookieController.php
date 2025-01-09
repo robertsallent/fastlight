@@ -2,9 +2,9 @@
 
 /** CookieController
  *
- * Implementa el mecanismo de aceptar cookies
+ * Implementa el mecanismo de "aceptar cookies"
  *
- * Última revisión: 29/05/2024
+ * Última revisión: 09/01/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v1.2.2
@@ -12,8 +12,12 @@
 
 class CookieController extends Controller{
     
-    /** Aceptar las cookies */
-    public function accept(){
+    /**
+     * Implementa el mecanismo de "aceptar cookies"
+     * 
+     * @return Response
+     */
+    public function accept():Response{
                 
         // comprueba que llega el formulario
         if($this->request->has('accept')){
@@ -22,11 +26,11 @@ class CookieController extends Controller{
             Response::addCookie(ACCEPT_COOKIES_NAME, true, ACCEPT_COOKIES_EXPIRATION, '/');
 
             // redirige a la operación que se estuviera intentando hacer
-            redirect($this->request->previousUrl);
+            return redirect($this->request->previousUrl);
         }
         
         // si no llegó el formulario, redirigimos a la portada
-        redirect('/');
+        return redirect('/');
     }  
 }
 

@@ -15,7 +15,7 @@
  * Por ejemplo:
  * la URL /test/models-libro ejecutará el fichero en test/models/libro.php
  * 
- * Última revisión: 03/12/2024
+ * Última revisión: 09/01/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * 
@@ -29,11 +29,13 @@ class TestController extends Controller{
      * 
      * @param string $method operación a ejecutar (nombre del fichero en la carpeta tests).
      * @param array $arguments parámetros adicionales, sin uso por el momento.
+     * 
+     * @throws NotFoundException si no encuentra el fichero.
      */
     public function __call(
         string $method, 
         array $arguments = []  // sin uso por el momento
-    ):ViewResponse{
+    ):Response{
         
        // solamente podrá lanzar test el administrador o un usuario con ROLE_TEST
        Auth::oneRole(TEST_ROLES);

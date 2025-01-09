@@ -4,7 +4,7 @@
  *
  * Controlador por defecto, según la configuración de config.php
  *
- * Última revisión: 07/03/2023
+ * Última revisión: 09/01/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  */
@@ -12,7 +12,7 @@
 class WelcomeController extends Controller{
     
     /** Carga la vista de portada. */
-    public function index():ViewResponse{
+    public function index():Response{
         return view('welcome');
     }  
 }

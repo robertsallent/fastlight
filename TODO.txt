@@ -5,7 +5,7 @@ LISTA DE COSAS PENDIENTES - TODO LIST
 Lista de mecanismos y herramientas que se irán incorporando (o no) en próximas versiones del framework FastLight.
 
 Autor: Robert Sallent
-Última revisión: 06/01/25
+Última revisión: 09/01/25
 
 Los cambios marcados con un ? están en fase de evaluación.
 
@@ -15,10 +15,9 @@ Los cambios marcados con un ? están en fase de evaluación.
 	- (v2.0.0) helper env()
 
 - CORE/HTTP
-	- (v1.5.0) Rehacer la clase Response:
+	- (v1.5.0 - ACTUAL) Rehacer la clase Response:
 		- Pasar los métodos estáticos a métodos de objeto
 		- Pasar métodos estáticos de cookies y headers a métodos de objeto.
-		- Añadir el código HTTP a las redirecciones (Response::redirect()).
 		- Método json() en Response
 		- Método xml() en Response
 		- Método header() en Response que permite añadir un header
@@ -34,15 +33,12 @@ Los cambios marcados con un ? están en fase de evaluación.
 	- ? Nuevo método Model::insertRelated(entidad, idrelacionado, tabla)
 	
 - TEMPLATES Y VISTAS
-	- Mover las operaciones de view() hacia Response::view() y unificar parámetros y criterios. Testearlo todo.
 	- ? Hacer uso de <dialog> para modales
 
 - TEST
 	- Mejorar la documentación y los ejemplos en los test.
-	- ? Separar por carpetas los distintos tipos de test, actualizando el índice para agrupar por carpeta.
 	
 - HELPERS
-	- helper response()
 	- ? helper jsonResponse()
 	- ? helper xmlResponse()
 		
@@ -61,6 +57,6 @@ Los cambios marcados con un ? están en fase de evaluación.
  A evaluar... tal vez no se implemente por motivos docentes y se deja para los cursos de Laravel o Symfony
 -------------------------------------------------------------------------------------------------------------
 - Middleware.
-- Hacer uso de PSR4 para el autoload (poco probable que se implemente).
+- Hacer uso de PSR4 para el autoload (poco probable que se implemente por ahora).
 
                 

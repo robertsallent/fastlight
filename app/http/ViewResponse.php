@@ -41,7 +41,7 @@ class ViewResponse extends Response{
     /**
      * Getter de view
      *
-     * @return View nombre de la vista
+     * @return View la vista
      */
     public function getView():View{
         return $this->view;

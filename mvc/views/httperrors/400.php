@@ -26,9 +26,9 @@
     		<h2 class="http-code">400</h2>
     		<p class="http-message centrado">Bad Request</p>
     
-    		<p class='http-details centrado'>
+    		<div class='danger p2 m2'>
     			<?= $message ?? $mensaje ?? '' ?>
-			</p>
+			</div>
 			
 			<nav class="enlaces centrado">
     			<a class="button" onclick="history.back()">Atrás</a>  

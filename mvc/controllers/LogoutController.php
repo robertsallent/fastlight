@@ -12,10 +12,10 @@
 class LogoutController extends Controller{
     
     /** Gestiona la operación de logout. */
-    public function index(){
+    public function index():Response{
         Auth::check();   // solo para usuarios identificados
         Login::clear();  // elimina los datos de sesión y desvincula el usuario      
-        redirect('/');   // redirige a la portada 
+        return redirect('/');   // redirige a la portada 
     } 
 }
     

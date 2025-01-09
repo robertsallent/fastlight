@@ -313,57 +313,7 @@ class Response{
     
    
     
-    /**
-     * Realiza una redirección HTTP
-     * 
-     * @param string $url url a la que redireccionar
-     * @param int $delay retardo en la redirección
-     * @return Response
-     */
-    public function redirect(
-        string $url  = '/', 
-        int $delay   = 0,
-        bool $die    = true
-    ){
-        
-        // añade el header para hacer una redirección HTTP
-        self::addHeader("Refresh:$delay; URL=$url");
-        
-        // prepara la respuesta
-        $this->prepare();
-        
-        // evita que se ejecuten otras operaciones
-        if($die) 
-            die();
-    }
-
-    
-    
-    /**
-     * Método estático que genera una respuesta y carga una vista en un solo paso
-     *
-     * @param string $contentType tipo MIME del contenido mostrado
-     * @param int $httpCode código HTTP de estado
-     * @param string $status mensaje HTTP de estado
-     * @param string $name nombre de la vista a cargar
-     * @param array $parameters array de parámetros para mostrar en la vista
-     *
-     */
-    public static function withView(
-        string $contentType = 'text/html',
-        int $httpCode       = 200,
-        string $status      = 'OK',
-        string $name    = '',
-        array $parameters = []
-    ){
-        // crea la response y carga la vista
-        (new self($contentType, $httpCode, $status))->view($name, $parameters);
-    }
-    
-    
-    
-    
-    // TODO: revisar este método, en principio está pensado para APIs
+    // TODO: revisar a partir de este punto, está pensado para APIs
     /**
      * prepara y genera la respuesta
      */

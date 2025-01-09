@@ -4,14 +4,15 @@
  *
  * Gestiona el login XML para la API
  *
- * Última revisión: 14/04/2023
+ * Última revisión: 09/01/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  */
 
+// TODO: rehacer esta clase usando XMLResponse, en la v1.5.0 no debería funcionar
+
 class XmlLoginController extends Controller{
-    
-    
+      
     
     /** Constructor. */
     public function __construct(){
@@ -25,7 +26,7 @@ class XmlLoginController extends Controller{
      *
      * @throws LoginException si la identificación no es correcta.
      */
-    public function post(){
+    public function post():Response{
         
         // Auth::guest();   // solo para usuarios no identificados
         

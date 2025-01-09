@@ -3,7 +3,7 @@
 /**
  * Funciones helper para realizar tareas habituales.
  * 
- * Última revisión: 14/12/2024
+ * Última revisión: 09/01/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v1.4.2 añadido el helper request() que retorna el objeto Request con información de la petición.
@@ -166,7 +166,7 @@ function view(
     int $httpCode       = 200,
     string $status      = 'OK',
 ):ViewResponse{
-    return (new ViewResponse($name, $parameters, $httpCode, $status));
+    return new ViewResponse($name, $parameters, $httpCode, $status);
 }
 
 
@@ -194,7 +194,6 @@ function viewExists(string $name):bool{
  * @throws ViewException si no encuentra la vista.
  *
  */
-
 function abort(
     int $code           = 500,
     string $status      = 'INTERNAL SERVER ERROR',
@@ -228,11 +227,9 @@ function redirect(
     string $url = '/', 
     int $delay = 0,
     int $httpCode       = 302,
-    string $status      = 'FOUND',
-    string $contentType = 'text/html',
-    bool $die = true,
+    string $status      = 'FOUND'
 ){
-    (new Response($contentType, $httpCode, $status))->redirect($url, $delay, $die);
+    return new RedirectResponse($url, $delay, $httpCode, $status);
 }
 
 

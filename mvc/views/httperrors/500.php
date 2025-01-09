@@ -26,9 +26,9 @@
     		<h2 class="http-code">500</h2>
     		<p class="http-message centrado">Internal Server Error</p>
     
-    		<p class='http-details centrado'>
+    		<div class='danger p2 m2'>
     			<?= $message ?? $mensaje ?? '' ?>
-			</p>
+			</div>
 			
 			<nav class="enlaces centrado">
     			<a class="button" onclick="history.back()">Atrás</a>  

@@ -6,7 +6,7 @@
  * Facilita el trabajo con ficheros. Dispone de métodos interesantes
  * para trabajar con ficheros y para comprobar tipos MIME.
  *
- * Última mofidicación: 02/12/2024.
+ * Última mofidicación: 09/01/2025.
  * 
  * @author Robert Sallent
  * @since v1.1.4 añadidos métodos para copiar y mover ficheros.
@@ -176,78 +176,44 @@
         
         
         /**
+         * Muestra el contenido de un fichero (o lo descarga)
          * 
-         * Muestra o descarga el contenido de un fichero de texto
-         * 
-         * @param string $contentType tipo MIME del fichero
-         * @param ?string $file nombre con el que se descargará el fichero. NULL para el nombre original del fichero.
-         * @param bool $download permite indicar si queremos forzar la descarga del fichero
+         * @throws FileException si no encuentra el fichero
          */
-        public function read(        
-            string $contentType = 'text/plain',
-            ?string $fileName = NULL,
-            bool $download = false               
-        ){
+        public function read(){
+            
+            // comprueba si el fichero existe
             if(!$this->exists())
                throw new FileException("No se encontró el fichero $this->path.");
                 
-            header("Content-Type: $contentType");
-                
-            if($download){
-                $fileName = $fileName ?? $this->getBaseName();
-                header("Content-disposition: attachment; filename=$fileName");
-            }
-            
+            // imprime el contenido del fichero
             echo file_get_contents($this->path);    
         }
         
         
         /**
-         * Descarga un fichero de texto
+         * Fuerza la descarga de un fichero
          * 
-         * @param string $contentType tipo MIME del fichero
-         * @param ?string $file nombre con el que se descargará el fichero. NULL para el nombre original del fichero.
+         * @param ?string $fileName nombre con el que se descargará el fichero. NULL para el nombre original del fichero.
+         * @throws FileException si no encuentra el fichero
          */ 
-        public function download(
-            string $contentType = 'text/plain',
-            ?string $fileName = NULL
-        ){
-            $this->read($contentType, $fileName, true);    
+        public function download(?string $fileName    = NULL){
+            
+            // comprueba si el fichero existe
+            if(!$this->exists())
+                throw new FileException("No se encontró el fichero $this->path.");
+            
+            // calcula el nombre del fichero a descargar
+            $fileName = $fileName ?? $this->getBaseName();
+            
+            // añade una cabecera para intentar forzar la descarga
+            header("Content-disposition: attachment; filename=$fileName"); 
+            
+            // imprime el contenido del fichero
+            echo file_get_contents($this->path); 
         }
         
-        
-        /**
-         * Método estático para mostrar el contenido de ficheros.
-         * 
-         * Abre un fichero de texto para mostrar o descargar su contenido. 
-         *
-         *
-         * @param string $route ruta del fichero
-         * @param string $fileName nombre con el que se descargará el fichero
-         * @param string $contentType tipo de fichero
-         * @param bool $download permite indicar si queremos forzar la descarga del fichero
-         * 
-         * @return void
-         */
-        public static function openTextFile(
-            string $route,                      
-            string $fileName    = 'download.txt',      
-            string $contentType = 'text/plain', 
-            bool $download      = true               
-        ){
-                
-            if(!is_readable($route))
-                throw new FileException("No se encontró el fichero $route.");
-                
-            header("Content-Type: $contentType");
-            
-            if($download)
-                header("Content-disposition: attachment; filename=$fileName");
-            
-            echo file_get_contents($route);
-        }
-        
-        
+  
         /**
          * Copia un fichero
          * 
@@ -418,7 +384,7 @@
          * @return bool true si el tipo de fichero valida la expresión regular, false en caso contrario
          */
         public function checkMime(string $regexp):bool{
-            return preg_match($regexp, self::mime($this->path));
+            return preg_match($regexp, $this->getMime());
         }
         
         /**
@@ -448,7 +414,7 @@
          * false en caso contrario
          */
         public function has(array $mimes):bool{
-            return in_array(self::mime($this->path), $mimes);
+            return in_array($this->getMime(), $mimes);
         }
         
         /**

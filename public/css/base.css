@@ -893,7 +893,7 @@ body>footer img{
 /* ---------------------- VISTAS DE ERROR HTTP ---------------------- */
 
 h2.http-code{
-	font-size: 6rem;
+	font-size: 10rem;
 	text-align: center;
 	margin: 10px auto;
 }

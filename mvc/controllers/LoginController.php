@@ -4,7 +4,7 @@
  *
  * Gestiona la operación de LogIn
  *
- * Última revisión: 29/05/2024
+ * Última revisión: 09/01/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  */
@@ -14,7 +14,7 @@ class LoginController extends Controller{
     
     
     /** Muestra el formulario de login. */
-    public function index():ViewResponse{
+    public function index():Response{
         Auth::guest();   // solo para usuarios no identificados
         return view('login');   // carga la vista de login     
     }
@@ -24,14 +24,14 @@ class LoginController extends Controller{
     /**
      * Gestiona la identificación y da acceso o no a la aplicación.
      */
-    public function enter(){
+    public function enter():Response{
         // esta operación tan solo la pueden realizar los usuarios no identificados
         Auth::guest();  
         
         // comprobar que llega el formulario de Login
         if(!$this->request->has('login')){
             Session::error("No se recibió el formulario de LogIn.");
-            redirect('/Login');
+            return redirect('/Login');
         }
         
         // comprobar que llega el token CSRF
@@ -54,7 +54,7 @@ class LoginController extends Controller{
             if(DB_LOGIN_ERRORS)
                 AppError::new('Login', "Intento de identificación incorrecto para $user.");
                 
-            redirect('/Login');
+            return redirect('/Login');
         }
         
         // si las cosas han ido bien...
@@ -66,7 +66,7 @@ class LoginController extends Controller{
         Session::forget('_pending_operation');
         
         // redirección a la operación pendiente o bien donde indique el config.php o bien a portada
-        redirect($pending ?? REDIRECT_AFTER_LOGIN ?? '/');
+        return redirect($pending ?? REDIRECT_AFTER_LOGIN ?? '/');
     }
 }
 

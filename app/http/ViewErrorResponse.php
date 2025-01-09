@@ -42,7 +42,7 @@ class ViewErrorResponse extends ViewResponse{
             $this->evaluateError($t);
 
             // calcula el nombre de la nueva vista de error personalizada a cargar (si es necesario)
-            $name = (!DEBUG && USE_CUSTOM_ERROR_VIEWS && View::exists("httperrors/".$this->httpCode)) ? "httperrors/".$this->httpCode : 'error';
+            $name = (USE_CUSTOM_ERROR_VIEWS && View::exists("httperrors/".$this->httpCode)) ? "httperrors/".$this->httpCode : 'error';
 
             // cambia la vista a cargar
             $this->view->setName($name);            
