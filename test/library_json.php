@@ -1,3 +1,4 @@
+<main>
 <?php
     echo "<h1>Test de la librería JSON</h1>";
 
@@ -20,3 +21,7 @@
     
     echo "<p>Probando el comportamiento ante un error, en caso de no lanzar excepciones.</p>";
     dump(JSON::decode('{test:error}', 'User', false));
+    
+?>
+
+</main>

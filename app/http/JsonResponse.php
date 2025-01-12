@@ -4,7 +4,7 @@
  *
  * Respuestas JSON para las aplicaciones de tipo API.
  *
- * Última modificación: 16/04/2024.
+ * Última modificación: 12/01/2025.
  *
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.9.9
@@ -53,8 +53,10 @@ class JsonResponse extends APIResponse implements JsonSerializable{
      * 
      * @return string
      */
-    public function __toString():string{
-        return JSON::encode($this);
+    public function send():string{
+        $this->prepare();
+        echo JSON::encode($this);
+        die();
     }
     
 }

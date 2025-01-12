@@ -4,10 +4,12 @@
  *
  * Respuestas HTTP
  *
- * Última modificación: 08/01/2025
+ * Última modificación: 12/01/2025
  *
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.9.13
+ * @since v1.5.0 eliminados los métodos toXMLResponse y toJsonResponse (ya no son necesarios).
+ * 
   */
 
 class Response{
@@ -223,15 +225,13 @@ class Response{
      *  @return Response el mismo objeto Response.
      */
     protected function prepare():Response{
-        
-        
+         
         // añade las cabeceras HTTP para content-type (con charset), el protocolo del servidor,
-        // código de la respuesta y mensaje de estado
-        self::addHeader(
-            "Content-type:$this->contentType; charset=".RESPONSE_CHARSET,
-            $_SERVER['SERVER_PROTOCOL']." $this->httpCode $this->status"
-        );
+        self::addHeader("Content-type:$this->contentType; charset=".RESPONSE_CHARSET);
         
+        // código de la respuesta y mensaje de estado
+        self::addHeader($_SERVER['SERVER_PROTOCOL']." $this->httpCode $this->status");
+                
         // añade unas cabeceras adicionales con informacion del framework
         self::addHeader("Framework: FastLight <fastlight@robertsallent.com>");
         self::addHeader("Author: Robert Sallent <robert@juegayestudia.com>");
@@ -262,44 +262,44 @@ class Response{
      * @return Response retorna la propia response, para permitir el chaining
      */
     public function evaluateError(Throwable $t):Response{
-        
-        // Prepara el código y status en función del tipo de error
+
+            // Prepara el código y status en función del tipo de error
         switch(get_class($t)){
             
             case 'JsonException':
             case 'ApiException':        $this->httpCode = 400;
-            $this->status = 'BAD REQUEST';
+                                        $this->status = 'BAD REQUEST';
             break;
             
             case 'LoginException':
             case 'AuthException':       $this->httpCode = 401;
-            $this->status = 'NOT AUTHORIZED';
+                                        $this->status = 'NOT AUTHORIZED';
             break;
             
             case 'NotIdentifiedException':
             case 'ForbiddenException':  $this->httpCode = 403;
-            $this->status = 'FORBIDDEN';
+                                        $this->status = 'FORBIDDEN';
             break;
             
             case 'NothingToFindException':
             case 'NotFoundException':   $this->httpCode = 404;
-            $this->status = 'NOT FOUND';
+                                        $this->status = 'NOT FOUND';
             break;
             
             case 'MethodNotAllowedException':  $this->httpCode = 405;
-            $this->status = 'METHOD NOT ALLOWED';
+                                                $this->status = 'METHOD NOT ALLOWED';
             break;
             
             case 'CsrfException':       $this->httpCode = 419;
-            $this->status = 'PAGE EXPIRED';
+                                        $this->status = 'PAGE EXPIRED';
             break;
             
             case 'ValidationException': $this->httpCode = 422;
-            $this->status = 'UNPROCESSABLE ENTITY';
+                                        $this->status = 'UNPROCESSABLE ENTITY';
             break;
             
             default:                    $this->httpCode = 500;
-            $this->status = 'INTERNAL SERVER ERROR';
+                                        $this->status = 'INTERNAL SERVER ERROR';
         }
         
         
@@ -312,50 +312,16 @@ class Response{
     }
     
    
-    
-    // TODO: revisar a partir de este punto, está pensado para APIs
     /**
      * prepara y genera la respuesta
      */
     public function send(){
         $this->prepare();
         echo $this;
+        die();
     }
     
-    
-    /**
-     * Retorna una JsonResponse a partir de la Response actual
-     * 
-     * @param array $data
-     * @param string $message
-     * @return JsonResponse
-     */
-    public function toJsonResponse(
-        array $data     = [], 
-        string $message = ''
-        
-    ):JsonResponse{
-        return new JsonResponse($data, strip_tags($message), $this->httpCode, $this->status);
-    }
-    
-    
-    
-    /**
-     * Retorna una XMLResponse a partir de la Response actual
-     *
-     * @param array $data
-     * @param string $message
-     * @return XMLResponse
-     */
-    public function toXMLResponse(
-        array $data     = [],
-        string $message = ''
-        
-    ):XMLResponse{
-        return new XMLResponse($data, strip_tags($message), $this->httpCode, $this->status);
-    }
-    
-      
+ 
     /**
      * @return string
      */

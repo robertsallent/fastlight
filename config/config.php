@@ -80,7 +80,7 @@ define('EMPTY_STRINGS_TO_NULL', true);
 
 // versión de PHP necesaria para ejecutar el framework o aplicación
 // podría funcionar en versiones anteriores pero no se garantiza que lo haga
-define('MIN_PHP_VERSION', '8.1.1');  
+define('MIN_PHP_VERSION', '8.2.12');  
 
 // comprobación de la versión de PHP del servidor
 // si está a true impide que se ejecute la aplicación en servidores con versiones

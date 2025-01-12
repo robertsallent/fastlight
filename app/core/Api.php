@@ -54,7 +54,7 @@ class Api extends Kernel{
              
             // comprueba que el controlador XmlLibroController (por ejemplo) existe
             if(!is_readable("../mvc/controllers/$c.php"))
-                throw new ApiException("No existe ENDPOINT para $this->entidad en $this->formato.");
+                throw new NotFoundException("No existe ENDPOINT para $this->entidad en $this->formato.");
             
             // crea una instancia del controlador correspondiente y le pasa la Request
             $controlador = new $c(self::$request);
@@ -87,32 +87,26 @@ class Api extends Kernel{
         // si se produce algún otro error...
         }catch(Throwable $t){ 
             
-            // crea una nueva respuesta de error.
-            $response = new APIResponse([], '', 'text/plain', 500, 'INTERNAL SERVER ERROR');
-            
+           
             // miramos si la petición fue XML o JSON para enviar errores en formato correcto
             // si queremos permitir más formatos, los tendremos que añadir.
             switch(strtoupper($this->formato)){
                 
                 // XML: generar XMLResponse y enviarla
-                case 'XML':  $response->toXMLResponse([], $t->getMessage())
-                                      ->evaluateError($t)
-                                      ->send();
+                case 'XML':  $response = new XMLResponse([], $t->getMessage(), 500, 'INTERNAL SERVER ERROR');
                              break;
                                    
-                // JSON: convertimos la respuesta a JsonResponse y la enviamos            
-                case 'JSON': $response->toJsonResponse([], $t->getMessage())
-                                      ->evaluateError($t)
-                                      ->send();
+                // JSON: generar JSONResponse y enviarla
+                case 'JSON': $response = new JsonResponse([], $t->getMessage(), 500, 'INTERNAL SERVER ERROR');
                              break;
                         
                 // Otro formato: respuesta en text/plain             
-                default:    $response->setMessage($t->getMessage());
-                            $response->evaluateError($t)->send();
+                default:    $response = new ApiResponse([], $t->getMessage(), 'text/plain', 500, 'INTERNAL SERVER ERROR');
+                            break;
             }
             
             // evía la respuesta de error
-            $response->send();
+            $response->evaluateError($t)->send();
         }
     }  
 }

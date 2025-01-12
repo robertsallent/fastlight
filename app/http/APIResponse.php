@@ -4,23 +4,24 @@
  *
  * Respuestas para las aplicaciones de tipo API.
  *
- * Última modificación: 10/04/2024.
+ * Última modificación: 12/01/2025.
  *
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v1.1.0
+ * @since v1.5.0 se ha cambiado la visibilidad de las propiedades a protected. Se han eliminado algunos setters innecesarios.
  */
 
 
 class APIResponse extends Response{
     
     /** @var int $results número de resultados */
-    public int $results;
+    protected int $results;
     
     /** @var string $message mensaje con información adicional */
-    public string $message;
+    protected string $message;
 
-    /** @var array $data datos a enviar */
-    public array $data;
+    /** @var array $data colección de datos a enviar */
+    protected array $data;
        
     /** @var string $requestMethod método HTTP con el que se relizó la petición */
     protected string $requestMethod;
@@ -38,13 +39,14 @@ class APIResponse extends Response{
         int $httpCode       = 200,
         string $status      = 'OK'
     ){
-        
+        // llamada al constructor de la clase padre
         parent::__construct($contentType, $httpCode, $status);
         
-        $this->data = $data;
-        $this->message = $message;    
-        $this->results = $data? sizeof($data) : 0;
-        $this->requestMethod = $_SERVER['REQUEST_METHOD'];
+        // inicialización de las propiedades no heredadas
+        $this->data             = $data;
+        $this->message          = $message;    
+        $this->results          = $data ? sizeof($data) : 0;
+        $this->requestMethod    = $_SERVER['REQUEST_METHOD'];
     }
         
     
@@ -54,7 +56,7 @@ class APIResponse extends Response{
      * 
      * @return array
      */
-    public function getData(){
+    public function getData():array{
         return $this->data;
     }
     
@@ -78,6 +80,7 @@ class APIResponse extends Response{
      */
     public function addData(mixed $value){
         array_push($this->data, $value);
+        $this->results++;
     }
 
     
@@ -85,12 +88,12 @@ class APIResponse extends Response{
     /**
      * Getter para la propiedad results
      * 
-     * @return number
+     * @return int
      */
-    public function getResults(){
+    public function getResults():int{
         return $this->results;
     }
-
+       
     
     
     /**
@@ -98,7 +101,7 @@ class APIResponse extends Response{
      * 
      * @return string
      */
-    public function getMessage(){
+    public function getMessage():string{
         return $this->message;
     }
     
@@ -125,24 +128,6 @@ class APIResponse extends Response{
     }
     
     
-    
-    /**
-     * Setter para la propiedad $results
-     * 
-     * @param int $results
-     */
-    public function setResults(int $results){
-        $this->results = $results;
-    }
-    
-    
-    
-    /** Incrementa el número de resultados en uno */
-    public function increaseResults(){
-        $this->results++;
-    }
-    
-    
 
     /**
      * Getter de la propiedad $requestMethod
@@ -156,21 +141,24 @@ class APIResponse extends Response{
 
     
     /**
-     * Convierte la respuesta a JSON.
-     * 
-     * @return string
+     * Envía la respuesta
      */
-    public function __toString():string{
+    public function send():string{
+        $this->prepare();      // añade las cookies y las cabeceras http a la respuesta
+        
+        // Prepara una cadena de texto con la respuesta
         $respuesta = "STATUS: $this->status".
                      "\nTIMESTAMP: $this->timestamp".
                      "\nRESULTS: $this->results".
                      "\nMESSAGE: ".htmlspecialchars($this->message).
                      "\nDATA: ".arrayToString($this->data, false, false);
         
+        // en modo debug, añade información adicional
         if(DEBUG && $this->debug)
             $respuesta.= "\nDEBUG: ".htmlspecialchars($this->debug ?? '').".";
 
-        return $respuesta;
+        echo $respuesta;
+        die();
     }
     
 }

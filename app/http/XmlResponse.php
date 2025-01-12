@@ -1,10 +1,10 @@
 <?php
 
-/** XMLResponse
+/** XmlLResponse
  *
  * Respuestas XML para las aplicaciones de tipo API.
  *
- * Última modificación: 10/04/2024.
+ * Última modificación: 12/01/2025.
  *
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v1.1.0
@@ -34,7 +34,8 @@ class XMLResponse extends APIResponse{
      */
     
     // TODO: arreglar este método para que lo haga bien a partir de XML::encode()
-    public function __toString():string{
+    public function send():string{
+        $this->prepare();
         
         $respuesta = "<?xml version='1.0' encoding='utf-8'>\n
                       <respuesta>\n
@@ -49,7 +50,8 @@ class XMLResponse extends APIResponse{
          
         $respuesta .= "</respuesta>";
 
-        return $respuesta;
+        echo $respuesta;
+        die();
     }
     
 }

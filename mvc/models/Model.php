@@ -13,7 +13,7 @@
  * protected static array $jsonFields: para indicar los campos JSON que se deben 
  * convertir automáticamente en arrays PHP.
  *
- * Última revisión 23/03/24
+ * Última revisión 12/01/25
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
@@ -809,7 +809,7 @@ abstract class Model{
         foreach($this as $propiedad => $valor){
             $texto .= is_array($valor) ? 
                 "$propiedad: [ ".implode(', ',$valor)." ]" :
-                "$propiedad: <b>$valor</b>, ";
+                "$propiedad: $valor, ";
         }
         return rtrim($texto, ', '); // quita la última coma
     }

@@ -18,6 +18,16 @@
         función del tipo de operación que estemos realizando.</p>
     </section>
        
+    <section>
+        <h2>Pruebas con la clase <code>ApiResponse</code></h2>
+        
+        <p>Creando una nueva respuesta de la API con un par de objetos genéricos.</p>
+        <?php 
+            $response = new APIResponse([new stdclass(), new stdclass()]);
+            dump($response);
+        ?>
+    </section>
+    
     
     <section>
         <h2>Pruebas con la clase <code>JsonResponse</code></h2>
@@ -29,22 +39,16 @@
         ?>
     </section>
     
-    
     <section>
-        <h2>Pruebas con la clase <code>APIResponse</code></h2>
+        <h2>Pruebas con la clase <code>XMLResponse</code></h2>
         
-        <p>Creando una nueva respuesta de <b>API Restful</b>.</p>
+        <p>Creando una nueva respuesta <b>XML</b> con un par de objetos genéricos.</p>
         <?php 
-            $response = new APIResponse(
-                [],   // data
-                "Test de respuesta de la API",      // message
-                "text/plain",                       // content-type
-                200,                                // HTTP code
-                "OK"                                // HTTP message
-            );
+            $response = new XMLResponse([new stdclass(), new stdclass()]);
             dump($response);
         ?>
     </section>
+  
     
 </main>
 

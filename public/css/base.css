@@ -276,8 +276,8 @@
 /* ========================  ELEMENTOS BÁSICOS HTML ======================= */
 
 h1, h2, h3{
-	margin-top:    1.5em;
-	margin-bottom: 1.1em;
+	margin-top:    1.10em;
+	margin-bottom: 0.9em;
 }
 
 h1{	font-size: 2em; }
