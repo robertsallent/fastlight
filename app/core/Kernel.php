@@ -16,7 +16,7 @@ abstract class Kernel{
     
     /** Constructor del nucleo de la aplicación. */
     public function __construct(Request $request){
-        Login::init();                      // inicializa el sistema de autenticación (login)      
+        Login::init();                 // inicializa el sistema de autenticación (login)      
         self::$request = $request;     // prepara y guarda el objeto Request
     }
     

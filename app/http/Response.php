@@ -8,7 +8,7 @@
  *
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.9.13
- * @since v1.5.0 eliminados los métodos toXMLResponse y toJsonResponse (ya no son necesarios).
+ * @since v1.5.0 eliminados los métodos toXmlResponse y toJsonResponse (ya no son necesarios).
  * 
   */
 
@@ -228,7 +228,7 @@ class Response{
          
         // añade las cabeceras HTTP para content-type (con charset), el protocolo del servidor,
         self::addHeader("Content-type:$this->contentType; charset=".RESPONSE_CHARSET);
-        
+       
         // código de la respuesta y mensaje de estado
         self::addHeader($_SERVER['SERVER_PROTOCOL']." $this->httpCode $this->status");
                 
@@ -236,17 +236,16 @@ class Response{
         self::addHeader("Framework: FastLight <fastlight@robertsallent.com>");
         self::addHeader("Author: Robert Sallent <robert@juegayestudia.com>");
         
-        
         // añade los encabezados a la respuesta
         if(self::$headers)
             foreach(self::$headers->getItems() as $header)
                 $header->send();
-            
+           
         // anexa las cookies a la respuesta   
         if(self::$cookies)
             foreach(self::$cookies->getItems() as $cookie)
                 $cookie->send();
-          
+                
         // retorna la misma respuesta para permitir chaining
         return $this;
     }

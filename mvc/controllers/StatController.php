@@ -1,15 +1,18 @@
 <?php
 
-/** StatsController
+/** StatController
  * 
  * Controlador para gestionar estadísticas de visitas a las URL.
  * 
- * Última revisión: 09/01/2025
+ * Última revisión: 15/01/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
+ * 
+ * @since v1.5.1 se pueden exportar las estadísticas
  */
 
-class StatsController extends Controller{
+class StatController extends Controller{
+    
     
     /** Operación por defecto, redirige al método list(). */
     public function index():Response{
@@ -39,7 +42,7 @@ class StatsController extends Controller{
                     Stat::total();                      // total de resultados sin filtrar
                                
         // crea un objeto paginator
-        $paginator = new Paginator('/Stats/list', $page, $limit, $total);
+        $paginator = new Paginator('/Stat/list', $page, $limit, $total);
         
         // recupera los resultados para la página actual 
         $stats = $filtro ?    // hay filtro?
@@ -53,6 +56,36 @@ class StatsController extends Controller{
             'filtro'    => $filtro       // pasamos el objeto filter a la vista
         ]);
     } 
+    
+
+    
+    /**
+     * Permite exportar las estadísticas a distintos formatos, retornando el tipo de respuesta
+     * adecuado al formato solicitado vía POST.
+     * 
+     * @return Response
+     */
+    public function export():Response{
+        
+        // operación solamente para el administrador o usuario con rol de test
+        Auth::oneRole([ADMIN_ROLE, "ROLE_TEST"]); 
+        
+        // recupera el formato de exportación
+        $formato = $this->request->post('format');
+        
+        // hay que intentar descargar?
+        $download = $this->request->post('download') ?? false;
+        
+        // campo para el orden?
+        $order = $this->request->post('order') ?? 'count';
+        
+        // sentido
+        $direction = $this->request->post('direction') ?? 'DESC';
+        
+        // el método generateExportResponse se encuentra en el trait Exportable
+        return $this->exportResponse('Stat', $formato, $download, $order, $direction);
+    }
+    
     
       
     /**
@@ -69,7 +102,7 @@ class StatsController extends Controller{
         try{
             Stat::delete($id);
             Session::success("Estadística borrada.");
-            return redirect("/Stats/list");
+            return redirect("/Stat/list");
             
         }catch(SQLException $e){
             Session::error("No se pudo borrar la estadística.");
@@ -77,7 +110,7 @@ class StatsController extends Controller{
             if(DEBUG)
                 throw new ControllerException($e->getMessage());
             
-            return redirect("/Stats/list");
+            return redirect("/Stat/list");
         }
     }
     
@@ -88,7 +121,7 @@ class StatsController extends Controller{
      *
      * @throws Exception si no puede vaciar la tabla.
      */
-    public function clear(){
+    public function clear():Response{
         
         // operación solamente para los roles autorizados a trabajar con errores
         // se configura en el fichero de configuración
@@ -97,7 +130,7 @@ class StatsController extends Controller{
         try{
             $rows = Stat::clear();
             Session::success("Lista de estadísticas vaciada correctamente. Se eliminaron $rows registros.");
-            redirect("/Stats/list");
+            return redirect("/Stat/list");
             
         }catch(SQLException $e){
             Session::error("No se pudo vaciar la lista de estadísticas.");
@@ -105,9 +138,10 @@ class StatsController extends Controller{
             if(DEBUG)
                 throw new ControllerException($e->getMessage());
                 
-            redirect("/Stats/list");
+            return redirect("/Stat/list");
         }
     }
+    
 }
 
   

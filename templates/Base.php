@@ -4,7 +4,7 @@
  *
  * Se usa para generar las partes comunes de todas las vistas
  *
- * Última revisión: 19/12/2024
+ * Última revisión: 12/01/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  *
@@ -163,7 +163,7 @@ class Base implements TemplateInterface{
         
         // enlace a las estadística de visitas (solamente administrador o rol de test)
         if((Login::oneRole(STATS_ROLES)))
-            $html .=   "<li><a href='/Stats'>Visitas</a></li>";
+            $html .=   "<li><a href='/Stat'>Visitas</a></li>";
         
         // enlace a la gestión de errores (solamente administrador o rol de test)
         if((Login::oneRole(ERROR_ROLES)) && (DB_ERRORS || LOG_ERRORS || LOG_LOGIN_ERRORS))
@@ -395,6 +395,30 @@ class Base implements TemplateInterface{
     }
     
     
+    /**
+     * Crea el formulario para exportar resultados a distintos formatos. En el controlador
+     * debe existir el método para permitir la exportación
+     * 
+     * @param string $url
+     * @return string
+     */
+    public function exportForm(string $url):string{
+        return "<form class='flex1 right no-border no-shadow no-background p0 m0' method='POST' action='$url'>
+                    <select name='format'>
+                        <option value='JSON'>JSON</option>
+                        <option value='XML'>XML</option>
+                        <option value='CSV'>CSV</option>
+                        <option value='CSV-Excel'>CSV para Excel</option>
+                        <option value='TEXT'>Texto</option>
+                    </select>
+                    
+                    <input type='checkbox' name='download' value='1' id='chk-download'>
+                    <label for='chk-download'>Descargar</label>
+                    
+                    <input type='submit' class='button' value='Exportar todos los datos'>
+                </form>";
+     }
+    
  
     /* ****************************************************************************
      * FOOTER
@@ -414,7 +438,7 @@ class Base implements TemplateInterface{
                 <p><a class='negrita maxi cursiva' href='https://github.com/robertsallent/fastlight'>FastLight Framework</a></p>
                 <p>
                     Desarrollado por <a href='https://robertsallent.com'>
-                    Robert Sallent</a> para sus cursos de desarrollo de aplicaciones web (2022-2024).
+                    Robert Sallent</a> para sus cursos de desarrollo de aplicaciones web (2022/2025).
                 </p>
             </div>
 

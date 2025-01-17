@@ -5,7 +5,7 @@ LISTA DE COSAS PENDIENTES - TODO LIST
 Lista de mecanismos y herramientas que se irán incorporando (o no) en próximas versiones del framework FastLight.
 
 Autor: Robert Sallent
-Última revisión: 12/01/25
+Última revisión: 17/01/25
 
 Los cambios marcados con un ? están en fase de evaluación.
 
@@ -15,6 +15,11 @@ Los cambios marcados con un ? están en fase de evaluación.
 	- (v2.0.0) helper env()
 
 - CORE/HTTP
+	- (v1.6.0) Guardar la Request en una propiedad estática (singleton).
+	- (v1.6.0) Modificar helper request() y todos los lugares donde se necesite la 
+	  Request para que la recuperen mediante Request::get() (o el helper).
+	  Esto hará que no sea necesario pasar la Request a los núcleos ni al 
+	  controlador, simplificando el código.
 	- ?Pasar métodos estáticos de cookies y headers a métodos de objeto.
 		- Método header() en Response que permite añadir un header
 		- Método headers() en Response que permiten añadir una lista de headers
@@ -22,6 +27,7 @@ Los cambios marcados con un ? están en fase de evaluación.
 - LIBRARIES
 	- ? Implementar un sistema de seeding (faker?).
 	- Mejorar el método XML::encode() para que sea recursivo y testearlo a fondo. Probarlo con APIs.
+	- Implmementar el método CSV::decode()
 
 - MODELO
 	- ? Métodos owns() e ownedBy() en Model.
@@ -34,19 +40,21 @@ Los cambios marcados con un ? están en fase de evaluación.
 	- Mejorar la documentación y los ejemplos en los test.
 	
 - HELPERS
-	- ? helper jsonResponse()
-	- ? helper xmlResponse()
+	- ? helper json() que retorna una JsonResponse
+	- ? helper xml() que retorna una XmlResponse
+	- ? helper csv() que retorna una CsvResponse
 		
 - API
 	- implementar mecanismo de API Keys	
-	- Arreglar XmlResponse para que trabaje con XML::encode() (una vez que esté revisado)
+	- Arreglar XmlResponse para que trabaje correctamente con XML::encode() (una vez que esté revisado)
 
 - PETICIONES ASÍNCRONAS.
 	- Añadir un controlador específico para procesar las peticiones asíncronas y retornar respuestas JSON (XML?)
 
 - EXTRAS:
 	- ? En la vista del listado de errores, mostrar algunos gráficos de totales con chart.js
-	- Mejorar el mecanismo de password hashing para hacerlo más seguro 
+	- Mejorar el mecanismo de password hashing para hacerlo más seguro
+	- Permitir la exportación de estadísticas y errores hacia XML/Json/CSV 
 	
 
 -------------------------------------------------------------------------------------------------------------

@@ -11,7 +11,7 @@
  */
 
 
-class JsonResponse extends APIResponse implements JsonSerializable{
+class JsonResponse extends ApiResponse implements JsonSerializable{
        
     
     /**
@@ -48,14 +48,10 @@ class JsonResponse extends APIResponse implements JsonSerializable{
     }
     
     
-    /**
-     * Convierte la respuesta a JSON.
-     * 
-     * @return string
-     */
-    public function send():string{
+    /** Envía la respuesta JSON */
+    public function send(){
         $this->prepare();
-        echo JSON::encode($this);
+        echo JSON::encode($this, true, true); // por motivos docentes, las respuestas se codifican "bonitas"
         die();
     }
     

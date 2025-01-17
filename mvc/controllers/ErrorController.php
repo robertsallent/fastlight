@@ -4,13 +4,15 @@
  * 
  * Controlador para gestionar errores. Trabaja con el modelo AppError.
  * 
- * Última revisión: 09/01/2025
+ * Última revisión: 15/01/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
+ * 
+ * @since v1.5.1 se pueden exportar los errores
  */
 
 class ErrorController extends Controller{
-    
+        
     /** 
      * Operación por defecto, redirige a la operación list()
      * 
@@ -90,6 +92,32 @@ class ErrorController extends Controller{
         }
     }
     
+    
+    /**
+     * Permite exportar los errores a distintos formatos, retornando el tipo de respuesta
+     * adecuado al formato solicitado vía POST.
+     */
+    public function export():Response{
+        
+        // operación solamente para los roles autorizados a trabajar con errores
+        // se configura en el fichero de configuración
+        Auth::oneRole(ERROR_ROLES); 
+        
+        // recupera el formato de exportación
+        $formato = $this->request->post('format') ?? 'JSON';
+        
+        // hay que intentar descargar?
+        $download = $this->request->post('download') ?? false;
+        
+        // campo para el orden?
+        $order = $this->request->post('order') ?? 'date';
+        
+        // sentido
+        $direction = $this->request->post('direction') ?? 'DESC';
+        
+        // el método generateExportResponse se encuentra en el trait Exportable
+        return $this->exportResponse('AppError', $formato, $download, $order, $direction);    
+    }
     
     
     /**

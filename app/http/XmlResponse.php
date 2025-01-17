@@ -11,11 +11,11 @@
  */
 
 
-class XMLResponse extends APIResponse{
+class XmlResponse extends ApiResponse{
        
     
     /**
-     * Constructor de XMLResponse.
+     * Constructor de XmlResponse.
      */
     public function __construct(
         array  $data        = [],
@@ -27,23 +27,19 @@ class XMLResponse extends APIResponse{
     }
         
     
-    /**
-     * Convierte la respuesta a XML.
-     * 
-     * @return string
-     */
+    /** Envía la respuesta XML */
     
     // TODO: arreglar este método para que lo haga bien a partir de XML::encode()
-    public function send():string{
+    public function send(){
         $this->prepare();
         
-        $respuesta = "<?xml version='1.0' encoding='utf-8'>\n
+        $respuesta = "<?xml version='1.0' encoding='utf-8'?>\n
                       <respuesta>\n
                         \t<status>$this->status</status>\n
                         \t<timestamp>$this->timestamp</timestamp>\n
                         \t<results>$this->results</results>\n
                         \t<message>".htmlspecialchars($this->message)."</message>\n
-                        \t<data>".arrayToString($this->data, false, false)."</data>\n";
+                        \t<data>".arrayToString($this->data, false, false, "; ")."</data>\n";
                         
         if(DEBUG)
             $respuesta.= "\t<debug>".htmlspecialchars($this->debug ?? '')."</debug>\n";

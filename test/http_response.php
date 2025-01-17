@@ -23,7 +23,7 @@
         
         <p>Creando una nueva respuesta de la API con un par de objetos genéricos.</p>
         <?php 
-            $response = new APIResponse([new stdclass(), new stdclass()]);
+            $response = new ApiResponse([new stdclass(), new stdclass()]);
             dump($response);
         ?>
     </section>
@@ -40,11 +40,11 @@
     </section>
     
     <section>
-        <h2>Pruebas con la clase <code>XMLResponse</code></h2>
+        <h2>Pruebas con la clase <code>XmlResponse</code></h2>
         
         <p>Creando una nueva respuesta <b>XML</b> con un par de objetos genéricos.</p>
         <?php 
-            $response = new XMLResponse([new stdclass(), new stdclass()]);
+            $response = new XmlResponse([new stdclass(), new stdclass()]);
             dump($response);
         ?>
     </section>

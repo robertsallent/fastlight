@@ -63,14 +63,15 @@ function dd($thing, string $message = 'Se detuvo la ejecución.'){
  * @param array $lista array a convertir.
  * @param bool $brackets mostrar corchetes rodeando el array?
  * @param bool $associative se trata de un array asociativo?
+ * @param string $separator separador de elementos, por defecto la coma y un espacio.
  * 
  * @return string representación del array a modo texto.
  */
 function arrayToString(
     array $lista,
-    bool $brackets = true,
-    bool $associative = true
-    
+    bool $brackets    = true,
+    bool $associative = true,
+    string $separator = ", "
 ):string{
     $texto = '';
     
@@ -79,10 +80,10 @@ function arrayToString(
         if(gettype($valor)=='array')
             $valor = arrayToString($valor);
         
-        $texto .= $associative ? "$clave => $valor, " : "$valor, ";
+        $texto .= $associative ? "$clave => $valor$separator" : "$valor$separator";
     }
     
-    return $brackets ? '[ '.rtrim($texto, ', ').' ]' : rtrim($texto, ', ');
+    return $brackets ? '[ '.rtrim($texto, "$separator").' ]' : rtrim($texto, "$separator");
 }
 
 
@@ -191,6 +192,8 @@ function viewExists(string $name):bool{
  * @param string $message mensaje para mostrar.
  * @param Throwable $t error o excepción producida, para preparar mejor la respuesta
  *
+ * @return Response 
+ * 
  * @throws ViewException si no encuentra la vista.
  *
  */
@@ -199,9 +202,8 @@ function abort(
     string $status      = 'INTERNAL SERVER ERROR',
     string $message     = '',
     Throwable $t        = null
-){
-    $response = new ViewErrorResponse($t, $code, $status, $message);
-    $response->send();
+):Response{
+    return new ViewErrorResponse($t, $code, $status, $message);
 }
 
 
@@ -222,13 +224,15 @@ function abort(
  * @param string $status frase de estado HTTP
  * @param string $contentType tipo MIME de la respuesta
  * @param bool $die finalizar la ejecución tras la redirección?
+ * 
+ * @return RedirectResponse
  */
 function redirect(
     string $url = '/', 
     int $delay = 0,
     int $httpCode       = 302,
     string $status      = 'FOUND'
-){
+):RedirectResponse{
     return new RedirectResponse($url, $delay, $httpCode, $status);
 }
 

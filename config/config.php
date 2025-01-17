@@ -25,8 +25,7 @@
  * @since 1.0.0 se pueden configurar las vistas de error personalizadas
  * @since 1.1.5 añadidos los parámetros de configuración de subida de ficheros
  * @since 1.2.2 se puede configurar el mensaje de "aceptar cookies"
- * @since 1.4.2 se pueden configurar los roles que pueden ver test, errores y ejemplos HTML
- * @since 1.4.2 se puede indicar la versión de la aplicación.
+ * @since 1.4.2 se pueden configurar los roles que pueden ver test, errores y ejemplos HTML y se puede indicar la versión de la aplicación.
  * @since 1.4.5 se puede indicar que queremos que se compruebe la versión de PHP del servidor
  */
    
@@ -56,7 +55,7 @@ define('AUTOLOAD_DIRECTORIES',  [
 define('APP_NAME','FastLight Framework');   // Título de la aplicación.
 define('APP_TYPE', 'WEB');                  // Tipo de aplicación: WEB o API.
 
-define('APP_VERSION', '1.5.0');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '1.5.1');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);    // muestra la versión de la app en el footer (templates/Base.php)
 
 

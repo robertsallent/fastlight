@@ -5,7 +5,7 @@
  *
  *   Herramientas para trabajar fácilmente con XML desde PHP.
  *
- *   Última mofidicación: 05/04/2024
+ *   Última mofidicación: 14/01/2025
  *
  *   @author Robert Sallent <robertsallent@gmail.com>
  */
@@ -107,7 +107,7 @@ class XML{
     ):array{
         
         // carga el XML depediendo de si es de fichero o string
-        $xml = $file ? simplexml_load_file($origin) : simplexml_load_string($origin);
+        $xml = $file ? @simplexml_load_file($origin) : @simplexml_load_string($origin);
         
         // si no se pudo recuperar bien el XMl, se lanza una excepción
         if(!$xml)

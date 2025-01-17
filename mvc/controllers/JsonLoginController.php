@@ -4,7 +4,7 @@
  *
  * Controlador para el login en JSON mediante API
  *
- * Última revisión: 09/01/2025
+ * Última revisión: 15/01/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  */
@@ -14,9 +14,11 @@ class JsonLoginController extends Controller{
     /**
      * Realiza el login a partir de los datos que llegan vía JSON en una petición POST.
      * 
+     * @return JsonResponse
+     * 
      * @throws LoginException si la identificación es incorrecta.
      */
-    public function post():Response{
+    public function post():JsonResponse{
         
         Auth::guest();   // solo para usuarios no identificados
         
@@ -29,8 +31,8 @@ class JsonLoginController extends Controller{
         // convierte a JSON los datos recibidos
         $login = JSON::decode($json)[0];
               
-        $user     = $login->user;               // recupera el nombre de usuario
-        $password = md5($login->password);      // recupera el password
+        $user     = $login->user ?? '';               // recupera el nombre de usuario
+        $password = md5($login->password ?? '');      // recupera el password
         $identificado = (USER_PROVIDER)::authenticate($user, $password); // recupera el usuario
         
         // si hubo un error de identificación
@@ -49,7 +51,6 @@ class JsonLoginController extends Controller{
         Login::set($identificado); // vincula el usuario a la sesión.
         
         $response = new JsonResponse([], 'Identificación correcta');
-        $response->message   = "Identificación correcta";
         $response->csrfToken = CSRF::create(); // Cálculo del token CSRF
         
         if(DEBUG)
@@ -63,8 +64,14 @@ class JsonLoginController extends Controller{
     
     /**
      * Realiza el logout si llega una petición vía DELETE.
+     * No comprueba si estaba identificado o no (no es necesario)
+     * 
+     * @return JsonResponse
      */
-    public function delete():Response{
+    public function delete():JsonResponse{
+        
+        // Auth::check(); // descomentar si queremos comprobar si estaba identificado
+        
         Login::clear();  // elimina los datos de sesión y desvincula el usuario
         return new JsonResponse([], 'Hasta la vista, baby');
     }

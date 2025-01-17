@@ -1,6 +1,6 @@
 <?php
 
-/** APIResponse
+/** ApiResponse
  *
  * Respuestas para las aplicaciones de tipo API.
  *
@@ -12,7 +12,7 @@
  */
 
 
-class APIResponse extends Response{
+class ApiResponse extends Response{
     
     /** @var int $results número de resultados */
     protected int $results;
@@ -30,7 +30,7 @@ class APIResponse extends Response{
     
     
     /**
-     * Constructor de APIResponse.
+     * Constructor de ApiResponse.
      */
     public function __construct(
         array  $data        = [],
@@ -93,8 +93,7 @@ class APIResponse extends Response{
     public function getResults():int{
         return $this->results;
     }
-       
-    
+           
     
     /**
      * Getter para la propiedad $message
@@ -140,10 +139,8 @@ class APIResponse extends Response{
 
 
     
-    /**
-     * Envía la respuesta
-     */
-    public function send():string{
+    /** Envía la respuesta como texto llano */
+    public function send(){
         $this->prepare();      // añade las cookies y las cabeceras http a la respuesta
         
         // Prepara una cadena de texto con la respuesta
@@ -151,7 +148,7 @@ class APIResponse extends Response{
                      "\nTIMESTAMP: $this->timestamp".
                      "\nRESULTS: $this->results".
                      "\nMESSAGE: ".htmlspecialchars($this->message).
-                     "\nDATA: ".arrayToString($this->data, false, false);
+                     "\nDATA:\n".arrayToString($this->data, false, false, "\n");
         
         // en modo debug, añade información adicional
         if(DEBUG && $this->debug)

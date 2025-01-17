@@ -99,8 +99,12 @@
                 		
                 		<?= $paginator->ellipsisLinks() ?>
             		
-     					<div>
-        					<a class="button button-danger" href="/Error/clear">Vaciar lista</a>
+     					<div class="flex-container">
+     						<div class="flex1">
+        						<a class="button button-danger" href="/Error/clear">Vaciar lista</a>
+        					</div>
+        					
+        					<?= $template->exportForm('/Error/export') ?>
         				</div>
 
             		<?php }else{ ?>
