@@ -2,12 +2,15 @@
 
 /** index.php
  *
- *  Punto de entrada para todas las peticiones.
+ * Punto de entrada para todas las peticiones.
  * 
  * Carga el fichero de configuración, el autoload, las funciones helper
  * y arranca la aplicación (WEB o API).
+ * Si se produce algún error en la fase de arranque, carga una vista de 
+ * error genérica (código 500).
+ * 
  *
- * Última revisión: 08/01/2025
+ * Última revisión: 20/01/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since 0.1.0
@@ -20,7 +23,8 @@
  * carga de ficheros necesarios y comprobación de versión de PHP
  */
 
-require '../config/config.php';         // carga el fichero de configuración
+// carga el fichero de configuración
+require '../config/config.php';         
 
 
 // comprueba la versión de PHP (si está indicado en la configuración)
@@ -29,50 +33,65 @@ if (CHECK_PHP_VERSION && version_compare(PHP_VERSION, MIN_PHP_VERSION, '<'))
          versión de PHP en el servidor o modificar el parámetro MIN_PHP_VERSION en el fichero de configuración 
          (esta opción no garantida el correcto funcionamiento).");
 
-    
-require '../app/autoload.php';          // carga el autoload
-require '../app/helpers/helpers.php';   // carga las funciones helper globales
+ 
+// carga el autoload y las funciones helper globales
+require '../app/autoload.php';          
+require '../app/helpers/helpers.php';   
 
-session_start();                        // inicia la gestión de sesiones
+
+// inicia la gestión de sesiones
+session_start();                        
 
 
 /*
  * A partir de este punto: 
  * 
- * Se crea una instancia del Kernel adecuado a partir de la Request y llama al método boot() 
- * que le retorna la Response.
- * 
- * Finalmente, se llama al método send() para enviar la respuesta al cliente.
+ *  - Se crea una instancia del Kernel adecuada al tipo de aplicación.
+ *  - Se llama al método boot() del Kernel, que retorna la Response a enviar al cliente.
+ *  - Se envía la respuesta al cliente mediante el método send() de Response.
+ *  - Se comprueba si se produjo algún error en el proceso.
  * 
  */
 
-$request = new Request();   // crea un objeto Request a partir de los datos en la petición
-
-// Se comprueba si el proyecto es una WEB o una API.
-switch(strtoupper(APP_TYPE)){
+try{
+    // Se comprueba si el proyecto es una WEB o una API.
+    switch(strtoupper(APP_TYPE)){
+        
+        // para las aplicaciones web
+        case 'WEB' :  $kernel   = new App(); // crea una instancia del Kernel App
+                      $response = $kernel->boot();
+                      break;
+        
+        // para Apis
+        case 'API' : $kernel = new Api(); // crea una instancia del Kernel Api
+                     $response = $kernel->boot();
+                     
+                     // cabeceras para el CORS
+                     $response->addHeader("Access-Control-Allow-Origin: ".ALLOW_ORIGIN);
+                     $response->addHeader("Access-Control-Allow-Methods: ".ALLOW_METHODS);
+                     $response->addHeader("Access-Control-Allow-Headers: ".ALLOW_HEADERS);
+                     $response->addHeader("Access-Control-Allow-Credentials: ".ALLOW_CREDENTIALS);
+                     break;
+        
+        // para cualquier otro tipo de aplicación...
+        default: die('El proyecto solamente puede ser WEB o API.');
+    }
     
-    // para las aplicaciones web
-    case 'WEB' :  $kernel = new App($request); // crea una instancia del Kernel App
-                  $response = $kernel->boot();
-                  break;
     
-    // para Apis
-    case 'API' : $kernel = new Api($request); // crea una instancia del Kernel Api
-                 $response = $kernel->boot();
-                 
-                 // cabeceras para el CORS
-                 $response->addHeader("Access-Control-Allow-Origin: ".ALLOW_ORIGIN);
-                 $response->addHeader("Access-Control-Allow-Methods: ".ALLOW_METHODS);
-                 $response->addHeader("Access-Control-Allow-Headers: ".ALLOW_HEADERS);
-                 $response->addHeader("Access-Control-Allow-Credentials: ".ALLOW_CREDENTIALS);
-                 break;
+    // envía la respuesta al cliente.
+    $response->send();   
+
     
-    // para cualquier otro tipo de aplicación...
-    default: die('El proyecto solamente puede ser WEB o API.');
-}
-
-$response->send();   // envía la respuesta al cliente
-
-
+// gestión de errores en el proceso de inicialización.
+}catch(Throwable $t){
+    
+    // prepara el mensaje.
+    $mensaje = DEBUG ? 
+        'ERROR en el proceso de arranque: '.$t : 
+        'Se produjo un error, contacte con el administrador '.ADMIN_EMAIL.' si es necesario.';
+    
+    // aborta, cargando la vista personalizada de error 500.
+    abort(500, 'INTERNAL SERVER ERROR', $mensaje, $t)->send();
+} 
     
 

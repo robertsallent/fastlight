@@ -4,12 +4,13 @@
  *
  * Núcleo para el desarrollo de aplicaciones web en FastLight.
  *
- * Última revisión: 17/01/2025
+ * Última revisión: 20/01/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
  * @since v0.9.1 se ha cambiado el nombre de FrontController a App.
  * @since v1.5.0 el método boot() retorna un objeto de tipo Response.
+ * @since v1.5.2 el método boot() usa el helper request() para mejor tolerancia a los cambios.
  */
  
 class App extends Kernel{
@@ -29,34 +30,38 @@ class App extends Kernel{
             
             // Evalua la URL de la petición y la convierte en un array
             // por ejemplo: /libro/show/3 se convierte en ['libro','show','3']
-            $url = self::$request->get('url') ?? NULL;
+            $url = request()->get('url') ?? NULL;
             $url = $url ? explode('/', rtrim($url, '/')) : [];
             
             
             // Recupera el controlador a usar, que se corresponde con la primera posición del array.
             // Si no fue indicado en la URL, el controlador a usar es WelcomeController (DEFAULT_CONTROLLER en config.php)
             // EJ: si la URL comenzaba por /libro, el controlador a usar será LibroController
-            $c = empty($url[0]) ? DEFAULT_CONTROLLER : ucfirst(strtolower(array_shift($url))).'Controller';
+            $controller = empty($url[0]) ? 
+                DEFAULT_CONTROLLER : 
+                ucfirst(strtolower(array_shift($url))).'Controller';
      
             // recupera el método a invocar, que se corresponde con la segunda posición del array.
             // Si no existe, el método a invocar es index() (DEFAULT_METHOD en config.php)
             // EJ: si llega create, el método a invocar es create()
-            $m = empty($url[0]) ? DEFAULT_METHOD : strtolower(array_shift($url));         
+            $method = empty($url[0]) ? 
+                DEFAULT_METHOD : 
+                strtolower(array_shift($url));         
                 
             // si el controlador calculado anteriormente no existe...
-            if(!class_exists($c))
+            if(!class_exists($controller))
                 throw new NotFoundException("La URL indicada no existe.");
             
-            // crea una instancia del controlador, pasándole la Request.
-            $controlador = new $c(self::$request);
+            // crea una instancia del controlador.
+            $controllerInstance = new $controller();
             
             // comprueba si ese controlador tiene ese método y éste puede ser invocado
-            if(!is_callable([$controlador, $m]))
+            if(!is_callable([$controllerInstance, $method]))
                 throw new NotFoundException("La operación indicada no existe.");
             
             // Tras sacar controlador y método, lo que queda en el array $url son los parámetros.
             // Invoca el método del controlador pasándole los parámetros.
-            return $controlador->$m(...$url);
+            return $controllerInstance->$method(...$url);
 
         
         // EVALUACIÓN DE ERROES Y EXCEPCIONES 
@@ -64,7 +69,7 @@ class App extends Kernel{
         }catch(NotIdentifiedException $e){ 
             
             // recordamos la operación que estaba intentando hacer...
-            Session::set('_pending_operation', '/'.self::$request->get('url'));
+            Session::set('_pending_operation', '/'.request()->get('url'));
             
             // ... y redirigimos a login (tras el login recuperaremos la operación pendiente).
             return redirect('/Login');
@@ -72,22 +77,19 @@ class App extends Kernel{
         // si se produce algún otro tipo de error...
         }catch(Throwable $t){ 
             
-            // en modo DEBUG, se añade información adicional al mensaje de error
-            $mensaje = DEBUG ? Debug::errorInformation($t, $c, $m, $url) : $t->getMessage();
+            // Prepara el mensaje de error en formato HTML.
+            // En modo DEBUG, se añade información adicional al mensaje de error.
+            $mensaje = DEBUG ? 
+                (new DebugInformation($t, $controller, $method, $url))->toHtml() : 
+                $t->getMessage();
             
             // si está activado el LOG de errores, añadimos el mensaje al fichero de LOG
             if(LOG_ERRORS)
                 Log::addMessage(ERROR_LOG_FILE, get_class($t), $t->getMessage());
             
             // Si está activada la opción de guardar errores en BDD, lo guardamos.
-            // Hay que vigilar si de nuevo se produce otra excepción (error al guardar en la BDD)
-            if(DB_ERRORS){
-                try{
-                    AppError::new(get_class($t), $t->getMessage());
-                }catch(Throwable $t){
-                    return abort(500, 'INTERNAL SERVER ERROR', $mensaje, $t);
-                }
-            }
+            if(DB_ERRORS)
+                AppError::new(get_class($t), $t->getMessage());
             
             // retorna una respuesta de error (ViewErrorResponse)
             return abort(500, 'INTERNAL SERVER ERROR', $mensaje, $t);

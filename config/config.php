@@ -27,6 +27,7 @@
  * @since 1.2.2 se puede configurar el mensaje de "aceptar cookies"
  * @since 1.4.2 se pueden configurar los roles que pueden ver test, errores y ejemplos HTML y se puede indicar la versión de la aplicación.
  * @since 1.4.5 se puede indicar que queremos que se compruebe la versión de PHP del servidor
+ * @since 1.6.0 se han quitado algunas opciones de depuración (demasiadas opciones)
  */
    
 
@@ -55,7 +56,7 @@ define('AUTOLOAD_DIRECTORIES',  [
 define('APP_NAME','FastLight Framework');   // Título de la aplicación.
 define('APP_TYPE', 'WEB');                  // Tipo de aplicación: WEB o API.
 
-define('APP_VERSION', '1.5.1');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '1.6.0');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);    // muestra la versión de la app en el footer (templates/Base.php)
 
 
@@ -206,15 +207,12 @@ define('ACCEPT_COOKIES_EXPIRATION', time()+86400);
 define('DEBUG', true); // Activa el modo debug.   
 
 // Detalles que queremos mostrar en modo debug en la página de error
-// OPCIONES: user, trace, post, get, session, cookie, client
+// OPCIONES: user, trace, requestt, session, cookie
 define('DEBUG_INFO', [
-    'user',     // Muestra información y roles del usuario identificado.
+    'user',     // Muestra información del usuario y cliente.
     'trace',    // Muestra traza del error.
-    'post',     // Muestra los datos que llegaron por POST.
-    'get',      // Muestra los datos que llegaron por GET.
+    'request',  // Muestra información de la Request y datos recibidos.
     'session',  // Muestra las variables de sesión.
-    'cookie',   // Muestra las cookies recibidas.
-    'client'    // Muestra información del navegador del cliente.
 ]);
 
 define('LOG_ERRORS', true);                        // Guardar errores en fichero de log.

@@ -75,7 +75,7 @@ class Filter{
         string $name = 'standardFilter' 
     ):?Filter{
         
-        $request = Kernel::getRequest();
+        $request = Request::retrieve();
         
         // si nos están pidiendo aplicar un nuevo filtro...
         if($request->has(self::$fields['filter'])){ 

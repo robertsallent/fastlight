@@ -113,6 +113,17 @@ class Session{
     
     
     /**
+     * Retorna el array de sesión completo.
+     * 
+     * @return array 
+     */
+    public static function all(){
+        return $_SESSION;
+    }
+    
+        
+    
+    /**
      * Comprueba si existe una variable de sesión.
      * 
      * @param string $name nombre de la variable buscada.

@@ -4,11 +4,12 @@
  *
  * Núcleo para el desarrollo de APIs Restful en FastLight
  *
- * Última revisión: 17/01/2025
+ * Última revisión: 20/01/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * 
  * @since v1.5.0 el método boot() retorna un objeto de tipo Response.
+ * @since v1.5.2 el método boot() usa el helper request() para mejor tolerancia a los cambios.
  */
 
 class Api extends Kernel{
@@ -42,7 +43,7 @@ class Api extends Kernel{
             
             // Evalua la URL de la petición y la convierte en un array
             // Por ejemplo: /xml/libro/3 se convierte en ['xml','libro','3']
-            $this->url  = self::$request->get('url') ?? '';
+            $this->url  = request()->get('url') ?? '';
             $url        = $this->url ? explode('/', rtrim($this->url, '/')) : [];
             
             // El controlador a usar será combinación de la primera y segunda 
@@ -63,22 +64,22 @@ class Api extends Kernel{
             $this->entidad = ucfirst(strtolower(array_shift($url)));
             
             // en caso contrario, toma la entidad
-            $c =  $this->formato.$this->entidad.'Controller';
+            $controller =  $this->formato.$this->entidad.'Controller';
              
             // Comprueba que el controlador (XmlLibroController por ejemplo) existe.
             // En caso de que no exista, se lanza una excepción.
-            if(!is_readable("../mvc/controllers/$c.php"))
+            if(!is_readable("../mvc/controllers/$controller.php"))
                 throw new NotFoundException("No existe ENDPOINT para $this->entidad en $this->formato.");
             
-            // si existe, crea una instancia del controlador y le pasa la Request
-            $controlador = new $c(self::$request);
+            // si existe, crea una instancia del controlador
+            $controllerInstance = new $controller();
             
             // analiza el método HTTP (será el método a invocar en el controlador)
-            $this->metodo = strtoupper(self::$request->method());
+            $this->metodo = strtoupper(request()->method());
             
             // si el método no está permitido por CORS, lanzaremos una excepción
             // que retornará 405 METHOD NOT ALLOWED
-            if(!self::$request->allowedByCors())
+            if(!request()->allowedByCors())
                 throw new MethodNotAllowedException("Esta petición será bloqueada según la política CORS.");
             
             // si el método es OPTIONS retornamos ya las opciones disponibles
@@ -89,14 +90,14 @@ class Api extends Kernel{
             
             // para otros métodos que no sean options...
             // comprueba si el controlador tiene ese método y es llamable (visible)
-            $metodo = strtolower($this->metodo); 
+            $method = strtolower($this->metodo); 
             
-            if(!is_callable([$controlador, $metodo]))
+            if(!is_callable([$controllerInstance, $method]))
                 throw new MethodNotAllowedException("La operación $this->metodo para $this->entidad en $this->formato no existe.");
             
             // tras sacar formato y entidad, lo que queda en $url son los parámetros.
             // llamaremos al método del controlador pasando los parámetros
-            return $controlador->$metodo(...$url);
+            return $controllerInstance->$method(...$url);
 
             
             

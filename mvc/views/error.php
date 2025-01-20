@@ -25,9 +25,10 @@
 		<main>
     		<h2>Error en la operación solicitada</h2>
     
-    		<div class='danger p2'>
+    		<section class='danger p2 m2'>
+    			<h2>Información adicional</h2>
     			<?= $message ?? $mensaje ?? '' ?>
-			</div>
+			</section>
 			
 			<nav class="enlaces centrado">
     			<a class="button" onclick="history.back()">Atrás</a>  

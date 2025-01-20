@@ -3,7 +3,7 @@
 /**
  * Funciones helper para realizar tareas habituales.
  * 
- * Última revisión: 09/01/2025
+ * Última revisión: 20/01/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v1.4.2 añadido el helper request() que retorna el objeto Request con información de la petición.
@@ -78,7 +78,7 @@ function arrayToString(
     foreach($lista as $clave => $valor){
         
         if(gettype($valor)=='array')
-            $valor = arrayToString($valor);
+            $valor = arrayToString($valor, $brackets, $associative, $separator);
         
         $texto .= $associative ? "$clave => $valor$separator" : "$valor$separator";
     }
@@ -137,7 +137,7 @@ function paragraph(
  * @return Request el objeto Request con la información de la petición.
  */
 function request(){
-    return Kernel::getRequest();
+    return Request::retrieve();
 }
 
 
@@ -276,7 +276,7 @@ function user(){
  * @return string valor del input recuperado.
  */
 function old(string $inputName, string $dbValue = NULL):string{
-    return Request::take()->previousInputs[$inputName] ?? $dbValue ?? '';
+    return request()->previousInputs[$inputName] ?? $dbValue ?? '';
 }
 
 
@@ -289,7 +289,7 @@ function old(string $inputName, string $dbValue = NULL):string{
  * @return string selected o cadena vacía.
  */
 function oldSelected(string $inputName, string $value):string{
-    return Request::take()->previousInputs[$inputName] == $value ? ' selected ' : '';
+    return request()->previousInputs[$inputName] == $value ? ' selected ' : '';
 }
 
 
@@ -308,7 +308,7 @@ function oldChecked(
     bool $default = false
 ):string{
     
-    $oldValue = Request::take()->previousInputs[$inputName];
+    $oldValue = request()->previousInputs[$inputName];
     
     if(!$oldValue && $default)
         return ' checked';

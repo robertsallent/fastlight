@@ -5,7 +5,7 @@ LISTA DE COSAS PENDIENTES - TODO LIST
 Lista de mecanismos y herramientas que se irán incorporando (o no) en próximas versiones del framework FastLight.
 
 Autor: Robert Sallent
-Última revisión: 17/01/25
+Última revisión: 20/01/25
 
 Los cambios marcados con un ? están en fase de evaluación.
 
@@ -15,14 +15,6 @@ Los cambios marcados con un ? están en fase de evaluación.
 	- (v2.0.0) helper env()
 
 - CORE/HTTP
-	- (v1.6.0) Guardar la Request en una propiedad estática (singleton).
-	- (v1.6.0) Modificar helper request() y todos los lugares donde se necesite la 
-	  Request para que la recuperen mediante Request::get() (o el helper).
-	  Esto hará que no sea necesario pasar la Request a los núcleos ni al 
-	  controlador, simplificando el código.
-	- ?Pasar métodos estáticos de cookies y headers a métodos de objeto.
-		- Método header() en Response que permite añadir un header
-		- Método headers() en Response que permiten añadir una lista de headers
 	
 - LIBRARIES
 	- ? Implementar un sistema de seeding (faker?).
@@ -32,9 +24,11 @@ Los cambios marcados con un ? están en fase de evaluación.
 - MODELO
 	- ? Métodos owns() e ownedBy() en Model.
 	- ? Nuevo método Model::insertRelated(entidad, idrelacionado, tabla)
+	- Nuevo método que haga consultas SELECT con totales y GROUP BY.
 	
 - TEMPLATES Y VISTAS
 	- ? Hacer uso de <dialog> para modales
+	- (v2.0.0) Uso de componentes en las vistas.
 
 - TEST
 	- Mejorar la documentación y los ejemplos en los test.
@@ -53,9 +47,7 @@ Los cambios marcados con un ? están en fase de evaluación.
 
 - EXTRAS:
 	- ? En la vista del listado de errores, mostrar algunos gráficos de totales con chart.js
-	- Mejorar el mecanismo de password hashing para hacerlo más seguro
-	- Permitir la exportación de estadísticas y errores hacia XML/Json/CSV 
-	
+	- Mejorar el mecanismo de password hashing para hacerlo más seguro.
 
 -------------------------------------------------------------------------------------------------------------
  A evaluar... tal vez no se implemente por motivos docentes y se deja para los cursos de Laravel o Symfony

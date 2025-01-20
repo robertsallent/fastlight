@@ -3,13 +3,13 @@
 
 <form method="POST" enctype="multipart/form-data">
 	<input type="file" name="fichero">
-	<input type="submit" value="enviar">
+	<input type="submit" value="enviar" class="button">
 </form>
 <br>
 
 <?php
 
-$request = Request::create();
+$request = request();
 
 if($file = $request->file('fichero')){
     
@@ -34,6 +34,12 @@ if($file = $request->file('fichero')){
     
     echo "<p>Tras guardarlo queda como:</p>";
     dump($file);
+    
+    echo "<p>Borrando el fichero:</p>";
+    $file->delete();
+    
+    echo "<p>Comprobando si el fichero <code>$file</code> se puede leer:";
+    echo $file->isReadable() ? 'SI' : 'NO';
     
     
 }else{

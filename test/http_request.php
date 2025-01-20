@@ -13,9 +13,9 @@
         <p>En nuestras aplicaciones, tendremos varias formas de recuperar el 
         objeto <code>Request</code>:</p>
         <ul>
-        	<li>Usando el método estático <code>Kernel::getRequest()</code></li>
-        	<li>Usando el método estático <code>Request::take()</code></li>
-        	<li>Usando el <i>helper</i> <code>request()</code></li>
+        	<li>Usando el método estático <code>Request::retrieve()</code> (opción óptima).</li>
+        	<li>Usando el <i>helper</i> <code>request()</code> (opción preferida, más simple).</li>
+        	<li>Usando la propiedad $request del controlador<code>$this->request</code> (en un controlador).</li>        	
         </ul>
         
         <h3>Mostrando la Request recibida</h3>
@@ -284,13 +284,4 @@
         <p>Permitimos peticiones por ese método?  <b><?= $request->allowedByCors() ? 'SI' : 'NO' ?></b></p>  
     </section> 
        
-    
-    <h2>Métodos estáticos</h2>
-    <section>    
-    	<h3>Request::create()</h3>
-        <p>Crea un objeto <code>Request</code> a partir de los datos que recibe el servidor. Este método
-        no lo usaremos en las aplicaciones, el objeto <code>Request</code> es creado en el núcleo de <i>FastLight</i> en 
-        <code>/core/Kernel.php</code> automáticamente, aquí solamente lo estoy testeando.</p>
-        <?php dump(Request::create()) ?>
-    </section>
 </main>    

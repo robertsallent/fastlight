@@ -4,7 +4,7 @@
  * 
  * Permitirá acceder a los datos de la petición fácilmente desde los controladores.
  * 
- * Última modificación: 11/12/2024.
+ * Última modificación: 20/01/2025.
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.6.5
@@ -13,11 +13,14 @@
  * @since v1.3.0 añadido el método header()
  * @since v1.4.2 añadida la propiedad $ip
  * @since v1.4.2 añadido el método headers()
+ * @since v1.5.2 añadida la propiedad estática $request, con una instancia de Request generada a partir de la petición recibida.
  */
 
 
 class Request{
     
+    /** @var Request petición recibida */
+    private static ?Request $request = null;
     
     /** @var Authenticable|null $user usuario identificado en la aplicación */
     public ?Authenticable $user;
@@ -37,6 +40,9 @@ class Request{
     /** @var string|null $ip ip del cliente */
     public ?string $ip;
     
+    /** @var string|null $ip ip del cliente */
+    public ?string $userAgent;
+    
     /** @var $previousInputs inputs de la petición anterior, útil para recuperar los 
      *  valores de la petición anterior en los formularios y evitar que se borren cuando
      *  se produce un error. 
@@ -45,17 +51,16 @@ class Request{
     
     
     
-    /**
-     * Constructor de Request.
-     */
+    /** Constructor de Request. */
     public function __construct(){
         
-        $this->user   = Login::user(); // mete el usuario identificado en la Request
-        $this->url    = URL::get();    // mete la URL en la request
-        $this->method = strtoupper($_SERVER['REQUEST_METHOD']); // método de la petición
-        $this->ip     = $_SERVER['REMOTE_ADDR'];
+        $this->user         = Login::user();                          // usuario identificado
+        $this->url          = URL::get();                             // URL solicitada
+        $this->method       = strtoupper($_SERVER['REQUEST_METHOD']); // método HTTP de la petición
+        $this->ip           = $_SERVER['REMOTE_ADDR'];                // IP del cliente
+        $this->userAgent    = $_SERVER['HTTP_USER_AGENT'];            // cliente
         
-        // token CSRF que llega en los headers
+        // token CSRF que llega en los headers (o no)
         $this->csrfToken = HttpHeader::get('csrf_token');  
         
         // recupera los inputs de la petición anterior.
@@ -68,43 +73,44 @@ class Request{
         // En la próxima petición podrán ser recuperados mediante el helper old().
         Session::set('flashed_input', self::posts()); 
         
-        // guarda en sesión la URL actual (para tenerlo en la próxima petición)
-        Session::set('previousUrl', $this->url);
+        // guarda en sesión la URL actual (para conocerla en la próxima petición)
+        Session::set('previousUrl', $this->url);        
     }
     
     
+    /**
+     * Crea una request a partir de los datos recibidos en la petición.
+     * 
+     *  La Request creada es guardada en la propiedad estática $request, pudiendo ser
+     *  accedida posteriormente desde cualquier punto de la aplicación. 
+     *  Este método es usado en el constructor de Kernel.php.
+     * 
+     * @return Request la petición recibida
+     */
+    public static function createFromGlobals(){
+        self::$request = new self();
+        return self::$request;
+    }
+    
+        
+    /**
+     * Método que retorna la petición recibida.
+     * 
+     * @return Request la petición recibida
+     */
+    public static function retrieve():Request{
+        return self::$request;
+    }
     
  
+ 
     /**
-     * Retorna si estamos realizando la misma petición (refresh).
+     * Retorna si se está repitiendo la misma petición que antes (refresh).
      * 
-     * @return boolean true si la petición actual es a la misma ruta que la anterior.
+     * @return boolean true si la petición actual es a la misma ruta que la petición anterior.
      */  
     public function sameAsPrevious(){
         return $this->url == $this->previousUrl;
-    }
-    
-    
-    
-    /**
-     * Método estático para crea un nuevo objeto de tipo Request.
-     * 
-     * @return Request
-     */
-    public static function create(){
-        return new self();
-    }
-    
-    
-    
-    /**
-     * Permite recuperar el objeto Request desde cualquier punto de nuestro programa.
-     * Como alternativa podemos usar el método estático Kernel::getRequest() o el helper request().
-     * 
-     * @return Request
-     */
-    public static function take():Request{
-        return Kernel::getRequest();
     }
     
     

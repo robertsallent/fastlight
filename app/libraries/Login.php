@@ -29,7 +29,7 @@ class Login{
         
         // recupera el usuario activo de la variable de sesión
         self::$activeUser = Session::get('user') ??  NULL;
-        
+                
         // Si hay operación pendiente pero no estamos en /Login, eliminaremos la operación pendiente.
         
         // Para los casos en los que el usuario no identificado no llega a identificarse al solicitar

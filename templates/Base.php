@@ -432,7 +432,7 @@ class Base implements TemplateInterface{
      */
     public function footer(){
         return "
-        <footer class='flex-container izquierda'>
+        <footer class='flex-container left drop-shadow'>
             
             <div class='flex4 p2'>
                 <p><a class='negrita maxi cursiva' href='https://github.com/robertsallent/fastlight'>FastLight Framework</a></p>
@@ -442,18 +442,18 @@ class Base implements TemplateInterface{
                 </p>
             </div>
 
-            <div class='flex1 flex-container p2'>
-                <figure class='flex1 p1 centrada'>
+            <div class='flex1 p1 m1 mt3 right'>
+                <figure class='p1 centrada drop-shadow'>
                     <a href='https://robertsallent.com' rel='author'>
                         <img class='w100' src='/images/template/logo.png' alt='Robert Sallent'>
                     </a>
                 </figure>
-                <figure class='flex1 p1 centrada'>
+                <figure class='p1 centrada drop-shadow'>
                     <a href='https://www.linkedin.com/in/robert-sallent-l%C3%B3pez-4187a866'>
                         <img class='w100' src='/images/template/linkedin.png' alt='LinkedIn'>
                     </a>
                 </figure>
-                <figure class='flex1 p1 centrada'>
+                <figure class='p1 centrada drop-shadow'>
                     <a href='https://github.com/robertsallent'>
                         <img class='w100' src='/images/template/github.png' alt='GitHub'>
                     </a>

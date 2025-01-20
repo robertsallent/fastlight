@@ -225,29 +225,30 @@ class Response{
      *  @return Response el mismo objeto Response.
      */
     protected function prepare():Response{
-         
-        // añade las cabeceras HTTP para content-type (con charset), el protocolo del servidor,
+              
+        // PREPARACIÓN DE LOS HEADERS  
+        // añade la cabecera HTTP para content-type (con charset).
         self::addHeader("Content-type:$this->contentType; charset=".RESPONSE_CHARSET);
        
-        // código de la respuesta y mensaje de estado
+        // añade la cabecera con el código de respuesta y mensaje de estado
         self::addHeader($_SERVER['SERVER_PROTOCOL']." $this->httpCode $this->status");
                 
         // añade unas cabeceras adicionales con informacion del framework
         self::addHeader("Framework: FastLight <fastlight@robertsallent.com>");
         self::addHeader("Author: Robert Sallent <robert@juegayestudia.com>");
-        
-        // añade los encabezados a la respuesta
+               
+        // ENVÍO DE LAS CABECERAS
         if(self::$headers)
             foreach(self::$headers->getItems() as $header)
                 $header->send();
            
-        // anexa las cookies a la respuesta   
+        // ENVÍO DE LAS COOKIES
         if(self::$cookies)
             foreach(self::$cookies->getItems() as $cookie)
                 $cookie->send();
                 
-        // retorna la misma respuesta para permitir chaining
-        return $this;
+        
+        return $this; // retorna la misma respuesta (para permitir chaining).
     }
     
     

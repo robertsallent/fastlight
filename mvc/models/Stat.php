@@ -39,8 +39,8 @@ class Stat extends Model{
     private static function add(string $url):int{
         $stat = new self();
         $stat->url = $url; 
-        $stat->ip  = Request::take()->ip;
-        $stat->user  = Request::take()->user ? Request::take()->user->email : NULL;
+        $stat->ip  = Request::retrieve()->ip;
+        $stat->user  = Request::retrieve()->user ? Request::retrieve()->user->email : NULL;
         return $stat->save() ? 1 : 0;
     }    
     

@@ -361,10 +361,10 @@ code { font-size: 0.9rem }
 }
 
 .button{
-	background-color: var(--primary-bg-color);
+	background: linear-gradient(var(--primary-soft-color), var(--primary-bg-color));
 }
 .button:hover{
-	background-color: var(--primary-soft-color);
+	background: var(--primary-soft-color);
 }
 
 .buttonLight, .button-light{
@@ -578,8 +578,16 @@ label{
   width: 20%;
   min-width: 90px; 
   margin: 1rem 10px;
-  font-style: italic;
- 
+  font-style: italic; 
+}
+
+.label{
+	display: inline-block;
+	padding: 4px 6px;
+	min-width: 140px;
+	background: linear-gradient(var(--primary-soft-color), var(--primary-bg-color));
+	color: var(--primary-font-color);
+	border-radius: 3px;
 }
 
 input[type="checkbox"], input[type="radio"]{
@@ -761,7 +769,7 @@ body>header h1{
 /* Menú -------------------------------------------------------- */
 .menu{
 	padding: 8px 20px;
-	background-color: var(--primary-bg-color);
+	background: linear-gradient(45deg, var(--primary-bg-color), var(--primary-soft-color));
 	color: var(--primary-font-color);
 	border-radius: 3px;
 	font-size: 0;
@@ -865,12 +873,9 @@ main{
 
 /* footer principal de la página (directamente dentro del body) ---- */
 body>footer{
-	background-image: url(../images/template/header_base.jpg);
-	background-size: cover;
-}
-
-body>footer>div{
-	background-color: var(--footer-bg-color);
+	background: linear-gradient(45deg, var(--primary-bg-color), var(--primary-soft-color));
+	color: var(--primary-font-color);
+	border-radius: 3px;
 }
 
 body>footer p{
@@ -879,15 +884,19 @@ body>footer p{
 
 body>footer a{
 	font-size: 1em;
+	color: var(--primary-font-color);
 }
 
 body>footer figure{
-	min-width: 50px !important;
+	background-color: white;
+	border-radius: 3px;
+	display: inline-block;
+	min-width: 30px !important;
 	text-align:center;
 }
 
 body>footer img{
-	max-width: 80px;
+	max-width: 50px;
 }
 
 

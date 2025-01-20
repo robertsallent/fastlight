@@ -39,7 +39,7 @@ class AppError extends Model{
         $e->message = (DB_CLASS)::escape($message);
         
         // recupera la URL, usuario e IP de la Request
-        $request    = Request::take();
+        $request    = Request::retrieve();
         $e->url     = $request->url;
         $e->user    = $request->user ? $request->user->email : NULL;
         $e->ip      = $request->ip;

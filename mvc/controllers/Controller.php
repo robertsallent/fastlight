@@ -5,7 +5,7 @@
  * Clase base de la que heredarán los controladores de nuestras aplicaciones.
  *
  *
- * Última revisión: 14/01/2025
+ * Última revisión: 20/01/2025
  * @author Robert Sallent <robertsallent@gmail.com>
  * 
  */
@@ -15,17 +15,13 @@ abstract class Controller{
     protected ?Request $request = null;
     
        
-    /**
-     * Constructor.
-     * 
-     * @param Request $request petición.
-     */
-    public function __construct(Request $request){
-        $this->request = $request;
+    /** Constructor. */
+    public function __construct(){
+        $this->request = Request::retrieve();
         
         // si hay que almacenar estadísticas de visitas para las URLs
         if(SAVE_STATS)
-            Stat::saveOrIncrement($request->url);   
+            Stat::saveOrIncrement($this->request->url);   
     }
     
       
