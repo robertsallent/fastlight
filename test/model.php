@@ -3,7 +3,9 @@
 
     echo "<h2>Pruebas de los métodos para los modelos.</h2>";
     
+    // clases para el modelo
     class Product extends Model{};
+    class Customer extends Model{};
     
     echo "<h3>Todos los productos:</h3>";
     dump(Product::all());
@@ -53,7 +55,20 @@
     echo "<p>AVG del precio: ".Product::total('AVG', 'price')."</p>";
     echo "<p>SUM del precio: ".Product::total('SUM', 'price')."</p>";
 
+    echo "<h3>Grupos:</h3>";
+    $resultados = Customer::groupBy(['id'=>'COUNT'], ['city']);
+           
+    echo "<ul>";
+    foreach($resultados as $resultado)
+        echo "<li>$resultado->city: <b>$resultado->idcount</b></li>";
+    echo "</ul>";
     
+    ?>
+    
+    <p>Si queremos hacer consultas de totales y agrupado con varias tablas, podemos
+    usar el método <code>selectAll()</code> de las clases para trabajar con base de datos.</p>
+    
+    <?php 
     echo "<h3>Saneamiento de entradas y trim strings:</h3>";
     $product->name = '  Monitor <black>     ';
     $product->vendor = "  Samsung 'Cool Blue'      ";

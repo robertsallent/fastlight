@@ -19,7 +19,7 @@
  * 
  * Todas las directivas se encuentran documentadas en el mismo fichero config.php.
  * 
- * Última revisión: 03/01/25
+ * Última revisión: 22/01/25
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since 0.1.0
  * @since 1.0.0 se pueden configurar las vistas de error personalizadas
@@ -56,7 +56,7 @@ define('AUTOLOAD_DIRECTORIES',  [
 define('APP_NAME','FastLight Framework');   // Título de la aplicación.
 define('APP_TYPE', 'WEB');                  // Tipo de aplicación: WEB o API.
 
-define('APP_VERSION', '1.6.0');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '1.7.0');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);    // muestra la versión de la app en el footer (templates/Base.php)
 
 
@@ -105,7 +105,7 @@ define('DB_NAME','fastlight');  // Nombre de la base de datos.
 define('DB_PORT',  3306);       // Puerto.
 define('DB_CHARSET','utf8');    // Codificación de caracteres.
 
-define('DB_CLASS','DBPDO');     // Clase a usar, puede ser DB (mysqli) o DBPDO (PDO).
+define('DB_CLASS','DBPDO');     // Clase a usar, puede ser DBMysqli (mysqli) o DBPDO (PDO).
 define('SGDB','mysql');         // Driver que debe usar PDO (solamente para PDO).
 
 

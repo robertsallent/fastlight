@@ -178,7 +178,7 @@ class DebugInformation{
             $mensaje .= "</section>";
         }
          
-        $mensaje .= "<section class='m2 centrado warning'> -- Fin del informe de depuración -- ";
+        $mensaje .= "<section class='m2 centrado danger'> -- Fin del informe de depuración -- ";
         
         return $mensaje;
     }  

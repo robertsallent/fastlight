@@ -13,12 +13,13 @@
  * protected static array $jsonFields: para indicar los campos JSON que se deben 
  * convertir automáticamente en arrays PHP.
  *
- * Última revisión 12/01/25
+ * Última revisión 21/01/25
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
  * @since v0.9.2 añadido belongsToAny() y hasAny()
  * @since v1.4.1 añadido el método whereExactMatch()
+ * @since v1.7.0 añadido el método groupBy()
  */
 
 
@@ -84,9 +85,9 @@ abstract class Model{
      * Un uso adecuado, en un controlador, podría ser:
      * 
      * Perro::create([
-     *      'nombre' => $this->request->post('nombre'),
-     *      'raza'   => $this->request->post('nombre'),
-     *      'peso'   => floatval($this->request->post('peso'));
+     *      'nombre' => request()->post('nombre'),
+     *      'raza'   => request()->post('nombre'),
+     *      'peso'   => floatval(request()->post('peso'));
      * ]);
      * 
      * @param array $data lista de propiedades de la entidad a modo de array asociativo.
@@ -524,6 +525,7 @@ abstract class Model{
      * Elimina una entidad de la base de datos a partir de su identificador único.
      * 
      * @param int $id el identificador único de la entidad.
+     * 
      * @return int el número de filas afectadas.
      */
     public static function delete(int $id):int{
@@ -549,6 +551,7 @@ abstract class Model{
      * 
      * @param string $operacion operación deseada.
      * @param string $campo campo sobre el que realizar la operación.
+     * 
      * @return mixed el resultado 
      */
     public static function total(
@@ -560,6 +563,27 @@ abstract class Model{
         return (DB_CLASS)::total($tabla, $operacion, $campo);
     }
     
+    
+    /**
+     * Realiza una consulta de totales con grupos.
+     * 
+     * Realiza una consulta de totales con grupos, pudiendo aplicar varios totales
+     * a la vez y agrupando por múltiples campos. Tiene la limitación de que solamente
+     * se pueden aplicar sobre una única tabla, no permite relaciones.
+     * 
+     * @param array $totales array asociativo en pares de campo => total a aplicar.
+     * @param array $agruparPor array indexado con los nombres de los campos para el agrupado.
+     * 
+     * @return array con los resultados a modo de objetos stdClass
+     */
+    public static function groupBy(
+        array $totales      = ['id' => 'COUNT'],
+        array $agruparPor   = []
+    ){
+        $tabla = self::getTable(); // recupera el nombre de la tabla
+        
+        return (DB_CLASS)::groupBy($tabla, $totales, $agruparPor);
+    }
     
     
     /**

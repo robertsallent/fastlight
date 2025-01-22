@@ -76,12 +76,12 @@ class App extends Kernel{
       
         // si se produce algún otro tipo de error...
         }catch(Throwable $t){ 
-            
+
             // Prepara el mensaje de error en formato HTML.
             // En modo DEBUG, se añade información adicional al mensaje de error.
             $mensaje = DEBUG ? 
-                (new DebugInformation($t, $controller, $method, $url))->toHtml() : 
-                $t->getMessage();
+                (new DebugInformation($t, $controller, $method, $url))->toHtml() :
+                "No se pudo realizar la operación solicitada.";
             
             // si está activado el LOG de errores, añadimos el mensaje al fichero de LOG
             if(LOG_ERRORS)

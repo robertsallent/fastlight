@@ -1,117 +1,252 @@
 <main>
 	<h1>Test de conexión DB (mysqli)</h1>
 	
-	<p>En este test se prueban los métodos principales para implementar el <b>CRUD</b>
-	   que se encuentran en la clase <code>DB</code>.</p>
+	<p>En este test se prueba el funcionamiento de los métodos para implementar el 
+		<b>CRUD</b> de la clase <b class='maxi'>DBMysqli</b>, que trabaja con el 
+		conector <b>mysqli</b> de PHP. 
+		Cada uno de los test está planteado también a modo de ejemplo e incluye una 
+		pequeña explicación (se recomienda también consultar el código del test).</p>
 
+	<p>Este test es idéntico al test para <a href="/test/db_pdo">DBPDO</a>, 
+	solamente se ha cambiado el nombde de la clase.</p>
+	
     <section>
-        <h2>Pruebas de select() y selectOne()</h2>
-        <?php 
-            echo "<p>Recuperando producto 2...</p>";
-            dump(DB::select("SELECT * FROM products WHERE id = 2"));
-            
-            echo "<p>Recuperando producto 3...</p>";
-            dump(DB::selectOne("SELECT * FROM products WHERE id = 3"));
-            
-            echo "<p>Recuperando el producto 5000... (no existe)</p>";
-            dump(DB::select("SELECT * FROM products WHERE id = 5000"));
-            
-            echo "<p>Recuperando el producto 5001... (no existe)</p>";
-            dump(DB::selectOne("SELECT * FROM products WHERE id = 5001"));
-        ?>
+        <h2>Pruebas de select()</h2>
+        
+        <p>Para recuperar los datos desde la BDD, se usan los métodos <code>select()</code>
+        y <code>selectAll()</code>. El primero se usa para consultas que puedan retornar 
+        uno o ningún resultado, mientras que el segundo se usa para consultas que pueden
+        retornar múltiples resultados.</p>
+        
+        <p>Recuperando el producto 2.</p>
+        <p><code>DBMysqli::select("SELECT * FROM products WHERE id = 2")</code></p>
+        
+        <?php dump(DBMysqli::select("SELECT * FROM products WHERE id = 2")) ?>
+        
+        <p>Recuperando el producto 5000... (no existe).</p>
+        <p><code>DBMysqli::select("SELECT * FROM products WHERE id = 5000")</code></p> 
+           
+        <?php dump(DBMysqli::select("SELECT * FROM products WHERE id = 5000")) ?>
     </section>
     
     <section>
-        <h2>Pruebas de selectAll()</h2>   
-        <?php     
-        	echo "<p>Recuperando todos los productos...</p>";
-            dump(DB::selectAll("SELECT * FROM products"));
-        ?>
+        <h2>Pruebas de selectAll()</h2>  
+        
+        <p>Recuperando todos los productos...</p>
+        <p><code>DBMysqli::selectAll("SELECT * FROM products")</code></p> 
+        
+        <?php dump(DBMysqli::selectAll("SELECT * FROM products"))?>    
     </section>
     
     
     <section>
         <h2>Pruebas de insert()</h2>
-        <?php  
-            echo "<p>Guardando un producto...</p>";
-            
+        
+        <p>El método <code>insert()</code> se utiliza para realizar consultas de inserción
+        sobre la BDD. Recibe la consulta a modo de cadena de texto y retorna el ID 
+        autonumérico del registro insertado.</p>
+        
+        <p>Guardando un producto...</p>
+        <p><code>DBMysqli::insert(INSERT INTO products(name, vendor, price) VALUES('Toothbrush', 'Colgate', 3))</code></p>
+        
+        <?php             
             $consulta = "INSERT INTO products(name, vendor, price) 
                          VALUES('Toothbrush', 'Colgate', 3)";
              
-            $id = DB::insert($consulta);
-        	echo "<p>El ID del nuevo producto es $id</p>";
-            
-        	echo "<p>Comprobando que se guardó correctamente...</p>";
-        	dump(DB::selectOne("SELECT * FROM products WHERE id=$id"));
-        ?>
+            $id = DBMysqli::insert($consulta);
+        ?> 
+        
+       	<p>El ID del nuevo producto es <?= $id ?></p>
+        
+        <p>Comprobando que se guardó correctamente...</p>
+        <p><code>DBMysqli::selectOne("SELECT * FROM products WHERE id=<?= $id ?>")</code></p>
+        
+        <?php dump(DBMysqli::selectOne("SELECT * FROM products WHERE id=$id")) ?>
+        
     </section>
     
     
     <section>
         <h2>Pruebas de update()</h2>
-        <?php  
-            // prueba de update()
-            echo "<p>Actualizando un producto...</p>";
-            
+        
+        <p>El método <code>update()</code> se utiliza para realizar consultas de actualización
+        sobre la BDD. Recibe la consulta a modo de cadena de texto y retorna el número de filas afectadas.</p>
+        
+        <p>Actualizando un producto...</p>
+        <p><code>DBMysqli::update(UPDATE products SET name='Toothpaste' WHERE id = <?= $id ?>)</code></p>
+        
+        <?php              
             $consulta = "UPDATE products SET name='Toothpaste' WHERE id = $id";
-            $filas = DB::update($consulta);
+            $filas = DBMysqli::update($consulta);
+        ?>    
+        
+		<p>Filas afectadas <?= $filas ?></p>
             
-            echo "<p>Filas afectadas $filas</p>";
-            
-            echo "<p>Comprobando que se actualizó correctamente...</p>";
-            dump(DB::select("SELECT * FROM products WHERE id = $id"));
-        ?>
+        <p>Comprobando que se actualizó correctamente...</p>
+        <p><code>DBMysqli::select("SELECT * FROM products WHERE id = <?= $id ?>")</code></p>
+        
+        <?php  dump(DBMysqli::select("SELECT * FROM products WHERE id = $id")) ?>
     </section>
      
      
     <section>   
         <h2>Pruebas de delete()</h2>
-        <?php 
-            echo "<p>Borrando un producto...</p>";
-            
-            $filas = DB::delete("DELETE FROM products WHERE id = $id");
-            echo "<p>Filas afectadas $filas</p>";
         
-            echo "<p>Comprobando que se borró correctamente...</p>";
-            dump(DB::selectOne("SELECT * FROM products WHERE id = $id"));    
-        ?>
+                <p>El método <code>delete()</code> se utiliza para realizar consultas de borrado.
+        sobre la BDD. Recibe la consulta a modo de cadena de texto y retorna el número de filas afectadas.</p>
+        
+        <p>Borrando un producto...</p>
+        <p><code>DBMysqli::delete("DELETE FROM products WHERE id = <?= $id ?>")</code></p>
+       
+        <?php $filas = DBMysqli::delete("DELETE FROM products WHERE id = $id") ?>
+        
+        <p>Filas afectadas <?= $filas ?></p>
+        
+        <p>Comprobando que se borró correctamente...</p>
+        <p><code>DBMysqli::selectOne("SELECT * FROM products WHERE id = <?= $id ?>")</code></p>
+        
+        <?php dump(DBMysqli::selectOne("SELECT * FROM products WHERE id = $id")) ?>
     </section>
     
     
     <section>
         <h2>Pruebas de totales()</h2>
-        <?php 
-            echo "<p>Total de productos: ".DB::total('products')."</p>";
-            echo "<p>Fecha de alta del último usuario: ".DB::total('users','MAX','created_at')."</p>";
-            echo "<p>Menor precio de un producto: ".DB::total('products','MIN','price')."</p>";
-            echo "<p>Precio medio de los productos: ".DB::total('products','AVG','price')."</p>";
-        ?>
+        
+        <p>El método estático <code>total()</code>, permite realizar consultas de totales
+        sin agrupar sobre una sola tabla. Le pasaremos por parámetro:
+        
+    	<ul>
+    		<li>Nombre de la tabla.</li>
+    		<li>Función de agregado a aplicar (opcional, por defecto COUNT).</li>
+    		<li>Campo sobre el que calcular el total (opcional, por defecto *).</li>
+    	</ul>
+        
+        <p>Por ejemplo: <code>DBMysqli::total('products')</code> 
+       	o bien <code>DBMysqli::total('products','AVG','price')</code></p>
+        
+
+		<p>Total de productos: 
+       		<b><?= DBMysqli::total('products') ?></b>
+		</p>
+		<p>Fecha de alta del último usuario: 
+			<b><?= DBMysqli::total('users','MAX','created_at') ?></b>
+		</p>
+		<p>Menor precio de un producto:
+			<b><?= DBMysqli::total('products','MIN','price') ?>€</b>
+		</p>
+        <p>Precio medio de los productos: 
+        	<b><?= DBMysqli::total('products','AVG','price') ?>€</b>
+    	</p>
     </section>    
     
     
     <section>
-        <h2>Pruebas de escape()</h2>
-        <?php     
-            echo "<p>Escapando caracteres y guardando...</p>";
+        <h2>Pruebas de totales con grupos (una tabla)</h2>
+        
+        <p>El método <code>groupBy()</code> permite realizar operaciones de totales con grupos.
+        Se pueden indicar múltiples grupos y operaciones, pero con la limitación de que se deben
+        realizar sobre una misma tabla.</p>
+        
+        <p>Sus parámetros son:</p>
+        <ul>
+        	<li>El nombre de la tabla, por ejemplo <i>customers</i>.</li>
+        	<li>Un array asociativo de campo=>operacion, por ejemplo <code>['id'=>'COUNT']</code></li>
+        	<li>Un array indezado de campos de agrupado, por ejemplo <code>[city]</code>.</li>
+        </ul>
+        
+        <p>Este método retorna una lista de objetos de tipo <i>stdClass</i> con los campos de
+        agrupado y los campos de totales, que tienen el nombre compuesto en orden operacion y valor
+        en minúsculas, por ejemplo: idcount.</p>
+        
+        <p>Vamos a buscar el total de clientes por ciudad en la BDD de ejemplo:</p>
+        <p><code>DBMysqli::groupBy('customers', ['id'=>'COUNT'], ['city'])</code></p>
+        
+        <ul>
+        <?php 
+            $resultados = DBMysqli::groupBy('customers', ['id'=>'COUNT'], ['city']);
             
-            $name = DB::escape("L'aperitiu");
-            $vendor = DB::escape("Probando ¡& ' ' cosas <script></script> raras \n de test.");
+            foreach($resultados as $resultado)
+                echo "<li>$resultado->city: <b>$resultado->idcount</b></li>";
+        ?>
+        </ul>
+     </section>
+     
+     <section>
+        <h2>Pruebas de totales con grupos (varias tablas)</h2>
+        
+        <p>Si queremos hacer consultas de totales y agrupado con varias tablas, 
+        no nos sirve el método <code>groupBy()</code>, pero podemos
+    	usar el método <code>selectAll()</code> y escribir directamente la consulta.</p>
+    	<p>Por ejemplo: cuenta de ventas agrupado por cliente:</p>
+    	<p><code>DBMysqli::selectAll(SELECT c.id, c.name, COUNT(s.id) AS totalSales
+        FROM customers c LEFT JOIN sales s ON c.id=s.idcustomer
+        GROUP BY c.id, c.name)</code></p>
+
+    	<table class="table centered w50">
+    		<tr>
+    			<th>id</th>
+    			<th>name</th>
+    			<th>sales</th>
+			</tr>
+            <?php 
+                $consulta ="SELECT c.id, c.name, COUNT(s.id) AS totalSales
+                            FROM customers c LEFT JOIN sales s ON c.id=s.idcustomer
+                            GROUP BY c.id, c.name";
+                $resultados = DBMysqli::selectAll($consulta);
+                
+                foreach($resultados as $resultado){
+                    echo "<tr>";
+                    echo "<td>$resultado->id</td>";
+                    echo "<td class='left'>$resultado->name</td>";
+                    echo "<td class='bold'>$resultado->totalSales</td>";
+                    echo "</tr>";
+                }
+            ?>
+        </table>
+    </section>    
+    
+    <section>
+        <h2>Pruebas de escape()</h2>
+        
+        <p>El método <code>escape()</code> sanea las entradas para evitar
+        ataques de <i>SQL Injections</i> o <i>XSS</i>.</p>
+                
+        <p>En el ejemplo se intentan guardar en base de datos textos con comillas, 
+        apóstrofes, símbolos y también un script en JavaScript. Si bien el script
+        se guardará en la BDD, se consigue que no se ejecute en el navegador.</p>
+        
+        <?php     
+            echo "";
+            
+            $name = DBMysqli::escape("L'aperitiu");
+            $vendor = DBMysqli::escape("Probando ¡& ' ' cosas <script>alert('hola')</script> raras \n de test.");
             $price = intval("10patatas");
             
             $consulta = "INSERT INTO products(name, vendor, price)
                          VALUES('$name', '$vendor', $price)";
             
-            echo $consulta;
-            $id = DB::insert($consulta);
-            
-            echo "<p>Comprobando que se insertó correctamente...</p>";
-            dump(DB::select("SELECT * FROM products WHERE id = $id"));
+            echo "<p>Consulta a ejecutar: <code>$consulta</code></p>";
+
+            $id = DBMysqli::insert($consulta);
+         ?>  
            
-            DB::delete("DELETE FROM products WHERE id=$id ") ;
-            
-            echo "<p>Comprobando que se borró correctamente...</p>";
-            dump(DB::select("SELECT * FROM products WHERE id = $id"));
-        ?>
+		<p>Comprobando que se insertó correctamente...</p>
+		<p><code>DBMysqli::select("SELECT * FROM products WHERE id = <?= $id ?>")</code></p>
+        
+        <?php dump(DBMysqli::select("SELECT * FROM products WHERE id = $id")) ?>
+       
+        <p>Borrando el registro que acabamos de guardar...</p>
+        <p><code>DBMysqli::delete("DELETE FROM products WHERE id= <?= $id ?> ")</code></p>
+        <?php $filas = DBMysqli::delete("DELETE FROM products WHERE id=$id ") ?>
+        
+        <p>Filas afectadas <?= $filas ?></p>
+        
+        
+        
+        <p>Comprobando que se borró correctamente...</p>
+        <p><code>DBMysqli::select("SELECT * FROM products WHERE id = <?= $id ?>")</code></p>
+        <?php  dump(DBMysqli::select("SELECT * FROM products WHERE id = $id")) ?>
+
     </section>   
  </main>       
 

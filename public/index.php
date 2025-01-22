@@ -76,8 +76,7 @@ try{
         // para cualquier otro tipo de aplicación...
         default: die('El proyecto solamente puede ser WEB o API.');
     }
-    
-    
+       
     // envía la respuesta al cliente.
     $response->send();   
 

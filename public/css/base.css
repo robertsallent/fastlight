@@ -691,7 +691,7 @@ td form{
 }
 
 .paginator-links .current{
-	background-color: var(--primary-font-color);
+	background: var(--primary-font-color);
 	color: var(--primary-bg-color);
 }
 

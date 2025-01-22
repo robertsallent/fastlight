@@ -17,7 +17,7 @@ abstract class Controller{
        
     /** Constructor. */
     public function __construct(){
-        $this->request = Request::retrieve();
+        $this->request = request();
         
         // si hay que almacenar estadísticas de visitas para las URLs
         if(SAVE_STATS)

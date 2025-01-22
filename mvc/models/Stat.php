@@ -37,10 +37,13 @@ class Stat extends Model{
      * @return int número de visitas a la URL (1)
      */
     private static function add(string $url):int{
-        $stat = new self();
-        $stat->url = $url; 
-        $stat->ip  = Request::retrieve()->ip;
-        $stat->user  = Request::retrieve()->user ? Request::retrieve()->user->email : NULL;
+        $stat           = new self();
+        $request        = request();
+        
+        $stat->url      = $url; 
+        $stat->ip       = $request->ip;
+        $stat->user     = $request->user ? $request->user->email : NULL;
+        
         return $stat->save() ? 1 : 0;
     }    
     
@@ -52,9 +55,14 @@ class Stat extends Model{
      * @return int número de visitas de la URL indicada
      */
     private static function increment(string $url):int{
+        // recupera la estadística para esa URL
         $stat = self::whereExactMatch(['url' => $url])[0];
-        $stat->count++;
-        $stat->update();
+        
+        // quita el campo updated_at (sino no se actualizará)
+        unset($stat->updated_at);
+        
+        $stat->count++;     // incrementa el contador
+        $stat->update();    // actualiza el dato en la BDD
         
         return $stat->count;
     }
