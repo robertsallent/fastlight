@@ -4,8 +4,8 @@
  *
  * Clase base de la que heredarán los controladores de nuestras aplicaciones.
  *
- *
  * Última revisión: 20/01/2025
+ * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * 
  */
@@ -111,7 +111,5 @@ abstract class Controller{
         
         return $response;
     }
-    
-
 }
 

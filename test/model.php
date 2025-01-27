@@ -1,15 +1,26 @@
-<?php
-    echo "<h1>Test de Model</h1>";
+<main>
 
-    echo "<h2>Pruebas de los métodos para los modelos.</h2>";
+	<h1>Test de la clase Model</h1>
+	
+	<?php 
+    	// clases del modelo para las pruebas
+    	class Product extends Model{};
+    	class Customer extends Model{};
+	?>
+
+
+	<section>
+    	<h2>all()</h2>
+    	<p>El método estático <code>all()</code> permite recuperar todas las entidades
+    	del modelo a modo de array de objetos. Los objetos serán del tipo de modelo,
+    	por ejemplo, para recuperar la lista de productos haremos: <code>$products = Product::all();</code>.</p>
+    	
+    	<?php dump(Product::all()) ?>
+    </section>
     
-    // clases para el modelo
-    class Product extends Model{};
-    class Customer extends Model{};
     
-    echo "<h3>Todos los productos:</h3>";
-    dump(Product::all());
     
+    <?php 
     echo "<h3>Producto 3:</h3>";
     dump(Product::find(3));
     
@@ -81,6 +92,8 @@
     
     echo "<p>Correct product name: $product->name</p>";
     echo "<p>Correct product vendor: $product->vendor</p>";
-    
+?>
+
+</main>    
     
     

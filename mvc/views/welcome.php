@@ -110,7 +110,7 @@
                		para funcionar en versiones nuevas, eliminando el soporte para las antiguas.</p>
                		 
                		<p>Actualmente, <b>la versión <?= APP_VERSION ?> del framework</b> ha sido 
-               		testeada en <b>PHP 8.1.1 y PHP 8.2.12</b> con <b>MySQL 5.7, MySQL 8+ y MariaDB 10.4+</b>.
+               		testeada en <b>PHP <?= MIN_PHP_VERSION ?></b> con <b>MySQL 8 y MariaDB 10.4</b>.
                		Esto no quiere decir que no funcione en versiones ligeramente anteriores o posteriores,
                		pero no se garantiza que lo haga.</p>
                		

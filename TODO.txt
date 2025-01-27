@@ -19,19 +19,21 @@ Los cambios marcados con un ? están en fase de evaluación.
 - LIBRARIES
 	- ? Implementar un sistema de seeding (faker?).
 	- Mejorar el método XML::encode() para que sea recursivo y testearlo a fondo. Probarlo con APIs.
-	- Implmementar el método CSV::decode()
+	- Implementar el método CSV::decode()
 
 - MODELO
 	- ? Métodos owns() e ownedBy() en Model.
 	- ? Nuevo método Model::insertRelated(entidad, idrelacionado, tabla)
 	- Nuevo método que haga consultas SELECT con totales y GROUP BY.
-	
+		
 - TEMPLATES Y VISTAS
 	- ? Hacer uso de <dialog> para modales
 	- (v2.0.0) Uso de componentes en las vistas.
 
-- TEST
-	- Mejorar la documentación y los ejemplos en los test.
+- TEST Y DOCUMENTACIÓN
+	- (WORKING): Mejorar la documentación y los ejemplos en los test.
+	- (WORKING): Añadir docblocks en todas las librerías.
+	- Crear documentación web a partir de los docblocks.
 	
 - HELPERS
 	- ? helper json() que retorna una JsonResponse
