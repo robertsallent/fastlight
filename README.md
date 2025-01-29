@@ -5,7 +5,7 @@
         		
 <a href="https://github.com/robertsallent/fastlight">FastLight</a> es un framework rápido y ligero para desarrollar aplicaciones web en PHP o APIs RESTFUL.
 
-Este framework está pensado para docencia, con lo que incorpora las características  esenciales para desarrollo de una aplicación web rápida, sólida y fiable, pero noincluye algunas funcionalidades complejas que desarrollamos en clase (pero que encontraréis en la documentación). 
+Este framework está pensado para docencia, con lo que incorpora las características  esenciales para desarrollo de una aplicación web rápida, sólida y fiable, pero no incluye algunas funcionalidades complejas que desarrollamos en clase (pero que encontraréis en la documentación). 
 
 Todas las herramientas que incorpora han sido creadas expresamente para él, aunque está basado en frameworks PHP anteriores que he ido implementando desde 2013, cogiendo las ideas más interesantes en cada caso.
 
@@ -17,16 +17,25 @@ Como todo framework, dispone de herramientas para facilitar las tareas necesaria
 
 <h3>Lo que incorpora de serie:</h3>
 
-- Patrón de diseño MVC con controlador frontal.
+- Patrón de diseño MVC con kernels distintos para aplicaciones web y apis restful. 
+- Router con mapeado directo de urls a controlador y metodo.
+- ORM completo, compatible con mysqli y PDO.
 - Autoload mediante mapa de clases.
 - Gestión integrada de errores y herramientas de depuración.
-- Motor de plantillas.
+- Registo en ficheros (log).
+- Motor de plantillas con templates intercambiables.
+- CSS con multitud de clases para facilitar la tarea de maquetación.
+- Mecanismos para diseños adaptables con flex layout 
 - Sistema para tests unitarios.
+- Motor de estadísticas para analizar las visitas a las distintas URLs del proyecto.
 - Mecanismos de búsqueda y paginación de resultados.
 - Autenticación y autorización basada en roles.
+- Librerias para trabajar con XML, JSON y CSV.
+- Herramientas de exportacion de datos a múltiples formatos.
 - Protección CSRF para formularios y APIs.
 - Herramientas para generación rápida de APIs restful.
-- Multitud de librerías para las funcionalidades habituales.
+- Multitud de librerías para las funcionalidades habituales: trabajo con ficheros y directorios, subida de ficheros, bases de datos...
+- Ejemplos y documentación.
 - ...
 
 <h3>Lo que se desarrolla en clase:</h3>
@@ -37,13 +46,13 @@ Como todo framework, dispone de herramientas para facilitar las tareas necesaria
 - Gestión de usuarios y roles.
 - Otras operaciones del administrador.
 - Aplicaciones de gestión completas.
+- APIs restful
 - ...
                         
 <h3>Lo que incoroprará en futuras versiones:</h3>
                        
 - API Keys.
 - Configuración de entorno .env.
-- Middleware ?
 - ...
     				
   
