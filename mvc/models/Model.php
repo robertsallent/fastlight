@@ -13,7 +13,7 @@
  * protected static array $jsonFields: para indicar los campos JSON que se deben 
  * convertir automáticamente en arrays PHP.
  *
- * Última revisión 21/01/25
+ * Última revisión 29/01/25
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
@@ -501,6 +501,8 @@ abstract class Model{
         
         $tabla = self::getTable(); // recupera el nombre de la tabla
         
+        unset($this->updated_at);  // para que se actualice automáticamente el "updated_at" en la BDD, no le podemos enviar 'null'.
+        
         // prepara la consulta
         $consulta="UPDATE $tabla SET ";
         
@@ -714,7 +716,7 @@ abstract class Model{
         
         $foreignKey = $foreignKey ?? 'id'.strtolower($related);  // cálculo  foranea
         
-        $consulta="SELECT * FROM $tabla WHERE $ownerKey = ".$this->$foreignKey;
+        $consulta="SELECT * FROM $tabla WHERE $ownerKey = ".($this->$foreignKey ?? 'NULL');
         $entity = (DB_CLASS)::select($consulta, $related);
         
         if($entity)
@@ -747,7 +749,7 @@ abstract class Model{
         
         $query="SELECT COUNT(*) AS total
                    FROM $table 
-                   WHERE $ownerKey = ".$this->$foreignKey;
+                   WHERE $ownerKey = ".($this->$foreignKey ?? 'NULL');
         
         $result = (DB_CLASS)::select($query);
         

@@ -730,7 +730,7 @@ body{
 body>header{
 	display: flex;
 	flex-wrap: nowrap;
-	padding: 20px 2%;
+	padding: 10px 2%;
 	background-image: url(../images/template/header_base.jpg);
 	background-size: cover;
 	align-items: center;
@@ -748,21 +748,26 @@ body>header img{
 }
 
 body>header hgroup{
-	margin: auto 0;
-	padding: 0 1%;
+	margin: 10px;
+	padding: 20px;
 	min-width: 40%;
 	max-width: 80%;
+	color: var(--primary-bg-color);
+	background-color: var(--primary-font-color);
+	border-radius: 3px;	
 }
 
 body>header h1{
-	color: var(--primary-bg-color);
-	background-color: var(--primary-font-color);
-	padding: 10px;
+	margin: 0px 10px;
 	font-size: 2.25em;
 	width: 100%;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+}
+
+body>header p{
+	margin: 0px 10px;
 }
 
 

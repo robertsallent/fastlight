@@ -130,7 +130,7 @@ class Base implements TemplateInterface{
                 </figure>
                 <hgroup>
             	   <h1>".($title ?? 'Página sin título' )."<span class='small italic'> en ".APP_NAME."</span></h1>
-                   <p>".($subtitle ?? '')."</p>
+                   ".($subtitle ? '<p>'.$subtitle.'</p>' : '')."
                 </hgroup>  
             </header>
         ";

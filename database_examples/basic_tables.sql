@@ -1,12 +1,12 @@
 -- Base de datos limpia para el framework FastLight.
--- Servirá como punto de partida de los proyectos FastLight.
+-- ServirÃ¡ como punto de partida de los proyectos FastLight.
 
 -- se incluye:
 --  la tabla para usuarios, con algunos usuarios para pruebas.
---  la tabla errores, permite registrar los errores de la aplicación en BDD.
---  la tabla stats, para contar las visitas de cada URL de la aplicación.
+--  la tabla errores, permite registrar los errores de la aplicaciÃ³n en BDD.
+--  la tabla stats, para contar las visitas de cada URL de la aplicaciÃ³n.
 
--- Última modificación: 19/12/2024
+-- Ãšltima modificaciÃ³n: 19/12/2024
 
 
 DROP DATABASE IF EXISTS fastlight;
@@ -31,7 +31,7 @@ CREATE TABLE users(
 );
 
 
--- usuarios para las pruebas, podemos añadir más o quitar sin ningún problema
+-- usuarios para las pruebas, podemos aÃ±adir mÃ¡s o quitar sin ningÃºn problema
 INSERT INTO users(displayname, email, phone, password, roles) VALUES 
 	('admin', 'admin@fastlight.com', '666666666', md5('1234'), '["ROLE_USER", "ROLE_ADMIN"]'),
 	('editor', 'editor@fastlight.com', '666666665', md5('1234'), '["ROLE_USER", "ROLE_EDITOR"]'),
@@ -55,7 +55,7 @@ CREATE TABLE errors(
 
 
 -- tabla stats
--- por si queremos registrar las estadísticas de visitas a las disintas URLs de nuestra aplicación.
+-- por si queremos registrar las estadÃ­sticas de visitas a las disintas URLs de nuestra aplicaciÃ³n.
 CREATE TABLE stats(
 	id INT PRIMARY KEY auto_increment,
     url VARCHAR(256) NOT NULL UNIQUE KEY,

@@ -1,26 +1,85 @@
-<?php
-    echo "<h1>Test de relaciones N a N</h1>";
-    echo "<h2>Ejemplo biblioteca</h2>";
-    echo "<p>Las siguientes pruebas han sido realizadas sobre el ejemplo de la biblioteca,
-             desarrollado en clase en CIFO Sabadell.</p>";
-      
-    echo "<h2>Pruebas de <code>belongsToMany()</code>.</h2>";
-    echo "<h3>Buscando temas del libro 1</h3>";
-    
-    $libro = Libro::find(1);
-    echo "<p>El libro 1 es: $libro.</p>";
-    
-    $temas = $libro->belongsToMany('Tema', 'temas_libros');
-    dump($temas);
+<main>
+    <h1>Test de la clase Model: relaciones N a M</h1>
     
     
+    <?php 
+    	// clases del modelo para las pruebas
+    	class Product extends Model{};
+    	class Customer extends Model{};
+    	class Sale extends Model{};
+    	class Provider extends Model{};
+    ?>
+    	
+    <div class="warning p1">
+    	<h2>Advertencia!</h2>
+    	
+    	<p>Las siguientes pruebas han sido realizadas sobre la base de datos del 
+    	ejemplo <b>sales_example</b>, que se puede encontrar en la carpeta
+    	<i>database_examples</i>.</p>
+    </div>  
     
-    echo "<h3>Buscando libros del tema 8</h3>";
+    <section>
+    	<h2>belongsToMany()</h2>
+    	
+    	<p>El método <code>belongsToMany()</code> nos permite <b>buscar entidades relacionadas
+    	en una relación varios a varios</b>. Más detalles en las presentaciones en PDF.</p>
+    	
+    	<p>Por ejemplo, para buscar productos suministrados por el proveedor 1:</p>
+    	<pre>
+    		<code>
+    	$provider = Provider::find(1);
+    	$products = $provider->belongsToMany('Product', 'products_providers');
+    		</code>
+    	</pre>
+    	
+    	<p>El proveedor es:</p>
+    	<?php 
+        	$provider = Provider::find(1);
+            dump($provider);
+        ?>
+        
+        <p>Y sus productos son:</p>
+        <?php 
+    	   $products = $provider->belongsToMany('Product', 'products_providers');
+    	   dump($products);
+    	?>
+    	
+    	<p>El nombre de la tabla intermedia se puede omitir, <b>se calcula automáticamente</b> 
+    	como la union del nombre de ambas entidades <b>acabados en s, lower snake case y en orden alfabético</b>.
+    	el ejemplo funciona igual haciendo: <code>$products = $provider->belongsToMany('Product');</code></p>
+    	
+    	<p>Los nombres de los campos implicados en la relación también se <b>calculan automáticamente</b>.
+    	Se usan los campos de nombre <b><i>id</i> en las tablas 
+    	principales</b> y los <b>campos <i>idnombreentidad</i></b> en la
+    	tabla intermedia. El método <code>belongsToMany()</code> puede recibir parámetros adicionales 
+    	para indicar los nombres de los campos en caso de no ser así (consultad la 
+    	documentación completa en PDF o la API para el programador - EN PROCESO).</p> 
+    </section>
     
-    $tema = Tema::find(8);
-    echo "<p>El tema 8 es: $tema.</p>";
-    
-    $libros = $tema->belongsToMany('Libro', 'temas_libros');
-    dump($libros);
-    
-    
+    <section>
+    	<h2>belongsToMany() (en el otro sentido)</h2>
+    	
+    	<p>En el ejemplo anterior, hemos buscado los productos de un proveedor,
+    	pero también podemos recorrer la relación en sentido inverso.
+    	Por ejemplo, para buscar proveedores del producto 4:</p>
+    	<pre>
+    		<code>
+    	$product = Product::find(4);
+    	$providers = $product->belongsToMany('Provider', 'products_providers');
+    		</code>
+    	</pre>
+    	
+    	<p>El producto es:</p>
+    	<?php 
+    	   $product = Product::find(4);
+           dump($product);
+        ?>
+        
+        <p>Y sus proveedores son:</p>
+        <?php 
+           $providers = $product->belongsToMany('Provider', 'products_providers');
+    	   dump($providers);
+    	?>
+    	
+    </section>
+</main>

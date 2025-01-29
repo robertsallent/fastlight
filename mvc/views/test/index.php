@@ -74,7 +74,7 @@
         	</section>
      
 
-        	<section>
+        	<section id="test-list-section">
             	<h2>Tests disponibles</h2>
             	
             	<ul id="test-list" class="three-columns">

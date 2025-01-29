@@ -40,7 +40,7 @@
 		
 		<div class='centrado m2'>
                 <p class="maxi">Fin del test <code><?= $test ?></code></p>
-                <a class='button' href='/test'>Lista de test.</a>
+                <a class='button' href='/test#test-list-section'>Lista de test.</a>
         </div>
             
 		<?= $template->footer() ?>

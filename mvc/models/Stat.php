@@ -57,10 +57,7 @@ class Stat extends Model{
     private static function increment(string $url):int{
         // recupera la estadística para esa URL
         $stat = self::whereExactMatch(['url' => $url])[0];
-        
-        // quita el campo updated_at (sino no se actualizará)
-        unset($stat->updated_at);
-        
+                
         $stat->count++;     // incrementa el contador
         $stat->update();    // actualiza el dato en la BDD
         

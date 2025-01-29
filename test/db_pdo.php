@@ -10,7 +10,7 @@
 	<p>Este test es idéntico al test para <a href="/test/db_mysqli">DBMysqli</a>, 
 	solamente se ha cambiado el nombde de la clase.</p>
 	
-    <section>
+    <section id="select">
         <h2>Pruebas de select()</h2>
         
         <p>Para recuperar los datos desde la BDD, se usan los métodos <code>select()</code>
@@ -29,7 +29,7 @@
         <?php dump(DBPDO::select("SELECT * FROM products WHERE id = 5000")) ?>
     </section>
     
-    <section>
+    <section id="selectAll">
         <h2>Pruebas de selectAll()</h2>  
         
         <p>Recuperando todos los productos...</p>
@@ -39,7 +39,7 @@
     </section>
     
     
-    <section>
+    <section id="insert">
         <h2>Pruebas de insert()</h2>
         
         <p>El método <code>insert()</code> se utiliza para realizar consultas de inserción
@@ -66,7 +66,7 @@
     </section>
     
     
-    <section>
+    <section id="update">
         <h2>Pruebas de update()</h2>
         
         <p>El método <code>update()</code> se utiliza para realizar consultas de actualización
@@ -89,7 +89,7 @@
     </section>
      
      
-    <section>   
+    <section id="delete">   
         <h2>Pruebas de delete()</h2>
         
                 <p>El método <code>delete()</code> se utiliza para realizar consultas de borrado.
@@ -109,7 +109,7 @@
     </section>
     
     
-    <section>
+    <section id="totales">
         <h2>Pruebas de totales()</h2>
         
         <p>El método estático <code>total()</code>, permite realizar consultas de totales
@@ -140,7 +140,7 @@
     </section>    
     
     
-    <section>
+    <section id='totalesGrupos'>
         <h2>Pruebas de totales con grupos (una tabla)</h2>
         
         <p>El método <code>groupBy()</code> permite realizar operaciones de totales con grupos.
@@ -171,7 +171,7 @@
         </ul>
      </section>
      
-     <section>
+     <section id='totalesGruposVarias'>
         <h2>Pruebas de totales con grupos (varias tablas)</h2>
         
         <p>Si queremos hacer consultas de totales y agrupado con varias tablas, 
@@ -205,7 +205,7 @@
         </table>
     </section>    
     
-    <section>
+    <section id="escape">
         <h2>Pruebas de escape()</h2>
         
         <p>El método <code>escape()</code> sanea las entradas para evitar
