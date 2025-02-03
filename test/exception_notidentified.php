@@ -11,15 +11,15 @@
             Login::clear() // hace logout 
         ?>
         
-        <p>Ahora intentamos comprobar si el usuario tiene un determinado rol. Esto provocará una
+        <p>Ahora haremos una redirección <b>tras cinco segundos</b> al listado de test. Esto provocará una
            <code>NotIdentifiedException</code>, puesto que ya no hay nadie identificado.</p>
            
-        <p>El núcleo de la aplicación en <code>App.php</code> tratará esa excepción de manera
+        <p>El núcleo de la aplicación en <i>App.php</i> tratará esa excepción de manera
            especial, llevando al usuario al formulario de login.</p>
     
         <?php 
-            // intenta comprobar el rol
-            Auth::oneRole(['ROLE_EDITOR', 'ROLE_ADMIN']); 
+            // redirección en cinco segundos
+            redirect('/test', 5)->send();
         ?>
     </section>
 </main>      

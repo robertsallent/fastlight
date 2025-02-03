@@ -13,13 +13,14 @@
  * protected static array $jsonFields: para indicar los campos JSON que se deben 
  * convertir automáticamente en arrays PHP.
  *
- * Última revisión 29/01/25
+ * Última revisión 03/02/25
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
  * @since v0.9.2 añadido belongsToAny() y hasAny()
  * @since v1.4.1 añadido el método whereExactMatch()
  * @since v1.7.0 añadido el método groupBy()
+ * @since v1.7.3 añadido el método clear()
  */
 
 
@@ -547,6 +548,36 @@ abstract class Model{
     public function deleteObject():int{
         return self::delete($this->id);
     }
+    
+    
+    /**
+     * Elimina los últimos registros de una tabla en la BDD. En caso
+     * de no indicar el número de registros a borrar, los borra todos: PELIGROSO!.
+     *
+     * @param int $number número de errores a borrar.
+     * @param string $orderField orden a considerar.
+     * @param string $order ascendente o descendente.
+     * 
+     * @return int número de errores borrados.
+     */
+    public static function clear(
+        ?int $numero        = null,
+        string $orderField  = 'id',
+        string $order       = 'DESC'
+    ):int{
+        
+        $tabla = self::getTable(); // recupera el nombre de la tabla
+        
+        // prepara la consulta
+        $consulta = "DELETE FROM $tabla";
+        
+        if($numero)
+            $consulta .= " ORDER BY $orderField $order LIMIT $numero";
+        
+        // ejecuta la consulta
+        return (DB_CLASS)::delete($consulta);
+    }
+    
     
     /**
      * Realiza consultas de totales.

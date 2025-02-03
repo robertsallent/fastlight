@@ -10,21 +10,20 @@
     
     <p>El helper <code>oldChecked()</code> se usa para los checkboxes y botones de radio.</p>
     
-    <?php $request = request(); ?>
-    
+
     <section>
         <h2>Old Inputs en la Request</h2>
         <p>Inputs flasheados en sesión y recuperados en la request actual:</p>
         <?php 
         
-            // fuerza una redirección extra tras el envio del formulario
-            // lo hago para comprobar que los helpers funcionan correctamente
-            if(request()->has('enviar')){
-                redirect(URL::get());
-            }
+            // fuerza una redirección extra tras el envio del formulario,
+            // de esta manera puedo comprobar que los helpers funcionan correctamente
+            if(request()->has('enviar'))
+                redirect(request()->url)->send();
+            
             
             // muestra los inputs flasheados en sesión o NULL si no hay
-            dump($request->previousInputs ?? NULL);
+            dump(request()->previousInputs ?? NULL);
         ?>
     </section>
     
@@ -69,7 +68,7 @@
     
     <section>
         <h2>Dump completo de la Request</h2>
-        <?php dump($request); ?>
+        <?php dump(request()); ?>
     </section>
 </main>
 

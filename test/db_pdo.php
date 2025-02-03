@@ -47,11 +47,11 @@
         autonumérico del registro insertado.</p>
         
         <p>Guardando un producto...</p>
-        <p><code>DBPDO::insert(INSERT INTO products(name, vendor, price) VALUES('Toothbrush', 'Colgate', 3))</code></p>
+        <p><code>DBPDO::insert(INSERT INTO products(name, description, price) VALUES('Toothbrush', 'Engish smiles', 3))</code></p>
         
         <?php             
-            $consulta = "INSERT INTO products(name, vendor, price) 
-                         VALUES('Toothbrush', 'Colgate', 3)";
+            $consulta = "INSERT INTO products(name, description, price) 
+                         VALUES('Toothbrush', 'English smiles', 3)";
              
             $id = DBPDO::insert($consulta);
         ?> 
@@ -219,11 +219,11 @@
             echo "";
             
             $name = DBPDO::escape("L'aperitiu");
-            $vendor = DBPDO::escape("Probando ¡& ' ' cosas <script>alert('hola')</script> raras \n de test.");
+            $description = DBPDO::escape("Probando ¡& ' ' cosas <script>alert('hola')</script> raras \n de test.");
             $price = intval("10patatas");
             
-            $consulta = "INSERT INTO products(name, vendor, price)
-                         VALUES('$name', '$vendor', $price)";
+            $consulta = "INSERT INTO products(name, description, price)
+                         VALUES('$name', '$description', $price)";
             
             echo "<p>Consulta a ejecutar: <code>$consulta</code></p>";
 

@@ -6,10 +6,9 @@
  *
  * @author Robert Sallent <robertsallent@gmail.com>
  * 
- * Última revisión: 16/04/2024
+ * Última revisión: 03/02/2025
  */
 
-#[\AllowDynamicProperties]
 class User extends Model implements Authenticable{
 
     use Authorizable; // usa el trait authorizable

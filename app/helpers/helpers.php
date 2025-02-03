@@ -3,12 +3,12 @@
 /**
  * Funciones helper para realizar tareas habituales.
  * 
- * Última revisión: 20/01/2025
+ * Última revisión: 31/01/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v1.4.2 añadido el helper request() que retorna el objeto Request con información de la petición.
  * @since v1.4.2 añadido el helper user() que retorna el usuario identificado.
- * 
+ * @since v1.7.3 el helper arrayToString recibe un quinto parámetro (opcional).
 */
 
 
@@ -64,6 +64,7 @@ function dd($thing, string $message = 'Se detuvo la ejecución.'){
  * @param bool $brackets mostrar corchetes rodeando el array?
  * @param bool $associative se trata de un array asociativo?
  * @param string $separator separador de elementos, por defecto la coma y un espacio.
+ * @param string $keyValueSeparator separador entre clave y valor.
  * 
  * @return string representación del array a modo texto.
  */
@@ -71,8 +72,10 @@ function arrayToString(
     array $lista,
     bool $brackets    = true,
     bool $associative = true,
-    string $separator = ", "
+    string $separator = ", ",
+    string $keyValueSeparator = " => "
 ):string{
+    
     $texto = '';
     
     foreach($lista as $clave => $valor){
@@ -80,7 +83,7 @@ function arrayToString(
         if(gettype($valor)=='array')
             $valor = arrayToString($valor, $brackets, $associative, $separator);
         
-        $texto .= $associative ? "$clave => $valor$separator" : "$valor$separator";
+        $texto .= $associative ? "$clave $keyValueSeparator $valor$separator" : "$valor$separator";
     }
     
     return $brackets ? '[ '.rtrim($texto, "$separator").' ]' : rtrim($texto, "$separator");

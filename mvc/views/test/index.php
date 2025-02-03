@@ -31,30 +31,32 @@
             	<p>A continuación se muestra el listado de <b>tests</b> disponibles en la carpeta 
             	<code><?= TEST_FOLDER ?></code> y que se pueden
             	ejecutar simplemente haciendo clic sobre el nombre del fichero. 
-            	Continenen explicaciones y ejemplos de uso de clases, métodos y procedimientos,
-            	así que os pueden servir como ejemplo para comprender
-            	algunos de los mecanismos del <i>framework</i>. También muestran una forma interesante de realizar 
-            	<b>pruebas unitarias</b> de forma sencilla con <i>FastLight</i>.</p>
+            	Continenen explicaciones y ejemplos, así que <b class='maxi'>os servirán como ejemplo</b> para comprender
+            	algunos de los mecanismos del <i>framework</i>.</p> 
+            	
+            	<p>También muestran una forma interesante de realizar 
+            	<b>pruebas unitarias</b> sencillas con <i>FastLight</i>, pudiendo añadir vuestros
+            	propios test.</p>
             	
             	<h3>Añadiendo tests</h3>
             	
-            	<p>Para crear vuestros propios tests, tan solo tenéis que añadir el fichero <i>php</i> con la prueba
+            	<p>Para crear vuestros propios tests, tan solo tenéis que añadir el fichero <i>PHP</i> con la prueba
             	   a realizar en la carpeta <code><?= TEST_FOLDER ?></code>. 
             	   Tomad como ejemplo alguno de los existentes.</p>
         
             	<h3>Consideraciones:</h3>
             	<ul>
                 	<li>Los test que realizan operaciones con usuarios, autenticación o autorización pueden provocar
-                	   que se cierre la sesión de usuario, con lo que se os solicitará hacer <i>login</i> de nuevo.</li>
+                	   que se cierre la sesión de usuario, con lo que se os solicitará hacer <i>login</i> de nuevo 
+                	   al volver al listado.</li>
                 	   
                 	<li>Los test que trabajan con entidades (modelos),
-                	   funcionan con las bases de datos de prueba <i>sales_example.sql</i> 
-                	   o bien con el ejemplo de la biblioteca, documentado en las presentaciones.</li>
+                	   funcionan con <b>la bases de datos de prueba <i>sales_example.sql</i></b>, así que es preferible
+                	   usar esta base de datos para las pruebas, en lugar de la <i>basic_tables.sql</i>.</li>
                 	   
-                	<li>Los test de librerías documentan y prueban uno a uno los métodos existentes en cada
-                	    una de las clases, los de <i>helpers</i> hacen lo mismo con las funciones.</li> 
+                	<li>Los test <b>están documentados</b>, aunque también es interesante observar el código fuente.</li> 
                 	
-                	<li>Si algun test requiere del envío de un formulario, lo encontraréis preparado en el 
+                	<li>Si un test requiere del envío de un formulario, estará preparado en el 
                 	    mismo fichero, para que resulte fácil la prueba.</li> 
                 	   
             	</ul>

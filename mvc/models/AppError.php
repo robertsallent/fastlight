@@ -7,10 +7,10 @@
  *
  * @author: Robert Sallent <robert@juegayestudia.com>
  * 
- * Última revisión: 12/12/2024
+ * Última revisión: 03/02/2025
+ * 
  */
 
-#[\AllowDynamicProperties]
 class AppError extends Model{
     
     /** @var string $table nombre de la tabla en la base de datos */ 
@@ -47,37 +47,6 @@ class AppError extends Model{
         // guarda el error en base de datos
         $e->save();
     }    
-    
-    
-    
-    /**
-     * Vacía la tabla de errores en la base de datos.
-     *
-     * @return int número de errores borrados.
-     */
-    public static function clear():int{
-        return (DB_CLASS)::delete("DELETE FROM ".ERROR_DB_TABLE);
-    }
-    
-    
-    
-    /**
-     * Elmina los últimos errores.
-     * 
-     * @param int $limit número de errores a eliminar.
-     * 
-     * @return int número de errores que ha podido eliminar.
-     */
-    public static function clearLast(int $limit = 1):int{
-        
-        $query = "SELECT * FROM ".ERROR_DB_TABLE." ORDER BY id DESC LIMIT $limit";    
-        $errors = (DB_CLASS)::selectAll($query, self::class);
-
-        foreach($errors as $error)
-            $error->deleteObject();
-
-        return sizeof($errors);
-    }
 }
 
 

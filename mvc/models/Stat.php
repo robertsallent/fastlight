@@ -7,12 +7,12 @@
  *
  * @author: Robert Sallent <robert@juegayestudia.com>
  * 
- * Última revisión: 10/12/2024
+ * Última revisión: 03/02/2025
  * 
  * @since v1.4.1
  */
 
-#[\AllowDynamicProperties]
+
 class Stat extends Model{
     
     /** @var string $table nombre de la tabla en la base de datos */ 
@@ -75,16 +75,6 @@ class Stat extends Model{
      */
     public static function saveOrIncrement(string $url):int{
         return self::statExists($url) ? self::increment($url) : self::add($url);
-    }
-    
-    
-    /**
-     * Vacía la tabla de estadísticas en la base de datos.
-     *
-     * @return int número de estadísticas borradas.
-     */
-    public static function clear():int{
-        return (DB_CLASS)::delete("DELETE FROM ".STATS_TABLE);
     }
     
 }
