@@ -5,9 +5,11 @@
  * Permite hacer listados de directorio y búsqueda de ficheros por extensión
  * o por nombre de forma muy simple.
  *
- * Última mofidicación: 02/12/2023.
+ * Última mofidicación: 06/02/2025.
  *
  * @author Robert Sallent
+ * 
+ * @since v1.7.4 añadido el método getFiles() y el método estático files().
  *
  */
    
@@ -50,7 +52,8 @@
         
         
         /**
-         * Recupera la lista de entradas en el directorio de trabajo 
+         * Recupera la lista de entradas en el directorio de trabajo. 
+         * Recupera un array de strings (rutas). 
          * Para filtrar, puede recibir una expresión regular o un listado de extensiones
          * 
          * @param string|array $matches expresión regular o lista de extensiones
@@ -100,12 +103,38 @@
             
             return $filtered;
         }
-
         
         
         
         /**
-         * Método estático que permite recuperar el listado de directorio con o sin filtros.
+         * Método  que permite recuperar el listado de directorio a modo de array de objetos de tipo File.
+         *
+         * @param array|string $matches expresión regular o array de extensiones
+         *
+         * @return array lista de entradas coincidentes
+         */  
+        public function getFiles(
+            array|string|NULL $matches  = "/.*/"
+        ):array{
+            
+            $files = []; // array para los resultados
+            
+            // recupera las entradas del directorio
+            $entries = $this->getEntries($matches);
+            
+            // las pasa a objetos de tipo File y las mete en el array
+            foreach($entries as $entry)
+                $files[] = new File($entry);
+                           
+            return $files;
+        }
+
+        
+        
+        /**
+         * Método estático que permite recuperar el listado de ficheros del directorio
+         * con o sin filtros. Recupera un array de strings (rutas).
+         * 
          * Es una alternativa más simple al uso del método de objeto getEntries().
          * 
          * @param string $directorio directorio de trabajo
@@ -122,6 +151,24 @@
                 
             return (new FileList($directorio))->getEntries($matches, $specialEntries);
         }
+        
+        
+        
+        /**
+         * Método estático que permite recuperar el listado de directorio con o sin filtros.
+         * Recupera un array de objetos de tipo File.
+         *
+         * @param string $directorio directorio de trabajo
+         * @param array|string $matches expresión regular o array de extensiones
+         *
+         * @return array lista de entradas coincidentes
+         */ 
+        public static function files(
+            string $directorio          = ".",
+            array|string|NULL $matches  = "/.*/"
+        ):array{
+            
+            return (new FileList($directorio))->getFiles($matches);
+        }
     }
-
 

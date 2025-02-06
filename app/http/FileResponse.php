@@ -4,7 +4,7 @@
  *
  * Respuestas con ficheros
  *
- * Última modificación: 09/01/2025
+ * Última modificación: 06/02/2025
  *
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v1.5.0
@@ -69,7 +69,11 @@ class FileResponse extends Response{
      */
     public function send(){           
         $this->prepare();  // añade las cookies y las cabeceras http a la respuesta
-        $this->download ? $this->file->download() : $this->file->read(); // descarga o abre el fichero
+        
+        echo $this->download ? 
+            $this->file->download() :   // intenta forzar la descarga
+            $this->file->read();        // o muestra el fichero
+        
         die();             // finaliza la ejecución
     } 
 }

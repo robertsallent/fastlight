@@ -4,30 +4,30 @@
  *
  * Se usa para generar las partes comunes de todas las vistas
  *
- * Última revisión: 12/01/2025
+ * Última revisión: 05/02/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  *
  */
 class Base implements TemplateInterface{
     
-    /** lista de ficheros CSS para usar con este template 
+    /** Lista de ficheros CSS para usar con este template 
      * 
      *    Si tienes otros templates que hereden de éste, puedes redefinir el array 
-     *    para usar otras hojas de estilo. En ese caso, sería interesante que la 
+     *    para usar otras hojas de estilo. En ese caso, puede ser útil que la 
      *    hoja de estilos principal que uses importe la hoja base.css 
      *    
      * */
     protected array $css = [
-        'standard'  => '/css/base.css',     // hoja de estilo para PC
-        'tablet'    => null,                // hoja de estilo para tablet
-        'phone'     => '/css/phone.css',    // hoja de estilo para teléfono
-        'printer'   => '/css/printer.css'   // hoja de estilo para impresora    
+        'standard'  => '/css/base.css',         // hoja de estilo para PC
+        'tablet'    => '/css/base_tablet.css',  // hoja de estilo para tablet
+        'phone'     => '/css/base_phone.css',   // hoja de estilo para teléfono
+        'printer'   => '/css/base_printer.css'  // hoja de estilo para impresora    
     ];
     
     
     
-    /** media queries para cargar distintos ficheros para cada dispositivo o resolución de pantalla.
+    /** Media queries para cargar distintos ficheros para cada dispositivo o resolución de pantalla.
      * 
      *      Se pueden cambiar los rangos de resolución para los distintos tipos de pantalla.
      *      Adaptar al gusto.

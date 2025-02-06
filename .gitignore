@@ -2,7 +2,6 @@
 /.buildpath
 /.settings/
 /vendor/
-/tmp/
 /tmp/*
 /logs/*.log
 

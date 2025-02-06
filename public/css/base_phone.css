@@ -6,9 +6,15 @@
 */
 
 
-/* Correcciones de clases genéricas */
+/* Correcciones de clases genéricas para adaptarlas a pantallas pequeñas */
+
 .pc{display: none !important;}
+
 .w50, .w75, .w100 { width: 100% }
+
+.two-columns			{ column-count: 1 }
+.three-columns			{ column-count: 1 }
+.four-columns			{ column-count: 2 }
 
 
 /* Elementos estructurales */

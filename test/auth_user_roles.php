@@ -73,12 +73,15 @@
     	<h3>hasRole()</h3>
     	
     	<p>El método <code>hasRole()</code> sirve para <b>comprobar si un usuario tiene un rol
-    	concreto. Le pasamos el nombre del rol por parámetro y retorna boolean.</b>
+    	concreto</b>. Le pasamos el nombre del rol por parámetro y retorna boolean.</p>
     	
-    	<?php
-            $roles = user()->getRoles();
-            echo "<p>Los roles del usuario actual son: <b>".arrayToString($roles, false, false)."</b><p>";
+    	<?php  $roles = user()->getRoles() ?>
+    	
+        <p>Los roles del usuario actual son: <b><?= arrayToString($roles, false, false) ?></b><p>
         
+        <p>Hagamos algunas comprobaciones, por ejemplo: <code>user()->hasRole('ROLE_TEST')</code>.</p>
+        
+        <?php 
         	echo "<p><i>ROLE_TEST:</i> <b>".(user()->hasRole('ROLE_TEST') ? 'SI' : 'NO')."</b><br>";                                  // SI
         	echo "<i>ROLE_DEVELOPER:</i> <b>".(user()->hasRole('ROLE_DEVELOPER') ? 'SI' : 'NO')."</b><br>";
         	echo "<i>ROLE_USER:</i> <b>".(user()->hasRole('ROLE_USER') ? 'SI' : 'NO')."</b><br>";
@@ -90,12 +93,16 @@
         <h3>allRoles()</h3>
         
         <p>El método <code>allRoles()</code> sirve para <b>comprobar si un usuario tiene todos
-    	los roles indicados en una lista. Le pasamos la lista de roles y retorna boolean.</b>
+    	los roles indicados en una lista</b>. Le pasamos la lista de roles y retorna boolean.</p>
     	
-         <?php
+    	<?php
             $roles = user()->getRoles();
             echo "<p>Los roles del usuario actual son: <b>".arrayToString($roles, false, false)."</b><p>";
-           
+        ?>    
+            
+    	<p>Hagamos algunas comprobaciones, por ejemplo: <code>user()->allRoles(['ROLE_TEST','ROLE_DEVELOPER'])</code>.</p>
+        
+        <?php 
             echo "<p><i>ROLE_TEST y ROLE_DEVELOPER:</i> <b>".(user()->allRoles(['ROLE_TEST','ROLE_DEVELOPER']) ? 'SI' : 'NO')."</b><br>"; 
             echo "<i>ROLE_USER y ROLE_ADMIN:</i> <b>".(user()->allRoles(['ROLE_USER','ROLE_ADMIN']) ? 'SI' : 'NO')."</b><br>";
             echo "<i>ROLE_STUDENT y ROLE_FREAK:</i> <b>".(user()->allRoles(['ROLE_STUDENT','ROLE_FREAK']) ? 'SI' : 'NO')."</b><br>";
@@ -104,16 +111,21 @@
     </section>
     
     
-    <section id="allRoles">
+    <section id="oneRole">
         <h3>oneRole()</h3>
         
         <p>El método <code>oneRole()</code> sirve para <b>comprobar si un usuario tiene alguno de 
-    	los roles indicados en una lista. Le pasamos la lista de roles y retorna boolean.</b>
+    	los roles indicados en una lista</b>. Le pasamos la lista de roles y retorna boolean.</p>
     	
          <?php
             $roles = user()->getRoles();
             echo "<p>Los roles del usuario actual son: <b>".arrayToString($roles, false, false)."</b><p>";
-           
+         ?>
+         
+         <p>Hagamos algunas comprobaciones, por ejemplo: <code>user()->oneRole(['ROLE_TEST','ROLE_DEVELOPER'])</code>.</p>
+        
+        
+         <?php   
             echo "<p><i>ROLE_USER o ROLE_DEVELOPER:</i> <b>".(user()->oneRole(['ROLE_USER','ROLE_DEVELOPER']) ? 'SI' : 'NO')."</b><br>"; 
             echo "<i>ROLE_CRACK o ROLE_MACHINE:</i> <b>".(user()->oneRole(['ROLE_CRACK','ROLE_MACHINE']) ? 'SI' : 'NO')."</b><br>";
             echo "<i>ROLE_STUDENT o ROLE_FREAK:</i> <b>".(user()->oneRole(['ROLE_STUDENT','ROLE_FREAK']) ? 'SI' : 'NO')."</b><br>";

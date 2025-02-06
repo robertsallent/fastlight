@@ -15,9 +15,9 @@ class Dark extends Base{
     // ficheros CSS para usar con este template
     protected array $css = [
         'standard'  => '/css/dark.css',
-        'tablet'    => null,
-        'phone'     => '/css/phone.css',
-        'printer'   => '/css/printer.css'
+        'tablet'    => '/css/base_tablet.css',
+        'phone'     => '/css/base_phone.css',
+        'printer'   => '/css/base_printer.css'
     ];
     
 }

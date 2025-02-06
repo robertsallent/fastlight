@@ -4,7 +4,7 @@
 	FICHERO BASE PARA LOS ESTILOS DE FASTLIGHT
 	
 	Autor: Robert Sallent
-	Última revisión: 19/12/2024
+	Última revisión: 04/02/2025
 
 	Estructura del documento CSS:
 	- Colores
@@ -87,6 +87,8 @@
   --danger-font-color: #753;
   --danger-btn-color: rgb(230, 100, 100);
   --danger-btn-hover-color: rgb(250, 120, 120); 
+  
+  --code-color: rgb(50, 50, 200);
   
   --min-width: 280px; 
 }
@@ -322,7 +324,20 @@ hr{
 	color: var(--a-color);
 }
 
-code { font-size: 0.9rem }
+code { 
+	font-size: 1.05rem;
+	color: var(--code-color); 
+}
+
+span.path{ 
+	font-style:italic;
+}
+span.path::after{
+	content: "'";
+}
+span.path::before{
+	content: "'";
+}
 
 
 /* Bordes -------------------------------------------------------- */

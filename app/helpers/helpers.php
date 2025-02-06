@@ -9,6 +9,7 @@
  * @since v1.4.2 añadido el helper request() que retorna el objeto Request con información de la petición.
  * @since v1.4.2 añadido el helper user() que retorna el usuario identificado.
  * @since v1.7.3 el helper arrayToString recibe un quinto parámetro (opcional).
+ * @since v1.7.4 añadidos helpers formatInt() y formatFloat()
 */
 
 
@@ -123,6 +124,32 @@ function paragraph(
     }
     
     return $text;
+}
+
+
+
+/**
+ * Formatea un número entero para poner el separador de miles
+ * 
+ * @param int $number el número a formatear
+ * 
+ * @return string el número formateado
+ */
+function formatInt(int $number):string{
+    return number_format($number, 0, ',', '.');
+}
+
+
+
+/**
+ * Formatea un número float para poner el separador de miles y de decimales
+ *
+ * @param int $number el número a formatear
+ *
+ * @return string el número formateado
+ */
+function formatFloat(int $number, int $decimal = 0):string{
+    return number_format($number, $decimal, ',', '.');
 }
 
 

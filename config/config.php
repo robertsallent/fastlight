@@ -56,7 +56,7 @@ define('AUTOLOAD_DIRECTORIES',  [
 define('APP_NAME','FastLight Framework');   // Título de la aplicación.
 define('APP_TYPE', 'WEB');                  // Tipo de aplicación: WEB o API.
 
-define('APP_VERSION', '1.7.2');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '1.7.4');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);    // muestra la versión de la app en el footer (templates/Base.php)
 
 
@@ -124,8 +124,8 @@ define('USER_PROVIDER', 'User');   // La única opción incluida es User.
 define('USER_ROLES', [
     'Usuario'       => 'ROLE_USER',
     'Administrador' => 'ROLE_ADMIN',
- // 'Supervisor'    => 'ROLE_SUPERVISOR',
- // 'Editor'        => 'ROLE_EDITOR',
+    'Supervisor'    => 'ROLE_SUPERVISOR',
+    'Editor'        => 'ROLE_EDITOR',
     'Test'          => 'ROLE_TEST',
     'API'           => 'ROLE_API',
     'Estudiante'    => 'ROLE_STUDENT',

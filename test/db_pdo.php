@@ -3,7 +3,7 @@
 	
 	<p>En este test se prueba el funcionamiento de los métodos para implementar el 
 		<b>CRUD</b> de la clase <b class='maxi'>DBPDO</b>, que trabaja con el 
-		conector <b>PDO</b> de PHP. 
+		conector <b>PDO</b> de <i>PHP</i>. 
 		Cada uno de los test está planteado también a modo de ejemplo e incluye una 
 		pequeña explicación (se recomienda también consultar el código del test).</p>
 
@@ -32,10 +32,36 @@
     <section id="selectAll">
         <h2>Pruebas de selectAll()</h2>  
         
-        <p>Recuperando todos los productos...</p>
-        <p><code>DBPDO::selectAll("SELECT * FROM products")</code></p> 
+        <p>Recuperando todos los productos (solamente 3)...</p>
+        <p><code>DBPDO::selectAll("SELECT * FROM products LIMIT 3")</code></p> 
         
-        <?php dump(DBPDO::selectAll("SELECT * FROM products"))?>    
+        <?php dump(DBPDO::selectAll("SELECT * FROM products LIMIT 3"))?>    
+    </section>
+    
+    
+    <section id="map">
+        <h2>Mapeando a tipos concretos</h2>  
+        
+        <p>En los ejemplos anteriores, hemos visto que los métodos <code>select()</code>
+        y <code>selectAll()</code> retornan un <i>array</i> de objetos <i>stdClass</i>.
+        Normalmente querremos trabajar con listas de objetos de tipos concretos (entidades
+        del modelo, por ejemplo <i>Product</i>).</p>
+        
+        <p>Para ello, ambos métodos incorporan la posibilidad de recibir
+        como <b>segundo parámetro el tipo de entidad</b> al que queremos
+        mapear los resultados.</p>
+        
+        <?php class Product extends Model{} ?>
+        
+        <p>Recuperando el producto 2 a modo de <i>Product</i>.</p>
+        <p><code>DBPDO::select("SELECT * FROM products WHERE id = 2", 'Product')</code></p>
+        
+        <?php dump(DBPDO::select("SELECT * FROM products WHERE id = 2", 'Product')) ?>
+        
+        <p>Recuperando todos los productos (solamente 3) a modo de <i>Product</i>...</p>
+        <p><code>DBPDO::selectAll("SELECT * FROM products LIMIT 3", 'Product')</code></p> 
+        
+        <?php dump(DBPDO::selectAll("SELECT * FROM products LIMIT 3", 'Product'))?>    
     </section>
     
     

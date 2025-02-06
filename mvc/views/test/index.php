@@ -29,7 +29,7 @@
             	<h2>Información</h2>
             	
             	<p>A continuación se muestra el listado de <b>tests</b> disponibles en la carpeta 
-            	<code><?= TEST_FOLDER ?></code> y que se pueden
+            	<span class='path'><?= TEST_FOLDER ?></span> y que se pueden
             	ejecutar simplemente haciendo clic sobre el nombre del fichero. 
             	Continenen explicaciones y ejemplos, así que <b class='maxi'>os servirán como ejemplo</b> para comprender
             	algunos de los mecanismos del <i>framework</i>.</p> 
@@ -41,7 +41,7 @@
             	<h3>Añadiendo tests</h3>
             	
             	<p>Para crear vuestros propios tests, tan solo tenéis que añadir el fichero <i>PHP</i> con la prueba
-            	   a realizar en la carpeta <code><?= TEST_FOLDER ?></code>. 
+            	   a realizar en la carpeta <span class='path'><?= TEST_FOLDER ?></span>. 
             	   Tomad como ejemplo alguno de los existentes.</p>
         
             	<h3>Consideraciones:</h3>
@@ -69,10 +69,10 @@
             	   
             	<p>Solamente se comparten <b>por 
             	motivos docentes</b>. A producción 
-            	<b class="uppercase">no subiremos</b> la carpeta <code><?= TEST_FOLDER ?></code>, el controlador 
-            	<code>TestController</code> ni la carpeta <code>mvc/views/test</code>. 
+            	<b class="uppercase maxi">no subiremos</b> la carpeta <span class='path'><?= TEST_FOLDER ?></span>,
+            	 el controlador <i>TestController</i> ni la carpeta <span class='path'>mvc/views/test</span>. 
             	También deberíamos eliminar el enlace desde el menú, que se encuentra en el fichero
-            	<code>/templates/Base.php</code>.</p>
+            	<span class='path'>templates/Base.php</span>.</p>
         	</section>
      
 

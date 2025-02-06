@@ -183,6 +183,7 @@ class ErrorController extends Controller{
      * @return Response
      */
     public function erase(string $fileType = 'errors'):Response{
+        
         // operación solamente para los roles autorizados a trabajar con errores
         // se configura en el fichero de configuración
         Auth::oneRole(ERROR_ROLES); 

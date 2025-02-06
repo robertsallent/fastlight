@@ -17,14 +17,13 @@ Los cambios marcados con un ? están en fase de evaluación.
 - CORE/HTTP
 	
 - LIBRARIES
-	- ? Implementar un sistema de seeding (faker?).
+	- Implementar un sistema de seeding tipo faker.
 	- Mejorar el método XML::encode() para que sea recursivo y testearlo a fondo. Probarlo con APIs.
 	- Implementar el método CSV::decode()
 
 - MODELO
 	- ? Métodos owns() e ownedBy() en Model.
 	- ? Nuevo método Model::insertRelated(entidad, idrelacionado, tabla)
-	- Nuevo método que haga consultas SELECT con totales y GROUP BY.
 		
 - TEMPLATES Y VISTAS
 	- ? Hacer uso de <dialog> para modales

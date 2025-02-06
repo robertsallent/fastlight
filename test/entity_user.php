@@ -1,11 +1,16 @@
 <main>
 	<h1>Test del modelo User</h1>
 	
+	<p>La clase <i>User</i> del modelo <b>implementa el CRUD y las operaciones
+	con usuarios</b>.</p>
+	
 	<section>
 		<h2>getByPhoneAndMail()</h2>
 		
 		<p>El método <code>getByPhoneAndMail()</code> recupera un usuario a partir de su email y su 
-		teléfono. Se usa desde el controlador de recuperación de password.</p>
+		teléfono. Se usa desde el controlador de recuperación de password
+		 <span class="bold italic">ForgotPasswordController</span>, donde se le solicita al usuario
+		 que indique estos datos para enviarle un email con la nueva clave.</p>
 		
 		<p>Estas son algunas pruebas:</p>
 		

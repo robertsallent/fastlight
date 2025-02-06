@@ -1,0 +1,17 @@
+/* 
+	FICHERO CON EL ESTILO PARA TABLET
+	
+	Autor: Robert Sallent
+	Última revisión: 05/02/2024
+*/
+
+
+/* Correcciones de clases genéricas para adaptarlas a pantallas medianas */
+
+.pc{display: none !important;}
+
+.two-columns			{ column-count: 2 }
+.three-columns			{ column-count: 2 }
+.four-columns			{ column-count: 2 }
+
+
