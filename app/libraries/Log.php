@@ -6,71 +6,46 @@
  *
  *   Herramientas para registro de errores y mensajes
  *
- *   Última mofidicación: 06/02/2025
+ *   Última mofidicación: 07/02/2025
  *
  *   @author Robert Sallent <robertsallent@gmail.com>
- *
+ *   @since v1.7.5 control del tamaño máximo del fichero de LOG.
  */
  
-class Log{
-    
-    /** @var File objeto File referencia al fichero para LOG */
-    private File $file; 
+class Log extends File{
     
     /** @var int tamaño máximo para el fichero de LOG */
-    private int $maxSize;
+    protected int $maxSize;
     
     
     /**
      * Constructor 
      * 
      * @param string $route ruta para el fichero de LOG
-     * @param int $maxSize tamaño máximo (0 sin límite)
      */
-    public function __construct(string $path, int $maxSize = 0){
-        $this->file = new File($path);
-        $this->maxSize = $maxSize;
+    public function __construct(string $path){
+        parent::__construct($path);
+        
+        // el tamaño máximo lo toma de la constante LOG_MAX_SIZE en el fichero config.php
+        // si no existe, lo tomará como ilimitado (lo podemos cambiar con setMaxSize())
+        $this->setMaxSize(defined('LOG_MAX_SIZE')? LOG_MAX_SIZE : 0);
     }
     
     
+   
     /**
-     * Cambia el fichero de LOG
-     * 
-     * @param string $path nueva ruta
-     */
-    public function setPath(string $path){
-        $this->file = new File($path);
-    }
-    
-    
-    /**
-     * Recupera la ruta del fichero de LOG
-     * 
-     * @return string
-     */
-    public function getPath():string{
-        return $this->file->getPath();
-    }
-    
-    
-    /**
-     * Recupera el objeto File que referencia al fichero de LOG.
-     * 
-     * @return ?File el fichero o null
-     */
-    public function getFile():File{
-        return $this->file->exists()? $this->file : NULL;
-    }
-    
-    
-    /**
-     * Setter de la propiedad $maxSize
+     * Setter de la propiedad maxSize, nos permite cambiar el tamaño máximo del fichero de LOG. 
      * 
      * @param int $maxSize tamaño máximo del fichero de LOG, 0 para ilimitado.
      */
     public function setMaxSize(int $maxSize = 0){
+        if($maxSize < 0)
+            throw new Exception("El tamaño del fichero de LOG no puede ser negativo.");
+        
         $this->maxSize = $maxSize;
     }
+    
+    
     
     /**
      * Getter de la propiedad maxSize
@@ -79,6 +54,32 @@ class Log{
      */
     public function getMaxSize():int{
         return $this->maxSize;
+    }
+    
+    
+    
+    /**
+     * Método que elimina la primera línea del fichero de LOG. Se usa
+     * cuando el tamaño del fichero alcanza el fichero máximo.
+     * 
+     */
+    protected function removeFirstLine(){
+        // FIXME: optimizar este método
+        
+        // recupera las líneas en un array
+        $lines = file($this->path, FILE_SKIP_EMPTY_LINES);    
+        
+        // saca la primera
+        array_shift($lines);     
+                
+        // junta las líneas en un string
+        $text = implode($lines);    
+        
+        // escribe de nuevo el fichero
+        file_put_contents($this->path, $text); 
+                
+        // limpia el caché de files para que getSize() pueda recuperar el nuevo tamaño
+        clearstatcache();
     }
     
     
@@ -98,22 +99,25 @@ class Log{
         string $message     = 'se ha producido un error',
         bool $addDate       = true
     ){
-        return self::addMessage($this->getPath(), $level, $message, $addDate);
+        $addDate?
+            $text = date("d/m/Y H:i:s")." - $level - $message":
+            $text = "$level - $message";
+        
+        $bytes  = $this->append($text);
+        
+        // limpia el caché de files para que getSize() pueda recuperar el nuevo tamaño
+        clearstatcache(); 
+        
+        // control del tamaño máximo del fichero
+        if($this->maxSize && $this->getSize() > $this->maxSize){
+            $this->removeFirstLine();
+        }
+     
+        return $bytes;   
     } 
     
     
-    
-    /**
-     * Retorna el tamaño del fichero de LOG en bytes.
-     * 
-     * @return int el tamaño en bytes
-     */
-    public function size():int{
-        return $this->file->exists()? $this->file->size() : 0;
-    }
-    
-    
-    
+     
     /**
      * Método estático que graba una nueva línea en el fichero de LOG. 
      * 
@@ -129,12 +133,7 @@ class Log{
         string $level   = 'ERROR',
         string $message = 'se ha producido un error',
         bool $addDate   = true
-    ):int{
-        
-        $addDate? 
-            $text = date("d/m/Y H:i:s")." - $level = $message":
-            $text = "$level - $message";
-        
-        return (new File($route))->append($text);
+    ):int{       
+       return (new Log($route))->add($level, $message, $addDate);
     }   
 }

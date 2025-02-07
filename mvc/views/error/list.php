@@ -118,12 +118,14 @@
         		<?php if(LOG_ERRORS || LOG_LOGIN_ERRORS){ ?>
         		<section>
             		<h2>Ficheros de LOG</h2>
-            		<p>Los ficheros de <i>log</i> sirven para guardar los errores producidos en ficheros. 
-            		Sus datos no se borran al vaciar la lista de errores, para hacerlo 
+            		<p>Los ficheros de <i>log</i> sirven para <b>guardar los errores producidos en tiempo de ejecución
+            		de la aplicación</b> en ficheros de texto.</p>
+            		 
+            		<p>Los datos no se borrarán aunque vaciemos la tabla de errores de la BDD, para hacerlo 
             		se debe eliminar expresamente el fichero pulsando el botón "borrar" o directamente en el sistema de 
             		ficheros del servidor.</p>
             		
-            		<p class="mini">TODO: limitar el tamaño máximo de los ficheros.</p>
+            		<p>El tamaño máximo configurado para los ficheros de <i>LOG</i> es de <b><?= formatInt(LOG_MAX_SIZE) ?> bytes</b>.</p>
             		
             		<h3>Descargar</h3>
             		

@@ -150,7 +150,7 @@
          * @return string|false el tipo MIME o false si falla
          */
         public function getMime():string|false{
-            return (new finfo(FILEINFO_MIME_TYPE))->file($this->path);
+            return $this->exists() ? (new finfo(FILEINFO_MIME_TYPE))->file($this->path) : false;
         }
         
         

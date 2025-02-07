@@ -3,5 +3,5 @@
 /.settings/
 /vendor/
 /tmp/*
+!/tmp/readme.txt
 /logs/*.log
-

@@ -21,13 +21,14 @@
  * 
  * Última revisión: 22/01/25
  * @author Robert Sallent <robertsallent@gmail.com>
- * @since 0.1.0
- * @since 1.0.0 se pueden configurar las vistas de error personalizadas
- * @since 1.1.5 añadidos los parámetros de configuración de subida de ficheros
- * @since 1.2.2 se puede configurar el mensaje de "aceptar cookies"
- * @since 1.4.2 se pueden configurar los roles que pueden ver test, errores y ejemplos HTML y se puede indicar la versión de la aplicación.
- * @since 1.4.5 se puede indicar que queremos que se compruebe la versión de PHP del servidor
- * @since 1.6.0 se han quitado algunas opciones de depuración (demasiadas opciones)
+ * @since v0.1.0
+ * @since v1.0.0 se pueden configurar las vistas de error personalizadas
+ * @since v1.1.5 añadidos los parámetros de configuración de subida de ficheros
+ * @since v1.2.2 se puede configurar el mensaje de "aceptar cookies"
+ * @since v1.4.2 se pueden configurar los roles que pueden ver test, errores y ejemplos HTML y se puede indicar la versión de la aplicación.
+ * @since v1.4.5 se puede indicar que queremos que se compruebe la versión de PHP del servidor
+ * @since v1.6.0 se han quitado algunas opciones de depuración (demasiadas opciones)
+ * @since v1.7.5 se puede limitar el tamaño máximo del fichero de LOG.
  */
    
 
@@ -56,7 +57,7 @@ define('AUTOLOAD_DIRECTORIES',  [
 define('APP_NAME','FastLight Framework');   // Título de la aplicación.
 define('APP_TYPE', 'WEB');                  // Tipo de aplicación: WEB o API.
 
-define('APP_VERSION', '1.7.4');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '1.7.5');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);    // muestra la versión de la app en el footer (templates/Base.php)
 
 
@@ -219,6 +220,7 @@ define('DEBUG_INFO', [
 
 define('LOG_ERRORS', true);                        // Guardar errores en fichero de log.
 define('ERROR_LOG_FILE', '../logs/error.log');     // Nombre del fichero de log.
+define('LOG_MAX_SIZE', 4098);                      // tamaño máximo del fichero de LOG en Bytes (0 ilimitado)
 
 define('DB_ERRORS', true);                         // Guardar errores en la base de datos.
 define('ERROR_DB_TABLE', 'errors');                // Nombre de la tabla en la BDD para los errores.
