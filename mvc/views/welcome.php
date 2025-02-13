@@ -29,11 +29,11 @@
     		<section>
         		<h2>Bienvenido!</h2>
         		
-        		<p><code><a href="https://github.com/robertsallent/fastlight">FastLight</a></code> es un <i>framework</i> 
-        			rápido y ligero para desarrollar <b>aplicaciones web en <code>PHP</code></b> o <b>APIs RESTFUL</b>.</p>
+        		<p><code><a href="https://github.com/robertsallent/fastlight">FastLight</a></code> es un <i>framework PHP</i> 
+        			rápido y ligero para desarrollar <b>aplicaciones web</b> o <b>APIs RESTFUL</b>.</p>
         		
         		
-    		   	<p>Este <i>framework</i> está <b>pensado para docencia</b>, con lo que incorpora las 
+    		   	<p>Está <b>pensado para docencia</b>, con lo que incorpora las 
     		   	 características  esenciales para desarrollo de una aplicación web rápida, sólida y fiable, pero no
     			  incluye algunas funcionalidades complejas que desarrollamos en clase (pero que encontraréis en la documentación). </p>
     			  

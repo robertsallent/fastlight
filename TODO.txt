@@ -20,6 +20,8 @@ Los cambios marcados con un ? están en fase de evaluación.
 	- Implementar un sistema de seeding tipo faker.
 	- Mejorar el método XML::encode() para que sea recursivo y testearlo a fondo. Probarlo con APIs.
 	- Implementar el método CSV::decode()
+	- Mejorar la clase Email.
+	- Templated emails.
 
 - MODELO
 	- ? Métodos owns() e ownedBy() en Model.

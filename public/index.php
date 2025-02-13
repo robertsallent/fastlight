@@ -10,11 +10,12 @@
  * error genérica (código 500).
  * 
  *
- * Última revisión: 20/01/2025
+ * Última revisión: 12/02/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
- * @since 0.1.0
- * @since 1.4.5 se puede comprobar que la versión de PHP sea la adecuada
+ * @since v0.1.0
+ * @since v1.4.5 se puede comprobar que la versión de PHP sea la adecuada
+ * @since v1.7.6 se gestiona el nombre y duración de la sesión
  */
 
 
@@ -27,7 +28,13 @@
 require '../config/config.php';         
 
 
-// comprueba la versión de PHP (si está indicado en la configuración)
+// ajusta el nombre y tiempo de sesión (se cofigura en config.php)
+session_name(SESSION_NAME);
+ini_set('session.gc_maxlifetime', SESSION_TIME);
+session_set_cookie_params(SESSION_COOKIE_EXPIRE);
+
+
+// comprueba la versión de PHP (se configura en config.php)
 if (CHECK_PHP_VERSION && version_compare(PHP_VERSION, MIN_PHP_VERSION, '<')) 
     die("ERROR: se requiere PHP ".MIN_PHP_VERSION." pero se detectó PHP ".PHP_VERSION.". Puedes actualizar la 
          versión de PHP en el servidor o modificar el parámetro MIN_PHP_VERSION en el fichero de configuración 

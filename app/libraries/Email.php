@@ -5,31 +5,31 @@
  *
  *   Facilita la tarea de enviar emails.
  *
- *   Última mofidicación: 24/02/2023
+ *   Última mofidicación: 12/02/2025
  *
  *   @author Robert Sallent <robertsallent@gmail.com>
  */
 class Email{
     
-    /** @var $date fecha actual */
+    /** @var $date string fecha actual */
     public string $date; 
     
-    /** @var $to destinatario del email */
+    /** @var $to string destinatario del email */
     public string $to;
     
-    /** @var $from remitente del email */
+    /** @var $from string remitente del email */
     public string $from;
     
-    /** @var $name nombre del remitente */
+    /** @var $name string nombre del remitente */
     public string $name;
     
-    /** @var $subject asunto del mensaje */
+    /** @var $subject string asunto del mensaje */
     public string $subject;
     
-    /** @var $message cuerpo del mensaje */
+    /** @var $message string cuerpo del mensaje */
     public string $message;
     
-    /** @var $headers cabeceras adicionales */
+    /** @var $headers string cabeceras adicionales */
     public string $headers;
     
     /**
@@ -61,10 +61,10 @@ class Email{
         $this->headers .= "From: $this->name <$this->from>\r\n";
         
         // preparamos el mensaje que se enviará
-        $this->message = "<h2>MENSAJE</h2>";
+        $this->message = "<h1>MENSAJE</h1>";
         $this->message .= "<p>De $this->name ($this->from).";
         $this->message .= "Recibido el $this->date.</p>"; 
-        $this->message .= "<h3>$this->subject</h3>";
+        $this->message .= "<h2>$this->subject</h2>";
         $this->message .= "<p>$message</p>"; 
     }
       

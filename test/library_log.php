@@ -35,8 +35,8 @@
 		</pre>
 
 		<p>Una vez creado el objeto, podremos añadir mensajes con el método <a href="#add"><code>add()</code></a>.
-		Como esta clase hereda de <i>File</i>, podremos realizar multitud de operaciones sobre el fichero. 
-		Consultad el test y documentación de 
+		Como esta clase hereda de <i>File</i>, podremos realizar multitud de operaciones sobre el fichero, 
+		consultad el test y documentación de 
 		<a href="/test/library_file">library_file</a>.</p>
 		
 	</section>
@@ -177,7 +177,7 @@ echo paragraph($log->read());
 		<pre>
 		<code>
 $log = new Log('../logs/test.log');
-$deleted = $log->delete();	
+$log->delete();	
 
 echo $log->exists() ? "No se ha borrado" : "Fichero borrado";
 		</code>
@@ -185,7 +185,7 @@ echo $log->exists() ? "No se ha borrado" : "Fichero borrado";
 		
 		<?php 
     		$log = new Log('../logs/test.log');
-    		$deleted = $log->delete();
+    		$log->delete();
     		
     		echo $log->exists() ? 
     		  "<p class='bold'>No se ha borrado.</p>" : 

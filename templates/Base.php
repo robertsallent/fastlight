@@ -4,7 +4,7 @@
  *
  * Se usa para generar las partes comunes de todas las vistas
  *
- * Última revisión: 05/02/2025
+ * Última revisión: 12/02/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  *
@@ -152,7 +152,6 @@ class Base implements TemplateInterface{
         // parte izquierda (operaciones para todos los usuarios)
         $html = "<menu class='menu'>";
         $html .=   "<li><a href='/'>Inicio</a></li>";
-        $html .=   "<li><a href='https://github.com/robertsallent/fastlight'>Documentación</a></li>";
         $html .=   "<li><a href='/Example'>Ejemplos de maquetación</a></li>";
           
         // parte derecha (solamente para usuarios concretos)
@@ -169,6 +168,8 @@ class Base implements TemplateInterface{
         if((Login::oneRole(ERROR_ROLES)) && (DB_ERRORS || LOG_ERRORS || LOG_LOGIN_ERRORS))
             $html .=   "<li><a href='/Error/list'>Errores</a></li>";
           
+        $html .=   "<li><a href='https://github.com/robertsallent/fastlight'>GitHub</a></li>";
+            
         $html .= "</menu>";
         $html .= "</nav>";
         

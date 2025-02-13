@@ -9,6 +9,7 @@
  * - Base de datos
  * - Usuarios y roles
  * - Login
+ * - Sesión
  * - Vistas y templates
  * - Paginador
  * - Subida de ficheros
@@ -19,7 +20,7 @@
  * 
  * Todas las directivas se encuentran documentadas en el mismo fichero config.php.
  * 
- * Última revisión: 22/01/25
+ * Última revisión: 12/02/25
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
  * @since v1.0.0 se pueden configurar las vistas de error personalizadas
@@ -29,6 +30,7 @@
  * @since v1.4.5 se puede indicar que queremos que se compruebe la versión de PHP del servidor
  * @since v1.6.0 se han quitado algunas opciones de depuración (demasiadas opciones)
  * @since v1.7.5 se puede limitar el tamaño máximo del fichero de LOG.
+ * @since v1.7.6 añadidas SESSION_NAME, SESSION_TIME y SESSION_COOKIE_EXPIRE
  */
    
 
@@ -57,7 +59,7 @@ define('AUTOLOAD_DIRECTORIES',  [
 define('APP_NAME','FastLight Framework');   // Título de la aplicación.
 define('APP_TYPE', 'WEB');                  // Tipo de aplicación: WEB o API.
 
-define('APP_VERSION', '1.7.5');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '1.7.6');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);    // muestra la versión de la app en el footer (templates/Base.php)
 
 
@@ -149,6 +151,20 @@ define('LOGIN_ERRORS_FILE', '../logs/login.log');  // Nombre del fichero para lo
 
 define('DB_LOGIN_ERRORS', false);                  // Guardar errores de login en la base de datos.
 
+
+
+/* -------------------------------------------------------------
+ * SESIÓN
+ * -------------------------------------------------------------*/
+
+// nombre de la sesión (y de la cookie de sesión)
+define('SESSION_NAME', 'FASTLIGHTSESSID');   
+
+// tiempo (en segundos) antes de marcar los datos de sesión como basura
+define('SESSION_TIME', 1440);           
+
+// tiempo de expiración de la cookie de sesión (0 cuando se reinicie el navegador)
+define('SESSION_COOKIE_EXPIRE', 0); 
 
 
 /* -------------------------------------------------------------
