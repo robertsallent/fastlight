@@ -1,5 +1,5 @@
 <main>
-	<h1>Test de conexión DB (mysqli)</h1>
+	<h1>Test de conexión con BDD (mysqli)</h1>
 	
 	<p>En este test se prueba el funcionamiento de los métodos para implementar el 
 		<b>CRUD</b> de la clase <b class='maxi'>DBMysqli</b>, que trabaja con el 
@@ -8,7 +8,7 @@
 		pequeña explicación (se recomienda también consultar el código del test).</p>
 
 	<p>Este test es idéntico al test para <a href="/test/db_pdo">DBPDO</a>, 
-	solamente se ha cambiado el nombde de la clase.</p>
+	solamente se ha cambiado el nombre de la clase.</p>
 	
     <section id="select">
         <h2>Pruebas de select()</h2>
@@ -19,12 +19,12 @@
         retornar múltiples resultados.</p>
         
         <p>Recuperando el producto 2.</p>
-        <p><code>DBMysqli::select("SELECT * FROM products WHERE id = 2")</code></p>
+        <p><code>$product = DBMysqli::select("SELECT * FROM products WHERE id = 2")</code></p>
         
         <?php dump(DBMysqli::select("SELECT * FROM products WHERE id = 2")) ?>
         
         <p>Recuperando el producto 5000... (no existe).</p>
-        <p><code>DBMysqli::select("SELECT * FROM products WHERE id = 5000")</code></p> 
+        <p><code>$product = DBMysqli::select("SELECT * FROM products WHERE id = 5000")</code></p> 
            
         <?php dump(DBMysqli::select("SELECT * FROM products WHERE id = 5000")) ?>
     </section>
@@ -34,7 +34,7 @@
         <h2>Pruebas de selectAll()</h2>  
         
         <p>Recuperando todos los productos (solamente 3)...</p>
-        <p><code>DBMysqli::selectAll("SELECT * FROM products LIMIT 3")</code></p> 
+        <p><code>$products = DBMysqli::selectAll("SELECT * FROM products LIMIT 3")</code></p> 
         
         <?php dump(DBMysqli::selectAll("SELECT * FROM products LIMIT 3"))?>    
     </section>
@@ -55,12 +55,12 @@
         <?php class Product extends Model{} ?>
         
         <p>Recuperando el producto 2 a modo de <i>Product</i>.</p>
-        <p><code>DBMysqli::select("SELECT * FROM products WHERE id = 2", 'Product')</code></p>
+        <p><code>$product = DBMysqli::select("SELECT * FROM products WHERE id = 2", 'Product')</code></p>
         
         <?php dump(DBMysqli::select("SELECT * FROM products WHERE id = 2", 'Product')) ?>
         
         <p>Recuperando todos los productos (solamente 3) a modo de <i>Product</i>...</p>
-        <p><code>DBMysqli::selectAll("SELECT * FROM products LIMIT 3", 'Product')</code></p> 
+        <p><code>$products = DBMysqli::selectAll("SELECT * FROM products LIMIT 3", 'Product')</code></p> 
         
         <?php dump(DBMysqli::selectAll("SELECT * FROM products LIMIT 3", 'Product'))?>    
     </section>
@@ -74,7 +74,7 @@
         autonumérico del registro insertado.</p>
         
         <p>Guardando un producto...</p>
-        <p><code>DBMysqli::insert(INSERT INTO products(name, description, price) VALUES('Toothbrush', 'English smile', 3))</code></p>
+        <p><code>$id = DBMysqli::insert(INSERT INTO products(name, description, price) VALUES('Toothbrush', 'English smile', 3))</code></p>
         
         <?php             
             $consulta = "INSERT INTO products(name, description, price) 
@@ -86,7 +86,7 @@
        	<p>El ID del nuevo producto es <?= $id ?></p>
         
         <p>Comprobando que se guardó correctamente...</p>
-        <p><code>DBMysqli::selectOne("SELECT * FROM products WHERE id=<?= $id ?>")</code></p>
+        <p><code>$product = DBMysqli::selectOne("SELECT * FROM products WHERE id=<?= $id ?>")</code></p>
         
         <?php dump(DBMysqli::selectOne("SELECT * FROM products WHERE id=$id")) ?>
         
@@ -100,7 +100,7 @@
         sobre la BDD. Recibe la consulta a modo de cadena de texto y retorna el número de filas afectadas.</p>
         
         <p>Actualizando un producto...</p>
-        <p><code>DBMysqli::update(UPDATE products SET name='Toothpaste' WHERE id = <?= $id ?>)</code></p>
+        <p><code>$rows = DBMysqli::update(UPDATE products SET name='Toothpaste' WHERE id = <?= $id ?>)</code></p>
         
         <?php              
             $consulta = "UPDATE products SET name='Toothpaste' WHERE id = $id";
@@ -110,7 +110,7 @@
 		<p>Filas afectadas <?= $filas ?></p>
             
         <p>Comprobando que se actualizó correctamente...</p>
-        <p><code>DBMysqli::select("SELECT * FROM products WHERE id = <?= $id ?>")</code></p>
+        <p><code>$product = DBMysqli::select("SELECT * FROM products WHERE id = <?= $id ?>")</code></p>
         
         <?php  dump(DBMysqli::select("SELECT * FROM products WHERE id = $id")) ?>
     </section>
@@ -119,18 +119,18 @@
     <section id="delete">   
         <h2>Pruebas de delete()</h2>
         
-                <p>El método <code>delete()</code> se utiliza para realizar consultas de borrado.
+        <p>El método <code>delete()</code> se utiliza para realizar consultas de borrado.
         sobre la BDD. Recibe la consulta a modo de cadena de texto y retorna el número de filas afectadas.</p>
         
         <p>Borrando un producto...</p>
-        <p><code>DBMysqli::delete("DELETE FROM products WHERE id = <?= $id ?>")</code></p>
+        <p><code>$rows = DBMysqli::delete("DELETE FROM products WHERE id = <?= $id ?>")</code></p>
        
         <?php $filas = DBMysqli::delete("DELETE FROM products WHERE id = $id") ?>
         
         <p>Filas afectadas <?= $filas ?></p>
         
         <p>Comprobando que se borró correctamente...</p>
-        <p><code>DBMysqli::selectOne("SELECT * FROM products WHERE id = <?= $id ?>")</code></p>
+        <p><code>$product = DBMysqli::selectOne("SELECT * FROM products WHERE id = <?= $id ?>")</code></p>
         
         <?php dump(DBMysqli::selectOne("SELECT * FROM products WHERE id = $id")) ?>
     </section>
@@ -148,8 +148,8 @@
     		<li>Campo sobre el que calcular el total (opcional, por defecto *).</li>
     	</ul>
         
-        <p>Por ejemplo: <code>DBMysqli::total('products')</code> 
-       	o bien <code>DBMysqli::total('products','AVG','price')</code></p>
+        <p>Por ejemplo: <code>$count = DBMysqli::total('products')</code> 
+       	o bien <code>$avg = DBMysqli::total('products','AVG','price')</code></p>
         
 
 		<p>Total de productos: 
@@ -186,12 +186,18 @@
         en minúsculas, por ejemplo: idcount.</p>
         
         <p>Vamos a buscar el total de clientes por ciudad en la BDD de ejemplo:</p>
-        <p><code>DBMysqli::groupBy('customers', ['id'=>'COUNT'], ['city'])</code></p>
+        <p><code>$resultados = DBMysqli::groupBy('customers', ['id'=>'COUNT'], ['city'])</code></p>
         
-        <ul>
+        
         <?php 
             $resultados = DBMysqli::groupBy('customers', ['id'=>'COUNT'], ['city']);
-            
+            dump($resultados);
+        ?>
+        
+        <h3>Mostrados en una lista</h3>
+        
+        <ul>
+        <?php    
             foreach($resultados as $resultado)
                 echo "<li>$resultado->city: <b>$resultado->idcount</b></li>";
         ?>
@@ -204,8 +210,9 @@
         <p>Si queremos hacer consultas de totales y agrupado con varias tablas, 
         no nos sirve el método <code>groupBy()</code>, pero podemos
     	usar el método <code>selectAll()</code> y escribir directamente la consulta.</p>
+    	
     	<p>Por ejemplo: cuenta de ventas agrupado por cliente:</p>
-    	<p><code>DBMysqli::selectAll(SELECT c.id, c.name, COUNT(s.id) AS totalSales
+    	<p><code>$resultados = DBMysqli::selectAll(SELECT c.id, c.name, COUNT(s.id) AS totalSales
         FROM customers c LEFT JOIN sales s ON c.id=s.idcustomer
         GROUP BY c.id, c.name)</code></p>
 
@@ -258,12 +265,12 @@
          ?>  
            
 		<p>Comprobando que se insertó correctamente...</p>
-		<p><code>DBMysqli::select("SELECT * FROM products WHERE id = <?= $id ?>")</code></p>
+		<p><code>$id = DBMysqli::select("SELECT * FROM products WHERE id = <?= $id ?>")</code></p>
         
         <?php dump(DBMysqli::select("SELECT * FROM products WHERE id = $id")) ?>
        
         <p>Borrando el registro que acabamos de guardar...</p>
-        <p><code>DBMysqli::delete("DELETE FROM products WHERE id= <?= $id ?> ")</code></p>
+        <p><code>$rows = DBMysqli::delete("DELETE FROM products WHERE id= <?= $id ?> ")</code></p>
         <?php $filas = DBMysqli::delete("DELETE FROM products WHERE id=$id ") ?>
         
         <p>Filas afectadas <?= $filas ?></p>
@@ -271,7 +278,7 @@
         
         
         <p>Comprobando que se borró correctamente...</p>
-        <p><code>DBMysqli::select("SELECT * FROM products WHERE id = <?= $id ?>")</code></p>
+        <p><code>$product = DBMysqli::select("SELECT * FROM products WHERE id = <?= $id ?>")</code></p>
         <?php  dump(DBMysqli::select("SELECT * FROM products WHERE id = $id")) ?>
 
     </section>   

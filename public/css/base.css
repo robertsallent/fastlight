@@ -207,6 +207,7 @@
 .mx3					{ margin-left: 5%; margin-right: 5%   }
 .mx4					{ margin-left: 10%; margin-right: 10% }
 .mx5					{ margin-left: 20%; margin-right: 20% }
+.mxauto					{ margin-left: auto; margin-right: auto }
 
 .mr0					{ margin-right: 0    }
 .mr1					{ margin-right: 1%   }

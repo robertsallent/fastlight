@@ -14,7 +14,7 @@
     
 class DBMysqli extends DB{ 
       
-    /** @var conexión con la Base de Datos. */
+    /** @var ?mysqli conexión con la Base de Datos. */
     private static $conexion = null;
     
     /**

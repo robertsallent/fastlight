@@ -18,7 +18,7 @@
     
 abstract class DB{ 
     
-    /** @var conexión con la Base de Datos. */
+    /** @var ?object conexión con la Base de Datos. */
     private static $conexion = null; 
       
     

@@ -14,7 +14,7 @@
 
 class DBPDO extends DB{ 
     
-    /** @var conexión con la Base de Datos. */
+    /** @var ?PDO conexión con la Base de Datos. */
     private static $conexion = null;
     
     

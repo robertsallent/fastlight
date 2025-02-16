@@ -59,7 +59,7 @@ define('AUTOLOAD_DIRECTORIES',  [
 define('APP_NAME','FastLight Framework');   // Título de la aplicación.
 define('APP_TYPE', 'WEB');                  // Tipo de aplicación: WEB o API.
 
-define('APP_VERSION', '1.7.6');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '1.7.7');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);    // muestra la versión de la app en el footer (templates/Base.php)
 
 

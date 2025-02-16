@@ -1,5 +1,5 @@
 <main>
-	<h1>Test de conexión DB (PDO)</h1>
+	<h1>Test de conexión con BDD (PDO)</h1>
 	
 	<p>En este test se prueba el funcionamiento de los métodos para implementar el 
 		<b>CRUD</b> de la clase <b class='maxi'>DBPDO</b>, que trabaja con el 
@@ -8,7 +8,7 @@
 		pequeña explicación (se recomienda también consultar el código del test).</p>
 
 	<p>Este test es idéntico al test para <a href="/test/db_mysqli">DBMysqli</a>, 
-	solamente se ha cambiado el nombde de la clase.</p>
+	solamente se ha cambiado el nombre de la clase.</p>
 	
     <section id="select">
         <h2>Pruebas de select()</h2>
@@ -19,21 +19,22 @@
         retornar múltiples resultados.</p>
         
         <p>Recuperando el producto 2.</p>
-        <p><code>DBPDO::select("SELECT * FROM products WHERE id = 2")</code></p>
+        <p><code>$product = DBPDO::select("SELECT * FROM products WHERE id = 2")</code></p>
         
         <?php dump(DBPDO::select("SELECT * FROM products WHERE id = 2")) ?>
         
         <p>Recuperando el producto 5000... (no existe).</p>
-        <p><code>DBPDO::select("SELECT * FROM products WHERE id = 5000")</code></p> 
+        <p><code>$product = DBPDO::select("SELECT * FROM products WHERE id = 5000")</code></p> 
            
         <?php dump(DBPDO::select("SELECT * FROM products WHERE id = 5000")) ?>
     </section>
     
-    <section id="selectAll">
+    
+    <section id="selectall">
         <h2>Pruebas de selectAll()</h2>  
         
         <p>Recuperando todos los productos (solamente 3)...</p>
-        <p><code>DBPDO::selectAll("SELECT * FROM products LIMIT 3")</code></p> 
+        <p><code>$products = DBPDO::selectAll("SELECT * FROM products LIMIT 3")</code></p> 
         
         <?php dump(DBPDO::selectAll("SELECT * FROM products LIMIT 3"))?>    
     </section>
@@ -54,12 +55,12 @@
         <?php class Product extends Model{} ?>
         
         <p>Recuperando el producto 2 a modo de <i>Product</i>.</p>
-        <p><code>DBPDO::select("SELECT * FROM products WHERE id = 2", 'Product')</code></p>
+        <p><code>$product = DBPDO::select("SELECT * FROM products WHERE id = 2", 'Product')</code></p>
         
         <?php dump(DBPDO::select("SELECT * FROM products WHERE id = 2", 'Product')) ?>
         
         <p>Recuperando todos los productos (solamente 3) a modo de <i>Product</i>...</p>
-        <p><code>DBPDO::selectAll("SELECT * FROM products LIMIT 3", 'Product')</code></p> 
+        <p><code>$products = DBPDO::selectAll("SELECT * FROM products LIMIT 3", 'Product')</code></p> 
         
         <?php dump(DBPDO::selectAll("SELECT * FROM products LIMIT 3", 'Product'))?>    
     </section>
@@ -73,11 +74,11 @@
         autonumérico del registro insertado.</p>
         
         <p>Guardando un producto...</p>
-        <p><code>DBPDO::insert(INSERT INTO products(name, description, price) VALUES('Toothbrush', 'Engish smiles', 3))</code></p>
+        <p><code>$id = DBPDO::insert(INSERT INTO products(name, description, price) VALUES('Toothbrush', 'English smile', 3))</code></p>
         
         <?php             
             $consulta = "INSERT INTO products(name, description, price) 
-                         VALUES('Toothbrush', 'English smiles', 3)";
+                         VALUES('Toothbrush', 'English smile', 3)";
              
             $id = DBPDO::insert($consulta);
         ?> 
@@ -85,7 +86,7 @@
        	<p>El ID del nuevo producto es <?= $id ?></p>
         
         <p>Comprobando que se guardó correctamente...</p>
-        <p><code>DBPDO::selectOne("SELECT * FROM products WHERE id=<?= $id ?>")</code></p>
+        <p><code>$product = DBPDO::selectOne("SELECT * FROM products WHERE id=<?= $id ?>")</code></p>
         
         <?php dump(DBPDO::selectOne("SELECT * FROM products WHERE id=$id")) ?>
         
@@ -99,7 +100,7 @@
         sobre la BDD. Recibe la consulta a modo de cadena de texto y retorna el número de filas afectadas.</p>
         
         <p>Actualizando un producto...</p>
-        <p><code>DBPDO::update(UPDATE products SET name='Toothpaste' WHERE id = <?= $id ?>)</code></p>
+        <p><code>$rows = DBPDO::update(UPDATE products SET name='Toothpaste' WHERE id = <?= $id ?>)</code></p>
         
         <?php              
             $consulta = "UPDATE products SET name='Toothpaste' WHERE id = $id";
@@ -109,7 +110,7 @@
 		<p>Filas afectadas <?= $filas ?></p>
             
         <p>Comprobando que se actualizó correctamente...</p>
-        <p><code>DBPDO::select("SELECT * FROM products WHERE id = <?= $id ?>")</code></p>
+        <p><code>$product = DBPDO::select("SELECT * FROM products WHERE id = <?= $id ?>")</code></p>
         
         <?php  dump(DBPDO::select("SELECT * FROM products WHERE id = $id")) ?>
     </section>
@@ -118,24 +119,24 @@
     <section id="delete">   
         <h2>Pruebas de delete()</h2>
         
-                <p>El método <code>delete()</code> se utiliza para realizar consultas de borrado.
+        <p>El método <code>delete()</code> se utiliza para realizar consultas de borrado.
         sobre la BDD. Recibe la consulta a modo de cadena de texto y retorna el número de filas afectadas.</p>
         
         <p>Borrando un producto...</p>
-        <p><code>DBPDO::delete("DELETE FROM products WHERE id = <?= $id ?>")</code></p>
+        <p><code>$rows = DBPDO::delete("DELETE FROM products WHERE id = <?= $id ?>")</code></p>
        
         <?php $filas = DBPDO::delete("DELETE FROM products WHERE id = $id") ?>
         
         <p>Filas afectadas <?= $filas ?></p>
         
         <p>Comprobando que se borró correctamente...</p>
-        <p><code>DBPDO::selectOne("SELECT * FROM products WHERE id = <?= $id ?>")</code></p>
+        <p><code>$product = DBPDO::selectOne("SELECT * FROM products WHERE id = <?= $id ?>")</code></p>
         
         <?php dump(DBPDO::selectOne("SELECT * FROM products WHERE id = $id")) ?>
     </section>
     
     
-    <section id="totales">
+    <section id="total">
         <h2>Pruebas de totales()</h2>
         
         <p>El método estático <code>total()</code>, permite realizar consultas de totales
@@ -147,8 +148,8 @@
     		<li>Campo sobre el que calcular el total (opcional, por defecto *).</li>
     	</ul>
         
-        <p>Por ejemplo: <code>DBPDO::total('products')</code> 
-       	o bien <code>DBPDO::total('products','AVG','price')</code></p>
+        <p>Por ejemplo: <code>$count = DBPDO::total('products')</code> 
+       	o bien <code>$avg = DBPDO::total('products','AVG','price')</code></p>
         
 
 		<p>Total de productos: 
@@ -166,7 +167,7 @@
     </section>    
     
     
-    <section id='totalesGrupos'>
+    <section id="totalGroup">
         <h2>Pruebas de totales con grupos (una tabla)</h2>
         
         <p>El método <code>groupBy()</code> permite realizar operaciones de totales con grupos.
@@ -185,26 +186,33 @@
         en minúsculas, por ejemplo: idcount.</p>
         
         <p>Vamos a buscar el total de clientes por ciudad en la BDD de ejemplo:</p>
-        <p><code>DBPDO::groupBy('customers', ['id'=>'COUNT'], ['city'])</code></p>
+        <p><code>$resultados = DBPDO::groupBy('customers', ['id'=>'COUNT'], ['city'])</code></p>
         
-        <ul>
+        
         <?php 
             $resultados = DBPDO::groupBy('customers', ['id'=>'COUNT'], ['city']);
-            
+            dump($resultados);
+        ?>
+        
+        <h3>Mostrados en una lista</h3>
+        
+        <ul>
+        <?php    
             foreach($resultados as $resultado)
                 echo "<li>$resultado->city: <b>$resultado->idcount</b></li>";
         ?>
         </ul>
      </section>
      
-     <section id='totalesGruposVarias'>
+     <section id="totalGroups">
         <h2>Pruebas de totales con grupos (varias tablas)</h2>
         
         <p>Si queremos hacer consultas de totales y agrupado con varias tablas, 
         no nos sirve el método <code>groupBy()</code>, pero podemos
     	usar el método <code>selectAll()</code> y escribir directamente la consulta.</p>
+    	
     	<p>Por ejemplo: cuenta de ventas agrupado por cliente:</p>
-    	<p><code>DBPDO::selectAll(SELECT c.id, c.name, COUNT(s.id) AS totalSales
+    	<p><code>$resultados = DBPDO::selectAll(SELECT c.id, c.name, COUNT(s.id) AS totalSales
         FROM customers c LEFT JOIN sales s ON c.id=s.idcustomer
         GROUP BY c.id, c.name)</code></p>
 
@@ -257,12 +265,12 @@
          ?>  
            
 		<p>Comprobando que se insertó correctamente...</p>
-		<p><code>DBPDO::select("SELECT * FROM products WHERE id = <?= $id ?>")</code></p>
+		<p><code>$id = DBPDO::select("SELECT * FROM products WHERE id = <?= $id ?>")</code></p>
         
         <?php dump(DBPDO::select("SELECT * FROM products WHERE id = $id")) ?>
        
         <p>Borrando el registro que acabamos de guardar...</p>
-        <p><code>DBPDO::delete("DELETE FROM products WHERE id= <?= $id ?> ")</code></p>
+        <p><code>$rows = DBPDO::delete("DELETE FROM products WHERE id= <?= $id ?> ")</code></p>
         <?php $filas = DBPDO::delete("DELETE FROM products WHERE id=$id ") ?>
         
         <p>Filas afectadas <?= $filas ?></p>
@@ -270,7 +278,7 @@
         
         
         <p>Comprobando que se borró correctamente...</p>
-        <p><code>DBPDO::select("SELECT * FROM products WHERE id = <?= $id ?>")</code></p>
+        <p><code>$product = DBPDO::select("SELECT * FROM products WHERE id = <?= $id ?>")</code></p>
         <?php  dump(DBPDO::select("SELECT * FROM products WHERE id = $id")) ?>
 
     </section>   
