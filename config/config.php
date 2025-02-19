@@ -20,7 +20,7 @@
  * 
  * Todas las directivas se encuentran documentadas en el mismo fichero config.php.
  * 
- * Última revisión: 12/02/25
+ * Última revisión: 19/02/25
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
  * @since v1.0.0 se pueden configurar las vistas de error personalizadas
@@ -59,7 +59,7 @@ define('AUTOLOAD_DIRECTORIES',  [
 define('APP_NAME', 'FastLight Framework');   // Título de la aplicación.
 define('APP_TYPE', 'WEB');                  // Tipo de aplicación: WEB o API.
 
-define('APP_VERSION', '1.7.8');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '1.7.9');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);    // muestra la versión de la app en el footer (templates/Base.php)
 
 
@@ -226,12 +226,12 @@ define('ACCEPT_COOKIES_EXPIRATION', time()+86400);
 define('DEBUG', true); // Activa el modo debug.   
 
 // Detalles que queremos mostrar en modo debug en la página de error
-// OPCIONES: user, trace, requestt, session, cookie
+// OPCIONES: user, trace, request, session
 define('DEBUG_INFO', [
     'user',     // Muestra información del usuario y cliente.
     'trace',    // Muestra traza del error.
     'request',  // Muestra información de la Request y datos recibidos.
-    'session',  // Muestra las variables de sesión.
+    'session',  // Muestra las variables de sesión.   
 ]);
 
 define('LOG_ERRORS', true);                        // Guardar errores en fichero de log.

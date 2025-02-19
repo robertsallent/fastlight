@@ -106,6 +106,22 @@
         					
         					<?= $template->exportForm('/Error/export') ?>
         				</div>
+        				
+        				<section id="summary">
+                    		<h2>Resumen de errores</h2>
+                    		<table class="table w50 drop-shadow">
+                    			<tr>
+                    				<th>Tipo</th>
+                    				<th>Ocurrencias</th>
+                    			</tr>
+                    			<?php foreach($summary as $line){?>
+                    			<tr>
+                    				<td><?= $line->level ?></td>
+                    				<td><?= $line->idcount ?></td>
+                    			</tr>     
+                    			<?php } ?>
+                    		</table>
+                    	</section>
 
             		<?php }else{ ?>
             			<div class="success my2 p3 centrado">
@@ -115,6 +131,10 @@
             	
             	<?php } ?>
         		
+        		
+        		
+            	
+            	
         		<?php if(LOG_ERRORS || LOG_LOGIN_ERRORS){ ?>
         		<section>
             		<h2>Ficheros de LOG</h2>

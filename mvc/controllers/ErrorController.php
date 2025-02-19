@@ -59,7 +59,8 @@ class ErrorController extends Controller{
         return view('error/list', [
             'errores'   => $errores,
             'paginator' => $paginator,   // pasamos el objeto Paginator a la vista 
-            'filtro'    => $filtro       // pasamos el objeto filter a la vista
+            'filtro'    => $filtro,       // pasamos el objeto filter a la vista
+            'summary'   => AppError::groupBy(['id'=>'COUNT'],['level'])
         ]);
     } 
     
