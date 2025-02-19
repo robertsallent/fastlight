@@ -1,6 +1,7 @@
 <main>
 
-	<h1>Test de la clase Model: Create, Update y Delete del CRUD</h1>
+	<h1>Test de la clase Model</h1>
+	<h2>Operaciones Create, Update y Delete del CRUD</h2>
 	
 	<?php 
     	// clases del modelo para las pruebas
@@ -9,13 +10,26 @@
     	class Sale         extends Model{};
 	?>
 
-	<div class="warning p1">
+	<div class="warning p2">
     	<h2>Advertencia!</h2>
     	
     	<p>Las siguientes pruebas han sido realizadas sobre la base de datos del 
     	ejemplo <b>sales_example</b>, que se puede encontrar en la carpeta
     	<i>database_examples</i>.</p>
-    	</div>   
+    	</div>  
+    	
+    	<p>Las clases del modelo para la realización de estas pruebas
+    	han sido implementadas de la siguiente forma:</p>
+	
+	<pre>
+	<code>
+class Product extends Model{};
+class Customer extends Model{};
+class Sale extends Model{};	
+	</code>
+	</pre>
+	
+	 
     <h2>Creando nuevas entidades</h2>
     
     <section id="save">
@@ -27,9 +41,11 @@
     	<p>Por ejemplo:</p>
     	<pre><code>
     $product = new Product();
+    
     $product->name = 'Screen';
     $product->description = 'Full HD';
     $product->price = 300;
+    
     $id = $product->save();
     	</code></pre>
     	
@@ -83,17 +99,22 @@
         ?>
 
     	
-    	<p>Este método es peligroso si lo usamos en combinación con el método 
-    	<code>Request::all()</code> o <code>Request::posts()</code> que recuperan los 
-    	datos que nos envían desde formularios. La operación <code>User::create(Request::all())</code>
+    	<p>Este método es <span class="maxi">peligroso</span> si lo usamos en combinación con los métodos  
+    	<code><a href="https://fastlight-demo.robertsallent.com/test/http_request#all">all()</a></code> o 
+    	<code><a href="https://fastlight-demo.robertsallent.com/test/http_request#post">posts()</a></code> de la clase <b>Request</b>, que recuperan los 
+    	datos que nos envían desde formularios a modo de <i>array</i> asociativo.</p>
+    	
+    	<p>La operación <code>$id = User::create(request()->all())</code>
     	permite crear un usuario a partir de los datos recibidos en el formulario de registro
     	en una sola línea de código, pero está <b>expuesta a inyecciones de datos peligrosas</b> (por ejemplo
     	sobre el campo <i>roles</i>).</p>
     	
-    	<p>La recomendación es <b>evitar el uso del método create()</b>. En Laravel disponemos
-    	de una protección por la cual se indican los campos <i>fillable</i> de la entidad, 
-    	que nos permite hacer la operación comentada de manera segura, 
-    	en FastLight aún no.</p>
+    	<p>La recomendación en <i>Fastlight</i> es <b>evitar el uso del método <code>create()</code> combinado con
+    	<code>all()</code> o <code>posts()</code></b>. No hay problema por usar el método tal y como se muestra
+    	en el ejemplo anterior.
+    	
+    	<p>Laravel dispone de una protección por la cual se indican los campos <i>fillable</i> de la entidad, 
+    	que nos permite hacer la operación abreviada de manera segura, en <i>FastLight</i> aún no.</p>
     	
     </section>
     
@@ -110,9 +131,11 @@
     	<pre>
     		<code>
     $product = Product::find(<?= $idProduct ?>);
+    
     $product->name = 'Monitor';
     $product->description = 'Older one';
     $product->price = 200;
+    
     $rows = $product->update();   		
     		</code>
     	</pre>
@@ -141,7 +164,7 @@
     	
     	<p>Para borrar entidades de la BDD, podemos usar el método estático <code>delete()</code>,
     	que <b>elimina un registro a partir de su id</b>.
-    	Por ejemplo: <code>User::delete(<?= $idUser ?>)</code>.</p>
+    	Por ejemplo: <code>$rows = User::delete(<?= $idUser ?>)</code>.</p>
     	
     	<p class='bold'><?= User::delete($idUser) ? "Usuario $idUser borrado correctamente" : "No se pudo borrar $idUser" ?>.</p>
     
@@ -154,7 +177,7 @@
     	<p>Existe también el método <code>deleteObject()</code>,
     	que se comporta de manera similar al método anterior pero que, al tratarse de un método
     	de objeto, no es necesario que le pasemos el identificador.
-		Por ejemplo: <code>$product->deleteObject()</code>.</p>
+		Por ejemplo: <code>$rows = $product->deleteObject()</code>.</p>
     	
     	<p class='bold'><?= $product->deleteObject() ? "Producto $product->id borrado correctamente" : "No se pudo borrar $product->id" ?>.</p>   
    

@@ -1,6 +1,7 @@
 <main>
 
-	<h1>Test de la clase Model: saneamiento de entradas</h1>
+	<h1>Test de la clase Model</h1>
+	<h2>Saneamiento de entradas</h2>
 	
 	<?php 
     	// clases del modelo para las pruebas
@@ -23,6 +24,7 @@
     	<pre>
     		<code>
     $product = new Product();
+    
     $product->name = '  Monitor black"     ';
     $product->vendor = "  Samsung 'Cool Blue'      ";
     		</code>

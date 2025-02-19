@@ -4,7 +4,7 @@
  *
  * Se usa para generar las partes comunes de todas las vistas
  *
- * Última revisión: 12/02/2025
+ * Última revisión: 18/02/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  *
@@ -88,16 +88,21 @@ class Base implements TemplateInterface{
         }else{
             $user = Login::user(); // recupera el usuario identificado
           
-            $html = "<div class='derecha'>
+            // pone el texto "Bienvenido usuario" con un enlace a su home
+            $html = "<div class='right'>
                         <span class='pc'>Bienvenido</span> 
-                        <a class='negrita' href='/User/home'>$user->displayname</a>
+                        <a class='negrita' href='/User/home'>
+                            $user->displayname
+                        </a>
                         <span class='pc cursiva'>&lt;$user->email&gt;</span>";
             
-            // si el usuario es administrador...
+            // si el usuario es administrador, le informa de ello
             if($user->isAdmin())
                  $html .= "<span class='pc'> eres <a class='negrita' href='/Admin'>administrador</a>.</span>";
             
-            $html .= "  <a class='button' href='/Logout'>LogOut</a>
+            // pone la imagen de perfil y el enlace a logout
+            $html .= "  <img class='xx-small middle my1' src='/images/users/".($user->picture ?? 'default.png')."' alt='Imagen de perfil'>
+                        <a class='button' href='/Logout'>LogOut</a>
                      </div>";
 
         }

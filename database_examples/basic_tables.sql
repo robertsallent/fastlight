@@ -31,13 +31,13 @@ CREATE TABLE users(
 );
 
 
--- usuarios para las pruebas, podemos añadir más o quitar sin ningún problema
-INSERT INTO users(displayname, email, phone, password, roles) VALUES 
-	('admin', 'admin@fastlight.com', '666666666', md5('1234'), '["ROLE_USER", "ROLE_ADMIN"]'),
-	('editor', 'editor@fastlight.com', '666666665', md5('1234'), '["ROLE_USER", "ROLE_EDITOR"]'),
-	('user', 'user@fastlight.com', '666666664', md5('1234'), '["ROLE_USER"]'),
-	('test', 'test@fastlight.com', '666666663', md5('1234'), '["ROLE_USER", "ROLE_TEST"]'),
-	('api', 'api@fastlight.com', '666666662', md5('1234'), '["ROLE_API"]')
+-- usuarios para las pruebas, podéis crear tantos como necesiteis
+INSERT INTO users(id, displayname, email, phone, picture, password, roles) VALUES 
+	(1, 'admin', 'admin@fastlight.com', '666666666', 'admin.png', md5('1234'), '["ROLE_USER", "ROLE_ADMIN"]'),
+	(2, 'editor', 'editor@fastlight.com', '666666665', NULL, md5('1234'), '["ROLE_USER", "ROLE_EDITOR"]'),
+	(3, 'user', 'user@fastlight.com', '666666664', 'user.png', md5('1234'), '["ROLE_USER"]'),
+	(4, 'test', 'test@fastlight.com', '666666663', 'test.png', md5('1234'), '["ROLE_USER", "ROLE_TEST"]'),
+	(5, 'api', 'api@fastlight.com', '666666662', NULL, md5('1234'), '["ROLE_API"]')
 ;
 
 

@@ -1,7 +1,7 @@
 <main>
     <h1>Test de la clase Request</h1>
     
-    <section>
+    <section id="Request">
         <h2>Objeto Request</h2>
         
         <p>Este objeto <b>contiene información sobre la petición y los datos que llegan
@@ -15,7 +15,7 @@
         <ul>
         	<li>Usando el método estático <code>Request::retrieve()</code> (opción óptima).</li>
         	<li>Usando el <i>helper</i> <code>request()</code> (opción preferida, más simple).</li>
-        	<li>Usando la propiedad $request del controlador<code>$this->request</code> (en un controlador).</li>        	
+        	<li>Usando la propiedad $request del controlador <code>$this->request</code> (en un controlador).</li>        	
         </ul>
         
         <h3>Mostrando la Request recibida</h3>
@@ -30,7 +30,7 @@
     </section>
     
     <h2>Propiedades</h2>
-    <section>
+    <section id="properties">
         <h3>Propiedades básicas</h3>
         
         <ul>
@@ -58,7 +58,7 @@
     <h2>Métodos para recuperar información</h2>
    
    
-   <section>
+   <section id="get">
         <h3 id="get">get() y gets()</h3> 
         <p>El método <code>get()</code> permite recuperar valores que llegan por el método
         <i>HTTP GET</i> de forma individual (a partir de su nombre), mientras que el método 
@@ -80,8 +80,8 @@
     </section>
         
     
-    <section>
-        <h3 id="post">post() y posts()</h3> 
+    <section id="post">
+        <h3>post() y posts()</h3> 
         <p>El método <code>post()</code> permite recuperar valores 
         que llegan por el método <i>HTTP POST</i>, mientras que el método <code>posts()</code> 
         permite recuperar todos los valores en un solo paso a modo de <i>array</i> asociativo.
@@ -108,7 +108,7 @@
     </section>
     
      
-    <section>
+    <section id="cookie">
         <h3>cookie()</h3>
         
         <p>El método <code>cookie()</code> recupera los datos que llegan por <i>COOKIE</i>.
@@ -119,7 +119,7 @@
     </section>
     
     
-    <section>
+    <section id="has">
         <h3>has()</h3>
         
         <p>El método <code>has()</code> comprueba si llega un determinado parámetro
@@ -137,7 +137,7 @@
     </section>
     
     
-    <section>
+    <section id="all">
         <h3>all()</h3>     
         <p>El método <code>all()</code> recupera los datos que llegan por <i>POST</i>, 
         <i>GET</i> o <i>COOKIE</i>.</p>
@@ -149,7 +149,7 @@
     
    
     
-    <section>
+    <section id="header">
         <h3>header()</h3>     
         <p>El método <code>header()</code> recupera la información contenida en la cabecera con el 
         nombre indicado.</p>
@@ -162,7 +162,7 @@
     </section>  
     
     
-    <section>
+    <section id="body">
         <h3>body()</h3>     
         <p>El método <code>body()</code> recupera el contenido del cuerpo de la 
         petición <i>HTTP</i>. Se usa principalmente para recuperar la información que llega en <i>XML</i>
@@ -175,7 +175,7 @@
         
     
     <h2>Métodos para comprobar URLs</h2>
-    <section>
+    <section id="sameAsPrevious">
         <h3>sameAsPrevious()</h3>     
         <p>El método de objeto <code>sameAsPrevious()</code> retorna <i>true</i> si la 
         URL actual y la de la petición anterior coinciden.</p>
@@ -186,7 +186,7 @@
    </section>
    
     
-    <section>
+    <section id="urlHas">
         <h3>urlHas()</h3>
         <p>Este método permite comprobar si la URL solicitada contiene una cadena de texto concreta.</p>
         
@@ -203,7 +203,7 @@
     </section>
     
     
-    <section>
+    <section id="urlBeginsWith">
         <h3>urlBeginsWith()</h3>
         <p>Este método comprueba si la URL solicitada comienza por una cadena de texto concreta.</p>
         
@@ -251,7 +251,7 @@
     </section> 
     
     
-        <section>
+    <section id="previousInputs">
         <h3>$request->previousInputs</h3>
         
         <p>La propiedad <code>previousInputs</code> contiene los datos que se enviaron
@@ -270,7 +270,7 @@
     
     
     <h2>Otros métodos</h2>
-    <section>
+    <section id="allowedByCors">
         <h3>allowedByCors()</h3>
         <p>Este método comprueba la petición llega por alguno de los métodos permitidos
         según la política <i>CORS</i>. Los métodos permitidos se configuran mediante

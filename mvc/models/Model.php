@@ -13,7 +13,7 @@
  * protected static array $jsonFields: para indicar los campos JSON que se deben 
  * convertir automáticamente en arrays PHP.
  *
- * Última revisión 03/02/25
+ * Última revisión 18/02/25
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
@@ -21,6 +21,8 @@
  * @since v1.4.1 añadido el método whereExactMatch()
  * @since v1.7.0 añadido el método groupBy()
  * @since v1.7.3 añadido el método clear()
+ * @since v1.7.8 el método getTable() pasa a ser público
+ * @since v1.7.8 añadido el método isNotNull()
  */
 
 
@@ -35,7 +37,7 @@ abstract class Model{
      * 
      * @return string nombre de la tabla correspondiente con el modelo actual.
      */
-    protected static function getTable():string{
+    public static function getTable():string{
         return get_called_class()::$table ?? strtolower(get_called_class()).'s';
     }
     
@@ -316,6 +318,45 @@ abstract class Model{
             
         return $entities;
     }
+    
+    
+    
+    
+    /**
+     * Recupera entidades que tienen un campo concreto con valor NO NULO
+     *
+     * @param string $field campo en el que buscar valores no nulos
+     * @param string $orderField campo para ordenar resultados
+     * @param string $order sentido del orden (ASC o DESC)
+     *
+     * @return array la lista de entidades con ese campo no nulo
+     */
+    public static function isNotNull(
+        string $field,
+        string $orderField = 'id',
+        string $order = 'ASC'
+    ):array{
+        
+        $table = self::getTable(); // recupera el nombre de la tabla
+        
+        $consulta="SELECT *
+               FROM $table
+               WHERE $field IS NOT NULL
+               ORDER BY $orderField $order";
+        
+        $entities = (DB_CLASS)::selectAll($consulta, get_called_class());
+        
+        
+        foreach($entities as $entity)
+            $entity->parseJsonFields();
+            
+        return $entities;
+    }
+    
+    
+    
+    
+    
     
     /**
      * Recupera entidades a partir de un objeto Filter. Se combina con la paginación

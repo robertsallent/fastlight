@@ -516,11 +516,18 @@ figure.card{
 	box-shadow: 0 4px 8px var(--shadow-color);
 }
 
-figure.x-small		{ max-width: 100px; }
-figure.small		{ max-width: 200px; }
-figure.medium		{ max-width: 400px; }
-figure.large		{ max-width: 600px; }
-figure.x-large		{ max-width: 800px; }
+figure.xx-small, img.xx-small		{ max-width: 40px; }
+figure.x-small,  img.x-small		{ max-width: 100px; }
+figure.small,    img.small			{ max-width: 200px; }
+figure.medium,   img.medium			{ max-width: 400px; }
+figure.large,    img.large			{ max-width: 600px; }
+figure.x-large,  img.x-large		{ max-width: 800px; }
+
+
+img.baseline	{ vertical-align: baseline }
+img.middle		{ vertical-align: middle }
+img.text-top	{ vertical-align: text-top }
+
 
 /* Carátulas (para las listas de productos o detalles) ---------------*/
 .cover{

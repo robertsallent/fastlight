@@ -1,5 +1,6 @@
 <main>
-    <h1>Test de la clase Model: relaciones N a M</h1>
+    <h1>Test de la clase Model</h1>
+    <h2>Relaciones N a M</h2>
     
     
     <?php 
@@ -10,7 +11,7 @@
     	class Provider extends Model{};
     ?>
     	
-    <div class="warning p1">
+    <div class="warning p2">
     	<h2>Advertencia!</h2>
     	
     	<p>Las siguientes pruebas han sido realizadas sobre la base de datos del 
@@ -18,7 +19,21 @@
     	<i>database_examples</i>.</p>
     </div>  
     
-    <section>
+    
+    <p>Las clases del modelo para la realización de estas pruebas
+    han sido implementadas de la siguiente forma:</p>
+	
+	
+	<pre>
+	<code>
+class Product extends Model{};
+class Customer extends Model{};
+class Sale extends Model{};	
+	</code>
+	</pre>
+	
+    
+    <section id="belongsToMany">
     	<h2>belongsToMany()</h2>
     	
     	<p>El método <code>belongsToMany()</code> nos permite <b>buscar entidades relacionadas

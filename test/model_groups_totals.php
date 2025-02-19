@@ -1,6 +1,7 @@
 <main>
 
-	<h1>Test de la clase Model: totales y grupos</h1>
+	<h1>Test de la clase Model</h1>
+	<h2>Totales y grupos</h2>
 	
 	<?php 
     	// clases del modelo para las pruebas
@@ -9,13 +10,25 @@
     	class Sale extends Model{};
 	?>
 
-	<div class="warning p1">
+	<div class="warning p2">
     	<h2>Advertencia!</h2>
     	
     	<p>Las siguientes pruebas han sido realizadas sobre la base de datos del 
     	ejemplo <b>sales_example</b>, que se puede encontrar en la carpeta
     	<i>database_examples</i>.</p>
 	</div>   
+	
+	<p>Las clases del modelo para la realización de estas pruebas
+    han sido implementadas de la siguiente forma:</p>
+	
+	<pre>
+	<code>
+class Product extends Model{};
+class Customer extends Model{};
+class Sale extends Model{};	
+	</code>
+	</pre>
+	
 	
     <h2>Creando nuevas entidades</h2>
     
@@ -26,7 +39,7 @@
     	<p>El método estático <code>total()</code> permite <b>hacer cálculos de totales
     	sobre un campo concreto</b>. Para ello, recibe el nombre de la función de 
     	agregado a utilizar y el nombre del campo. Por ejemplo, para obtener el precio promedio de los productos: 
-    	<code>Product::total('AVG','price');</code>
+    	<code>$total = Product::total('AVG','price');</code>
    
    		<p>El precio promedio es <b><?= Product::total('AVG','price') ?></b> euros.</p>
     	
@@ -56,6 +69,9 @@
     	<p>Por ejemplo, para contar los clientes de cada ciudad podemos hacer:
     	<code>$resultados = Customer::groupBy(['id'=>'COUNT'], ['city']);</code>.</p>
     	
+    	<p>Es importante mencionar que los campos de totales tendrán el nombre combinado
+    	   <i>campofunción</i>, por ejemplo <b>idcount</b> para el ejemplo anterior.</p>
+    	
         <ul>
         <?php 
             $resultados = Customer::groupBy(['id'=>'COUNT'], ['city']); 
@@ -69,7 +85,7 @@
         <p>Si queremos hacer consultas de totales y agrupado con varias tablas, podemos
         usar el método <code>selectAll()</code> de las clases para 
 		indicar expresamente la consulta, encontraréis el ejemplo en el test de  
-		<a href="/test/db_pdo#totalesGruposVarias">db_pdo</a>.</p>
+		<a href="/test/db_pdo#totalGroups">db_pdo</a>.</p>
     </section>
  
 </main>    
