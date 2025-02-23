@@ -4,10 +4,12 @@
  *
  * Clase con utilidades para trabajar con URLs y redirecciones.
  *
- * Última revisión: 21/05/2024
+ * Última revisión: 23/02/2025
  *
  * @author Robert Sallent <robertsallent@gmail.com>
+ * 
  * @since v1.2.0 añadido el método estático beginsWith().
+ * 
  */
 
  
@@ -40,17 +42,25 @@ class URL{
     /**
      * Redirige a la URL deseada
      * 
-     * @param string $url URL a la que queremos redirigir.
+     * @param string $url URL a la que queremos redireccionar.
+     * @param int $delay retardo en la redirección.
+     * @param int $httpCode código HTTP
+     * @param string $status frase de estado HTTP
+     * @param string $contentType tipo MIME de la respuesta
+     * @param bool $die finalizar la ejecución tras la redirección?
      * 
-     * @param int $delay retardo en segundos (por defecto 0).
-     * @param bool $die si se debe finalizar la ejecución al redirigir (evita que puedan ejecutarse operaciones de más).
+     * @return RedirectResponse
      */
     public static function redirect(
-        string $url     = '/',           // URL donde redirigir
-        int $delay      = 0,             // tiempo
-        bool $die       = true           // detener ejecución tras redirección
-    ){      
-       (new Response())->redirect($url, $delay, $die);
-    }  
+         string $url        = '/',
+        int $delay          = 0,
+        int $httpCode       = 302,
+        string $status      = 'FOUND'
+        
+    ):RedirectResponse{
+        
+        return new RedirectResponse($url, $delay, $httpCode, $status);
+    }
+    
 }
 

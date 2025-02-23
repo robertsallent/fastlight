@@ -40,7 +40,7 @@ class Log extends File{
      */
     public function setMaxSize(int $maxSize = 0){
         if($maxSize < 0)
-            throw new Exception("El tamaño del fichero de LOG no puede ser negativo.");
+            throw new FileException("El tamaño del fichero de LOG no puede ser negativo.");
         
         $this->maxSize = $maxSize;
     }

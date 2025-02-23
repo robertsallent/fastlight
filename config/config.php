@@ -59,7 +59,7 @@ define('AUTOLOAD_DIRECTORIES',  [
 define('APP_NAME', 'FastLight Framework');   // Título de la aplicación.
 define('APP_TYPE', 'WEB');                  // Tipo de aplicación: WEB o API.
 
-define('APP_VERSION', '1.7.9');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '1.7.10');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);    // muestra la versión de la app en el footer (templates/Base.php)
 
 
@@ -71,7 +71,7 @@ define('DEFAULT_METHOD', 'index');
 define('ADMIN_EMAIL', 'robert@juegayestudia.com');
 
 // ¿Deben las cadenas vacías ser convertidas a NULL? 
-// se aplica all recuperar los datos de la petición mediante el objeto Request,
+// se aplica al recuperar los datos de la petición mediante el objeto Request,
 // tanto si llegan por GET, POST, COOKIE...
 define('EMPTY_STRINGS_TO_NULL', true);
 
