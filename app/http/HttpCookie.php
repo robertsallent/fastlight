@@ -5,7 +5,7 @@
  *
  *   Facilita la tarea de enviar y recuperar cookies.
  *
- *   Última mofidicación: 15/07/2024
+ *   Última mofidicación: 26/02/2025
  *
  *   @author Robert Sallent <robertsallent@gmail.com>
  *   @since v1.2.2
@@ -90,9 +90,11 @@ class HttpCookie{
             $value = filter_input(INPUT_COOKIE, $property, FILTER_SANITIZE_SPECIAL_CHARS);
             
             // si hay que pasar la cadena vacía a NULL...
-            if(!$value || EMPTY_STRINGS_TO_NULL && trim($value) === '')
-                $value = NULL;
-                
+            if(!$value || EMPTY_STRINGS_TO_NULL && trim($value) === ''){
+                $all[$property] = NULL;
+                continue;
+            }
+            
             $all[$property] =  trim($value);
         }
         

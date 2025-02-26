@@ -23,6 +23,8 @@
  * @since v1.7.3 añadido el método clear()
  * @since v1.7.8 el método getTable() pasa a ser público
  * @since v1.7.8 añadido el método isNotNull()
+ * @since v1.8.0 se puede indicar la propiedad estática $fillable en las clases del modelo
+ * @since v1.8.0 se puede usar el método create() tanto para crear como para actualizar
  */
 
 
@@ -55,6 +57,17 @@ abstract class Model{
     
     
     /**
+     * Retorna la lista de propiedades en las que se permite la asignación masiva con create().
+     *
+     * @return array lista de propiedades en las que se permite la asignación masiva.
+     */
+    protected static function getFillables():array{
+        return get_called_class()::$fillable ?? [];
+    }
+    
+    
+    
+    /**
      * Convierte los campos JSON en arrays.
      * Se utiliza, por ejemplo, para recuperar correctamente
      * los roles de los usuarios desde la BDD, convirtiéndolos de string
@@ -76,34 +89,57 @@ abstract class Model{
     
     
     /**
-     * Permite crear una entidad a partir de un array asociativo y la guarda en BDD. 
-     * Es peligroso si se usa en combinación con alguno de los métodos que recuperan 
-     * los inputs de la Request en un array.
+     * Permite crear o actualizar una entidad a partir de un array asociativo y la guarda en BDD. 
      * 
-     * Si hacemos User::create($request->posts()) crearemos un usuario a partir de los campos
-     * del formulario de registo que llegan por POST en un solo paso. Sin embargo, nos exponemos a que 
-     * inyecten un campo "roles" con valor "ROLE_ADMIN" y que esa persona que se estaba
-     * registrando se convierta en administrador. 
-     * 
-     * Un uso adecuado, en un controlador, podría ser:
+     * Ejemplo:
      * 
      * Perro::create([
      *      'nombre' => request()->post('nombre'),
-     *      'raza'   => request()->post('nombre'),
+     *      'raza'   => request()->post('raza'),
      *      'peso'   => floatval(request()->post('peso'));
      * ]);
+     *  
+     * 
+     * Puede ser peligroso si se usa en combinación con alguno de los métodos que recuperan 
+     * los inputs de la Request en un array asociativo.
+     * 
+     * Si hacemos User::create($request->posts()) crearemos un usuario a partir de los campos
+     * del formulario de registo que llegan por POST en un solo paso, no tendremos que tomar
+     * los campos uno a uno. 
+     * 
+     * Sin embargo, nos exponemos a que inyecten un campo "roles" con valor "ROLE_ADMIN" y que 
+     * esa persona que se estaba registrando lo haga como administrador. 
+     * 
+     * Para evitar eso, se ha implementado una protección: solamente se mapearán al modelo
+     * los campos indicados en la propiedad estática $fillable de la clase del modelo.
+     * Por ejemplo el modelo User no permite la asignación masiva sobre el campo roles, puesto que no
+     * está incluido en la propiedad estática $fillable (consultad la clase User del modelo).
      * 
      * @param array $data lista de propiedades de la entidad a modo de array asociativo.
-     * @return int identificador único asignado en la BDD.
+     * @param int si se trata de una actualización, id del objeto a actualizar
+     * 
+     * @return object la instancia del modelo creada.
      */
-    public static function create(array $data):int{
-        $class = get_called_class();
-        $entity = new $class();
+    public static function create(array $data, $id = null):object{
         
+        $class = get_called_class();    // recupera el nombre de la clase del modelo
+        $entity = new $class();         // crea una instancia de esa clase
+
+        // mapea los datos del array asociativo en las propiedades del objeto
         foreach($data as $property => $value)
-            $entity->$property = $value;
+            // pero solamente lo hace si el nombre de la propiedad permite la asignación masiva,
+            // esto es, está incluida en en el array $fillable de la clase del modelo
+            if(in_array($property, $class::getFillables())) 
+                $entity->$property = $value;
         
-        return $entity->save();
+        
+        $entity->id = $id; // toma el id que llega por parámetro
+                
+        // una vez tiene el objeto preparado, lo guarda o lo actualiza en la BDD  
+        // si hay ID hará una actualización, sino un guardado
+        $entity->id ? $entity->update() : $entity->save();
+                
+        return $entity;
     }
     
     

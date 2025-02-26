@@ -19,7 +19,9 @@
 		<?= $template->login() ?>
 		<?= $template->header('LogIn') ?>
 		<?= $template->menu() ?>
-		<?= $template->breadCrumbs(["LogIn" => "/Login"]) ?>
+		<?= $template->breadCrumbs([
+                "LogIn" => null
+    	    ]) ?>
 		<?= $template->messages() ?>
 		
 		<main>

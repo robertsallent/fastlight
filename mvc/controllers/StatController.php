@@ -28,6 +28,10 @@ class StatController extends Controller{
      */
     public function list(int $page = 1):Response{
         
+        // si no están activadas las estadísticas, redirigimos a la portada
+        if(!SAVE_STATS)
+            return redirect('/');
+        
         // operación solamente para el administrador o usuario con rol de test
         Auth::oneRole([ADMIN_ROLE, "ROLE_TEST"]); 
         

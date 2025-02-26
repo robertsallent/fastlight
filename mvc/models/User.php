@@ -6,18 +6,22 @@
  *
  * @author Robert Sallent <robertsallent@gmail.com>
  * 
- * Última revisión: 03/02/2025
+ * Última revisión: 26/02/2025
  */
 
 class User extends Model implements Authenticable{
 
     use Authorizable; // usa el trait authorizable
     
+    
     /** @var array $jsonFields lista de campos JSON que deben convertirse en array PHP. */
     protected static $jsonFields = ['roles'];
     
     
+    /** @var array $fillable lista de campos permitidos para asignaciones masivas usando el método create() */
+    protected static $fillable = ['displayname', 'email', 'phone', 'password', 'picture'];
 
+    
     /**
      * Retorna un usuario a partir de un teléfono y un email. Lo usaremos
      * en la opción "olvidé mi password".

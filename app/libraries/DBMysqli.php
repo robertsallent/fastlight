@@ -5,11 +5,12 @@
  * Simplifica la tarea de conexión y realización de consultas con la BDD 
  * mediante la extensión mysqli.
  * 
- * Última revisión: 22/01/2025.
+ * Última revisión: 26/02/2025.
  * 
  * @author Robert Sallent
  * @since v0.1.0
  * @since v1.7.0 cambia de nombre de DB a DBMysqli y hereda de la clase abastracta DB
+ * @since v1.8.0 nuevo método estático lastErrorMessage()
  */
     
 class DBMysqli extends DB{ 
@@ -62,6 +63,17 @@ class DBMysqli extends DB{
         
         return self::$conexion; // retorna la conexión 
     } 
+    
+    
+    
+    /**
+     * Retorna el último mensaje de error producido en la BDD
+     *
+     * @return string
+     */
+    public static function errorMessage():string{
+        return self::get()->error;
+    }
     
     
     

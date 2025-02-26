@@ -5,11 +5,12 @@
  * Simplifica la tarea de conexión y realización de consultas con la BDD.
  * Utiliza la extensión PDO.
  * 
- * Última revisión: 22/01/2025.
+ * Última revisión: 26/02/2025.
  * 
  * @author Robert Sallent
  * @since v0.1.0
  * @since v1.7.0 la clase DBPDO hereda de la clase abstracta DB
+ * @since v1.8.0 nuevo método estático lastErrorMessage()
 */
 
 class DBPDO extends DB{ 
@@ -49,6 +50,16 @@ class DBPDO extends DB{
         }
         return self::$conexion; // retorna la conexión 
     } 
+    
+    
+    /**
+     * Retorna el último mensaje de error producido en la BDD
+     * 
+     * @return string
+     */
+    public static function errorMessage():string{
+        return self::get()->errorInfo()[2];
+    }
     
     
     /**

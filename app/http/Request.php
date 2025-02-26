@@ -4,7 +4,7 @@
  * 
  * Permitirá acceder a los datos de la petición fácilmente desde los controladores.
  * 
- * Última modificación: 20/01/2025.
+ * Última modificación: 26/02/2025.
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.6.5
@@ -287,12 +287,14 @@ class Request{
             $value = filter_input(INPUT_POST, $property, FILTER_SANITIZE_SPECIAL_CHARS);
             
             // si hay que pasar la cadena vacía a NULL...
-            if(!$value || EMPTY_STRINGS_TO_NULL && trim($value) === '')
-                $value = NULL;
+            if(!$value || EMPTY_STRINGS_TO_NULL && trim($value) === ''){
+                $all[$property] = NULL;
+                continue;
+            }
             
             $all[$property] =  trim($value);
         }
-            
+           
         return $all;
     }
     
@@ -312,8 +314,10 @@ class Request{
             $value = filter_input(INPUT_GET, $property, FILTER_SANITIZE_SPECIAL_CHARS);
             
             // si hay que pasar la cadena vacía a NULL...
-            if(!$value || EMPTY_STRINGS_TO_NULL && trim($value) === '')
-                $value = NULL;
+            if(!$value || EMPTY_STRINGS_TO_NULL && trim($value) === ''){
+                $all[$property] = NULL;
+                continue;
+            }
             
             $all[$property] =  trim($value);
         }

@@ -20,7 +20,7 @@
  * 
  * Todas las directivas se encuentran documentadas en el mismo fichero config.php.
  * 
- * Última revisión: 19/02/25
+ * Última revisión: 25/02/25
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
  * @since v1.0.0 se pueden configurar las vistas de error personalizadas
@@ -38,7 +38,7 @@
  * AUTOLOAD
  * -------------------------------------------------------------*/
 
-// directorios para el autoload (no PSR-4) 
+// listado de directorios para que el el autoload busque clases (no PSR-4) 
 define('AUTOLOAD_DIRECTORIES',  [
     '../app/core',          // core 
     '../app/http',          // peticiones y respuestas 
@@ -57,10 +57,10 @@ define('AUTOLOAD_DIRECTORIES',  [
  * -------------------------------------------------------------*/
 
 define('APP_NAME', 'FastLight Framework');   // Título de la aplicación.
-define('APP_TYPE', 'WEB');                  // Tipo de aplicación: WEB o API.
+define('APP_TYPE', 'WEB');                   // Tipo de aplicación: WEB o API.
 
-define('APP_VERSION', '1.7.10');  // versión actual del framework o aplicación desarrollada
-define('SHOW_VERSION', true);    // muestra la versión de la app en el footer (templates/Base.php)
+define('APP_VERSION', '1.7.11');  // versión actual del framework o aplicación desarrollada
+define('SHOW_VERSION', true);     // muestra la versión de la app en el footer (templates/Base.php)
 
 
 // Controlador y método por defecto (solamente para APP_TYPE WEB).
@@ -83,7 +83,7 @@ define('EMPTY_STRINGS_TO_NULL', true);
 
 // versión de PHP necesaria para ejecutar el framework o aplicación
 // podría funcionar en versiones anteriores pero no se garantiza que lo haga
-define('MIN_PHP_VERSION', '8.2.12');  
+define('MIN_PHP_VERSION', '8.2.0');  
 
 // comprobación de la versión de PHP del servidor
 // si está a true impide que se ejecute la aplicación en servidores con versiones
@@ -236,7 +236,7 @@ define('DEBUG_INFO', [
 
 define('LOG_ERRORS', true);                        // Guardar errores en fichero de log.
 define('ERROR_LOG_FILE', '../logs/error.log');     // Nombre del fichero de log.
-define('LOG_MAX_SIZE', 4098);                      // tamaño máximo del fichero de LOG en Bytes (0 ilimitado)
+define('LOG_MAX_SIZE', 8388608);                   // tamaño máximo del fichero de LOG en Bytes (0 ilimitado)
 
 define('DB_ERRORS', true);                         // Guardar errores en la base de datos.
 define('ERROR_DB_TABLE', 'errors');                // Nombre de la tabla en la BDD para los errores.
@@ -270,7 +270,7 @@ define('EXAMPLE_FOLDER', '../mvc/views/examples/source');
  * -------------------------------------------------------------*/
 
 // Si queremos guardar estadísticas del número de visitas de cada URL
-define('SAVE_STATS', true);
+define('SAVE_STATS', false);
 
 // nombre de la tabla para las estadísticas de visitas en la BDD
 define('STATS_TABLE', 'stats');

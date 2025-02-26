@@ -9,7 +9,7 @@
  * herederas, mientras que implementa algunos métodos comunes, que pueden ser
  * útiles en las subclases.
  * 
- * Última revisión: 22/01/2025.
+ * Última revisión: 26/02/2025.
  * 
  * @author Robert Sallent
  * @since v0.1.0
@@ -28,6 +28,9 @@ abstract class DB{
     
     /** Establece o recupera la conexión*/
     public abstract static function get():object;
+    
+    /** Recupera el último mensaje de error*/
+    public abstract static function errorMessage():string;
       
     /** Realiza la consulta a la BDD y evalúa si se produjeron errores. */
     public abstract static function query(string $consulta);

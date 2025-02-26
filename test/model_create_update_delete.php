@@ -74,47 +74,52 @@ class Sale extends Model{};
     	
     	<pre>
     	<code>
-    $id = User::create([
-        'displayname' => 'Pepe',
-        'email'       => 'pepelu@fastlight.com',
-        'phone'       => '654987320',
-        'password'    =>  md5('Hola'),
-        'roles'       =>  json_encode(['ROLE_USER'])
+    $user = User::create([
+        'displayname' => 'Robert',
+        'email'       => 'robert@fastlight.com',
+        'phone'       => '12345612345',
+        'password'    =>  md5('Hola')
     ]);
     	</code>
     	</pre>
     	
     	
     	<?php 
-            $idUser = User::create([
-                'displayname' => 'Pepe',
-                'email'       => 'pepelu@fastlight.com',
-                'phone'       => '654987320',
-                'password'    =>  md5('Hola'),
-                'roles'       =>  json_encode(['ROLE_USER'])
+            $user = User::create([
+                'displayname' => 'Robert',
+                'email'       => 'robert@fastlight.com',
+                'phone'       => '12345612345',
+                'password'    =>  md5('Hola')
             ]);
             
-            echo "<p>Usuario <b>creado con id $idUser</b>. Comprobando:</p>";
-            dump(User::find($idUser));
+            echo "<p>Usuario <b>creado con id $user->id</b>.</p>";
+            
+            echo "<p>Objeto User creado:</p>";
+            dump($user);
+            
+            echo "<p>Objeto User guardado y recuperado desde la BDD:</p>";
+            dump(User::find($user->id));
         ?>
 
     	
-    	<p>Este método es <span class="maxi">peligroso</span> si lo usamos en combinación con los métodos  
+    	<p>Este método puede ser <span class="maxi">peligroso</span> si lo usamos en combinación con los métodos  
     	<code><a href="https://fastlight-demo.robertsallent.com/test/http_request#all">all()</a></code> o 
     	<code><a href="https://fastlight-demo.robertsallent.com/test/http_request#post">posts()</a></code> de la clase <b>Request</b>, que recuperan los 
     	datos que nos envían desde formularios a modo de <i>array</i> asociativo.</p>
     	
-    	<p>La operación <code>$id = User::create(request()->all())</code>
+    	<p>La operación <code>$id = User::create(request()->posts())</code>
     	permite crear un usuario a partir de los datos recibidos en el formulario de registro
     	en una sola línea de código, pero está <b>expuesta a inyecciones de datos peligrosas</b> (por ejemplo
     	sobre el campo <i>roles</i>).</p>
     	
-    	<p>La recomendación en <i>Fastlight</i> es <b>evitar el uso del método <code>create()</code> combinado con
-    	<code>all()</code> o <code>posts()</code></b>. No hay problema por usar el método tal y como se muestra
-    	en el ejemplo anterior.
+    	<p>Afortunadamente, desde la versión <b>v1.8.0</b> se incorpora una protección para esta situación: solamente
+    	se realiza la asignación masiva sobre los campos indicados en la propiedad estática <code>$fillable</code>
+    	del modelo.</p>
     	
-    	<p>Laravel dispone de una protección por la cual se indican los campos <i>fillable</i> de la entidad, 
-    	que nos permite hacer la operación abreviada de manera segura, en <i>FastLight</i> aún no.</p>
+    	<p>Por ejemplo, en la lista de campos "rellenables" de la clase User, no está la propiedad <code>$roles</code>,
+    	aquí podemos ver los campos que hay:</p>
+    	
+    	<p><code>protected static $fillable = ['displayname', 'email', 'phone', 'password', 'picture'];</code></p>
     	
     </section>
     
@@ -156,6 +161,42 @@ class Sale extends Model{};
     
     
     
+    <section id="create2">
+    	<h3>create()</h3>
+    	
+    	<p>El método <code>create()</code>, además del guardado de una nueva entidad, 
+    	también permite la actualización. Para ello debe recibir el ID mediante el array
+    	asociativo o bien mediante el segundo parámetro.</p>
+    	
+    	<pre>
+    	<code>
+    $data = [
+        'displayname'=>'FastLight',
+    	'phone' => '0000000'
+	];
+    
+    $user = User::create($data, <?= $user->id ?>);
+    	</code>
+    	</pre>
+    	
+        <?php 
+            $data = [
+            	'displayname'=>'FastLight',
+                'phone' => '0000000'
+        	];
+            
+            $user = User::create($data, $user->id);
+            
+            echo "<p>Usuario <b>actualizado con id $user->id</b>.</p>";
+            
+            echo "<p>Objeto User creado:</p>";
+            dump($user);
+            
+            echo "<p>Objeto User actualizado y recuperado desde la BDD:</p>";
+            dump(User::find($user->id));
+        ?>
+    </section>	
+    
     
     <h2>Eliminando entidades</h2>
     
@@ -166,7 +207,7 @@ class Sale extends Model{};
     	que <b>elimina un registro a partir de su id</b>.
     	Por ejemplo: <code>$rows = User::delete(<?= $idUser ?>)</code>.</p>
     	
-    	<p class='bold'><?= User::delete($idUser) ? "Usuario $idUser borrado correctamente" : "No se pudo borrar $idUser" ?>.</p>
+    	<p class='bold'><?= User::delete($user->id) ? "Usuario $idUser borrado correctamente" : "No se pudo borrar $idUser" ?>.</p>
     
     </section>
 

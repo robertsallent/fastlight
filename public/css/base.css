@@ -4,7 +4,7 @@
 	FICHERO BASE PARA LOS ESTILOS DE FASTLIGHT
 	
 	Autor: Robert Sallent
-	Última revisión: 04/02/2025
+	Última revisión: 25/02/2025
 
 	Estructura del documento CSS:
 	- Colores
@@ -74,18 +74,18 @@
     
   --success-bg-color: rgb(180, 250, 180);
   --success-font-color: #363;
-  --success-btn-color: rgb(100, 230, 100);
+  --success-btn-color: rgb(60, 180, 60);
   --success-btn-hover-color: rgb(110, 250, 110);
   
   --warning-bg-color: rgb(250, 250, 180);
   --warning-font-color: rgb(150, 120, 0);
-  --warning-btn-color: rgb(220, 220, 60);
+  --warning-btn-color: rgb(220, 210, 10);
   --warning-btn-hover-color: rgb(230, 230, 80);
   
   
   --danger-bg-color: rgb(250, 180, 180);
   --danger-font-color: #753;
-  --danger-btn-color: rgb(230, 100, 100);
+  --danger-btn-color: rgb(180, 60, 60);
   --danger-btn-hover-color: rgb(250, 120, 120); 
   
   --code-color: rgb(50, 50, 200);
@@ -379,6 +379,7 @@ span.path::before{
 .button{
 	background: linear-gradient(var(--primary-soft-color), var(--primary-bg-color));
 }
+
 .button:hover{
 	background: var(--primary-soft-color);
 }
@@ -415,7 +416,6 @@ span.path::before{
 .button-warning:hover{
 	background-color: var(--warning-btn-hover-color);
 }
-
 
 
 
@@ -579,6 +579,11 @@ form{
 	min-width: var(--min-width);
 }
 
+form.no-border{
+	border: none;
+	box-shadow: none;
+}
+
 form h2{
 	padding: 0 0 1rem 0;
 }
@@ -649,7 +654,7 @@ textarea{
 	vertical-align: text-top;
 	resize: none;
 	min-width: var(--min-width);
-	min-height: 240px;
+	min-height: 100px;
 }
 
 

@@ -5,7 +5,7 @@ LISTA DE COSAS PENDIENTES - TODO LIST
 Lista de mecanismos y herramientas que se irán incorporando (o no) en próximas versiones del framework FastLight.
 
 Autor: Robert Sallent
-Última revisión: 20/01/25
+Última revisión: 25/02/25
 
 Los cambios marcados con un ? están en fase de evaluación.
 
@@ -15,6 +15,7 @@ Los cambios marcados con un ? están en fase de evaluación.
 	- (v2.0.0) helper env()
 
 - CORE/HTTP
+	- (v1.9.0) Router.
 	
 - LIBRARIES
 	- Implementar un sistema de seeding tipo faker.
@@ -32,8 +33,8 @@ Los cambios marcados con un ? están en fase de evaluación.
 	- (v2.0.0) Uso de componentes en las vistas.
 
 - TEST Y DOCUMENTACIÓN
-	- (WORKING): Mejorar la documentación y los ejemplos en los test.
-	- (WORKING): Añadir docblocks en todas las librerías.
+	- (En proceso): Mejorar la documentación y los ejemplos en los test.
+	- (En proceso): Añadir docblocks en todas las librerías.
 	- Crear documentación web a partir de los docblocks.
 	
 - HELPERS

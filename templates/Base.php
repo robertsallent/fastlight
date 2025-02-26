@@ -162,11 +162,11 @@ class Base implements TemplateInterface{
         // parte derecha (solamente para usuarios concretos)
  
         // enlace a los tests de ejemplo (solamente administrador o rol de test)
-        if((Login::oneRole(TEST_ROLES)))
+        if(Login::oneRole(TEST_ROLES))
             $html .=   "<li><a href='/Test'>Test</a></li>";
         
         // enlace a las estadística de visitas (solamente administrador o rol de test)
-        if((Login::oneRole(STATS_ROLES)))
+        if(SAVE_STATS && Login::oneRole(STATS_ROLES))
             $html .=   "<li><a href='/Stat'>Visitas</a></li>";
         
         // enlace a la gestión de errores (solamente administrador o rol de test)
