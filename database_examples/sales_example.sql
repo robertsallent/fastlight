@@ -52,7 +52,7 @@ CREATE TABLE errors(
 -- por si queremos registrar las estadísticas de visitas a las disintas URLs de nuestra aplicación.
 CREATE TABLE stats(
 	id INT PRIMARY KEY auto_increment,
-    url VARCHAR(256) NOT NULL UNIQUE KEY,
+    url VARCHAR(250) NOT NULL UNIQUE KEY,
 	count INT NOT NULL DEFAULT 1,
 	user VARCHAR(128) DEFAULT NULL,
 	ip CHAR(15) NOT NULL,

@@ -59,7 +59,7 @@ define('AUTOLOAD_DIRECTORIES',  [
 define('APP_NAME', 'FastLight Framework');   // Título de la aplicación.
 define('APP_TYPE', 'WEB');                   // Tipo de aplicación: WEB o API.
 
-define('APP_VERSION', '1.7.11');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '1.8.2');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);     // muestra la versión de la app en el footer (templates/Base.php)
 
 
@@ -171,10 +171,12 @@ define('SESSION_COOKIE_EXPIRE', 0);
  * VISTAS Y TEMPLATES
  * -------------------------------------------------------------*/
 
-define('VIEWS_FOLDER', '../mvc/views');     // Carpeta para las vistas.
+// Carpeta para las vistas.
+define('VIEWS_FOLDER', '../mvc/views');     
 
-// Template a usar en las vistas (en la carpeta templates).
-// Las opciones disponibles por defecto son Base, Dark, Neon o Retro.
+// Template a usar en las vistas 
+// Las plantillas que se incluyen son: Base, Dark, Neon y Retro.
+// Se pueden crear nuevas en la carpeta templates.
 define('TEMPLATE', 'Base');
 
 

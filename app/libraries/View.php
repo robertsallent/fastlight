@@ -119,7 +119,7 @@ class View{
         foreach($this->parameters as $variable => $valor)
             $$variable = $valor;
         
-        // añade el template
+        // genera una instancia del template configurado template
         $template = new (TEMPLATE);
             
         // carga la vista indicada desde el directorio de vistas
@@ -127,6 +127,7 @@ class View{
             @require VIEWS_FOLDER."/$this->name.php";
             
         }catch(Throwable $e){
+            
             $message = DEBUG ?
             "<p>ERROR en la vista <b>".VIEWS_FOLDER."/$this->name.php</b>.</p>
              <p>INFORMACIÓN ADICIONAL: ".$e->getMessage()."</p>" :

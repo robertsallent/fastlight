@@ -52,6 +52,7 @@ Como todo framework, dispone de herramientas para facilitar las tareas necesaria
 <h3>Lo que incoroprará en futuras versiones:</h3>
                        
 - API Keys.
+- Router.
 - Configuración de entorno .env.
 - ...
     				

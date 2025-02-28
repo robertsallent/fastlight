@@ -44,7 +44,8 @@
             			         'Tipo' => 'level',
             			         'URL' => 'url',
             			         'Mensaje' => 'message',
-            			         'Usuario' => 'user'
+            			         'Usuario' => 'user',
+            			         'Fecha' => 'date'
             			     ],
             			     [
             			         'Tipo' => 'level',

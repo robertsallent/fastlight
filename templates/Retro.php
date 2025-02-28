@@ -29,12 +29,12 @@ class Retro extends Base{
         ?string $subtitle = NULL
     ){         
         return "
-            <header class='primary flex-container'>
-                <hgroup class='flex4'>
+            <header class='primary flex-container gap2'>
+                <hgroup class='flex6'>
             	  <h1>$title <span class='small'>en ".APP_NAME."</span></h1>
                   <p>".($subtitle ?? '')."</p>
                 </hgroup>  
-                <figure class='flex1 derecha'>
+                <figure class='flex1 derecha p2'>
                     <a href='/'>
                         <img style='width:100%;' src='/images/template/fastlight_retro.png'>
                     </a>

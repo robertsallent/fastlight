@@ -147,45 +147,44 @@ section{
 
 
 /* header y footer principales */
-header.primary{
-	padding: 20px 10px;
+body>header{
+	padding:10px;
 	background-image: url(../images/template/header_retro.jpg);
 }
 
-header.primary figure{
-	max-width: 160px;
+body>header figure{
+	max-width: 100px;
 	background-color: rgba(255,255,255,0.7);
+	border: solid 2px black;
 	border-radius: 50%;
-	padding: 10px;
 	margin-right: 20px;
 }
 
-header.primary img{
+body>header img{
 	width: 100%;
 	vertical-align: middle;
 }
 
-header.primary hgroup{
+body>header hgroup{
 	margin: auto 0;
-	padding: 0 2%;
 }
 
-header.primary h1{
+body>header h1{
 	color: white;
 	text-shadow: 0px 0px 8px black;
 	font-size: 4rem;
 	background-color: transparent;
 }
 
-header.primary h1 .small{
+body>header h1 .small{
 	font-size: 2.5rem;
 }
 
-header.primary h2{
+body>header h2{
 	font-size: 1.5rem;
 }
 
-footer.primary{
+body>footer{
 	text-align: right;
 	padding: 20px;
 	background-color: black;
@@ -193,14 +192,14 @@ footer.primary{
 	background-image: url(../images/template/header_retro.jpg);
 }
 
-footer.primary a{
+body>footer a{
 	font-style: italic;
 	font-size: 1.05rem;
 	color: #ddd;
 }
 
 
-footer.primary img{
+body>footer img{
 	height: 40px;
 	width: 40px;
 	margin-right: 10px;
@@ -208,19 +207,19 @@ footer.primary img{
 }
 
 
-footer.primary img :last-of-type{
+body>footer img :last-of-type{
 	height: 40px;
 	width: 40px;
 	margin-right: 10px;
 	vertical-align: middle;
 }
 
-footer.primary a:last-of-type img{
+body>footer a:last-of-type img{
 	background-color: white;
 }
 
 
-header.primary, footer.primary{
+body>header, body>footer{
 	border-bottom: solid 2px lightgrey;
 	border-top: solid 2px lightgrey;
 }
@@ -244,30 +243,30 @@ header.primary, footer.primary{
 
 
 /* Barra de navegación */
-menu{
+.menu{
 	padding: 10px;
-	background-color: black;
+	background: #666;
 	color: white;
 }
 
-menu li{
+.menu li{
 	text-align: center;
 	display: inline-block;
 	list-style-type: none;
 }
 
-menu li a{
+.menu li a{
 	display: block;
 	padding: 10px 20px;
 	margin: 0px;
 	transition: 0.2s;
 }
-menu li a:hover{
+.menu li a:hover{
 	background-color: white;
 	color: #006;
 }
 
-menu li:not(:first-of-type){
+.menu li:not(:first-of-type){
 	border-left: dotted 3px white;
 }
 
@@ -356,13 +355,13 @@ textarea{
 }
 
 /* tablas */
-table{
+.table{
 	border: solid 1px grey;
 	width: 100%;
 	margin: 5px auto;
 }
 
-table th{
+.table th{
 	color: white;
 	background-color: grey;
 	padding: 10px;
@@ -370,15 +369,15 @@ table th{
 	text-align: left;
 }
 
-table tr:nth-of-type(odd){
+.table tr:nth-of-type(odd){
 	background-color: white;
 }
 
-table tr:nth-of-type(even){
+.table tr:nth-of-type(even){
 	background-color: #eee;
 }
 
-table tr, table td{
+.table tr, table td{
 	padding: 8px;
 }
 
@@ -415,4 +414,8 @@ ul.listado li, ol.listado li{
 #mapa{
 	width: 100%;
 	min-height: 360px;
+}
+
+body>footer{
+	background: black;
 }
