@@ -21,6 +21,7 @@
     		<?= $template->menu() ?>
     		<?= $template->breadCrumbs(["Lista de errores" => NULL]) ?>
     		<?= $template->messages() ?>
+    		<?= $template->acceptCookies() ?>
     		
     		<main>
         		<h1><?= APP_NAME ?></h1>

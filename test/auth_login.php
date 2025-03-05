@@ -38,8 +38,7 @@
     <section id="isAdmin">
     	<h3>Login::isAdmin()</h3>
     	<p>El método estático <code>Login::isAdmin()</code> retorna <b>cierto si hay usuario identificado 
-    	y además tiene el rol definido como <i>ADMIN_ROLE</i></b> en el fichero <i>config/config.php</i> 
-    	(por defecto el rol de administrador es <i>'ROLE_ADMIN'</i>.</p>
+    	y además tiene el rol <i>ROLE_ADMIN</i></b>.</p>
     	<p>Es administrador? <b><?= Login::isAdmin() ? "SI" : "NO" ?></b>.</p> 
     </section>
     
@@ -56,7 +55,6 @@
         <p>El usuario es 'ROLE_USER'? <b><?= Login::role('ROLE_USER') ? 'SI' : 'NO' ?></b>.</p>
         <p>El usuario es 'ROLE_ADMIN'? <b><?= Login::role('ROLE_ADMIN') ? 'SI' : 'NO' ?></b>.</p>
         <p>El usuario es 'ROLE_TEST'? <b><?= Login::role('ROLE_TEST') ? 'SI' : 'NO' ?></b>.</p>
-        <p>El usuario tiene el ADMIN_ROLE (definido en <i>config/config.php</i>)? <b><?= Login::role(ADMIN_ROLE) ? 'SI' : 'NO' ?></b>.</p>
      </section>  
      
      <section id="oneRole"> 

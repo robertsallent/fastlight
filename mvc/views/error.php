@@ -21,6 +21,7 @@
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs(["Error" => NULL]) ?>
 		<?= $template->messages() ?>
+		<?= $template->acceptCookies() ?>
 		
 		<main>
     		<h2>Error en la operación solicitada</h2>

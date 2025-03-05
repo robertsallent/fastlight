@@ -31,6 +31,8 @@
  * @since v1.6.0 se han quitado algunas opciones de depuración (demasiadas opciones)
  * @since v1.7.5 se puede limitar el tamaño máximo del fichero de LOG.
  * @since v1.7.6 añadidas SESSION_NAME, SESSION_TIME y SESSION_COOKIE_EXPIRE
+ * @since v1.8.3 añadida la posibilidad de indicar la carpeta para las fotos de perfil de usuario y su imagen por defecto.
+ * @sicne v1.8.3 eliminada la constante ADMIN_ROLE, no aportaba nada y complicaba la comprensión del código
  */
    
 
@@ -59,7 +61,7 @@ define('AUTOLOAD_DIRECTORIES',  [
 define('APP_NAME', 'FastLight Framework');   // Título de la aplicación.
 define('APP_TYPE', 'WEB');                   // Tipo de aplicación: WEB o API.
 
-define('APP_VERSION', '1.8.2');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '1.8.3');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);     // muestra la versión de la app en el footer (templates/Base.php)
 
 
@@ -67,7 +69,9 @@ define('SHOW_VERSION', true);     // muestra la versión de la app en el footer 
 define('DEFAULT_CONTROLLER', 'WelcomeController');
 define('DEFAULT_METHOD', 'index');
    
-// Email del administrador, para la operación de "contacto"
+// Email del administrador, para la operación de "contacto".
+// Esta operación no está implementada de serie en FastLight,
+// la implementamos en clase.
 define('ADMIN_EMAIL', 'robert@juegayestudia.com');
 
 // ¿Deben las cadenas vacías ser convertidas a NULL? 
@@ -117,11 +121,11 @@ define('SGDB','mysql');         // Driver que debe usar PDO (solamente para PDO)
  * USUARIOS Y ROLES
  * -------------------------------------------------------------*/
 
-// Clase del modelo para trabajar con usuarios.
+// Proveedor de usuarios para autenticación.
 //  - Debe implementar la interfaz Autenticable.
 //  - Debe usar el trait Autorizable.
-
-define('USER_PROVIDER', 'User');   // La única opción incluida es User.
+// La única opción incluida actualmente es User (no lo cambiéis).
+define('USER_PROVIDER', 'User');
 
 // Roles para los usuarios. Podemos crear o eliminar roles según las necesidades.
 define('USER_ROLES', [
@@ -135,8 +139,12 @@ define('USER_ROLES', [
     'Bloqueado'     => 'ROLE_BLOCKED'
 ]);
 
-// Rol para el administrador (debe ser uno de los que están en la lista anterior).
-define('ADMIN_ROLE', 'ROLE_ADMIN');
+
+// carpeta para las imágenes de los usuarios
+define('USER_IMAGE_FOLDER','/images/users');
+
+// imagen por defecto para los usuarios que no tengan
+define('DEFAULT_USER_IMAGE', 'default.png');
 
 
 
@@ -193,8 +201,8 @@ define('RESULTS_PER_PAGE', 10);  // Número de resultados por página
  * SUBIDA DE FICHEROS
  * -------------------------------------------------------------*/
 
-define('UPLOAD_FOLDER', '../storage'); // carpeta por defecto para las subidas de ficheros
-define('UPLOAD_MAX_SIZE', 0);          // tamaño máximo para las subidas, en bytes (0 sin límite)
+define('UPLOAD_FOLDER', '../storage'); // carpeta por defecto para la subida de ficheros
+define('UPLOAD_MAX_SIZE', 0);          // tamaño máximo para los ficheros subidos en bytes (0 sin límite)
 
 
 
@@ -216,8 +224,8 @@ define(
 define('ACCEPT_COOKIES_NAME', 'accept-cookies');    
 
 // tiempo que durará la cookie de "aceptar cookies" en segundos.
-// por defecto un día, 0 para que tenga duración de sesión
-define('ACCEPT_COOKIES_EXPIRATION', time()+86400); 
+// por defecto una semana, 0 para que tenga duración de sesión
+define('ACCEPT_COOKIES_EXPIRATION', time()+604800); 
 
 
 
@@ -244,7 +252,7 @@ define('DB_ERRORS', true);                         // Guardar errores en la base
 define('ERROR_DB_TABLE', 'errors');                // Nombre de la tabla en la BDD para los errores.
 
 // usuarios que tienen acceso al listado de errores
-define('ERROR_ROLES', [ADMIN_ROLE, 'ROLE_TEST']);
+define('ERROR_ROLES', ['ROLE_ADMIN', 'ROLE_TEST']);
 
 // usar vistas personalizadas de error 401, 403...
 // se deben colocar en el directorio de vistas en la subcarpeta httperrors y el nombre
@@ -261,7 +269,7 @@ define('USE_CUSTOM_ERROR_VIEWS', true);
 define('TEST_FOLDER', '../test');  
 
 // roles que tienen autorización para ver y ejecutar test
-define('TEST_ROLES', [ADMIN_ROLE, 'ROLE_TEST']); 
+define('TEST_ROLES', ['ROLE_ADMIN', 'ROLE_TEST']); 
 
 // Carpeta para los ejemplos de maquetación.
 define('EXAMPLE_FOLDER', '../mvc/views/examples/source'); 
@@ -278,7 +286,7 @@ define('SAVE_STATS', false);
 define('STATS_TABLE', 'stats');
 
 // roles que tienen autorización para ver las estadísticas
-define('STATS_ROLES', [ADMIN_ROLE, 'ROLE_TEST']);
+define('STATS_ROLES', ['ROLE_ADMIN', 'ROLE_TEST']);
 
 
 

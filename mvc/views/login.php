@@ -23,6 +23,7 @@
                 "LogIn" => null
     	    ]) ?>
 		<?= $template->messages() ?>
+		<?= $template->acceptCookies() ?>
 		
 		<main>
     		<form class="w50 centered-block" method="POST" autocomplete="off" id="login" action="/Login/enter">

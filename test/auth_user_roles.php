@@ -60,8 +60,7 @@
      <section id="isAdmin">
     	<h3>isAdmin()</h3>
     	<p>El método <code>isAdmin()</code> permite <b>comprobar si un usuario tiene el rol de administrador</b>,
-    	que se configura en el fichero <i>config/config.php</i> mediante la constante <i>ADMIN_ROLE</i> 
-    	(el valor por defecto es <i>ROLE_ADMIN</i>).</p>
+    	es decir <i>ROLE_ADMIN</i>.</p>
     	
     	<p>Por ejemplo: <code>user()->isAdmin();</code>.</p>
     	

@@ -21,6 +21,7 @@
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs(["Éxito" => NULL]) ?>
 		<?= $template->messages() ?>
+		<?= $template->acceptCookies() ?>
 		
 		<main>
     		<h2>Éxito en la operación solicitada</h2>

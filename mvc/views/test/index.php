@@ -21,6 +21,7 @@
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs(["Test" => NULL]) ?>
 		<?= $template->messages() ?>
+		<?= $template->acceptCookies() ?>
 		
 		<main>
         	<h1>Listado de tests</h1>

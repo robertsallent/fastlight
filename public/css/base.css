@@ -97,7 +97,6 @@
 
 /* =========================  PARA TODOS LOS ELEMENTOS ======================= */
 
-
 *{
 	box-sizing: border-box;
 	margin:  0;
@@ -105,7 +104,6 @@
 }
 
 /* ==================================  CLASES  ============================== */
-
 /* Columnas con FLEX -------------------------------------------------------- */
 
 .flex-container{
@@ -113,9 +111,7 @@
 	flex-wrap: wrap;
 }
 
-.flex-container>section, 
-.flex-container>div, 
-.flex-container>figure{
+.flex-container>section, .flex-container>div, .flex-container>figure{
 	min-width: var(--min-width);
 }
 
@@ -137,6 +133,7 @@
 .space-between			{	justify-content: space-between }
 .space-around 			{	justify-content: space-around  }
 
+.perfect-centered		{	margin: auto auto	}
 
 /* Elementos flotantes ---------------------------------------------------- */
 
@@ -229,6 +226,7 @@
 .my3					{ margin-top: 5%; margin-bottom: 5%   }
 .my4					{ margin-top: 10%; margin-bottom: 10% }
 .my5					{ margin-top: 20%; margin-bottom: 20% }
+.myauto					{ margin-top: auto; margin-bottom: auto }
 
 .mt0					{ margin-top: 0;    }
 .mt1					{ margin-top: 1%;   }

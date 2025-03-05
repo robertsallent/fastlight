@@ -21,9 +21,13 @@ class Login{
 
     
     /** 
-     * Tareas de inicialización del sistema de login
+     * Tareas de inicialización del sistema de login.
+     * 
      * - Recupera el usuario desde la variable de sesión. 
      * - Borra la operación pendiente. 
+     * 
+     * Este método es invocado desde el constructor del Kernel, no
+     * es necesario usarlo explícitamente desde ningún otro lugar.
      */
     public static function init(){
         
@@ -47,7 +51,9 @@ class Login{
     
     /**
      * Hace login, estableciendo el usuario.
-     * Se usa desde LoginController::enter().
+     * 
+     * Se usa desde LoginController::enter() y en principio no tendremos
+     * necesidad de usarlo desde ningún otro lugar.
      * 
      * @param Authenticable $user
      */
@@ -62,7 +68,11 @@ class Login{
 	 * Hace logout olvidando el usuario, limpiando la sesión, eliminando
 	 * la cookie de sesión y destruyendo los datos del servidor.
 	 * 
-	 * Se usa desde LogoutController::index().
+	 * Se invoca desde LogoutController::index().
+	 * 
+	 * Si implementamos la operación "baja de usuario", también debemos
+	 * invocar a este método para garantizar que se "expulsa" al usuario
+	 * una vez eliminado del sistema.
 	 */
 	public static function clear(){
 	    self::$activeUser = NULL;
@@ -118,11 +128,11 @@ class Login{
 	/**
 	 * Comprueba si se encuentra identificado un usuario administrador.
 	 * 
-	 * @param string $adminRole rol de administrador, por defecto el que se encuentre configurado en el fichero config.php.
+	 * @param string $adminRole rol de administrador, por defecto ROLE_ADMIN.
 	 * 
 	 * @return bool true si el usuario identificado es administrador o false si no lo es o no hay usuario identificado.
 	 */
-	public static function isAdmin(string $adminRole = ADMIN_ROLE):bool{
+	public static function isAdmin(string $adminRole = 'ROLE_ADMIN'):bool{
 	    return self::$activeUser && self::$activeUser->hasRole($adminRole);
 	}
 	

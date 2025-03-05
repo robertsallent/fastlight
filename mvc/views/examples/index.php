@@ -29,7 +29,7 @@
         	<section>
             	<h2>Información</h2>
             	
-            	<p>A continuación se muestran el listado de <b>ejemplos de maquetación</b> disponibles en la carpeta 
+            	<p>A continuación se muestra el listado de <b>ejemplos de maquetación</b> disponibles en la carpeta 
             	<code><?= EXAMPLE_FOLDER ?></code> y que se pueden
             	lanzar haciendo clic sobre el nombre del fichero en la lista que hay a continuación. 
             	Os servirán como ejemplo para comprender algunos de los componentes de GUI y estilos del 
@@ -48,7 +48,7 @@
         	<section>
             	<h2>Ejemplos disponibles</h2>
             	
-            	<ul id="test-list" class="two-columns">
+            	<ul id="test-list" class="three-columns">
                 <?php
 
                 foreach ($examples as $source){

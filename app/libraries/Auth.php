@@ -54,11 +54,11 @@ class Auth{
     /**
      * Comprueba que el usuario que está utilizando la aplicación sea administrador.
      * 
-     * @param string $adminRole nombre del rol de administrador, por defecto el que se encuentre configurado en el config.php.
+     * @param string $adminRole nombre del rol de administrador, por defecto ROLE_ADMIN.
      *
      * @throws AuthException si no hay usuario identificado o no es administrador.
      */
-    public static function admin(string $adminRole = ADMIN_ROLE){
+    public static function admin(string $adminRole = 'ROLE_ADMIN'){
         
         self::check(); 
         

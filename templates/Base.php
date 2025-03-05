@@ -13,10 +13,12 @@ class Base implements TemplateInterface{
     
     /** Lista de ficheros CSS para usar con este template 
      * 
-     *    Si tienes otros templates que hereden de éste, puedes redefinir el array 
-     *    para usar otras hojas de estilo. En ese caso, puede ser útil que la 
-     *    hoja de estilos principal que uses importe la hoja base.css 
+     *    Se pueden añadir o quitar entradas sin problema. 
      *    
+     *    Si tienes otros templates que hereden de éste, puedes redefinir la propiedad 
+     *    para usar otras hojas de estilo diferentes. 
+     *    
+     *    Puede ser útil que tus ficheros CSS importen éstos (si así  lo quieres). 
      * */
     protected array $css = [
         'standard'  => '/css/base.css',         // hoja de estilo para PC
@@ -27,11 +29,12 @@ class Base implements TemplateInterface{
     
     
     
-    /** Media queries para cargar distintos ficheros para cada dispositivo o resolución de pantalla.
+    /** Media queries para cargar los distintos ficheros CSS.
      * 
-     *      Se pueden cambiar los rangos de resolución para los distintos tipos de pantalla.
-     *      Adaptar al gusto.
+     *  Puedes añadir o quitar entradas sin problema, reescribirlas o bien cambiar
+     *  los rangos de resolución para los distintos tipos de pantalla.
      *  
+     *  Adaptar al gusto.
      *  */
     protected array $mediaQueries = [
         'standard'  => 'screen',
@@ -73,40 +76,54 @@ class Base implements TemplateInterface{
      *****************************************************************************/
     
     /**
-     * Prepara el HTML con los enlaces de login/logout en función del rol de usuario identificado.
+     * Prepara el HTML con los enlaces de login/logout en función del 
+     * rol de usuario identificado.
      * 
      * @return string HTML con los enlaces a login y logout.
      */
     public function login(){
         
-        // si el usuario no está identificado, retorna el botón de LogIn
+        // si el usuario no está identificado
         if(Login::guest()){
-            $html = "
-               <div class='derecha'>
-                    <a class='button' href='/Login'>LogIn</a>
-               </div>";
+            
+            // prepara el HTML solamente con el botón de "LogIn"
+            $html = " 
+            <div class='derecha'>
+               <a class='button' href='/Login'>LogIn</a>
+            </div>";
+            
+            
+        // en caso de que el usuario sí esté identificado
         }else{
-            $user = Login::user(); // recupera el usuario identificado
-          
+            $user = Login::user(); // recupera el usuario
+            
             // pone el texto "Bienvenido usuario" con un enlace a su home
-            $html = "<div class='right'>
-                        <span class='pc'>Bienvenido</span> 
-                        <a class='negrita' href='/User/home'>
-                            $user->displayname
-                        </a>
-                        <span class='pc cursiva'>&lt;$user->email&gt;</span>";
-            
-            // si el usuario es administrador, le informa de ello
-            if($user->isAdmin())
-                 $html .= "<span class='pc'> eres <a class='negrita' href='/Admin'>administrador</a>.</span>";
-            
-            // pone la imagen de perfil y el enlace a logout
-            $html .= "  <img class='xx-small middle my1' src='/images/users/".($user->picture ?? 'default.png')."' alt='Imagen de perfil'>
-                        <a class='button' href='/Logout'>LogOut</a>
-                     </div>";
-
+            $html = "
+            <div class='right'>
+                <span class='pc'>Bienvenido</span>
+                <a class='negrita' href='/User/home'>
+                    $user->displayname
+                </a>
+                <span class='pc cursiva'>&lt;$user->email&gt;</span>";
+                            
+                // si el usuario es administrador, le informa de ello
+                if($user->isAdmin())
+                    $html .= "
+                <span class='pc'> eres
+                    <a class='negrita' href='/Panel/admin'>administrador</a>.
+                </span>";
+                                
+                // pone la imagen de perfil y el enlace a logout
+                $html .= " 
+                <img class='xx-small middle my1'
+                    src='".USER_IMAGE_FOLDER."/".($user->picture ?? DEFAULT_USER_IMAGE)."'
+                    alt='Imagen de perfil'>
+                    
+                <a class='button' href='/Logout'>LogOut</a>
+            </div>";
         }
-        return $html;
+        
+        return $html; // retorna el código HTML generado
     }
         
         
@@ -157,22 +174,26 @@ class Base implements TemplateInterface{
         // parte izquierda (operaciones para todos los usuarios)
         $html = "<menu class='menu'>";
         $html .=   "<li><a href='/'>Inicio</a></li>";
+        
+        // Enlace a los ejemplos de maquetación.
+        // Lo eliminaremos en producción junto con la carpeta mvc/views/examples y el ExampleController
         $html .=   "<li><a href='/Example'>Ejemplos de maquetación</a></li>";
-          
-        // parte derecha (solamente para usuarios concretos)
- 
-        // enlace a los tests de ejemplo (solamente administrador o rol de test)
+           
+        // Enlace a los tests de ejemplo (solamente para usuarios con alguno de los TEST_ROLES)
+        // Lo eliminaremos en producción, junto a la carpeta test y el TestController
         if(Login::oneRole(TEST_ROLES))
             $html .=   "<li><a href='/Test'>Test</a></li>";
         
-        // enlace a las estadística de visitas (solamente administrador o rol de test)
+        // Enlace a las estadística de visitas (solamente para usuarios con alguno de los STAT_ROLES)
         if(SAVE_STATS && Login::oneRole(STATS_ROLES))
             $html .=   "<li><a href='/Stat'>Visitas</a></li>";
         
-        // enlace a la gestión de errores (solamente administrador o rol de test)
+        // Enlace a la gestión de errores (solamente para usuarios con alguno de los ERROR_ROLES)
         if((Login::oneRole(ERROR_ROLES)) && (DB_ERRORS || LOG_ERRORS || LOG_LOGIN_ERRORS))
             $html .=   "<li><a href='/Error/list'>Errores</a></li>";
-          
+         
+        // Enlace al repositorio de FastLight en GitHub  
+        // Lo podéis eliminar, para que no aparezca en vuestras aplicaciones
         $html .=   "<li><a href='https://github.com/robertsallent/fastlight'>GitHub</a></li>";
             
         $html .= "</menu>";

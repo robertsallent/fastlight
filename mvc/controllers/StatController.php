@@ -33,7 +33,7 @@ class StatController extends Controller{
             return redirect('/');
         
         // operación solamente para el administrador o usuario con rol de test
-        Auth::oneRole([ADMIN_ROLE, "ROLE_TEST"]); 
+        Auth::oneRole(STATS_ROLES); 
         
         // Comprobar si hay filtros a aplicar/quitar/recuperar de sesión
         $filtro = Filter::apply('stats');
@@ -72,7 +72,7 @@ class StatController extends Controller{
     public function export():Response{
         
         // operación solamente para el administrador o usuario con rol de test
-        Auth::oneRole([ADMIN_ROLE, "ROLE_TEST"]); 
+        Auth::oneRole(STATS_ROLES); 
         
         // recupera el formato de exportación
         $formato = $this->request->post('format');

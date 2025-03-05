@@ -56,7 +56,7 @@
         }
         
         // retorna si el usuario es admin
-        public function isAdmin(string $adminRole = ADMIN_ROLE):bool{
+        public function isAdmin(string $adminRole = 'ROLE_ADMIN'):bool{
             return $this->hasRole($adminRole);
         }    
   

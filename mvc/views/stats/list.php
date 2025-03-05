@@ -21,6 +21,7 @@
     		<?= $template->menu() ?>
     		<?= $template->breadCrumbs(["Visitas" => NULL]) ?>
     		<?= $template->messages() ?>
+    		<?= $template->acceptCookies() ?>
     		
     		<main>
         		<h1><?= APP_NAME ?></h1>

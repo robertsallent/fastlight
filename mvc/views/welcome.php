@@ -141,8 +141,8 @@
     		<li class="flex1"><a href="#">Recursos</a>
     			<ul>
 	    			<li><a href="https://github.com/robertsallent/fastlight">GitHub</a></li>
-	    			<li><a href="#">Docs (TODO)</a></li>
-	    			<li><a href="#">API (TODO)</a></li>
+	    			<li><a href="https://fastlight.org">Docs (TODO)</a></li>
+	    			<li><a href="https://api.fastlight.org">API (TODO)</a></li>
     			</ul>
     		</li>
     		
@@ -159,7 +159,7 @@
     			<ul>
 	    			<li><a href="https://larabikes8.robertsallent.com">Larabikes <code>(Laravel)</code></a></li>
 	    			<li><a href="https://symfofilms.robertsallent.com">SymfoFilms <code>(Symfony)</code></a></li>
-	    			<li><a href="https://biblio24.robertsallent.com">Biblio24 <code>(FastLight)</code></a></li>
+	    			<li><a href="https://biblioteca.fastlight.org">Biblioteca <code>(FastLight)</code></a></li>
     			</ul>
     		</li>
     		

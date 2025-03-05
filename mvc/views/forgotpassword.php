@@ -21,6 +21,7 @@
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs(["LogIn" => "/Login", "Nueva clave" => NULL]) ?>
 		<?= $template->messages() ?>
+		<?= $template->acceptCookies() ?>
 		
 		<main>
 			
