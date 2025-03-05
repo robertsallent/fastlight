@@ -30,7 +30,6 @@ CREATE TABLE users(
 	-- roles JSON NOT NULL DEFAULT '["ROLE_USER"]',
 	-- roles JSON NOT NULL,
 	picture VARCHAR(256) DEFAULT NULL,
-	blocked_at TIMESTAMP NULL DEFAULT NULL,
 	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 );
@@ -135,7 +134,8 @@ INSERT INTO users(id, displayname, email, phone, picture, password, roles) VALUE
 	(2, 'editor', 'editor@fastlight.org', '666666665', NULL, md5('1234'), '["ROLE_USER", "ROLE_EDITOR"]'),
 	(3, 'user', 'user@fastlight.org', '666666664', 'user.png', md5('1234'), '["ROLE_USER"]'),
 	(4, 'test', 'test@fastlight.org', '666666663', 'test.png', md5('1234'), '["ROLE_USER", "ROLE_TEST"]'),
-	(5, 'api', 'api@fastlight.org', '666666662', NULL, md5('1234'), '["ROLE_API"]')
+	(5, 'api', 'api@fastlight.org', '666666662', NULL, md5('1234'), '["ROLE_API"]'),
+    (6, 'blocked', 'blocked@fastlight.org', '666666669', NULL, md5('1234'), '["ROLE_USER", "ROLE_BLOCKED"]')
 ;
 
 

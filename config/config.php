@@ -32,7 +32,9 @@
  * @since v1.7.5 se puede limitar el tamaño máximo del fichero de LOG.
  * @since v1.7.6 añadidas SESSION_NAME, SESSION_TIME y SESSION_COOKIE_EXPIRE
  * @since v1.8.3 añadida la posibilidad de indicar la carpeta para las fotos de perfil de usuario y su imagen por defecto.
- * @sicne v1.8.3 eliminada la constante ADMIN_ROLE, no aportaba nada y complicaba la comprensión del código
+ * @since v1.8.3 eliminada la constante ADMIN_ROLE, no aportaba nada y complicaba la comprensión del código
+ * @since v1.8.4 añadida la constante BLOCKED_MESSAGE con el mensaje a mostrar cuando haga login un usuario bloqueado
+ * @since v1.8.4 añadida la constante BLOCKED_REDIRECT para configurar la redirección cuando haga login un usuario bloqueado
  */
    
 
@@ -61,7 +63,7 @@ define('AUTOLOAD_DIRECTORIES',  [
 define('APP_NAME', 'FastLight Framework');   // Título de la aplicación.
 define('APP_TYPE', 'WEB');                   // Tipo de aplicación: WEB o API.
 
-define('APP_VERSION', '1.8.3');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '1.8.4');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);     // muestra la versión de la app en el footer (templates/Base.php)
 
 
@@ -72,7 +74,7 @@ define('DEFAULT_METHOD', 'index');
 // Email del administrador, para la operación de "contacto".
 // Esta operación no está implementada de serie en FastLight,
 // la implementamos en clase.
-define('ADMIN_EMAIL', 'robert@juegayestudia.com');
+define('ADMIN_EMAIL', 'robert@fastlight.org');
 
 // ¿Deben las cadenas vacías ser convertidas a NULL? 
 // se aplica al recuperar los datos de la petición mediante el objeto Request,
@@ -139,6 +141,12 @@ define('USER_ROLES', [
     'Bloqueado'     => 'ROLE_BLOCKED'
 ]);
 
+// mensaje que se mostrará al usuario bloqueado cuando intenta hacer Login
+define('BLOCKED_MESSAGE', "Has sido bloqueado por un administrador, si consideras 
+                           que es un error puedes contactar mediante el formulario de contacto.");
+
+// redirección tras el intento de Login del usuario bloqueado
+define('BLOCKED_REDIRECT', '/');
 
 // carpeta para las imágenes de los usuarios
 define('USER_IMAGE_FOLDER','/images/users');

@@ -4,9 +4,11 @@
  *
  * Gestiona la operación de LogIn
  *
- * Última revisión: 09/01/2025
+ * Última revisión: 05/03/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
+ * 
+ * @since v1.8.4 se comprueba que el usuario no tenga ROLE_BLOCKED.
  */
 
 class LoginController extends Controller{
@@ -48,17 +50,27 @@ class LoginController extends Controller{
         if(!$identificado){
             Session::error("Los datos de identificación no son correctos para $user.");
             
+            // registra el error de Login en el fichero de Log (si está activado en el config)
             if(LOG_LOGIN_ERRORS)
                 Log::addMessage(LOGIN_ERRORS_FILE, 'ERROR', "Intento de identificación incorrecto para $user.");
             
+            // Guarda el error de login en BDD (si está activado en el config)
             if(DB_LOGIN_ERRORS)
                 AppError::new('Login', "Intento de identificación incorrecto para $user.");
-                
+            
+            // redirecciona de nuevo al formulario de login
             return redirect('/Login');
         }
         
-        // si las cosas han ido bien...
         
+        // si el usuario identificado está bloqueado...
+        if($identificado->hasRole('ROLE_BLOCKED')){
+            Session::error(BLOCKED_MESSAGE);
+            return redirect(BLOCKED_REDIRECT);
+        }
+        
+            
+        // si las cosas han ido bien...
         Login::set($identificado); // vincula el usuario a la sesión
               
         // toma la operación pendiente (si la hay) y la borra de sesión

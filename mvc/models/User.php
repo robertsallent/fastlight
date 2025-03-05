@@ -6,7 +6,7 @@
  *
  * @author Robert Sallent <robertsallent@gmail.com>
  * 
- * Última revisión: 26/02/2025
+ * Última revisión: 05/03/2025
  */
 
 class User extends Model implements Authenticable{
@@ -69,8 +69,7 @@ class User extends Model implements Authenticable{
         // preparación de la consulta
         $consulta="SELECT *  FROM users
                    WHERE (email='$emailOrPhone' OR phone='$emailOrPhone') 
-                   AND password='$password'
-                   AND blocked_at IS NULL";
+                   AND password='$password'";
         
         $usuario = (DB_CLASS)::select($consulta, self::class);
         
