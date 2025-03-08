@@ -1,21 +1,25 @@
 
 -------------------------------------------------------------------------------------------------------------
-LISTA DE COSAS PENDIENTES - TODO LIST
+LISTA DE TAREAS PENDIENTES - TODO LIST
 
-Lista de mecanismos y herramientas que se irán incorporando (o no) en próximas versiones del framework FastLight.
+Lista de mecanismos y herramientas que se irán incorporando (o no) en próximas 
+versiones del framework FastLight.
 
 Autor: Robert Sallent
-Última revisión: 25/02/25
+Última revisión: 08/03/25
 
-Los cambios marcados con un ? están en fase de evaluación.
+Los cambios marcados con un ? están en fase de evaluación, no es seguro
+que se implementen.
 
 -------------------------------------------------------------------------------------------------------------
 - CONFIG
-	- (v2.0.0) Ficheros de configuración de entorno.
-	- (v2.0.0) helper env()
+	- (v2.x) Ficheros de configuración de entorno.
+	- (v2.x) helper env()
 
 - CORE/HTTP
-	- (v1.9.0) Router.
+	- (v2.x) Router que combine con el dispatcher actual (rutas por defecto).
+	- (v2.x) Middleware.
+	- (v2.x) Nuevos middlewares: CSRF, modo mantenimiento, usuario bloqueado.
 	
 - LIBRARIES
 	- Implementar un sistema de seeding tipo faker.
@@ -25,12 +29,12 @@ Los cambios marcados con un ? están en fase de evaluación.
 	- Templated emails.
 
 - MODELO
-	- ? Métodos owns() e ownedBy() en Model.
-	- ? Nuevo método Model::insertRelated(entidad, idrelacionado, tabla)
+	- ? Nuevo método Model::insertRelated(entidadA, entidadB, ?tabla) que inserta en la tabla intermedia en relaciones N a N.
+	- ? trabajar con snake case en la BDD en lugar de lowercase
 		
 - TEMPLATES Y VISTAS
 	- ? Hacer uso de <dialog> para modales
-	- (v2.0.0) Uso de componentes en las vistas.
+	- (v2.x) Uso de componentes en las vistas.
 
 - TEST Y DOCUMENTACIÓN
 	- (En proceso): Mejorar la documentación y los ejemplos en los test.

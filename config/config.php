@@ -63,7 +63,7 @@ define('AUTOLOAD_DIRECTORIES',  [
 define('APP_NAME', 'FastLight Framework');   // Título de la aplicación.
 define('APP_TYPE', 'WEB');                   // Tipo de aplicación: WEB o API.
 
-define('APP_VERSION', '1.8.5');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '1.8.6');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);     // muestra la versión de la app en el footer (templates/Base.php)
 
 
@@ -209,8 +209,11 @@ define('RESULTS_PER_PAGE', 10);  // Número de resultados por página
  * SUBIDA DE FICHEROS
  * -------------------------------------------------------------*/
 
-define('UPLOAD_FOLDER', '../storage'); // carpeta por defecto para la subida de ficheros
-define('UPLOAD_MAX_SIZE', 0);          // tamaño máximo para los ficheros subidos en bytes (0 sin límite)
+// carpeta por defecto para la subida de ficheros
+define('UPLOAD_FOLDER', '../storage'); 
+
+// tamaño máximo para los ficheros subidos en bytes (0 sin límite)
+define('UPLOAD_MAX_SIZE', 0);          
 
 
 

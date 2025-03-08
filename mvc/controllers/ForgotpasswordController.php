@@ -4,7 +4,7 @@
  *
  * Se usa para regenerar la clave del usuario en caso de que lo solicite.
  *
- * Última revisión: 20/05/2024
+ * Última revisión: 08/03/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  */   
@@ -25,24 +25,36 @@ class ForgotpasswordController extends Controller{
      */
     public function send():Response{
         
+       // comprueba que llega el formulario 
        if(!$this->request->has('nueva'))
            throw new FormException("No se recibió el formulario.");
-           
-       $email = $this->request->post('email'); // recupera el email
-       $phone = $this->request->post('phone'); // recupera el teléfono
        
-       $user = User::getByPhoneAndMail($phone, $email); // busca el usuario
+       // comprueba que llega el token CSRF y que es válido
+       // TODO: en la versión 2.0 esto se implementará mediante un middleware
+       CSRF::check($this->request->post('csrf_token'));
        
+       // toma el email y el teléfono
+       $email = $this->request->post('email'); 
+       $phone = $this->request->post('phone'); 
+       
+       // recupera el usuario con ese email y teléfono
+       $user = User::getByPhoneAndMail($phone, $email); 
+       
+       // Si los datos no eran correctos, vuelve al formulario
        if(!$user){
             Session::error("Los datos no son válidos.");
             return redirect('/Forgotpassword');
        }
        
-       $password = uniqid();                // genera el nuevo password
-       $user->password = md5($password);    // lo guarda en el user (encriptado)
+       // si todo fue bien, genera un nuevo password
+       $password = uniqid(); 
+       
+       // y actualiza el password del usuario con el que se acaba de generar
+       // lo guarda encriptado
+       $user->password = md5($password);    
        
        try{
-            $user->update();    // actualiza el user
+            $user->update();    // actualiza el usuario en la base de datos
             
             // prepara el email
             $to       = $user->email;
@@ -63,7 +75,7 @@ class ForgotpasswordController extends Controller{
            Session::error("No se pudo actualizar el password.");
         
            if(DEBUG)
-               throw new Exception($e->getMessage());
+               throw new SQLException($e->getMessage());
            
            return redirect("/Login");
            
@@ -72,7 +84,7 @@ class ForgotpasswordController extends Controller{
            Session::error("No se pudo enviar el email, contacta con el administrador.");
            
            if(DEBUG)
-               throw new Exception($e->getMessage());
+               throw new EmailException($e->getMessage());
            
            return redirect("/Login");       
        }

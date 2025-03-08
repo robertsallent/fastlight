@@ -27,6 +27,8 @@
 			
         		<form class="w50 bloque-centrado" method="POST" autocomplete="off" id="login" action="/Forgotpassword/send">
         			
+        			<?= csrf() ?>
+        			
         			<h2>Recuperación de password</h2>
     				<p class="justificado">Rellena este formulario para recibir una 
     					nueva clave en tu <i>email</i> con la que podrás acceder a la aplicación. 

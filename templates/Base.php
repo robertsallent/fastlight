@@ -122,7 +122,6 @@ class Base implements TemplateInterface{
                 <a class='button' href='/Logout'>LogOut</a>
             </div>";
         }
-        
         return $html; // retorna el código HTML generado
     }
         

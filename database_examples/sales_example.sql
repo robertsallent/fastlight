@@ -19,16 +19,14 @@ CREATE DATABASE fastlight DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_
 USE fastlight;
 
 -- tabla users
--- podéis crear los campos adicionales que necesitéis.
+-- se pueden crear campos adicionales o relaciones con otras entidadessi es necesario
 CREATE TABLE users(
 	id INT PRIMARY KEY auto_increment,
 	displayname VARCHAR(32) NOT NULL,
-	email VARCHAR(128) NOT NULL UNIQUE KEY,
+	email VARCHAR(255) NOT NULL UNIQUE KEY,
 	phone VARCHAR(32) NOT NULL UNIQUE KEY,
 	password VARCHAR(255) NOT NULL,
-	roles VARCHAR(4096) NOT NULL DEFAULT '["ROLE_USER"]',
-	-- roles JSON NOT NULL DEFAULT '["ROLE_USER"]',
-	-- roles JSON NOT NULL,
+	roles VARCHAR(1024) NOT NULL DEFAULT '["ROLE_USER"]',
 	picture VARCHAR(256) DEFAULT NULL,
 	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
@@ -130,12 +128,13 @@ CREATE TABLE products_providers(
 
 -- usuarios para las pruebas, podéis crear tantos como necesitéis
 INSERT INTO users(id, displayname, email, phone, picture, password, roles) VALUES 
-	(1, 'admin', 'admin@fastlight.org', '666666666', 'admin.png', md5('1234'), '["ROLE_USER", "ROLE_ADMIN"]'),
-	(2, 'editor', 'editor@fastlight.org', '666666665', NULL, md5('1234'), '["ROLE_USER", "ROLE_EDITOR"]'),
-	(3, 'user', 'user@fastlight.org', '666666664', 'user.png', md5('1234'), '["ROLE_USER"]'),
-	(4, 'test', 'test@fastlight.org', '666666663', 'test.png', md5('1234'), '["ROLE_USER", "ROLE_TEST"]'),
-	(5, 'api', 'api@fastlight.org', '666666662', NULL, md5('1234'), '["ROLE_API"]'),
-    (6, 'blocked', 'blocked@fastlight.org', '666666669', NULL, md5('1234'), '["ROLE_USER", "ROLE_BLOCKED"]')
+	(1, 'admin', 'admin@fastlight.org', '666666661', 'admin.png', md5('1234'), '["ROLE_USER", "ROLE_ADMIN"]'),
+	(2, 'editor', 'editor@fastlight.org', '666666662', NULL, md5('1234'), '["ROLE_USER", "ROLE_EDITOR"]'),
+	(3, 'user', 'user@fastlight.org', '666666663', 'user.png', md5('1234'), '["ROLE_USER"]'),
+	(4, 'test', 'test@fastlight.org', '666666664', 'test.png', md5('1234'), '["ROLE_USER", "ROLE_TEST"]'),
+	(5, 'api', 'api@fastlight.org', '666666665', NULL, md5('1234'), '["ROLE_API"]'),
+    (6, 'blocked', 'blocked@fastlight.org', '666666666', NULL, md5('1234'), '["ROLE_USER", "ROLE_BLOCKED"]'),
+    (7, 'Robert', 'robert@fastlight.org', '666666667', NULL, md5('1234'), '["ROLE_USER", "ROLE_ADMIN", "ROLE_TEST"]')
 ;
 
 
