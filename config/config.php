@@ -63,7 +63,7 @@ define('AUTOLOAD_DIRECTORIES',  [
 define('APP_NAME', 'FastLight Framework');   // Título de la aplicación.
 define('APP_TYPE', 'WEB');                   // Tipo de aplicación: WEB o API.
 
-define('APP_VERSION', '1.8.6');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '1.8.7');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);     // muestra la versión de la app en el footer (templates/Base.php)
 
 
@@ -305,13 +305,20 @@ define('STATS_ROLES', ['ROLE_ADMIN', 'ROLE_TEST']);
  * API
  * -------------------------------------------------------------*/
 
-// Cabeceras CORS:
-define('ALLOW_ORIGIN', 'http://localhost');          // Orígenes aceptados para peticiones.
-define('ALLOW_METHODS', 'POST, GET, PUT, DELETE');   // Métodos aceptados para peticiones.
-define('ALLOW_HEADERS', 'csrf_token');               // Encabezados permitidos.
-define('ALLOW_CREDENTIALS', 'true');                 // ¿Se permite el envío de credenciales?
+// CABECERAS CORS:
+// Orígenes aceptados para peticiones.
+define('ALLOW_ORIGIN', 'http://localhost');
 
-define('API_AUTHENTICATION', 'COOKIE'); // puede ser COOKIE (implementado) o KEY (no implementado aún)
+// Métodos HTTP aceptados.
+define('ALLOW_METHODS', 'POST, GET, PUT, DELETE, OPTIONS');
 
-    
-    
+// Cabeceras permitidas
+define('ALLOW_HEADERS', 'csrf_token');
+
+// ¿Se permite el envío de credenciales?
+define('ALLOW_CREDENTIALS', 'true');
+
+// Método de autenticación para las peticiones a la API.
+// Puede ser COOKIE (implementado) o KEY (no implementado aún)
+define('API_AUTHENTICATION', 'COOKIE'); 
+

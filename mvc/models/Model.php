@@ -13,7 +13,7 @@
  * protected static array $jsonFields: para indicar los campos JSON que se deben 
  * convertir automáticamente en arrays PHP.
  *
- * Última revisión 18/02/25
+ * Última revisión 12/03/25
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
@@ -25,6 +25,7 @@
  * @since v1.7.8 añadido el método isNotNull()
  * @since v1.8.0 se puede indicar la propiedad estática $fillable en las clases del modelo
  * @since v1.8.0 se puede usar el método create() tanto para crear como para actualizar
+ * @since v1.8.7 se implementa el método validate() de forma genérica
  */
 
 
@@ -927,6 +928,21 @@ abstract class Model{
             $entity->parseJsonFields();
             
         return $entities;
+    }
+    
+    
+    
+    /**
+     * Método validate() genérico que no valida nada.
+     *
+     * Las clases que hereden de Model deberían redefinir este método
+     * validate() para validar cada uno de los campos de contienen mediante
+     * las reglas adecuadas.
+     *
+     * @return array la lista de errores encontrados.
+     */
+    public function validate():array{
+        return [];
     }
     
     
