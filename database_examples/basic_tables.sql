@@ -47,6 +47,7 @@ INSERT INTO users(id, displayname, email, phone, picture, password, roles) VALUE
 CREATE TABLE errors(
 	id INT PRIMARY KEY auto_increment,
     date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    type CHAR(3) NOT NULL DEFAULT 'WEB',
     level VARCHAR(32) NOT NULL DEFAULT 'ERROR',
     url VARCHAR(256) NOT NULL,
 	message VARCHAR(2048) NOT NULL,

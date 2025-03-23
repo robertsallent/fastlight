@@ -70,11 +70,12 @@ class FastLightException extends Exception{
      */
     public static function fromThrowable(Throwable $t):self{
         
-        // Recorta el mensaje para evitar guardar en BDD o en LOG detalles 
+        // En caso de no estar en modo DEBUG
+        // recorta el mensaje para evitar guardar en BDD o en LOG detalles 
         // sobre la estructura de ficheros (pueden contener IDs de usuario del hosting)
         $message = $t->getMessage();
         
-        if($pos = strpos($message, ", called in"))
+        if(!DEBUG && $pos = strpos($message, ", called in"))
             $message = substr($message, 0, $pos);
         
         // crea una instancia de FstLightExcepcion a partir de los datos del Throwable

@@ -78,7 +78,7 @@ class App extends Kernel{
             
         // si se produce algún otro tipo de error...
         }catch(Throwable $t){ 
-
+            
             // lo convertimos a una excepción de FastLight (si no lo era ya)
             if(!($t instanceof FastLightException))
                 $t = FastLightException::fromThrowable($t);
