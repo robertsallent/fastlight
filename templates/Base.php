@@ -458,7 +458,7 @@ class Base implements TemplateInterface{
      */
     public function footer(){
         return "
-        <footer class='flex-container left drop-shadow'>
+        <footer class='page-footer flex-container left drop-shadow'>
             
             <div class='flex4 p2'>
                 <p><a class='negrita maxi cursiva' href='https://github.com/robertsallent/fastlight'>FastLight Framework</a></p>

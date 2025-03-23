@@ -1,6 +1,6 @@
 <?php
 
-/** XMLException 
+/** JsonException 
  *
  * Para distinguir las excepciones producidas al parsear XML.
  *
@@ -9,6 +9,6 @@
  * @author Robert Sallent <robertsallent@gmail.com>
  */
 
-class XMLException extends ApiException{}
+class JsonException extends ApiException{}
     
     

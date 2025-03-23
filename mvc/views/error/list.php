@@ -42,20 +42,22 @@
         			     
         			     $template->filterForm(
             			     [
-            			         'Tipo' => 'level',
+            			         'Tipo' => 'type',
+            			         'Clase' => 'level',
             			         'URL' => 'url',
             			         'Mensaje' => 'message',
             			         'Usuario' => 'user',
             			         'Fecha' => 'date'
             			     ],
             			     [
-            			         'Tipo' => 'level',
+            			         'Tipo' => 'type',
+            			         'Clase' => 'level',
             			         'URL' => 'url',
             			         'Mensaje' => 'message',
             			         'Usuario' => 'user',
             			         'Fecha' => 'date'
             			     ], 
-            			     'Tipo',
+            			     'Clase',
             			     'Fecha'
 		            );
 
@@ -68,8 +70,9 @@
         		
             			<table class="table w100 drop-shadow">
                 			<tr>
-                				<th>URL</th>
                 				<th>Tipo</th>
+                				<th>URL</th>
+                				<th>Clase</th>
                 				<th>Fecha</th>
                 				<th>Mensaje</th>
                 				<th>Usuario</th>
@@ -78,11 +81,12 @@
                 			</tr>
                     		<?php foreach($errores as $error){ ?>
                 				<tr>
-                					<td class='url'>
+                					<td class="negrita"><?=$error->type?></td>
+                					<td class='url mini'>
                     					<a href="<?=$error->url?>"><?=$error->url?></a>
                     				</td>
                     				<td class='negrita'><?=$error->level?></td>
-                    				<td><?=$error->date?></td>
+                    				<td class="mini"><?=$error->date?></td>
                     				<td class="mini"><?=$error->message?></td>
                     				<td>
                     					<?php if($error->user){ ?>
@@ -93,7 +97,7 @@
                 					</td>
                     				<td><?=$error->ip?></td>
                     				<td class="centrado">
-                    					<a class="button button-danger" href="/Error/destroy/<?= $error->id ?>">Borrar</a>
+                    					<a class="button-danger" href="/Error/destroy/<?= $error->id ?>">Borrar</a>
                 					</td>
                 			   </tr>
                     		<?php } ?>
@@ -101,28 +105,49 @@
                 		
                 		<?= $paginator->ellipsisLinks() ?>
             		
-     					<div class="flex-container">
+     					<div class="flex-container my2">
      						<div class="flex1">
-        						<a class="button button-danger" href="/Error/clear">Vaciar lista</a>
+        						<a class="button-danger" href="/Error/clear">Vaciar lista</a>
         					</div>
         					
         					<?= $template->exportForm('/Error/export') ?>
         				</div>
         				
-        				<section id="summary">
+        				
+        				<section id="summary mt2">
                     		<h2>Resumen de errores</h2>
-                    		<table class="table w50 drop-shadow">
-                    			<tr>
-                    				<th>Tipo</th>
-                    				<th>Ocurrencias</th>
-                    			</tr>
-                    			<?php foreach($summary as $line){?>
-                    			<tr>
-                    				<td><?= $line->level ?></td>
-                    				<td><?= $line->idcount ?></td>
-                    			</tr>     
-                    			<?php } ?>
-                    		</table>
+                    		
+                    		<p>A continuación se muestra un resumen de la cantidad de errores de cada clase y de cada
+                    		tipo (WEB o API):</p>
+                    		
+                    		<div class="flex-container gap2">
+                        		<table class="table drop-shadow flex1 valign-up">
+                        			<tr>
+                        				<th>Clase</th>
+                        				<th>Ocurrencias</th>
+                        			</tr>
+                        			<?php foreach($summary as $line){?>
+                        			<tr>
+                        				<td><?= $line->level ?></td>
+                        				<td><?= $line->idcount ?></td>
+                        			</tr>     
+                        			<?php } ?>
+                        		</table>
+                        		
+                        		<table class="table drop-shadow flex1 valign-up">
+                        			<tr>
+                        				<th>Tipo</th>
+                        				<th>Ocurrencias</th>
+                        			</tr>
+                        			<?php foreach($types as $line){?>
+                        			<tr>
+                        				<td><?= $line->type ?></td>
+                        				<td><?= $line->idcount ?></td>
+                        			</tr>     
+                        			<?php } ?>
+                        		</table>
+                        		
+                        	</div>
                     	</section>
 
             		<?php }else{ ?>

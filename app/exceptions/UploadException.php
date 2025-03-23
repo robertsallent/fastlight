@@ -4,9 +4,9 @@
  *
  * Para distinguir las excepciones producidas al subir ficheros.
  *
- * Última revisión: 20/03/2023.
+ * Última revisión: 23/03/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  */
 
-class UploadException extends Exception{}
+class UploadException extends FastLightException{}

@@ -4,11 +4,11 @@
  *
  * Para distinguir las excepciones de token CSRF
  *
- * Última revisión: 07/04/2024
+  * Última revisión: 23/03/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.7.3
  */
 
-class CsrfException extends Exception{}
+class CsrfException extends FastLightException{}
 

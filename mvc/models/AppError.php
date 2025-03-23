@@ -7,7 +7,7 @@
  *
  * @author: Robert Sallent <robert@juegayestudia.com>
  * 
- * Última revisión: 03/02/2025
+ * Última revisión: 23/03/2025
  * 
  */
 
@@ -35,6 +35,7 @@ class AppError extends Model{
         $e = new self();
         
         // prepara el nivel y el mensaje de error
+        $e->type    = APP_TYPE;
         $e->level   = $level;
         $e->message = (DB_CLASS)::escape($message);
         

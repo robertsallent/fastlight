@@ -4,7 +4,7 @@
  *
  * Núcleo para el desarrollo de aplicaciones web en FastLight.
  *
- * Última revisión: 20/01/2025
+ * Última revisión: 23/03/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
@@ -41,6 +41,7 @@ class App extends Kernel{
                 DEFAULT_CONTROLLER : 
                 ucfirst(strtolower(array_shift($url))).'Controller';
      
+                
             // recupera el método a invocar, que se corresponde con la segunda posición del array.
             // Si no existe, el método a invocar es index() (DEFAULT_METHOD en config.php)
             // EJ: si llega create, el método a invocar es create()
@@ -74,25 +75,22 @@ class App extends Kernel{
             // ... y redirigimos a login (tras el login recuperaremos la operación pendiente).
             return redirect('/Login');
       
+            
         // si se produce algún otro tipo de error...
         }catch(Throwable $t){ 
 
+            // lo convertimos a una excepción de FastLight (si no lo era ya)
+            if(!($t instanceof FastLightException))
+                $t = FastLightException::fromThrowable($t);
+            
             // Prepara el mensaje de error en formato HTML.
             // En modo DEBUG, se añade información adicional al mensaje de error.
-            $mensaje = DEBUG ? 
+            $message = DEBUG ? 
                 (new DebugInformation($t, $controller, $method, $url))->toHtml() :
                 "No se pudo realizar la operación solicitada.";
             
-            // si está activado el LOG de errores, añadimos el mensaje al fichero de LOG
-            if(LOG_ERRORS)
-                Log::addMessage(ERROR_LOG_FILE, get_class($t), $t->getMessage());
-            
-            // Si está activada la opción de guardar errores en BDD, lo guardamos.
-            if(DB_ERRORS)
-                AppError::new(get_class($t), $t->getMessage());
-            
             // retorna una respuesta de error (ViewErrorResponse)
-            return abort(500, 'INTERNAL SERVER ERROR', $mensaje, $t);
+            return abort(500, 'INTERNAL SERVER ERROR', $message, $t);
         } 
     }  
 }

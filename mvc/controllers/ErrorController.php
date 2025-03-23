@@ -4,7 +4,7 @@
  * 
  * Controlador para gestionar errores. Trabaja con el modelo AppError.
  * 
- * Última revisión: 03/02/2025
+ * Última revisión: 23/03/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * 
@@ -38,10 +38,10 @@ class ErrorController extends Controller{
         
         // Comprobar si hay filtros a aplicar/quitar/recuperar de sesión
         $filtro = Filter::apply('errores');
-                    
+       
         // datos para paginación
         $limit = RESULTS_PER_PAGE;                       // resultados por página
-        
+
         $total = $filtro ?                               // hay filtro ?
                     AppError::filteredResults($filtro):     // total de resultados filtrados
                     AppError::total();                      // total de resultados sin filtrar
@@ -60,7 +60,8 @@ class ErrorController extends Controller{
             'errores'   => $errores,
             'paginator' => $paginator,   // pasamos el objeto Paginator a la vista 
             'filtro'    => $filtro,       // pasamos el objeto filter a la vista
-            'summary'   => AppError::groupBy(['id'=>'COUNT'],['level'])
+            'summary'   => AppError::groupBy(['id'=>'COUNT'],['level']),
+            'types'     => AppError::groupBy(['id'=>'COUNT'],['type'])
         ]);
     } 
     

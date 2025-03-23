@@ -130,10 +130,15 @@
 .gap4{ gap: 4% }
 .gap5{ gap: 5% }
 
-.space-between			{	justify-content: space-between }
-.space-around 			{	justify-content: space-around  }
+.space-between			{	justify-content: space-between  }
+.space-around 			{	justify-content: space-around   }
 
-.perfect-centered		{	margin: auto auto	}
+.perfect-centered		{	margin: auto auto				}
+
+.valign-up   			{   align-self: flex-start 			}
+.valign-bottom   		{   align-self: flex-end 			}
+.valign-center   		{   align-self: center 				}
+.valign-stretch   		{   align-self: stretch 			}
 
 /* Elementos flotantes ---------------------------------------------------- */
 
@@ -903,22 +908,22 @@ main{
 
 
 /* footer principal de la página (directamente dentro del body) ---- */
-body>footer{
+.page-footer{
 	background: linear-gradient(45deg, var(--primary-bg-color), var(--primary-soft-color));
 	color: var(--primary-font-color);
 	border-radius: 3px;
 }
 
-body>footer p{
+.page-footer p{
 	margin-bottom: 0.5rem;
 }
 
-body>footer a{
+.page-footer a{
 	font-size: 1em;
 	color: var(--primary-font-color);
 }
 
-body>footer figure{
+.page-footer figure{
 	background-color: white;
 	border-radius: 3px;
 	display: inline-block;
@@ -926,7 +931,7 @@ body>footer figure{
 	text-align:center;
 }
 
-body>footer img{
+.page-footer img{
 	max-width: 50px;
 }
 

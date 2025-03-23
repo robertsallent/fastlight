@@ -286,7 +286,7 @@ class Response{
                                         $this->status = 'NOT FOUND';
             break;
             
-            case 'MethodNotAllowedException':  $this->httpCode = 405;
+            case 'MethodNotAllowedException':   $this->httpCode = 405;
                                                 $this->status = 'METHOD NOT ALLOWED';
             break;
             
@@ -327,7 +327,5 @@ class Response{
      */
     public function __toString(){
         return $this->message ?? $this->status;
-    }
-    
-    
+    }   
 }

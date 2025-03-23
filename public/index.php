@@ -10,10 +10,10 @@
  * - Inicializa los parámetros de la sesión.
  * - Inicializa la sesión.
  * - Arranca la aplicación (WEB o API).
- * - Si se produce algún error en la fase de arranque, carga una vista de  error genérica (código 500).
  * - Envia la Response final, invocando al método send().
+ * - Si se produce algún error en la fase de arranque, carga una vista de  error genérica (código 500).
  * 
- * Última revisión: 13/03/2025
+ * Última revisión: 23/03/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
@@ -86,20 +86,20 @@ try{
                      break;
         
         // para cualquier otro tipo de aplicación...
-        default: throw new BootException('El proyecto solamente puede ser WEB o API.');
+        default:     $response = abort(500, 'INTERNAL SERVER ERROR', 'El proyecto solamente puede ser WEB o API.');
     }
-       
+    
     // envía la respuesta al cliente.
     $response->send();   
-
     
-// gestión de errores en el proceso de inicialización.
+
+// gestión de errores de esta parte.
 }catch(Throwable $t){
     
     // prepara el mensaje.
     $mensaje = DEBUG ? 
-        'ERROR en el proceso de arranque: '.$t : 
-        'Se produjo un error, contacte con el administrador '.ADMIN_EMAIL.' si es necesario.';
+        'ERROR: '.$t->getMessage() : 
+        'Se produjo un error, contacte con el administrador '.ADMIN_EMAIL.' si lo considera necesario.';
     
     // aborta, cargando la vista personalizada de error 500.
     abort(500, 'INTERNAL SERVER ERROR', $mensaje, $t)->send();

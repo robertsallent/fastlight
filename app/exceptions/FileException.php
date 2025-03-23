@@ -4,11 +4,11 @@
  *
  * Para distinguir las excepciones producidas al trabajar con ficheros.
  *
- * Última revisión: 05/04/2023
+ * Última revisión: 23/03/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  */
 
-class FileException extends Exception{}
+class FileException extends FastLightException{}
     
     

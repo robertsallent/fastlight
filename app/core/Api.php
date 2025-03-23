@@ -4,7 +4,7 @@
  *
  * Núcleo para el desarrollo de APIs Restful en FastLight
  *
- * Última revisión: 20/01/2025
+ * Última revisión: 23/03/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * 
@@ -104,6 +104,10 @@ class Api extends Kernel{
         // EVALUACIÓN DE ERROES Y EXCEPCIONES
         }catch(Throwable $t){ 
             
+            // lo convertimos a una excepción de FastLight (si no lo era ya)
+            if(!($t instanceof FastLightException))
+                $t = FastLightException::fromThrowable($t);
+            
             // prepara los datos para la response
             $code    = 500;
             $status  = 'INTERNAL SERVER ERROR';
@@ -130,7 +134,8 @@ class Api extends Kernel{
                             break;
             }
             
-            // retorna la respuesta de error
+            // retorna la respuesta de error después de evaluar el código HTTP y
+            // mensaje adecuado en función del tipo de excepción producido.
             return $response->evaluateError($t);
         }
     }  

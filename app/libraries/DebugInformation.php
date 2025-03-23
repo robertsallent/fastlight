@@ -4,7 +4,7 @@
  *
  * Para preparar mensajes de error cuando la aplicación está en modo DEBUG.
  *
- * Última modificación: 20/01/2025.
+ * Última revisión: 23/03/2025
  *
  * @author Robert Sallent <robertsallent@gmail.com>
  */
@@ -69,7 +69,7 @@ class DebugInformation{
         $mensaje .= "<p class='italic'>Opciones seleccionadas en la configuración: <b>".arrayToString(DEBUG_INFO, false, false)."</b>.</p>";
         
         // tipo del error producido
-        $mensaje .= "<p>El error que se ha producido es de tipo <b class='maxi'>".get_class($this->throwable)."</b></p>";
+        $mensaje .= "<p>El error que se ha producido es de tipo <b class='maxi'>".($this->throwable->type ?? get_class($this->throwable))."</b>.</p>";
         
         $mensaje .= "</section>";
         

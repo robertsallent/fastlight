@@ -111,7 +111,7 @@ class XML{
         
         // si no se pudo recuperar bien el XMl, se lanza una excepción
         if(!$xml)
-            throw new XmlException("Se produjo un error al recuperar el XML.");
+            throw new XMLException("Se produjo un error al recuperar el XML.");
         
         $lista = []; // lista de objetos
         

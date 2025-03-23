@@ -4,10 +4,10 @@
  *
  * Para distinguir las excepciones relacionadas con autorización.
  *
- * Última revisión: 07/04/2024
+ * Última revisión: 23/03/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  */
 
-class AuthException extends Exception{}
+class AuthException extends FastLightException{}
 
