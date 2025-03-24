@@ -28,7 +28,7 @@
  * @since v1.8.7 se implementa el método validate() de forma genérica
  */
 
-
+#[\AllowDynamicProperties]
 abstract class Model{
          
  
