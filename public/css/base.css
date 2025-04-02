@@ -283,25 +283,25 @@
 /* ========================  ELEMENTOS BÁSICOS HTML ======================= */
 
 h1, h2, h3{
-	margin-top:    1.10em;
-	margin-bottom: 0.9em;
+	margin-top:    0.8em;
+	margin-bottom: 0.7em;
 }
 
-h1{	font-size: 2em; }
+h1{	font-size: 1.9em; }
 h2{	font-size: 1.6em; }
-h3{	font-size: 1.25em; }
+h3{	font-size: 1.3em; }
 
 h1 .small{
 	font-size: 1.25rem;
 }
 
 h2, h3{
-	margin:  1.6em 0 1em;
+	margin:  1.4em 0 1em;
 	padding: 0;
 }
 
 h2:first-child, h3:first-child{
-	margin:  1em 0;
+	margin:  0.8em 0;
 }
 
 p{
@@ -374,6 +374,13 @@ span.path::before{
 	cursor: pointer;
 	box-shadow: 0 0px 4px var(--shadow-color);
 }
+
+td .button, td .button-light, td .button-success, td .button-warning, td .button-danger{
+	font-size: 0.85em;
+	padding: 8px 10px;
+	margin: 0px;
+}
+
 
 .button.current, .button.active{
 	border: solid 2px var(--primary-bg-color);

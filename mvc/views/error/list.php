@@ -29,7 +29,7 @@
         		<?php if(DB_ERRORS){ ?>
         		
         		
-            		<h2>Errores detectados</h2>
+            		<h2 id="errors">Errores detectados</h2>
         			
         			<p>Utiliza el formulario de búsqueda para filtrar resultados. Las búsquedas 
         			   se mantendrán guardadas aunque cambies de página.</p>
@@ -123,26 +123,46 @@
                     		<div class="flex-container gap2">
                         		<table class="table drop-shadow flex1 valign-up">
                         			<tr>
-                        				<th>Clase</th>
+                        				<th class="w50">Clase</th>
                         				<th>Ocurrencias</th>
+                        				<th>Operaciones</th>
                         			</tr>
                         			<?php foreach($summary as $line){?>
                         			<tr>
-                        				<td><?= $line->level ?></td>
-                        				<td><?= $line->idcount ?></td>
+                        				<td class="w50 bold"><?= $line->level ?></td>
+                        				<td class="centrado"><?= $line->idcount ?></td>
+                        				<td class="centrado">
+                        					<form method="post" action="/Error/list#errors" class="no-border">
+                        						<input type="hidden" name="campo" value="level">
+                        						<input type="hidden" name="texto" value="<?= $line->level ?>">
+                        						<input type="hidden" name="campoOrden" value="date">
+                        						<input type="hidden" name="sentidoOrden" value="DESC">
+                        						<input type="submit" class="button" name="filtrar" value="Filtrar por clase">
+                        					</form>
+                        				</td>
                         			</tr>     
                         			<?php } ?>
                         		</table>
                         		
                         		<table class="table drop-shadow flex1 valign-up">
                         			<tr>
-                        				<th>Tipo</th>
+                        				<th class="w50">Tipo</th>
                         				<th>Ocurrencias</th>
+                        				<th>Operaciones</th>
                         			</tr>
                         			<?php foreach($types as $line){?>
                         			<tr>
-                        				<td><?= $line->type ?></td>
-                        				<td><?= $line->idcount ?></td>
+                        				<td class="w50 bold"><?= $line->type ?></td>
+                        				<td class="centrado"><?= $line->idcount ?></td>
+                        				<td class="centrado">
+                        					<form method="post" action="/Error/list#errors" class="no-border">
+                        						<input type="hidden" name="campo" value="type">
+                        						<input type="hidden" name="texto" value="<?= $line->type ?>">
+                        						<input type="hidden" name="campoOrden" value="date">
+                        						<input type="hidden" name="sentidoOrden" value="DESC">
+                        						<input type="submit" class="button" name="filtrar" value="Filtrar por tipo">
+                        					</form>
+                        				</td>
                         			</tr>     
                         			<?php } ?>
                         		</table>
@@ -163,7 +183,7 @@
             	
             	
         		<?php if(LOG_ERRORS || LOG_LOGIN_ERRORS){ ?>
-        		<section>
+        		<section id="logs">
             		<h2>Ficheros de LOG</h2>
             		<p>Los ficheros de <i>log</i> sirven para <b>guardar los errores producidos en tiempo de ejecución
             		de la aplicación</b> en ficheros de texto.</p>

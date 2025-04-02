@@ -30,7 +30,7 @@ abstract class DB{
     public abstract static function get():object;
     
     /** Recupera el último mensaje de error*/
-    public abstract static function errorMessage():string;
+    public abstract static function errorMessage():?string;
       
     /** Realiza la consulta a la BDD y evalúa si se produjeron errores. */
     public abstract static function query(string $consulta);

@@ -55,9 +55,9 @@ class DBPDO extends DB{
     /**
      * Retorna el último mensaje de error producido en la BDD
      * 
-     * @return string
+     * @return ?string
      */
-    public static function errorMessage():string{
+    public static function errorMessage():?string{
         return self::get()->errorInfo()[2];
     }
     

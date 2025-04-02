@@ -17,9 +17,9 @@ class SQLException extends FastLightException{
     /**
      * Recupera el último mensaje de error a través de la conexión con la BDD.
      * 
-     * @return string el mensaje enviado por el SGDB.
+     * @return ?string el mensaje enviado por el SGDB.
      */
-    public function errorMessage():string{
+    public function errorMessage():?string{
         return (DB_CLASS)::errorMessage();
     }
 }

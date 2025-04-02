@@ -27,7 +27,7 @@
     		<h1><?= APP_NAME ?></h1>
 
     		<section>
-        		<h2>Bienvenido!</h2>
+        		<h2>¡Bienvenido!</h2>
         		
         		<p><code><a href="https://github.com/robertsallent/fastlight">FastLight</a></code> es un <i>framework PHP</i> 
         			rápido y ligero para desarrollar <b>aplicaciones web</b> o <b>APIs RESTFUL</b>.</p>
