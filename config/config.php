@@ -63,7 +63,7 @@ define('AUTOLOAD_DIRECTORIES',  [
 define('APP_NAME', 'FastLight Framework');   // Título de la aplicación.
 define('APP_TYPE', 'WEB');                   // Tipo de aplicación: WEB o API.
 
-define('APP_VERSION', '1.9.3');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '1.9.4');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);     // muestra la versión de la app en el footer (templates/Base.php)
 
 
@@ -291,7 +291,7 @@ define('EXAMPLE_FOLDER', '../mvc/views/examples/source');
  * -------------------------------------------------------------*/
 
 // Si queremos guardar estadísticas del número de visitas de cada URL
-define('SAVE_STATS', false);
+define('SAVE_STATS', true);
 
 // nombre de la tabla para las estadísticas de visitas en la BDD
 define('STATS_TABLE', 'stats');

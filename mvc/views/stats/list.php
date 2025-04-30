@@ -19,7 +19,15 @@
     		<?= $template->login() ?>
     		<?= $template->header('Visitas') ?>
     		<?= $template->menu() ?>
-    		<?= $template->breadCrumbs(["Visitas" => NULL]) ?>
+     		
+    		<?= Login::isAdmin() ? 
+		      $template->breadCrumbs([
+	              "Panel del administrador" => "/Panel/admin",
+		          "Visitas" => NULL
+		      ]):
+		      $template->breadCrumbs(["Visitas" => NULL]);
+		    ?>
+    		
     		<?= $template->messages() ?>
     		<?= $template->acceptCookies() ?>
     		

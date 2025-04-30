@@ -14,11 +14,7 @@
 */
 
 class DBPDO extends DB{ 
-    
-    /** @var ?PDO conexión con la Base de Datos. */
-    private static $conexion = null;
-    
-    
+       
     /**
      * Método que conecta con la BDD o recupera la conexión si ya estaba establecida
      * con anterioridad.
@@ -42,9 +38,12 @@ class DBPDO extends DB{
                 $message = "No se pudo conectar con la Base de datos. ";
                 
                 if(DEBUG)
-                    $message .= "Revisa la configuración: ".$dsn;
+                    $message .= "Revisa la configuración.
+                                <br><b>DSN:</b>: $dsn
+                                <br><b>USER:</b>: ".DB_USER."
+                                <br><b>PASS:</b>: -- hidden --";
                 
-                throw new DatabaseException($message);
+                throw new ConnectionException($message);
             }
             
         }

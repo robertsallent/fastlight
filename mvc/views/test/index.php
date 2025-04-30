@@ -19,7 +19,15 @@
 		<?= $template->login() ?>
 		<?= $template->header('Listado de test') ?>
 		<?= $template->menu() ?>
-		<?= $template->breadCrumbs(["Test" => NULL]) ?>
+
+		<?= Login::isAdmin() ? 
+		      $template->breadCrumbs([
+	              "Panel del administrador" => "/Panel/admin",
+		          "Test" => NULL
+		      ]):
+		      $template->breadCrumbs(["Test" => NULL]);
+		?>
+    		
 		<?= $template->messages() ?>
 		<?= $template->acceptCookies() ?>
 		

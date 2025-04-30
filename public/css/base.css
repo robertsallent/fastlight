@@ -45,7 +45,7 @@
   --secondary-font-color: rgb(255, 255, 255);
   --secondary-soft-color: rgb(100, 200, 140);
 
-  --shadow-color: rgba(60, 60, 60, 0.3);
+  --shadow-color: rgba(100, 100, 100, 0.25);
   --font-shadow-color: rgba(0, 0, 0, 0.3);
   
   --bg-color: white;
@@ -537,6 +537,14 @@ figure.x-large,  img.x-large		{ max-width: 800px; }
 img.baseline	{ vertical-align: baseline }
 img.middle		{ vertical-align: middle }
 img.text-top	{ vertical-align: text-top }
+
+img.tip{
+	height: 20px;
+	width: 20px;
+	vertical-align: middle;
+	margin-right: 5px;
+	filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.25));
+}
 
 
 /* Carátulas (para las listas de productos o detalles) ---------------*/

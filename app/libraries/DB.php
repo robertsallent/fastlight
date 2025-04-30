@@ -19,7 +19,7 @@
 abstract class DB{ 
     
     /** @var ?object conexión con la Base de Datos. */
-    private static $conexion = null; 
+    protected static $conexion = null; 
       
     
     // MÉTODOS ABSTRACTOS
