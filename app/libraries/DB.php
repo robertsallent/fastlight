@@ -9,7 +9,7 @@
  * herederas, mientras que implementa algunos métodos comunes, que pueden ser
  * útiles en las subclases.
  * 
- * Última revisión: 26/02/2025.
+ * Última revisión: 05/05/2025.
  * 
  * @author Robert Sallent
  * @since v0.1.0
@@ -19,7 +19,7 @@
 abstract class DB{ 
     
     /** @var ?object conexión con la Base de Datos. */
-    protected static $conexion = null; 
+    protected static $connection = null; 
       
     
     // MÉTODOS ABSTRACTOS
@@ -56,6 +56,18 @@ abstract class DB{
     
     // MÉTODOS COMUNES PARA SER HEREDADOS
     // son métodos que tienen implementaciones idénticas para Mysqli o PDO.
+    
+    
+    /**
+     * Getter para la propiedad connection.
+     * 
+     * @return ?object
+     */
+    public static function getConnection(){
+        return self::$connection;
+    }
+    
+    
     
     /**
      * Realiza consultas de totales sobre la tabla deseada.

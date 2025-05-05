@@ -19,15 +19,11 @@
     		<?= $template->login() ?>
     		<?= $template->header('Lista de errores') ?>
     		<?= $template->menu() ?>
-
-    		<?= Login::isAdmin() ? 
-    		      $template->breadCrumbs([
+    		<?= $template->breadCrumbs([
 		              "Panel del administrador" => "/Panel/admin",
     		          "Lista de errores" => NULL  
-    		      ]):
-    		      $template->breadCrumbs(["Lista de errores" => NULL]);
+    		      ]);
     		?>
-    		
     		<?= $template->messages() ?>
     		<?= $template->acceptCookies() ?>
     		

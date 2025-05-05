@@ -20,12 +20,10 @@
 		<?= $template->header('Listado de test') ?>
 		<?= $template->menu() ?>
 
-		<?= Login::isAdmin() ? 
-		      $template->breadCrumbs([
+		<?= $template->breadCrumbs([
 	              "Panel del administrador" => "/Panel/admin",
 		          "Test" => NULL
-		      ]):
-		      $template->breadCrumbs(["Test" => NULL]);
+		      ]);
 		?>
     		
 		<?= $template->messages() ?>

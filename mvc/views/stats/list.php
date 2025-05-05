@@ -20,12 +20,10 @@
     		<?= $template->header('Visitas') ?>
     		<?= $template->menu() ?>
      		
-    		<?= Login::isAdmin() ? 
-		      $template->breadCrumbs([
+    		<?= $template->breadCrumbs([
 	              "Panel del administrador" => "/Panel/admin",
 		          "Visitas" => NULL
-		      ]):
-		      $template->breadCrumbs(["Visitas" => NULL]);
+		      ]);
 		    ?>
     		
     		<?= $template->messages() ?>

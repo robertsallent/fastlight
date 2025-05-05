@@ -26,7 +26,7 @@
     		<h1>Panel del administrador</h1>
     		
     		<p>A continuación se muestran los enlaces a las distintas operaciones 
-    		   para el administrador de la aplicación <b><?= APP_NAME ?></b>.</p>
+    		   de administración de la aplicación <b><?= APP_NAME ?></b>.</p>
     		
     		<div class="flex-container gap2">
         		
@@ -50,14 +50,18 @@
         			y cuando se le haya dado permiso en el fichero de configuración.</p>
         		</section>
         		
+        		<?php if(Login::isAdmin()) {?>
         		<section class="flex1">
         			<h2>Gestión de usuarios</h2>
+    
         			<ul>
         				<li><a href='/User'>Lista de usuarios</a> (TODO)</li>
         				<li><a href='/User/create'>Nuevo usuario</a> (TODO)</li>
+        				<li>...</li>
         			</ul>
         			<p>Estas operaciones se implementan en clase, están descritas en los apuntes.</p>
         		</section>
+        		<?php } ?>
     		</div>
 		</main>
 		

@@ -5,7 +5,7 @@
  * Simplifica la tarea de conexión y realización de consultas con la BDD.
  * Utiliza la extensión PDO.
  * 
- * Última revisión: 26/02/2025.
+ * Última revisión: 05/05/2025.
  * 
  * @author Robert Sallent
  * @since v0.1.0
@@ -26,12 +26,12 @@ class DBPDO extends DB{
     public static function get():object{
         
         // si no estábamos conectados a la base de datos...
-        if(!self::$conexion){ 
+        if(!self::$connection){ 
             
             //conecta con la BDD, si no puede lanzará una PDOException
             $dsn = SGDB.':host='.DB_HOST.':'.DB_PORT.';dbname='.DB_NAME.';charset='.DB_CHARSET;
             try{
-                self::$conexion = new PDO($dsn, DB_USER, DB_PASS);
+                self::$connection = new PDO($dsn, DB_USER, DB_PASS);
                 
             }catch(Throwable $e){
                 
@@ -47,7 +47,7 @@ class DBPDO extends DB{
             }
             
         }
-        return self::$conexion; // retorna la conexión 
+        return self::$connection; // retorna la conexión 
     } 
     
     

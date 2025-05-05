@@ -101,7 +101,7 @@ class Base implements TemplateInterface{
             $html = "
             <div class='right'>
                 <span class='pc'>Bienvenido</span>
-                <a class='negrita' href='/User/home'>
+                <a class='negrita' href='/User/home' title='Acceder al espacio personal'>
                     $user->displayname
                 </a>
                 <span class='pc cursiva'>&lt;$user->email&gt;</span>";
@@ -110,7 +110,7 @@ class Base implements TemplateInterface{
                 if($user->isAdmin())
                     $html .= "
                 <span class='pc'> eres
-                    <a class='negrita' href='/Panel/admin'>administrador</a>.
+                    <a class='negrita' href='/Panel/admin' title='Ir al panel del administrador'>administrador</a>.
                 </span>";
                                 
                 // pone la imagen de perfil y el enlace a logout
@@ -178,19 +178,10 @@ class Base implements TemplateInterface{
         // Lo eliminaremos en producción junto con la carpeta mvc/views/examples y el ExampleController
         $html .=   "<li><a href='/Example'>Ejemplos de maquetación</a></li>";
            
-        // Enlace a los tests de ejemplo (solamente para usuarios con alguno de los TEST_ROLES)
-        // Lo eliminaremos en producción, junto a la carpeta test y el TestController
-        if(Login::oneRole(TEST_ROLES))
-            $html .=   "<li><a href='/Test'>Test</a></li>";
-        
-        // Enlace a las estadística de visitas (solamente para usuarios con alguno de los STAT_ROLES)
-        if(SAVE_STATS && Login::oneRole(STATS_ROLES))
-            $html .=   "<li><a href='/Stat'>Visitas</a></li>";
-        
-        // Enlace a la gestión de errores (solamente para usuarios con alguno de los ERROR_ROLES)
-        if((Login::oneRole(ERROR_ROLES)) && (DB_ERRORS || LOG_ERRORS || LOG_LOGIN_ERRORS))
-            $html .=   "<li><a href='/Error/list'>Errores</a></li>";
-         
+        // Panel del administrador
+        if(Login::oneRole(ADMIN_PANEL_ROLES))
+            $html .=   "<li><a href='/Panel/admin'>Panel del administrador</a></li>";
+                
         // Enlace al repositorio de FastLight en GitHub  
         // Lo podéis eliminar, para que no aparezca en vuestras aplicaciones
         $html .=   "<li><a href='https://github.com/robertsallent/fastlight'>GitHub</a></li>";

@@ -61,9 +61,9 @@ define('AUTOLOAD_DIRECTORIES',  [
  * -------------------------------------------------------------*/
 
 define('APP_NAME', 'FastLight Framework');   // Título de la aplicación.
-define('APP_TYPE', 'WEB');                   // Tipo de aplicación: WEB o API.
+define('APP_TYPE', 'WEB');                   // Tipo de aplicación: WEB o API.              
 
-define('APP_VERSION', '1.9.4');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '1.9.5');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);     // muestra la versión de la app en el footer (templates/Base.php)
 
 
@@ -120,7 +120,7 @@ define('SGDB','mysql');         // Driver que debe usar PDO (solamente para PDO)
 
 
 /* -------------------------------------------------------------
- * USUARIOS Y ROLES
+ * USUARIOS, ROLES Y PRIVILEGIOS BÁSICOS
  * -------------------------------------------------------------*/
 
 // Proveedor de usuarios para autenticación.
@@ -129,17 +129,32 @@ define('SGDB','mysql');         // Driver que debe usar PDO (solamente para PDO)
 // La única opción incluida actualmente es User (no lo cambiéis).
 define('USER_PROVIDER', 'User');
 
-// Roles para los usuarios. Podemos crear o eliminar roles según las necesidades.
+// ROLES para los usuarios. Podemos crear o eliminar roles según las necesidades.
 define('USER_ROLES', [
     'Usuario'       => 'ROLE_USER',
     'Administrador' => 'ROLE_ADMIN',
-    'Supervisor'    => 'ROLE_SUPERVISOR',
-    'Editor'        => 'ROLE_EDITOR',
     'Test'          => 'ROLE_TEST',
     'API'           => 'ROLE_API',
     'Estudiante'    => 'ROLE_STUDENT',
     'Bloqueado'     => 'ROLE_BLOCKED'
 ]);
+
+
+// PANEL DEL ADMINISTRADOR
+// roles que pueden acceder al panel del administrador
+define('ADMIN_PANEL_ROLES', ['ROLE_ADMIN', 'ROLE_TEST', 'ROLE_STUDENT']);
+
+// roles  que tienen acceso al listado de errores
+define('ERROR_ROLES', ['ROLE_ADMIN']);
+
+// roles que tienen autorización para ver y ejecutar test
+define('TEST_ROLES', ['ROLE_ADMIN', 'ROLE_TEST', 'ROLE_STUDENT']); 
+
+// roles que tienen autorización para ver las estadísticas
+define('STATS_ROLES', ['ROLE_ADMIN', 'ROLE_TEST']);
+
+
+
 
 // mensaje que se mostrará al usuario bloqueado cuando intenta hacer Login
 define('BLOCKED_MESSAGE', "Has sido bloqueado por un administrador, si consideras 
@@ -153,7 +168,6 @@ define('USER_IMAGE_FOLDER','/images/users');
 
 // imagen por defecto para los usuarios que no tengan
 define('DEFAULT_USER_IMAGE', 'default.png');
-
 
 
 /* -------------------------------------------------------------
@@ -262,8 +276,6 @@ define('LOG_MAX_SIZE', 8388608);                   // tamaño máximo del ficher
 define('DB_ERRORS', true);                         // Guardar errores en la base de datos.
 define('ERROR_DB_TABLE', 'errors');                // Nombre de la tabla en la BDD para los errores.
 
-// usuarios que tienen acceso al listado de errores
-define('ERROR_ROLES', ['ROLE_ADMIN', 'ROLE_TEST']);
 
 // usar vistas personalizadas de error 401, 403...
 // se deben colocar en el directorio de vistas en la subcarpeta httperrors y el nombre
@@ -279,9 +291,6 @@ define('USE_CUSTOM_ERROR_VIEWS', true);
 // Carpeta para los test.
 define('TEST_FOLDER', '../test');  
 
-// roles que tienen autorización para ver y ejecutar test
-define('TEST_ROLES', ['ROLE_ADMIN', 'ROLE_TEST']); 
-
 // Carpeta para los ejemplos de maquetación.
 define('EXAMPLE_FOLDER', '../mvc/views/examples/source'); 
    
@@ -295,9 +304,6 @@ define('SAVE_STATS', true);
 
 // nombre de la tabla para las estadísticas de visitas en la BDD
 define('STATS_TABLE', 'stats');
-
-// roles que tienen autorización para ver las estadísticas
-define('STATS_ROLES', ['ROLE_ADMIN', 'ROLE_TEST']);
 
 
 

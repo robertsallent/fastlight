@@ -5,7 +5,7 @@
  * Simplifica la tarea de conexión y realización de consultas con la BDD 
  * mediante la extensión mysqli.
  * 
- * Última revisión: 26/02/2025.
+ * Última revisión: 05/05/2025.
  * 
  * @author Robert Sallent
  * @since v0.1.0
@@ -27,30 +27,30 @@ class DBMysqli extends DB{
     public static function get():object{
 
         // si no estábamos conectados a la base de datos...
-        if(!self::$conexion){ 
+        if(!self::$connection){ 
             
             try{
                 // conecta a la BDD. En PHP>=8.1 si algo falla se lanza una excepción 
-                self::$conexion = @new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT); 
+                self::$connection = @new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT); 
                 
                 // por compatibilidad con versiones PHP<8.1, que no lanzan excepciones
-                if(self::$conexion->connect_errno)
-                    throw new DatabaseException("Conexión fallida: ".(self::$conexion->connect_error));
+                if(self::$connection->connect_errno)
+                    throw new ConnectionException("Conexión fallida: ".(self::$connection->connect_error));
            
             }catch(Throwable $e){
                 
                 $message = "No se pudo conectar con la Base de datos. ";
                 
                 if(DEBUG)
-                    $message .= "Revisa la configuración: ".DB_HOST.', '.DB_USER.', *******, '.DB_NAME.', '.DB_PORT;
+                    $message .= "Revisa la configuración: ".DB_HOST.', '.DB_USER.', **** , '.DB_NAME.', '.DB_PORT;
                     
-                throw new DatabaseException($message);
+                throw new ConnectionException($message);
             }
             
             try{
                 
                 // establece el charset (el if es por compatibilidad con PHP<8.1)
-                if(!self::$conexion->set_charset(DB_CHARSET))
+                if(!self::$connection->set_charset(DB_CHARSET))
                     throw new DatabaseException("No se pudo establecer el charset ".DB_CHARSET.", comprueba que está correctamente escrito."); 
                 
             }catch(Throwable $e){
@@ -59,7 +59,7 @@ class DBMysqli extends DB{
             }
         }
         
-        return self::$conexion; // retorna la conexión 
+        return self::$connection; // retorna la conexión 
     } 
     
     
