@@ -14,6 +14,9 @@
 		
 		<!-- CSS -->
 		<?= $template->css() ?>
+		
+		<!-- SCRIPTS -->
+		<script src="/js/CodeDisplay.js"></script>
 	</head>
 	<body>
 		<?= $template->login() ?>
@@ -27,16 +30,26 @@
     		try{
     		    @require EXAMPLE_FOLDER."/".str_replace('-','/', $example).".html";
     		}catch(Throwable $t){
+    		    
+    		    Session::error("Se produjo un error al cargar el ejemplo <b>$example</b>, 
+                                es posible que haya cambiado de nombre y el enlace que has usado
+                                ya no sea válido.
+                                No te preocupes estas siendo redireccionado al listado completo
+                                de ejemplos de maquetación, donde encontrarás lo que buscas.");
+    		    
 	    ?>
+	    	<script>location.href="/example#list"</script>
+	    	
 			<div class="danger my2 p2 w75 centered centered-block box-shadow">
 				<h2>ERROR</h2>
 				<p>Se produjo un error al cargar el ejemplo <b><?= $example ?></b>.</p>
 			</div>  
+
     	<?php } ?>
 		
 		<div class='centrado m2'>
                 <p class="maxi">Fin del ejemplo <code><?= $example ?></code></p>
-                <a class='button' href='/example'>Lista de ejemplos.</a>
+                <a class='button' href='/example#list'>Lista de ejemplos.</a>
         </div>
             
 		<?= $template->footer() ?>

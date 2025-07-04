@@ -1,0 +1,80 @@
+<main>
+    <h1>Filtros de imagen</h1>
+    
+    
+    <section id="filters">
+	    
+	    <h2>Filtros</h2>
+	    
+	    <div class="flex-container gap2">
+		    <div class="flex1">
+			    <p>Para simplificar la tarea de añadir filtros de imagen, <code>FastLight</code> cuenta con una serie de 
+			    clases con filtros simples predefinidos.</p>
+			    
+			    <p>Son las clases:</p>
+			    
+			    <ul>
+			    	<li><code>blur</code>: la imagen aparecerá borrosa.</li>
+			    	<li><code>bright</code>: incrementa el brillo.</li>
+			    	<li><code>dark</code>: disminuye el brillo.</li>
+			    	<li><code>high-contrast</code>: aumenta el contraste.</li>
+			    	<li><code>low-contrast</code>: disminuye el contraste.</li>
+			    	<li><code>shadow</code>: aplica una sombra arrojada.</li>
+			    	<li><code>grayscale</code>: escala de grises.</li>
+			    	<li><code>invert</code>: invierte los colores.</li>
+			    	<li><code>high-saturation</code>: aumenta la saturación.</li>
+			    	<li><code>low-saturation</code>: disminuye la saturación.</li>
+			    	<li><code>sepia</code>: convierte la imagen a sepia.</li>
+			    	<li><code>hue90</code>: altera los colores, girando la rueda de color 90 grados.</li>
+			    	<li><code>hue180</code>: altera los colores, girando la rueda de color 180 grados.</li>
+			    	<li><code>hue270</code>: altera los colores, girando la rueda de color 270 grados.</li>
+			    </ul>
+		    </div> 
+		    
+		    <div class="flex1 centered">
+		    	<h3>Ejemplo interactivo</h3>
+		    	
+		    
+<div id="ejemplo01" class="my3">
+	<figure id="demoFigure" class="large card centered-block">
+		<img class="" src="/images/template/logo.png" alt="Logo">
+		<figcaption>Sin filtro</figcaption>
+	</figure>
+</div>
+
+				<p>Selecciona el filtro a aplicar:</p>
+		    	
+		    	<select id="selectFilter">
+		    		<option selected value="">Sin filtro</option>
+		    		<option value="blur">blur</option>
+		    		<option value="bright">bright</option>
+		    		<option value="high-contrast">high-contrast</option>
+		    		<option value="low-contrast">low-contrast</option>
+		    		<option value="shadow">shadow</option>
+		    		<option value="grayscale">grayscale</option>
+		    		<option value="invert">invert</option>
+		    		<option value="high-saturation">high-saturation</option>
+		    		<option value="low-saturation">low-saturation</option>
+		    		<option value="sepia">sepia</option>
+		    		<option value="hue90">hue90</option>
+		    		<option value="hue180">hue180</option>
+		    		<option value="hue270">hue270</option>
+		    	</select>
+		    
+		    	<script>
+		    		selectFilter.onchange = function(){
+		    			demoFigure.firstElementChild.className  = selectFilter.value;
+		    			demoFigure.lastElementChild.innerText = selectFilter.value;
+		    			showCode(codeContainer);
+		    		};
+		    	</script>
+		    </div>
+	    </div>
+	    
+	    <h3>Código del ejemplo</h3>
+		<div id="codeContainer" class="code-block code-display" data-example="ejemplo01">
+			Cargando el código del ejemplo...
+		</div>
+  				
+    </section>
+</main>

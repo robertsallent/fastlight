@@ -1,0 +1,229 @@
+<main>
+    <h1>Modales</h1>
+    
+    <section id="modal">
+	    <h2>Modal</h2>
+	    
+	    <p>Para realizar <b>modales</b>, tan solo hay que añadir 
+	    la clase <code>modal</code> a un contenedor.
+	    La estructura del modal es:</p>
+		<ul>
+			<li>Contenedor externo con clase <code>modal</code> (el de fondo semitransparente).</li>
+			<li>Contenedor o elemento interno (contenido del modal).</li>
+		</ul>
+		
+		<h3>Ejemplo interactivo</h3>
+		
+		<p>En este ejemplo hay un modal que está oculto (tiene clase <code>hidden</code>).
+		 Al pulsar el botón se mostrará (se le quita la clase <code>hidden</code>) 
+		 y al hacerle clic encima se cerrará de nuevo (se le vuelve a poner la clase <code>hidden</code>).</p>
+		
+		
+		
+<div id="ejemplo01">   
+	<div class="centrado">
+		<button class="button" id="boton01">Abrir modal</button>
+	</div>  
+	
+	<div class="modal hidden zoom-out" id="modal01">
+		<figure class="card">
+			<img src="/images/template/logo.png" alt="Robert Sallent">
+			<figcaption>Logo</figcaption>
+			<p>Este modal está oculto, aparece al hacer clic en el botón.</p>
+		</figure>		
+	</div>
+	
+	<script>
+		boton01.addEventListener('click', function(){
+			modal01.classList.remove('hidden');
+		});
+			
+		modal01.addEventListener('click', function(){
+			this.classList.add('hidden');
+		});
+	</script>
+ </div>
+	    
+	    <h3>Código del ejemplo</h3>
+	    <div class="code-block code-display" data-example="ejemplo01">
+			Cargando el código del ejemplo...
+	    </div>
+    </section>
+		
+		
+		
+		
+	    
+    <section id="modal-form">
+	    <h2>Formulario en modal</h2>
+	    
+	    <p>De la misma forma que tenemos una figura en un modal, podemos tener un formulario.</p>
+		
+		<h3>Ejemplo interactivo</h3>
+		
+		<p>Este ejemplo sigue el mismo patrón de antes. Pulsa el botón para ver el modal.</p>
+		
+		
+		
+<div id="ejemplo02">   
+	<div class="centrado">
+		<button class="button" id="boton02">Abrir modal con formulario</button>
+	</div>
+		  
+	<div class="modal hidden p2" id="modal02">
+		<form class="w50" method="POST" autocomplete="off" id="login">
+			<div class="right maxi">
+				<a id="closeForm" href="#modal-form">[X]</a>
+			</div>
+		   	
+			<h2>Login</h2>
+			<p>Este es un formulario de login simulado para el ejemplo de modales.</p>
+			
+			<label for="email">Email:</label>
+			<input type="email" name="user" id="email" required>
+			<br>
+			<label for="password">Password:</label>
+			<input type="password" name="password" id="password" required>
+			
+			<div class="centered mt3">
+				<input type="submit" class="button" name="login" value="LogIn">
+			</div>		   		    	
+		</form>	
+		<script>
+			boton02.addEventListener('click', function(){
+				modal02.classList.remove('hidden');
+			});
+			
+			closeForm.addEventListener('click', function(){
+				modal02.classList.add('hidden');
+			});
+		</script>
+	</div>
+</div>    
+	    <h3>Código del ejemplo</h3>
+	    <div class="code-block code-display" data-example="ejemplo02">
+			Cargando el código del ejemplo...
+	    </div>
+    </section>
+	
+	
+		    
+	    
+		<section id="auto-modal">	    
+	    	<h2>Auto modales</h2>
+	     
+	    <p>FastLight <b>automatiza la creación de modales</b>, de momento solamente funciona
+	    con imágenes, pero en el futuro se implementarán más opciones.</p>
+	       
+	    <p>Para usarlo, tan  solo tenemos que incluir el fichero con 
+	    <code>&lt;script src="/js/Modal.js"&gt;</code> y añadir la clase 
+	    <code>with-modal</code> a las imágenes que queramos que se amplien con
+	    un modal.</p>
+	    
+	    <p>Los elementos de clase <code>with-modal</code> muestran el cursor tipo "zoom-in"
+	     al pasar el ratón por encima, con lo que el usuario intuirá que se puede hacer clic
+	     para ampliar.</p>
+	    
+	    <p>Se puede añadir una leyenda a la imagen del modal indicando la propiedad
+	    <code>data-caption</code> en la imagen. La leyenda se colocará en la parte
+	    inferior de la imagen ampliada, si añadimos la propiedad 
+	    <code>data-caption-up</code> se solocará en la parte superior.</p>
+	     
+	    <p>Podemos añadir también un par de líneas de texto adicional, 
+	    usando la propiedad <code>data-description</code> de HTML en la imagen, que 
+	    creará un párrafo dentro del modal.</p>
+
+
+		<h3>Ejemplo</h3>
+<div id="ejemplo03">  	    
+	<script src="/js/Modal.js"></script>
+	
+	<figure class="small card centered-block">
+		<img class="square fit with-modal" 
+		src="/images/template/logo.png" alt="Logo de FastLight"
+		data-caption="Texto en data-caption."
+		data-description="Texto en data-description.">
+		<figcaption>Imagen con auto-modal</figcaption>
+	</figure> 
+</div>  
+
+		<h3>Código del ejemplo</h3>
+	    <div class="code-block code-display" data-example="ejemplo03">
+			Cargando el código del ejemplo...
+	    </div> 
+    
+    </section> 
+    
+    
+    
+    
+    <section id="galeria-modales">
+	    <h2>Ejemplo de galería con auto-modales</h2>
+	    
+	    <p>En este ejemplo se muestra cómo hacer una galería con modales automáticos. Se
+	    han usado las siguientes clases:</p>
+	    <ul>
+	    	<li><code>gallery</code>: le da el aspecto y aplica el <b>flex</b>.</li>
+	    	<li><code>w75</code>: para que ocupe el 75% del ancho disponible.</li>
+	    	<li><code>centered-block</code>: centrado en el documento.</li>
+	    	<li><code>my2</code>: aumentar el espacio vertical con otros elementos.</li>
+	    </ul>
+	    
+	    <p>Las figuras dentro de la galería tienen las clases:</p>
+	    <ul>
+	    	<li><code>small</code>: tamaño pequeño.</li>
+	    	<li><code>card</code>: forma de tarjeta</li>
+	    </ul>
+	    
+	    <p>Las imágenes tienen la clase <code>with-modal</code>.<p>
+	    
+	    
+	    <h3>Ejemplo</h3>
+<div id="ejemplo04">
+	<!-- Cargar el fichero con el script (ver ejemplo anterior) -->
+
+	<div class="gallery w75 centered-block my2">
+		<figure class="small card">
+			<img class="with-modal square fit" src="/images/template/logo.png" alt="Logo"
+			data-caption="Robert Sallent">
+			<figcaption>Ejemplo de figura.</figcaption>
+		</figure>
+			
+		<figure class="small card">
+			<img class="with-modal square fit" src="/images/template/github.png" alt="GitHub"
+			data-caption="GitHub"
+			data-description="Robert Sallent en GitHub">
+			<figcaption>Ejemplo de figura.</figcaption>
+		</figure>
+		
+		<figure class="small card">
+			<img class="with-modal square fit" src="/images/template/linkedin.png" alt="LinkedIn"
+			data-caption="LinkedIn"
+			data-description="Robert Sallent en LinkedIn">
+			<figcaption>Ejemplo de figura.</figcaption>
+		</figure>
+	</div>
+</div>
+
+	<h3>Código del ejemplo</h3>
+    <div class="code-block code-display" data-example="ejemplo04">
+		Cargando el código del ejemplo...
+    </div> 
+
+	</section>
+	
+	
+	
+	
+	<section id="masEjemplos" class="warning">
+		<h2>Más ejemplos</h2>
+		<p>Podéis consultar más ejemplos útiles relacionados:</p>
+	
+		<ul>
+			<li><a href="/Example/imagen">Imágenes</a>.</li>
+			<li><a href="/Example/imagen_galeria">Galeria de imágenes</a>.</li>
+		</ul>
+    </section>
+	
+	
+</main>

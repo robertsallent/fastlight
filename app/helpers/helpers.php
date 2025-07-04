@@ -112,8 +112,8 @@ function paragraph(
     
     // cambia los saltos de línea por etiquetas HTML
     $text =  str_replace("\n", "</p><p>", $edges ? "<p>$text</p>" : $text);
-    $text =  str_replace('&#13;', "</p><p>", $edges ? "<p>$text</p>" : $text);
-    
+    // $text =  str_replace('&#13;', "</p><p>", $edges ? "<p>$text</p>" : $text);
+        
     if($collapse){
         // elimina espacios en blanco consecutivos
         $text = preg_replace('/\s+/', ' ', $text);

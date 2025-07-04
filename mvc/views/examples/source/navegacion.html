@@ -1,0 +1,111 @@
+<main>
+    
+    <h1>Navegación</h1>
+    
+    <p>En este ejemplo se muestran los estilos para el <b>menú principal</b>,
+    el <b>migas</b> y el <b>mapa web</b>, que se encuentran en el fichero <a href="/css/base.css">base.css</a>.
+    Existen también algunas reglas en el fichero <a href="/css/base_phone.css">base_phone.css</a> para hacer
+    que sean un poco más adaptables (prueba a visualizarlo también en modo teléfono).</p>
+    
+    
+    <section id="ejemplo-menu">
+	    <h2>Menú</h2>
+	    
+	    <p>Para hacer el menú principal, usamos la clase <code>menu</code> en un elemento de tipo <code>menu</code>.</p>
+
+<h3>Ejemplo</h3>
+<div id="ejemplo01">
+	<menu class="menu">
+		<li><a href="#">Enlace 1</a></li>
+		<li><a href="#">Enlace 2</a></li>
+		<li><a href="#">Enlace 3</a></li>
+		<li><a href="#">Enlace 4</a></li>
+		<li><a href="#">Enlace 5</a></li>
+	</menu>
+</div>	    
+	    
+	    <h3>Código del ejemplo</h3>
+	    <div class="code-block code-display" data-example="ejemplo01">
+			Cargando el código del ejemplo...
+	    </div>
+    </section>
+    
+    
+    <section id="ejemplo-migas">
+	    <h2>Migas</h2>
+	    
+	    <p>Para hacer el "migas", usamos un elemento <code>nav</code> de clase <code>breadcrumbs</code>.
+	       La lista con los enlaces se encuentra dentro del elemento <code>nav</code>.</p>
+	        
+	    <p>La creación del "migas" <b>se puede automatizar</b>, usando el método <code>breadCrumbs()</code> del objeto 
+	    <code>$template</code> que tendremos disponible en todas las vistas. Este método recibe
+	    un array asociativo con pares de <i>textoEnlace => url</i>. Para más información
+	    consultad la documentación sobre <i>templates</i>.</p>
+	    
+<h3>Ejemplo</h3>	    
+<div id="ejemplo02">	    
+	<nav aria-label='Breadcrumb' class='breadcrumbs'>
+		<ul>
+			<li><a href='/'>Inicio</a></li>
+			<li><a href='#'>Categoria</a></li>
+			<li><a href='#'>Sección</a></li>
+			<li>Página</li>
+		</ul>
+	</nav>
+</div>
+	
+		<h3>Código del ejemplo</h3>
+	    <div class="code-block code-display" data-example="ejemplo02">
+			Cargando el código del ejemplo...
+	    </div>
+	    
+	    <p>Si no queremos mostrar el "migas" en pantallas pequeñas, podemos añadirle la clase <code>pc</code>. 
+	    Los elementos de clase <code>pc</code> no se muestran en pantallas de teléfono.</p>
+	</section>    
+    
+    <section id="ejemplo-mapa-web">
+	    <h2>Mapa web</h2>
+	    
+	    <p>El mapa web simplemente es un elemento <code>nav</code> con clase <code>web-map</code>.
+	       En su interior podemos colocar listas, con o sin sublistas, en columnas.</p>
+	       
+	    <p>Podemos <b>automatizar la creación del mapa web</b> usando el método <code>map()</code>
+	    del objeto <code>$template</code>, disponible en todas las vistas. Para más información
+	    consultad la documentación del método.</p>   
+	    
+<h3>Ejemplo</h3> 
+<div id="ejemplo03">
+	<nav class="web-map">  
+	   	<ul class="flex-container">
+	   		<li class="flex1"><a href="#">Categoría</a>
+	   			<ul>
+	    			<li><a href="#">Sección</a></li>
+	    			<li><a href="#">Sección</a></li>
+	    			<li><a href="#">Sección</a></li>
+	   			</ul>
+	   		</li>
+	   		<li class="flex1"><a href="#">Categoría</a>
+	   			<ul>
+	    			<li><a href="#">Sección</a></li>
+	    			<li><a href="#">Sección</a></li>
+	    			<li><a href="#">Sección</a></li>
+	   			</ul>
+	   		</li>
+	   		<li class="flex1"><a href="#">Categoría</a>
+	   			<ul>
+	    			<li><a href="#">Sección</a></li>
+	    			<li><a href="#">Sección</a></li>
+	    			<li><a href="#">Sección</a></li>
+	   			</ul>
+	   		</li>
+	   	</ul>
+	</nav>
+</div>   
+   
+   		<h3>Código del ejemplo</h3>
+	    <div class="code-block code-display" data-example="ejemplo03">
+			Cargando el código del ejemplo...
+	    </div>
+	    
+   </section>
+</main> 

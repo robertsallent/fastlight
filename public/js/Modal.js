@@ -1,28 +1,27 @@
 /*
-	Fichero: BigPicture.js (deprecated)
-	
-	IMPORTANTE: esta clase ha sido reemplazada por Modal (en el fichero Modal.js)
-	De momento se mantiene por temas de compatibilidad, pero se aconseja usar
-	la nueva clase en nuevos desarrollos.
+	Fichero: Modal.js
 	
 	Se usa para agrandar las imágenes al hacerles clic.
 	
 	Funcionamiento:
-	- Incluir este fichero con <script src="/js/BigPicture.js"></script>.
-	- Poner imágenes de clase "enlarge-image".
+	- Incluir este fichero con <script src="/js/Modal.js"></script>.
+	- Poner imágenes con la clase "with-modal".
+	
+	Si queremos que el modal tenga un figcaption, hay que añadir el atributo
+	data-caption a la imagen.
+	
+	Si queremos que el modal muestre una descripción ampliada en un párrafo,
+	hay que añadir el atributo data-description a la imagen.
 	
 	Autor: Robert Sallent
 	Última modificación: 04/07/2025	
 */ 
 
-class BigPicture{
-	
-	constructor(imagen){
-		this.imagen = imagen;
-	}
-	
+class Modal{
+		
 	// método que crea la nueva figura grande en un modal
-	open(){
+	// prototipo: void showFigure(HTMLImageElement imagen)
+	showFigure(imagen){
 		
 		// preparación del contenedor externo
 		let container = document.createElement('div');
@@ -37,29 +36,33 @@ class BigPicture{
 		
 		// preparación de la imagen dentro de la figura
 		let image   = document.createElement('img');
-		image.src = this.imagen.src;
-		image.alt = this.imagen.alt;
-		
-		// usa el texto alternativo de la imagen en la figcaption
-		let caption = document.createElement('figcaption');
-		caption.className = 'm2';
-		caption.innerText = this.imagen.alt;
-		
-		// coloca las cosas en la figura
+		image.src = imagen.src;
+		image.alt = imagen.alt;
 		figure.appendChild(image);
-		figure.appendChild(caption);	
 		
-		// si existe la propiedad data-description...
-		if(this.imagen.dataset.description != undefined){
+		
+		// colocar el texto alternativo en el figcaption
+		if(imagen.dataset.caption != undefined){
+			let caption = document.createElement('figcaption');
+			caption.className = 'm2';
+			caption.innerText = imagen.dataset.caption;		
+			figure.appendChild(caption);
 			
-			// crea un párrafo con la descripción
+		}else{
+			image.classList.add('no-caption');
+		}
+		
+		
+		// colocar la descripción en un párrafo
+		if(imagen.dataset.description != undefined){
 			let p   = document.createElement('p');
-			p.innerText = this.imagen.dataset.description;
+			p.innerText = imagen.dataset.description;
 			figure.appendChild(p);
 			
-		}else
+		}else{
 			image.classList.add('no-description');
-			
+		}
+		
 		// coloca la figura y el modal en el documento	
 		container.appendChild(figure);
 		document.body.appendChild(container);
@@ -70,13 +73,12 @@ class BigPicture{
 window.addEventListener('load', function(){
 	
 	// recupera todas las imagenes enlarge-image
-	let imagenes = document.querySelectorAll('.enlarge-image, .auto-modal');
+	let imagenes = document.querySelectorAll('img.with-modal');
 	
 	// colocar el listener a cada una de las imagenes
 	for(let imagen of imagenes){
 		imagen.addEventListener('click', function(){
-			let big = new BigPicture(imagen);
-			big.open();
+			new Modal().showFigure(imagen);
 		});
 	}
 });

@@ -150,9 +150,8 @@ class Base implements TemplateInterface{
                     </a>
                 </figure>
                 <hgroup>
-            	   <h1>".($title ?? 'Página sin título' )."<span class='small italic'> en ".APP_NAME."</span></h1>
-                   ".($subtitle ? '<p>'.$subtitle.'</p>' : '')."
-                </hgroup>  
+            	    <h1>".($title ?? 'Página sin título' )."<span class='small italic'> en ".APP_NAME."</span></h1>".($subtitle ? "<p>".$subtitle."</p>" : '')."
+                </hgroup>
             </header>
         ";
     }
@@ -171,23 +170,24 @@ class Base implements TemplateInterface{
     public function menu(){ 
         
         // parte izquierda (operaciones para todos los usuarios)
-        $html = "<menu class='menu'>";
-        $html .=   "<li><a href='/'>Inicio</a></li>";
+        $html  = "<nav>\n";
+        $html .= "\t<menu class='menu'>\n";
+        $html .= "\t\t<li><a href='/'>Inicio</a></li>\n";
         
         // Enlace a los ejemplos de maquetación.
         // Lo eliminaremos en producción junto con la carpeta mvc/views/examples y el ExampleController
-        $html .=   "<li><a href='/Example'>Ejemplos de maquetación</a></li>";
+        $html .= "\t\t<li><a href='/Example'>Ejemplos de maquetación</a></li>\n";
            
         // Panel del administrador
         if(Login::oneRole(ADMIN_PANEL_ROLES))
-            $html .=   "<li><a href='/Panel/admin'>Panel del administrador</a></li>";
+            $html .= "\t\t<li><a href='/Panel/admin'>Panel del administrador</a></li>\n";
                 
         // Enlace al repositorio de FastLight en GitHub  
         // Lo podéis eliminar, para que no aparezca en vuestras aplicaciones
-        $html .=   "<li><a href='https://github.com/robertsallent/fastlight'>GitHub</a></li>";
+        $html .=   "\t\t<li><a href='https://github.com/robertsallent/fastlight'>GitHub</a></li>\n";
             
-        $html .= "</menu>";
-        $html .= "</nav>";
+        $html .= "\t</menu>\n";
+        $html .= "</nav>\n";
         
         return $html;
     } 
@@ -208,8 +208,8 @@ class Base implements TemplateInterface{
             "<div class='modal'>
             	<form method='POST' class='message' id='accept-cookies' action='/Cookie/accept'>
             		<h2>Aceptar cookies</h2>
-            		<p>".paragraph(ACCEPT_COOKIES_MESSAGE)."</p>
-            		<div class='centrado'>
+            		".paragraph(ACCEPT_COOKIES_MESSAGE)."
+            		<div class='centered'>
                         <input type='submit' class='button' name='accept' value='Aceptar'>
                     </div>
         		</form>
@@ -238,18 +238,18 @@ class Base implements TemplateInterface{
         $migas = ["Inicio"=>"/"] + $migas; // coloca el enlace a "inicio"
         
         // prepara el migas a partir del array 
-        $html = "<nav aria-label='Breadcrumb' class='breadcrumbs'>";
-        $html .= "<span class='mini'>Te encuentras en: </span>";
-        $html .= "<ul>";
+        $html = "<nav aria-label='Breadcrumb' class='breadcrumbs'>\n";
+        $html .= "\t<span class='mini'>Te encuentras en: </span>\n";
+        $html .= "\t<ul>\n";
         
         foreach($migas as $miga => $ruta){
-            $html .= "<li>";
+            $html .= "\t\t<li>";
             $html .= $ruta ? "<a href='$ruta'>$miga</a>" : $miga;
-            $html .= "</li>"; 
+            $html .= "</li>\n"; 
         }
         
-        $html .= "</ul>";
-        $html .= "</nav>";
+        $html .= "\t</ul>\n";
+        $html .= "</nav>\n";
         
         return $html;
     } 
@@ -354,7 +354,8 @@ class Base implements TemplateInterface{
         ? string $action      = NULL, 
     ){
         
-        $html = "<form method='POST' id='filtro' class='derecha' action='".($action ?? URL::get())."'>";
+        $html = "<search>";
+        $html .= "<form method='POST' id='filtro' class='derecha' action='".($action ?? URL::get())."'>";
        
         $html .= "<label>Buscar</label>";
         $html .= "<input type='text' name='texto' placeholder='texto'> ";
@@ -385,7 +386,8 @@ class Base implements TemplateInterface{
     				<input type='radio' name='sentidoOrden' value='DESC' checked>
     				<label>descendente</label>
     				<input class='button' type='submit' name='filtrar' value='Filtrar'>
-    			</form>";
+    			</form>
+            </search>";
     }
     
     

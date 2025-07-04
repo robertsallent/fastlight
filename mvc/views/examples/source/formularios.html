@@ -31,9 +31,38 @@
     	</div>
     	<div class="right">
     		<a href="#">Olvidé mi clave</a>
+    	</div>   	
+    </form>
+    
+    <h2>La clase form</h2>
+    
+    <p>Esto parece un formulario, pero en realidad es un <code>div</code> de 
+    clase <code>form</code>.</p> 
+    
+     <div class="w50 left centered-block form">
+    	
+    	<h2 class="centered">Registro de usuario</h2>
+    
+    	<div class="m1">
+    		<label for="email">Email:</label>
+    		<input type="email" class="long" name="user" id="email" placeholder="tu@email" required>
+    		<br>
+    		<label for="password">Password:</label>
+    		<input type="password" class="long" name="password" id="password" placeholder="******" required>
+    		<br>
+    		<label for="name">Nombre:</label>
+    		<input type="text" class="long" name="nombre" id="name" placeholder="nombre" required>
+    		<br>
+    		<label for="edad">Edad:</label>
+    		<input type="number" class="short" name="edad" id="edad" required value="25" min="0">
     	</div>
     	
-    </form>
+    	<div class="centered m2">
+    		<button type="button" class="button" onclick="alert('Formulario simulado')">Registro</button>
+    	</div>
+    </div>
+    
+    
     
     <h3>Formulario para filtrar datos</h3>
     

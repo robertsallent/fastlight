@@ -96,28 +96,23 @@ form .long, form .short, form .medium{
 }
 
 .modal{
-	margin: 0;
-	padding: 4% 1%;
+	padding: 5px;
 }
 
-.modal figure{
+.modal figure.card{
 	margin: auto;
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-  	justify-content: space-evenly;
+	width: 96%;
+	padding: 5px;
 }
 
-.modal figure img, .modal figure img.no-description{
-	width: 90%;
-	height: auto;
+.modal figure.card img, .modal figure.card img.no-description{
+	aspect-ratio: 3/4;
 }
 
 
 /* Imágenes y galerías ----- */
 figure.card{
-	margin: 0;
-	padding: 10px;
+	margin: 10px 0px;
 }
 
 

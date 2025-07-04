@@ -148,10 +148,10 @@
     		
     		<li class="flex1"><a href="/example">Maquetación</a>
     			<ul>
-	    			<li><a href="/example/buttons">Buttons</a></li>
-	    			<li><a href="/example/forms">Forms</a></li>
-	    			<li><a href="/example/modals">Modals</a></li>
-	    			<li><a href="/example">...</a></li>
+	    			<li><a href="/example/botones">Buttons</a></li>
+	    			<li><a href="/example/formularios">Forms</a></li>
+	    			<li><a href="/example/modal">Modals</a></li>
+	    			<li><a href="/example/navegacion">Navigation</a></li>
     			</ul>
     		</li>
     		

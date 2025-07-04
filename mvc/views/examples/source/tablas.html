@@ -1,0 +1,415 @@
+<main>
+    <h1>Tablas</h1>
+    
+    <p>Pruebas del estilo de las tablas, que se encuentra en el fichero
+    <a href="/css/base.css">base.css</a>.</p>
+    
+    <p>Las tablas grandes no son buenas para diseños adaptables, para ellos deberíamos
+    optar por otras estrategias.</p>
+
+    <section>    
+        <h2>Una tabla normal</h2>
+        
+        <p>Esta tabla tiene clase <code>table</code>. Las celdas de la última columna 
+        tienen las clases <code>centered bold</code>.</p>
+ 
+<h3>Ejemplo</h3>
+<div id="ejemplo01">        
+	<table class="table">
+	    <thead>
+	        <tr>
+	            <th>Alumno</th>
+	            <th>Materia</th>
+	            <th>Evaluación</th>
+	            <th>Nota</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr>
+	            <td>Perico Palotes</td>
+	            <td>matemáticas</td>
+	            <td>primera</td>
+	            <td class="centered bold">8</td>
+	        </tr>
+	        <tr>
+	            <td>Bartolomeo Meomeo</td>
+	            <td>lengua</td>
+	            <td>recuperación</td>
+	            <td class="centered bold">4</td>
+	        </tr>
+	        <tr>
+	            <td>Eva Pagudo</td>
+	            <td>interpretación</td>
+	            <td>primera</td>
+	            <td class="centered bold">6</td>
+	        </tr>
+	        <tr>
+	            <td>Marta Terrano</td>
+	            <td>diseño web</td>
+	            <td>primera</td>
+	            <td class="centered bold">7</td>
+	        </tr>
+	    </tbody>
+	    <tfoot>
+	        <tr>
+	            <td colspan="4">Alumnos evaluados: 4</td>
+	        </tr>
+	    </tfoot>
+	</table>
+</div>
+
+		<h3>Código del ejemplo</h3>
+	    <div class="code-block code-display" data-example="ejemplo01">
+			Cargando el código del ejemplo...
+	    </div>
+
+    </section>
+    
+    
+    <section>
+    	<h2>Una tabla con botones</h2>
+        
+        <p>Esta es una tabla con botones en el interior de algunas de las celdas.
+           Tiene las clases <code>table</code> y <code>box-shadow</code>.
+           Los botones tienen clases: <code>button</code>, 
+        <code>button-light</code>, <code>button-success</code>, <code>button-warning</code> 
+        y <code>button-danger</code>.</p>
+        
+<h3>Ejemplo</h3>
+<div id="ejemplo02"> 
+	<table class="table box-shadow">
+	    <thead>
+	        <tr>
+	            <th>Alumno</th>
+	            <th>Materia</th>
+	            <th>Operaciones</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr>
+	            <td>Perico Palotes</td>
+	            <td>matemáticas</td>
+	            <td class="centered"><button class="button">Button</button></td>
+	        </tr>
+	        <tr>
+	            <td>Bartolomeo Meomeo</td>
+	            <td>lengua</td>
+	            <td class="centered"><button class="button-light">Light</button></td>
+	        </tr>
+	        <tr>
+	            <td>Eva Pagudo</td>
+	            <td>interpretación</td>
+	            <td class="centered"><button class="button-success">Success</button></td>
+	        </tr>
+	        <tr>
+	            <td>Pablo Moreno</td>
+	            <td>programación en C</td>
+	            <td class="centered"><button class="button-warning">Warning</button></td>
+	        </tr>
+	        <tr>
+	            <td>Marta Terrano</td>
+	            <td>diseño web</td>
+	            <td class="centered"><button class="button-danger">Danger</button></td>
+	        </tr>
+	    </tbody>
+	    <tfoot>
+	        <tr>
+	            <td colspan="4">Alumnos: 5</td>
+	        </tr>
+	    </tfoot>
+	</table>
+</div>
+
+		<h3>Código del ejemplo</h3>
+	    <div class="code-block code-display" data-example="ejemplo02">
+			Cargando el código del ejemplo...
+	    </div>
+    </section>
+    
+
+
+
+	<section>
+    	<h2>Una tabla sombreada y centrada en la página</h2>
+        
+        <p>Esta tabla tiene clases:</p>
+       	<ul>
+       		<li><code>table</code>: formato de tabla.</li>
+       		<li><code>drop-shadow</code>: coloca sobra arrojada alrededor de los elementos de la tabla.</li>
+       		<li><code>centered-block</code>: alinea en el centro horizontalmente.</li>
+       		<li><code>w50</code>: ocupa el 50% del ancho disponible.</li>
+    	</ul>
+    	
+<h3>Ejemplo</h3>
+<div id="ejemplo03">       
+	<table class="table centered-block drop-shadow w50">
+	    <thead>
+	        <tr>
+	            <th>Alumno</th>
+	            <th>Materia</th>
+	            <th>Evaluación</th>
+	            <th>Nota</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr>
+	            <td>Perico Palotes</td>
+	            <td>matemáticas</td>
+	            <td>primera</td>
+	            <td class="bold">8</td>
+	        </tr>
+	        <tr>
+	            <td>Bartolomeo Meomeo</td>
+	            <td>lengua</td>
+	            <td>recuperación</td>
+	            <td class="bold">4</td>
+	        </tr>
+	        <tr>
+	            <td>Eva Pagudo</td>
+	            <td>interpretación</td>
+	            <td>primera</td>
+	            <td class="bold">6</td>
+	        </tr>
+	        <tr>
+	            <td>Pablo Moreno</td>
+	            <td>programación en C</td>
+	            <td>primera</td>
+	            <td class="bold">10</td>
+	        </tr>
+	        <tr>
+	            <td>Marta Terrano</td>
+	            <td>diseño web</td>
+	            <td>primera</td>
+	            <td class="bold">7</td>
+	        </tr>
+	    </tbody>
+	    <tfoot>
+	        <tr>
+	            <td colspan="4">Alumnos evaluados: 5</td>
+	        </tr>
+	    </tfoot>
+	</table>
+</div>
+
+		<h3>Código del ejemplo</h3>
+	    <div class="code-block code-display" data-example="ejemplo03">
+			Cargando el código del ejemplo...
+	    </div>
+
+    </section>
+    
+    <section>
+    <h2>Una tabla con imágenes en las celdas</h2>
+    
+    <p>Esta tabla tiene las clases tiene clases <code>table w50 box-shadow centered-block</code> y 
+    dispone de celdas con imágenes en la primera columna. A las imágenes
+    les podemos añadir la clase <code>table-image</code>.</p>
+    
+    <p>Se han añadido también <b>auto-modales</b> en las imágenes, para más información
+    consultad el ejemplo de <a href="/Example/modal#auto-modal">auto-modales</a>.</p>
+   
+<h3>Ejemplo</h3>
+<div id="ejemplo04">   
+	<script src="/js/Modal.js"></script> 
+	
+	<table class="table w50 box-shadow centered-block">
+		<thead>
+			<tr>
+				<th>Foto</th>
+				<th>Alumno</th>
+				<th>Materia</th>
+				<th>Nota</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="centered">
+					<img class="table-image with-modal" src="/images/template/logo.png" 
+					alt="FastLight" data-caption="Logo">
+				</td>
+				<td>Perico Palotes</td>
+				<td>primera</td>
+				<td class="bold">8</td>
+			</tr>
+			<tr>
+				<td class="centered">
+					<img class="table-image with-modal" src="/images/template/github.png" 
+					alt="GitHub" data-caption="GitHub">
+				</td>
+				<td>Eva Pagudo</td>
+				<td>interpretación</td>
+				<td class="bold">6</td>
+			</tr>
+			<tr>
+				<td class="centered">
+					<img class="table-image with-modal" src="/images/template/linkedin.png" 
+					alt="LinkedIn" data-caption="LinkedIn">
+				</td>
+				<td>Pablo Moreno</td>
+				<td>programación en C</td>
+				<td class="bold">10</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+		<h3>Código del ejemplo</h3>
+	    <div class="code-block code-display" data-example="ejemplo04">
+			Cargando el código del ejemplo...
+	    </div>
+    </section>
+
+	<section>
+    	<h2>Más padding en las celdas</h2>
+        
+        <p>Esta tabla tiene clases <code>table</code>, <code>w50</code> y <code>big-cell</code> 
+        (aumenta el padding de las celdas). 
+           Las celdas de la última columna tienen las clases:</p>
+           <ul>
+           		<li><code>maxi</code>: hace la letra más grande.</li>
+           		<li><code>centered</code>: alineación centrada.</li>
+           		<li><code>bold</code>: negrita.</li>
+           </ul>
+           <p>Y una de éstas: <code>success</code>, <code>warning</code> o <code>danger</code></p>
+
+<h3>Ejemplo</h3>
+<div id="ejemplo05">  
+	<table class="table w50 big-cell centered-block">
+	    <thead>
+	        <tr>
+	            <th>Alumno</th>
+	            <th>Materia</th>
+	            <th>Evaluación</th>
+	            <th>Nota</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr>
+	            <td>Perico Palotes</td>
+	            <td>matemáticas</td>
+	            <td>primera</td>
+	            <td class="maxi centered bold success">8</td>
+	        </tr>
+	        <tr>
+	            <td>Bartolomeo Meomeo</td>
+	            <td>lengua</td>
+	            <td>recuperación</td>
+	            <td class="maxi centered bold danger">4</td>
+	        </tr>
+	        <tr>
+	            <td>Eva Pagudo</td>
+	            <td>interpretación</td>
+	            <td>primera</td>
+	            <td class="maxi centered bold warning">6</td>
+	        </tr>
+	        <tr>
+	            <td>Pablo Moreno</td>
+	            <td>programación en C</td>
+	            <td>primera</td>
+	            <td class="maxi centered bold success">10</td>
+	        </tr>
+	        <tr>
+	            <td>Marta Terrano</td>
+	            <td>diseño web</td>
+	            <td>primera</td>
+	            <td class="maxi centered bold success">7</td>
+	        </tr>
+	    </tbody>
+	    <tfoot>
+	        <tr>
+	            <td colspan="4">Alumnos evaluados: 5</td>
+	        </tr>
+	    </tfoot>
+	</table>
+</div>
+
+		<h3>Código del ejemplo</h3>
+	    <div class="code-block code-display" data-example="ejemplo05">
+			Cargando el código del ejemplo...
+	    </div>
+    </section>    
+
+	<section>
+    	<h2>Tomando el 100% del ancho</h2>
+        
+        <p>Esta tabla tiene clases <code>table</code>, <code>box-shadow</code> y <code>w100</code>.</p>
+
+<h3>Ejemplo</h3>
+<div id="ejemplo06">
+	<table class="table w100 box-shadow">
+	    <thead>
+	        <tr>
+	            <th>Alumno</th>
+	            <th>Materia</th>
+	            <th>Evaluación</th>
+	            <th>Nota</th>
+	            <th>Operaciones</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr>
+	            <td>Perico Palotes</td>
+	            <td>matemáticas</td>
+	            <td>primera</td>
+	            <td class="bold centered maxi">8</td>
+	            <td class="centered">
+	            	<button class="button">Baja</button>
+	            	<button class="button-light">Baja</button>
+	        	</td>
+	        </tr>
+	        <tr>
+	            <td>Bartolomeo Meomeo</td>
+	            <td>lengua</td>
+	            <td>recuperación</td>
+	            <td class="bold centered maxi">4</td>
+	            <td class="centered">
+	            	<button class="button">Baja</button>
+	            	<button class="button-light">Baja</button>
+	        	</td>
+	        </tr>
+	        <tr>
+	            <td>Eva Pagudo</td>
+	            <td>interpretación</td>
+	            <td>primera</td>
+	            <td class="bold centered maxi">6</td>
+	            <td class="centered">
+	            	<button class="button">Baja</button>
+	            	<button class="button-light">Baja</button>
+	        	</td>
+	        </tr>
+	        <tr>
+	            <td>Pablo Moreno</td>
+	            <td>programación en C</td>
+	            <td>primera</td>
+	            <td class="bold centered maxi">10</td>
+	            <td class="centered">
+	            	<button class="button">Baja</button>
+	            	<button class="button-light">Baja</button>
+	        	</td>
+	        </tr>
+	        <tr>
+	            <td>Marta Terrano</td>
+	            <td>diseño web</td>
+	            <td>primera</td>
+	            <td class="bold centered maxi">7</td>
+	            <td class="centered">
+	            	<button class="button">Baja</button>
+	            	<button class="button-light">Baja</button>
+	        	</td>
+	        </tr>
+	    </tbody>
+	    <tfoot>
+	        <tr>
+	            <td colspan="5">Alumnos evaluados: 5</td>
+	        </tr>
+	    </tfoot>
+	</table>
+</div>        
+        
+        <h3>Código del ejemplo</h3>
+	    <div class="code-block code-display" data-example="ejemplo06">
+			Cargando el código del ejemplo...
+	    </div>
+    </section>
+</main>
+

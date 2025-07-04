@@ -4,7 +4,7 @@
 	FICHERO BASE PARA LOS ESTILOS DE FASTLIGHT
 	
 	Autor: Robert Sallent
-	Última revisión: 25/02/2025
+	Última revisión: 04/07/2025
 
 	Estructura del documento CSS:
 	- Colores
@@ -79,7 +79,7 @@
   
   --warning-bg-color: rgb(250, 250, 180);
   --warning-font-color: rgb(150, 120, 0);
-  --warning-btn-color: rgb(220, 210, 10);
+  --warning-btn-color: rgb(250, 200, 50);
   --warning-btn-hover-color: rgb(230, 230, 80);
   
   
@@ -88,7 +88,9 @@
   --danger-btn-color: rgb(180, 60, 60);
   --danger-btn-hover-color: rgb(250, 120, 120); 
   
-  --code-color: rgb(50, 50, 200);
+  --code-color: rgb(40, 70, 180);
+  
+  --selected-bg-color: rgb(230, 230, 240);
   
   --min-width: 280px; 
 }
@@ -135,10 +137,29 @@
 
 .perfect-centered		{	margin: auto auto				}
 
-.valign-up   			{   align-self: flex-start 			}
-.valign-bottom   		{   align-self: flex-end 			}
-.valign-center   		{   align-self: center 				}
-.valign-stretch   		{   align-self: stretch 			}
+.perfect-centered-content		{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.valign-up   				{   align-self: flex-start 				}
+.valign-bottom   		{   align-self: flex-end 					}
+.valign-center   		{   align-self: center 						}
+.valign-stretch   	{   align-self: stretch 					}
+
+.flex-reverse{
+	flex-direction: row-reverse;
+}
+
+.flex-column{
+	flex-direction: column;
+}
+
+.flex-column-reverse{
+	flex-direction: column-reverse;
+}
+
 
 /* Elementos flotantes ---------------------------------------------------- */
 
@@ -183,9 +204,9 @@
 .inline 				{display: inline 		}
 
 /* Cursores ---------------------------------------------------------------*/
-.pointer				{ cursor: pointer }
-
-
+.pointer				{ cursor: pointer  }
+.zoom-in				{ cursor: zoom-in  }
+.zoom-out				{ cursor: zoom-out }
 
 /* Rellenos y márgenes estándar (5 niveles) ------------------------------- */
 
@@ -257,8 +278,8 @@
 
 /* Elementos ocultos o transparentes ------------------------------------ */
 
-.oculto, .hidden						{ display: none      }
-.no-visible, .not-visible				{ visibility: hidden }
+.oculto, .hidden						{ display: none !important      }
+.no-visible, .not-visible				{ visibility: hidden !important }
 
 .transparente, .transparent 	    	{ opacity: 0    } 
 .claro, .clear 					    	{ opacity: 0.25 }
@@ -333,6 +354,17 @@ code {
 	color: var(--code-color); 
 }
 
+.code-block { 
+	font-family: "Lucida Console", "Courier New", "Monaco";
+	font-size: 0.9rem;
+	border: solid 1px var(--border-color);
+	white-space: pre-wrap;
+	word-break: break-word;
+	background-color: var(--main-bg-color);
+	border-radius: 5px;
+	padding: 10px 0px 20px;
+}
+
 span.path{ 
 	font-style:italic;
 }
@@ -372,6 +404,7 @@ span.path::before{
 	border: none;
 	border-radius: 3px;
 	cursor: pointer;
+	min-width: 80px;
 	box-shadow: 0 0px 4px var(--shadow-color);
 }
 
@@ -477,6 +510,9 @@ td .button, td .button-light, td .button-success, td .button-warning, td .button
 	max-height: 120px;
 }
 
+.table .button, .table .button-light, .table .button-success, .table .button-warning, .table .button-danger{
+	min-width: 80px;
+}
 
 
 /* Listas -------------------------------------------------------- */
@@ -508,9 +544,10 @@ dd{
 figure{
 	text-align: center;
 	padding: 2%;
+	transition: 0.1s;
 }
 
-figure img{
+figure img, figure video{
 	width: 96%;
 }
 
@@ -526,13 +563,56 @@ figure.card{
 	box-shadow: 0 4px 8px var(--shadow-color);
 }
 
-figure.xx-small, img.xx-small		{ max-width: 40px; }
-figure.x-small,  img.x-small		{ max-width: 100px; }
-figure.small,    img.small			{ max-width: 200px; }
-figure.medium,   img.medium			{ max-width: 400px; }
-figure.large,    img.large			{ max-width: 600px; }
-figure.x-large,  img.x-large		{ max-width: 800px; }
 
+img.fit video.fit{
+	object-fit: cover;
+}
+
+img.scale, video.scale{
+	object-fit: scale-down;
+}
+
+
+img.portrait, video.portrait{
+	aspect-ratio: 3/4;
+}
+
+img.slim, video.slim{
+	aspect-ratio: 2/5;
+}
+
+img.landscape, video.landscape{
+	aspect-ratio: 4/3;
+}
+
+img.wide, video.wide{
+	aspect-ratio: 5/2;
+}
+
+img.square, video.square{
+	aspect-ratio: 1/1;
+}
+
+img.legacy, video.legacy{
+	aspect-ratio: 3/2;
+}
+
+
+video.xx-small, figure.xx-small, img.xx-small		{ max-width: 50px;  min-width: 50px;  padding: 2px; }
+video.xx-small, figure.x-small,  img.x-small		{ max-width: 100px; min-width: 100px; padding: 5px; }
+video.xx-small, figure.small,    img.small			{ max-width: 200px; min-width: 180px; padding: 10px;}
+video.xx-small, figure.medium,   img.medium			{ max-width: 300px; min-width: 200px;}
+video.xx-small, figure.large,    img.large			{ max-width: 400px; min-width: 240px;}
+video.xx-small, figure.x-large,  img.x-large		{ max-width: 500px; min-width: 280px;}
+video.xx-small, figure.xx-large, img.xx-large		{ max-width: 600px; min-width: 320px;}
+
+
+figure.seleccionada, figure.selected{
+	transform: scale(0.85);	
+}
+figure.card.seleccionada, figure.card.selected{
+	background-color: var(--selected-bg-color);	
+}
 
 img.baseline	{ vertical-align: baseline }
 img.middle		{ vertical-align: middle }
@@ -564,7 +644,7 @@ img.tip{
 	justify-content: center;
 }
 
-.galeria>figure{
+.galeria>figure, .gallery>figure{
 	flex: 1;
 }
 
@@ -587,7 +667,7 @@ img.tip{
 
 /* Formularios -------------------------------------------------------- */
 
-form{
+form, .form{
 	padding: 2%;
 	margin: 5px auto;
 	border: 1px solid var(--border-color);
@@ -597,16 +677,16 @@ form{
 	min-width: var(--min-width);
 }
 
-form.no-border{
+form.no-border , .form.no-border{
 	border: none;
 	box-shadow: none;
 }
 
-form h2{
+form h2, .form h2{
 	padding: 0 0 1rem 0;
 }
 
-form fieldset{
+form fieldset, .form fieldset{
 	padding: 1%;
 	margin: 1%;
 	border-radius: 5px;
@@ -614,12 +694,12 @@ form fieldset{
 	min-width: var(--min-width);
 }
 
-form legend{
+form legend, .form legend{
 	font-size: 0.8rem;
 	font-style: italic;
 }
 
-label{
+form label, .form label{
   display: inline-block;
   width: 20%;
   min-width: 90px; 
@@ -676,20 +756,20 @@ textarea{
 }
 
 
-form .short{
+form .short, .form .short{
 	width: 30%;
 }
 
-form .medium{
+form .medium, .form .medium{
 	width: 50%;
 }
 
-form .long{
+form .long, .form .long{
 	width: 70%;
 }
 
 
-/* formularios dentro de celdas (botones para realizar operaciones vía POST) */
+/* formularios dentro de celdas de tabla (botones para realizar operaciones vía POST) */
 td form{
 	padding: 0;
 	margin: 0;
@@ -982,51 +1062,61 @@ div.http-error{
 
 
 /* =============================== MODALES =============================== */
-
-/* Contenedor del modal con el fondo semistransparente */
+/*
+	La estructura del modal será:
+	- Contenedor externo con clase modal (el de fondo semitransparente).
+	- Contenedor o elemento interno (contenido del modal).
+*/
+/* Contenedor externo del modal con el fondo semistransparente */
 .modal{
 	position: fixed;
+	display:flex;
+	justify-content: center;
+    align-items: center;
+    text-align: center;
+  
 	margin:   0;
-	padding:  2vh;
+	padding:  20px;
+	
 	top: 0px;
 	left: 0px;
+	
 	width: 100vw;
-	min-height: 100vh;
+	height: 100vh;
+	
 	background-color: var(--modal-bg-color);
+	
 	z-index: 10;
-	text-align: center;
-	display:flex;
-	cursor: pointer;
 }
 
-/* figura dentro del modal */
-.modal figure{
-	height: 96vh;
+/* figuras directamente dentro del modal */
+.modal > figure{
+	height: 90%;
 	margin: auto;
-	max-width: fit-content;
 	box-shadow: 4px 4px 8px var(--shadow-color);
 }
 
-.modal figure img{
+/* matices para imágenes o vídeos */
+.modal img, .modal video{
 	height: 80%;
+	object-fit: cover;
 }
 
-.modal figure img.no-description{
-	height: 95%;
+.modal img.no-description, .modal video.no-description{
+	height: 90%;
 }
 
-.modal figure figcaption{
+.modal figcaption{
 	height: 5%;	
 	font-size: 1.2rem;
 }
 
-.modal figure p{
-	height: 15%;	
+.modal p{
 	font-size: 1rem;
 }
 
-.enlarge-image{
-	cursor: pointer;
+.enlarge-image, .with-modal{
+	cursor: zoom-in;
 }
 
 /* ----------------- MENSAJES DE ERROR Y ÉXITO ----------------- */

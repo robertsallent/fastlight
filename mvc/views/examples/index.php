@@ -26,7 +26,7 @@
 		<main>
         	<h1>Listado de ejemplos</h1>
         	
-        	<section>
+        	<section id="info">
             	<h2>Información</h2>
             	
             	<p>A continuación se muestra el listado de <b>ejemplos de maquetación</b> disponibles en la carpeta 
@@ -45,7 +45,7 @@
         	
         	
         	
-        	<section>
+        	<section id="list">
             	<h2>Ejemplos disponibles</h2>
             	
             	<ul id="test-list" class="three-columns">
