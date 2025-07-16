@@ -14,7 +14,7 @@
 	hay que añadir el atributo data-description a la imagen.
 	
 	Autor: Robert Sallent
-	Última modificación: 04/07/2025	
+	Última modificación: 16/07/2025	
 */ 
 
 class Modal{
@@ -41,28 +41,29 @@ class Modal{
 		figure.appendChild(image);
 		
 		
-		// colocar el texto alternativo en el figcaption
-		if(imagen.dataset.caption != undefined){
-			let caption = document.createElement('figcaption');
-			caption.className = 'm2';
-			caption.innerText = imagen.dataset.caption;		
-			figure.appendChild(caption);
+		// creación del figcaption
+		if(imagen.dataset.caption != undefined || imagen.dataset.description != undefined){
+			var caption = document.createElement('figcaption');
 			
-		}else{
-			image.classList.add('no-caption');
+			// coloca el data-caption en un h2
+			if(imagen.dataset.caption != undefined){
+				let title = document.createElement('h2'); 
+				title.className = 'm2';
+				title.innerText = imagen.dataset.caption;		
+				caption.appendChild(title);
+			}
+			
+			// coloca el data-description en un p
+			if(imagen.dataset.description != undefined){
+				let p   = document.createElement('p');
+				p.innerText = imagen.dataset.description;
+				caption.appendChild(p);
+			}	
+			
+			figure.appendChild(caption);		
 		}
 		
-		
-		// colocar la descripción en un párrafo
-		if(imagen.dataset.description != undefined){
-			let p   = document.createElement('p');
-			p.innerText = imagen.dataset.description;
-			figure.appendChild(p);
 			
-		}else{
-			image.classList.add('no-description');
-		}
-		
 		// coloca la figura y el modal en el documento	
 		container.appendChild(figure);
 		document.body.appendChild(container);

@@ -1,0 +1,137 @@
+<main>
+    <h1>Legibles</h1>
+    
+    <section id="readeables">
+	    <h2>La clase readable</h2>
+	    
+	    <p>Con <i>FastLight</i> podemos crear elementos "legibles", indicando la clase
+	    <code>readable</code> en ellos. Un elemento legible es aquel que se convierte 
+	    <b>de texto a voz</b> cuando se le hace clic.</p>
+		
+		<p>Un elemento HTML, por el hecho de ser <code>readable</code>, 
+		también tendrá un icono de altavoz
+		delante por motivos de usabilidad (hay que comprobar si se ve bien en otros 
+		tipos de elemento que no sean
+		párrafos) y un título descriptivo.</p>
+		
+		<p>Esto puede ser útil en términos de accesibilidad. Esta característica 
+		aún está abierta a sugerencias y modificaciones.</p>
+		<h3>Ejemplo</h3>
+		
+<div id="ejemplo01">   
+	<script src="/js/TextReader.js"></script>
+	
+	<p class="readable">
+		Este párrafo es legible, si haces clic en él, el primer lector 
+		configurado te leerá su contenido.
+	</p> 
+	
+	<p class="readable">
+		Este otro párrafo también lo es. Si vas haciendo doble clic en múltiples elementos,
+		se  añadirán los textos a la cola de lectura.
+	</p>  
+</div>
+	    
+	    <h3>Código del ejemplo</h3>
+	    <div class="code-block code-display" data-example="ejemplo01">
+			Cargando el código del ejemplo...
+	    </div>
+    </section>
+		
+		
+    <section id="voices">
+	    <h2>Voces</h2>
+	    
+	    <p>Se puede cambiar la voz del elemento legible, usando la propiedad
+	    personalizada <code>data-voice</code>. En ella indicaremos el índice
+	    de la voz que queremos usar, de entre las que tengamos disponibles.
+	    Si indicamos el índice de una voz inexistente, se usará la voz 
+	    por defecto (índice 0).</p>
+		
+		<p>Al cambiar la voz, esta quedará modificada hasta que se realice un nuevo
+		cambio.</p>
+		
+		<h3>Ejemplo</h3>
+		
+<div id="ejemplo02">   
+	<!-- inclusión del script -->
+	
+	<p class="readable" data-voice="0">
+		Este párrafo es leido con la primera voz disponible.
+	</p> 
+	
+	<p class="readable" data-voice="1">
+		Este párrafo es leido con la segunda voz disponible.
+	</p> 
+	
+	<p class="readable" data-voice="2">
+		Este párrafo es leido con la tercera voz disponible.
+	</p> 
+	
+	<p class="readable" data-voice="999">
+		La voz 999 no existe (en principio).
+	</p>  
+</div>
+	    
+	    <h3>Código del ejemplo</h3>
+	    <div class="code-block code-display" data-example="ejemplo02">
+			Cargando el código del ejemplo...
+	    </div>
+    </section>		
+
+
+
+
+	<section id="figuras">
+	    <h2>Figuras legibles</h2>
+	    
+	    <p>Las figuras no son legibles, pero sí lo son las leyendas o los párrafos
+	    que puedan contener. Si se indica la clase <code>readable</code> a la
+	    figura, el navegador leerá todo su contenido textual.</p>
+	    
+	    <p>También podemos marcar como legible tan solo parte del contenido de la figura.</p>
+	    
+	    <p>Y otra opción a considerar, es la posibilidad de añadir texto oculto que sea legible,
+	    mediante voz, aunque esto no se recomendaría por motivos de accesibilidad.</p>
+	    
+	    <p>A continuación se muestran diversas combinaciones.</p>
+	    
+	    <h3>Ejemplo</h3>
+		
+<div id="ejemplo03">   
+	<!-- inclusión del script -->
+	
+	<div class="gallery w75 centered-block my2">
+		<figure class="readable inline-block medium card m1">
+			<img class="square fit" src="/images/template/logo.png" alt="FastLight">
+			<figcaption>
+				<p>Leyenda de la figura, primer párrafo.</p>
+				<p>Segundo párrafo.</p>
+			</figcaption>
+		</figure> 
+		
+		<figure class="inline-block medium card m1">
+			<img class="square fit" src="/images/template/github.png" alt="GitHub">
+			<figcaption>
+				<p class="readable">Este párrafo es legible.</p>
+				<p>Este no lo es.</p>
+			</figcaption>
+		</figure>
+		
+		<figure class="readable inline-block medium card m1">
+			<img class="portrait fit" src="/images/template/background_base.jpg" alt="Base">
+			<figcaption class="hidden">
+				Esta figura tiene una leyenda oculta, pero se puede leer igualmente.
+			</figcaption>
+		</figure>	
+	</div>
+</div>
+	    
+	    <h3>Código del ejemplo</h3>
+	    <div class="code-block code-display" data-example="ejemplo03">
+			Cargando el código del ejemplo...
+	    </div>
+    </section>		
+
+	
+</main>

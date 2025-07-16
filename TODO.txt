@@ -6,7 +6,7 @@ Lista de mecanismos y herramientas que se irán incorporando (o no) en próximas
 versiones del framework FastLight.
 
 Autor: Robert Sallent
-Última revisión: 08/03/25
+Última revisión: 08/07/25
 
 Los cambios marcados con un ? están en fase de evaluación, no es seguro
 que se implementen.
@@ -35,6 +35,13 @@ que se implementen.
 - TEMPLATES Y VISTAS
 	- ? Hacer uso de <dialog> para modales
 	- (v2.x) Uso de componentes en las vistas.
+		- Componente modal
+		- Componente tabla (datos en json?)
+		- Componente tarjeta (card)
+		- Componente paginación
+		- Componente filtro de búsqueda
+		- Componente login
+		- Otros componentes...
 
 - TEST Y DOCUMENTACIÓN
 	- (En proceso): Mejorar la documentación y los ejemplos en los test.
@@ -60,7 +67,6 @@ que se implementen.
 -------------------------------------------------------------------------------------------------------------
  A evaluar... tal vez no se implemente por motivos docentes y se deja para los cursos de Laravel o Symfony
 -------------------------------------------------------------------------------------------------------------
-- Middleware.
-- Hacer uso de PSR4 para el autoload (poco probable que se implemente por ahora).
+- Hacer uso de PSR4 para el autoload.
 
                 

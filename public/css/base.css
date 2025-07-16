@@ -4,7 +4,7 @@
 	FICHERO BASE PARA LOS ESTILOS DE FASTLIGHT
 	
 	Autor: Robert Sallent
-	Última revisión: 04/07/2025
+	Última revisión: 15/07/2025
 
 	Estructura del documento CSS:
 	- Colores
@@ -137,7 +137,7 @@
 
 .perfect-centered		{	margin: auto auto				}
 
-.perfect-centered-content		{
+.perfect-centered-content{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -203,10 +203,30 @@
 .block					{display: block 		}
 .inline 				{display: inline 		}
 
-/* Cursores ---------------------------------------------------------------*/
+/* Cursores e iconos --------------------------------------------------------*/
 .pointer				{ cursor: pointer  }
 .zoom-in				{ cursor: zoom-in  }
 .zoom-out				{ cursor: zoom-out }
+.readable				{ cursor: help	   }
+
+/* TODO: revisar la posición de la imagen del altarvoz para los distintos tipos de elemento */
+.readable:not(figure):before{
+	content:url('../images/icons/speaker.png');
+    display: inline-block;
+    padding-right: 5px;
+    vertical-align: middle;
+}
+
+figure.readable{
+	position: relative;
+}
+
+figure.readable:before{
+	content:url('../images/icons/speaker.png');
+    position: absolute;
+    top: 20px;
+    left: 20px;
+ }
 
 /* Rellenos y márgenes estándar (5 niveles) ------------------------------- */
 
@@ -404,7 +424,6 @@ span.path::before{
 	border: none;
 	border-radius: 3px;
 	cursor: pointer;
-	min-width: 80px;
 	box-shadow: 0 0px 4px var(--shadow-color);
 }
 
@@ -746,6 +765,10 @@ input[type="file"]{
 
 input[type="color"]{
 	padding: 2px;
+}
+
+input[type="range"]{
+	vertical-align: middle;
 }
 
 textarea{
@@ -1090,7 +1113,7 @@ div.http-error{
 }
 
 /* figuras directamente dentro del modal */
-.modal > figure{
+.modal>figure{
 	height: 90%;
 	margin: auto;
 	box-shadow: 4px 4px 8px var(--shadow-color);
@@ -1102,12 +1125,7 @@ div.http-error{
 	object-fit: cover;
 }
 
-.modal img.no-description, .modal video.no-description{
-	height: 90%;
-}
-
-.modal figcaption{
-	height: 5%;	
+.modal h2{
 	font-size: 1.2rem;
 }
 
