@@ -21,7 +21,7 @@
     		<?= $template->menu() ?>
      		
     		<?= $template->breadCrumbs([
-	              "Panel del administrador" => "/Panel/admin",
+	              "Panel de administrador" => "/Panel/admin",
 		          "Visitas" => NULL
 		      ]);
 		    ?>

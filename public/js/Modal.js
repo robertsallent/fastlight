@@ -14,7 +14,7 @@
 	hay que añadir el atributo data-description a la imagen.
 	
 	Autor: Robert Sallent
-	Última modificación: 16/07/2025	
+	Última modificación: 18/07/2025	
 */ 
 
 class Modal{
@@ -25,20 +25,27 @@ class Modal{
 		
 		// preparación del contenedor externo
 		let container = document.createElement('div');
-		container.className = 'modal zoom-out';
-		container.onclick = function(){ 
-			this.remove(); 
-		};
-		
+		container.className = 'modal';
+				
 		// preparación de la figura interna
 		let figure  = document.createElement('figure');
 		figure.className = 'card';
+		
+		// "botón" de cerrar
+		let closeModal = document.createElement('a');
+		closeModal.className = 'close-modal pointer';
+		closeModal.innerText = '[X]';
+		closeModal.onclick = function(){ 
+			container.remove(); 
+		};
+		figure.appendChild(closeModal);
 		
 		// preparación de la imagen dentro de la figura
 		let image   = document.createElement('img');
 		image.src = imagen.src;
 		image.alt = imagen.alt;
 		figure.appendChild(image);
+		
 		
 		
 		// creación del figcaption
@@ -63,7 +70,6 @@ class Modal{
 			figure.appendChild(caption);		
 		}
 		
-			
 		// coloca la figura y el modal en el documento	
 		container.appendChild(figure);
 		document.body.appendChild(container);

@@ -157,7 +157,7 @@
     		
     		<li class="flex1"><a href="#">Ejemplos de clase</a>
     			<ul>
-	    			<li><a href="https://larabikes8.robertsallent.com">Larabikes <code>(Laravel)</code></a></li>
+	    			<li><a href="https://larabikes.robertsallent.com">Larabikes <code>(Laravel)</code></a></li>
 	    			<li><a href="https://symfofilms.robertsallent.com">SymfoFilms <code>(Symfony)</code></a></li>
 	    			<li><a href="https://biblioteca.fastlight.org">Biblioteca <code>(FastLight)</code></a></li>
     			</ul>

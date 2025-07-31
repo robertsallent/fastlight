@@ -10,22 +10,22 @@
 	Ejemplos en https://www.demo.fastlight.org/example/legibles
 	
 	Autor: Robert Sallent
-	Última modificación: 16/07/2025	
+	Última modificación: 17/07/2025	
 */ 
 
 class TextReader{
 	
 	// Propiedades
-	voiceIndex;
-	pitch;
-	rate;
-	volume;
+	voiceIndex;		// índice de la voz a usar
+	pitch;			// velocidad
+	rate;			// paso
+	volume;			// volumen
 	
 	constructor(
-		voiceIndex = 0, 
-		pitch = 1.0, 
-		rate  = 1.0, 
-		volume= 1.0
+		voiceIndex 	= 0, 
+		pitch 		= 1.0, 
+		rate  		= 1.0, 
+		volume		= 1.0
 	){
 		this.voiceIndex = voiceIndex;
 		this.pitch = pitch;
@@ -52,7 +52,7 @@ class TextReader{
 	getVoiceIndex(){
 		return this.voiceIndex;
 	}
-	
+
 	// cambia la voz del lector a partir de un índice
 	// TextReader changeVoice(int voiceIndex)
 	changeVoice(voiceIndex){
@@ -64,16 +64,23 @@ class TextReader{
 
 window.addEventListener('load', function(){
 			
+	// crea un oebjeto TextReader con los valores por defecto
+	// esto es: voiceIndex 0, pitch 1, rate 1, volume 1
 	let textReader = new TextReader();
-	
+		
 	// toma todos los elementos de clase readable	
 	let readables = document.querySelectorAll('.readable');
 	
 	// para cada elemento readable, gestiona los eventos
 	for(let r of readables){
-		r.title = "Haz clic para reproducir el texto mediante voz";
+		
+		// recupera el tipo de evento y la descripción
+		let eventName = r.dataset.event ?? 'click';
+		let infoEvent =  r.dataset.info ?? eventName ;
+		
+		r.title = "Haz '"+infoEvent+"' para reproducir el texto mediante voz";
 
-		r.addEventListener('click',function(){
+		r.addEventListener(eventName, function(){
 			
 			// cambia la voz (si es necesario)
 			if(r.dataset.voice != undefined)

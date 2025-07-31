@@ -51,11 +51,11 @@
   --bg-color: white;
   --font-color: rgb(100, 100, 120);
   --border-color:  rgb(200, 200, 200);
+  --border-color-light:  rgb(230, 230, 230);
   
   --a-color: rgb(60, 100, 180);
   
-  --main-bg-color: rgb(250, 250, 253);
-  
+  --main-bg-color: rgb(250, 250, 253); 
   
   --th-bg-color: rgb(60, 100, 160);
   --th-font-color: rgb(255, 255, 255);
@@ -184,6 +184,9 @@
 .mini   				{ font-size: 0.8rem   }
 .maxi   				{ font-size: 1.2rem   }
 
+/* br{
+	line-height: 2.5rem;
+} */
 
 .url {
 	font-style: italic;
@@ -207,7 +210,7 @@
 .pointer				{ cursor: pointer  }
 .zoom-in				{ cursor: zoom-in  }
 .zoom-out				{ cursor: zoom-out }
-.readable				{ cursor: help	   }
+.readable				{ cursor: pointer  }
 
 /* TODO: revisar la posición de la imagen del altarvoz para los distintos tipos de elemento */
 .readable:not(figure):before{
@@ -224,8 +227,12 @@ figure.readable{
 figure.readable:before{
 	content:url('../images/icons/speaker.png');
     position: absolute;
-    top: 20px;
-    left: 20px;
+    background-color: white;
+    box-shadow: 0px 0px 6px var(--shadow-color);
+    padding: 8px 6px 4px;
+    border-radius: 5px;
+    top: 5px;
+    right: 5px;
  }
 
 /* Rellenos y márgenes estándar (5 niveles) ------------------------------- */
@@ -382,7 +389,8 @@ code {
 	word-break: break-word;
 	background-color: var(--main-bg-color);
 	border-radius: 5px;
-	padding: 10px 0px 20px;
+	padding: 8px 0px 10px;
+	tab-size: 1rem;
 }
 
 span.path{ 
@@ -660,7 +668,7 @@ img.tip{
 	display: flex;
 	flex-wrap: wrap;
 	gap: 10px;
-	justify-content: center;
+	justify-content: space-evenly;
 }
 
 .galeria>figure, .gallery>figure{
@@ -709,7 +717,7 @@ form fieldset, .form fieldset{
 	padding: 1%;
 	margin: 1%;
 	border-radius: 5px;
-	border: 1px solid var(--border-color);
+	border: 1px solid var(--border-color-light);
 	min-width: var(--min-width);
 }
 
@@ -744,14 +752,12 @@ input[type="checkbox"]+label, input[type="radio"]+label{
 	min-width: 0;
 }
 
-
 input, select, textarea{
-	padding: 8px 12px;
+	padding: 10px 12px;
 	min-width: 100px;
 	background-color: var(--input-bg-color);
 	border: solid 1px var(--border-color);
 }
-
 
 input[type='radio']+label, input[type='checkbox']+label{
 	margin-left: 0;
@@ -879,7 +885,7 @@ body{
 body>header{
 	display: flex;
 	flex-wrap: nowrap;
-	padding: 10px 2%;
+	padding: 30px 2%;
 	background-image: url(../images/template/header_base.jpg);
 	background-size: cover;
 	align-items: center;
@@ -887,7 +893,7 @@ body>header{
 
 body>header figure{
 	min-width: 5%;
-	max-width: 140px;
+	max-width: 160px;
 	padding: 1%;
 }
 
@@ -993,6 +999,14 @@ section{
 
 section h2{
 	margin: 0 0 1rem 0;
+}
+
+section:target{
+	border: dashed 1px #D88;
+}
+
+section:target h2{
+	color: #B66;
 }
 
 
@@ -1114,9 +1128,24 @@ div.http-error{
 
 /* figuras directamente dentro del modal */
 .modal>figure{
+	position: relative;
 	height: 90%;
 	margin: auto;
 	box-shadow: 4px 4px 8px var(--shadow-color);
+}
+
+.modal>form{
+	position: relative;
+}
+
+.modal .close-modal{
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	padding: 5px;
+	border-radius: 4px;
+	font-size: 1.35rem;
+	background-color: var(--bg-color);
 }
 
 /* matices para imágenes o vídeos */

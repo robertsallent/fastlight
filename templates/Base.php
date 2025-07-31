@@ -150,7 +150,10 @@ class Base implements TemplateInterface{
                     </a>
                 </figure>
                 <hgroup>
-            	    <h1>".($title ?? 'Página sin título' )."<span class='small italic'> en ".APP_NAME."</span></h1>".($subtitle ? "<p>".$subtitle."</p>" : '')."
+                    
+            	    <h1>".($title ?? 'Página sin título' )."</h1>
+                    <p class='italic'>".APP_NAME."</p>
+                    ".($subtitle ? "<p>".$subtitle."</p>" : '')."
                 </hgroup>
             </header>
         ";
@@ -238,8 +241,8 @@ class Base implements TemplateInterface{
         $migas = ["Inicio"=>"/"] + $migas; // coloca el enlace a "inicio"
         
         // prepara el migas a partir del array 
-        $html = "<nav aria-label='Breadcrumb' class='breadcrumbs'>\n";
-        $html .= "\t<span class='mini'>Te encuentras en: </span>\n";
+        $html = "<nav aria-label='breadcrumb' class='breadcrumbs'>\n";
+        $html .= "\t<span class='mini pc'>Te encuentras en: </span>\n";
         $html .= "\t<ul>\n";
         
         foreach($migas as $miga => $ruta){

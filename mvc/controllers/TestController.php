@@ -15,11 +15,12 @@
  * Por ejemplo:
  * la URL /test/models-libro ejecutará el fichero en test/models/libro.php
  * 
- * Última revisión: 09/01/2025
+ * Última revisión: 21/07/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * 
  * @since v1.4.0 se ha eliminado el Template y el css específicos de test, ya no son necesarios
+ * @since v1.9.8 se comprueba que el sistema de test esté habilitado (config.php).
  */
     
 class TestController extends Controller{
@@ -36,6 +37,10 @@ class TestController extends Controller{
         string $method, 
         array $arguments = []  // sin uso por el momento
     ):Response{
+        
+       // comprobar si está habilitado el sistema detest
+       if(!TEST_ENABLED)
+           throw new ForbiddenException("Las herramientas de test están deshabilitadas");
         
        // solamente podrá lanzar test el administrador o un usuario con ROLE_TEST
        Auth::oneRole(TEST_ROLES);

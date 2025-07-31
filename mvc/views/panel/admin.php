@@ -2,11 +2,11 @@
 <html lang="es">
 	<head>
 		<meta charset="UTF-8">
-		<title>Panel del administrador - <?= APP_NAME ?></title>
+		<title>Panel de administrador - <?= APP_NAME ?></title>
 		
 		<!-- META -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="Panel del administrador en <?= APP_NAME ?>">
+		<meta name="description" content="Panel de administrador en <?= APP_NAME ?>">
 		<meta name="author" content="Robert Sallent">
 		
 		<!-- FAVICON -->
@@ -17,9 +17,9 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header('AdminPanel') ?>
+		<?= $template->header('Panel de administrador') ?>
 		<?= $template->menu() ?>
-		<?= $template->breadCrumbs(["Panel del administrador" => null]) ?>
+		<?= $template->breadCrumbs(["Panel de administrador" => null]) ?>
 		<?= $template->messages() ?>
 		
 		<main>

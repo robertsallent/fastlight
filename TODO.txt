@@ -6,7 +6,7 @@ Lista de mecanismos y herramientas que se irán incorporando (o no) en próximas
 versiones del framework FastLight.
 
 Autor: Robert Sallent
-Última revisión: 08/07/25
+Última revisión: 25/07/25
 
 Los cambios marcados con un ? están en fase de evaluación, no es seguro
 que se implementen.
@@ -17,7 +17,7 @@ que se implementen.
 	- (v2.x) helper env()
 
 - CORE/HTTP
-	- (v2.x) Router que combine con el dispatcher actual (rutas por defecto).
+	- (v2.x) Router que combine bien con el dispatcher actual (rutas por defecto).
 	- (v2.x) Middleware.
 	- (v2.x) Nuevos middlewares: CSRF, modo mantenimiento, usuario bloqueado.
 	
@@ -33,6 +33,9 @@ que se implementen.
 	- ? trabajar con snake case en la BDD en lugar de lowercase
 		
 - TEMPLATES Y VISTAS
+	- Añadir herramientas JS para formularios
+	- Añadir herramientas para Sliders
+	- Añadir herramientas para videos (lista de reproducción...)
 	- ? Hacer uso de <dialog> para modales
 	- (v2.x) Uso de componentes en las vistas.
 		- Componente modal

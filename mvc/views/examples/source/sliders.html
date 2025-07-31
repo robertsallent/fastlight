@@ -1,0 +1,68 @@
+<main>
+    <h1>Sliders y presentaciones de diapositivas</h1>
+    
+    
+    <h2>Índice</h2>
+    <ul>
+    	<li><a href="#full-slider">Slider completo con transiciones</a></li>
+    </ul>
+    
+    <section id="full-slider">
+        <h2>Slider completo con transiciones</h2>
+        
+        <div class="warning p2">
+        	<h3>ADVERTENCIA</h3>
+        	
+	        <p>La herramienta para añadir sliders y presentaciones de diapositivas está
+	        aún en fase de desarrollo.</p>
+	        <p>Actualmente se podría usar como se 
+	        muestra en el ejemplo, pero su funcionamiento cambiará en breve, así que 
+	        es mejor esperar a la versión definitiva.</p>
+        </div>
+        
+<h3>Ejemplo</h3>		
+<div id="ejemplo01">   
+	
+	<!-- En el HEAD -->
+	<link rel="stylesheet" type="text/css" href="/css/components/sliders.css">   
+	<script src="/js/components/sliders.js"></script>
+	 
+	<!--  En el BODY -->
+	<script>
+		const sliderConfig = {
+			'numImagenes':4,
+			'tiempo':2.5,
+			'proporcion':1/1,
+			'fotos':[
+				'/images/template/github.png', 
+				'/images/template/logo.png', 
+				'/images/template/linkedin.png',
+				'/images/template/juegayestudia.png',
+				'/images/template/header_base.jpg',
+				'/images/template/logo.png', 
+				'/images/template/linkedin.png'
+				  ],
+			'inicial': 0,
+			'final': 6
+		}
+	</script>
+	
+	<div id="slider">
+		<span class="arrow" id="btnBack">&lt;&lt;</span>
+		<span class="arrow" id="btnNext">&gt;&gt;</span>
+	</div>	
+</div>
+
+		<h3>Código del ejemplo</h3>
+	    <div class="code-block code-display" data-example="ejemplo01">
+			Cargando el código del ejemplo...
+	    </div>      
+    </section>    
+    
+    
+    
+    
+ 
+</main>   
+    
+    

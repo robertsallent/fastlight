@@ -25,38 +25,36 @@ body{
 }
 
 
+section{
+	margin: 1.5rem 0px;
+	padding: 5px;
+}
+
 
 /* Header principal (en el body)  -------------------------------  */
 body>header{
 	padding: 5px;
+	background-image: none;
 }
 
-body>header figure{
-	min-width: 19%;
-    max-width: 19%;
-    margin: 0px auto;
-    text-align: center;
-    padding: 0px;
-}
-
-body>header img{
-	width: 100%;
-}
-	
 body>header hgroup{
-  min-width: 80%;
-  max-width: 80%;
-  margin: 0px auto;
+  max-width: 100%;
+  margin: 0px 0px;
   padding: 0px;
+  background: inherit;
 }
 
 body>header h1{
-	padding: 15px 0px;
+	padding: 10px 0px;
 	font-size: 2rem;
-	text-align: center;
+	text-align: left;
 	white-space: wrap;
 }
 body>header h2{font-size: 1.15rem}
+
+body>header figure{
+	max-width: 100px;
+}
 
 
 /* ------------------------------- MENU  -------------------------------  */
@@ -115,6 +113,12 @@ figure.card{
 	margin: 10px 0px;
 }
 
+
+.code-block{
+	padding: 5px;
+	font-size: 0.75rem;
+	tab-size: 0.8rem;
+}
 
 /* ------------------------------- FOOTER  -------------------------------  */
 .footer{

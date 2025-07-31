@@ -1,13 +1,22 @@
 <main>
     <h1>Tablas</h1>
     
-    <p>Pruebas del estilo de las tablas, que se encuentra en el fichero
-    <a href="/css/base.css">base.css</a>.</p>
+    <p>Ejemplos de tablas HTML para nuestras aplicaciones web. Hay que
+    recordar que las tablas grandes no son buenas para diseños adaptables, 
+    para ellos deberíamos optar por otras estrategias.</p>
     
-    <p>Las tablas grandes no son buenas para diseños adaptables, para ellos deberíamos
-    optar por otras estrategias.</p>
+    
+    <h2>Índice</h2>
+    <ul>
+    	<li><a href="#standard-table">Una tabla normal y corriente</a></li>
+    	<li><a href="#buttons-table">Tabla con botones en las celdas</a></li>
+    	<li><a href="#table-shadow">Tabla centrada y con sombra</a></li>
+    	<li><a href="#table-images">Tabla con imágenes con modales en las celdas</a></li>
+    	<li><a href="#table-padding">Modificando el <i>padding</i> de las celdas</a></li>
+    	<li><a href="#table-100">Ocupando el 100% del espacio disponible</a></li>
+    </ul>
 
-    <section>    
+    <section id="standard-table">    
         <h2>Una tabla normal</h2>
         
         <p>Esta tabla tiene clase <code>table</code>. Las celdas de la última columna 
@@ -66,7 +75,7 @@
     </section>
     
     
-    <section>
+    <section id="buttons-table">
     	<h2>Una tabla con botones</h2>
         
         <p>Esta es una tabla con botones en el interior de algunas de las celdas.
@@ -129,7 +138,7 @@
 
 
 
-	<section>
+	<section id="table-shadow">
     	<h2>Una tabla sombreada y centrada en la página</h2>
         
         <p>Esta tabla tiene clases:</p>
@@ -195,24 +204,26 @@
 	    <div class="code-block code-display" data-example="ejemplo03">
 			Cargando el código del ejemplo...
 	    </div>
-
     </section>
     
-    <section>
-    <h2>Una tabla con imágenes en las celdas</h2>
     
-    <p>Esta tabla tiene las clases tiene clases <code>table w50 box-shadow centered-block</code> y 
-    dispone de celdas con imágenes en la primera columna. A las imágenes
-    les podemos añadir la clase <code>table-image</code>.</p>
     
-    <p>Se han añadido también <b>auto-modales</b> en las imágenes, para más información
-    consultad el ejemplo de <a href="/Example/modal#auto-modal">auto-modales</a>.</p>
+    
+    <section id="table-images">
+	    <h2>Una tabla con imágenes en las celdas</h2>
+	    
+	    <p>Esta tabla tiene las clases tiene clases <code>table w50 drop-shadow centered-block</code> y 
+	    dispone de celdas con imágenes en la primera columna. A las imágenes
+	    les podemos añadir la clase <code>table-image</code>.</p>
+	    
+	    <p>Se han añadido también <b>auto-modales</b> en las imágenes, para más información
+	    consultad el ejemplo de <a href="/Example/modal#auto-modal">auto-modales</a>.</p>
    
 <h3>Ejemplo</h3>
 <div id="ejemplo04">   
 	<script src="/js/Modal.js"></script> 
 	
-	<table class="table w50 box-shadow centered-block">
+	<table class="table w50 drop-shadow centered-block">
 		<thead>
 			<tr>
 				<th>Foto</th>
@@ -225,7 +236,7 @@
 			<tr>
 				<td class="centered">
 					<img class="table-image with-modal" src="/images/template/logo.png" 
-					alt="FastLight" data-caption="Logo">
+					alt="FastLight" data-caption="Logo" data-description="Este logo fue creado por un alumno, no por una IA.">
 				</td>
 				<td>Perico Palotes</td>
 				<td>primera</td>
@@ -234,7 +245,7 @@
 			<tr>
 				<td class="centered">
 					<img class="table-image with-modal" src="/images/template/github.png" 
-					alt="GitHub" data-caption="GitHub">
+					alt="GitHub" data-caption="GitHub" data-description="Este proyecto lo encontrarás en GitHub">
 				</td>
 				<td>Eva Pagudo</td>
 				<td>interpretación</td>
@@ -243,7 +254,7 @@
 			<tr>
 				<td class="centered">
 					<img class="table-image with-modal" src="/images/template/linkedin.png" 
-					alt="LinkedIn" data-caption="LinkedIn">
+					alt="LinkedIn" data-caption="LinkedIn" data-description="Visita el LinkedIn de Robert Sallent">
 				</td>
 				<td>Pablo Moreno</td>
 				<td>programación en C</td>
@@ -259,7 +270,10 @@
 	    </div>
     </section>
 
-	<section>
+
+
+
+	<section id="table-padding">
     	<h2>Más padding en las celdas</h2>
         
         <p>Esta tabla tiene clases <code>table</code>, <code>w50</code> y <code>big-cell</code> 
@@ -274,7 +288,7 @@
 
 <h3>Ejemplo</h3>
 <div id="ejemplo05">  
-	<table class="table w50 big-cell centered-block">
+	<table class="table w50 big-cell centered-block drop-shadow">
 	    <thead>
 	        <tr>
 	            <th>Alumno</th>
@@ -329,14 +343,17 @@
 	    </div>
     </section>    
 
-	<section>
+
+
+
+	<section id="table-100">
     	<h2>Tomando el 100% del ancho</h2>
         
-        <p>Esta tabla tiene clases <code>table</code>, <code>box-shadow</code> y <code>w100</code>.</p>
+        <p>Esta tabla tiene clases <code>table</code>, <code>drop-shadow</code> y <code>w100</code>.</p>
 
 <h3>Ejemplo</h3>
 <div id="ejemplo06">
-	<table class="table w100 box-shadow">
+	<table class="table w100 drop-shadow">
 	    <thead>
 	        <tr>
 	            <th>Alumno</th>

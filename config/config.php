@@ -20,7 +20,7 @@
  * 
  * Todas las directivas se encuentran documentadas en el mismo fichero config.php.
  * 
- * Última revisión: 25/02/25
+ * Última revisión: 21/07/25
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
  * @since v1.0.0 se pueden configurar las vistas de error personalizadas
@@ -35,6 +35,7 @@
  * @since v1.8.3 eliminada la constante ADMIN_ROLE, no aportaba nada y complicaba la comprensión del código
  * @since v1.8.4 añadida la constante BLOCKED_MESSAGE con el mensaje a mostrar cuando haga login un usuario bloqueado
  * @since v1.8.4 añadida la constante BLOCKED_REDIRECT para configurar la redirección cuando haga login un usuario bloqueado
+ * @since v1.9.8 añadida la consttante TEST_ENABLED, que permite habilitar o deshabilitar los test.
  */
    
 
@@ -63,7 +64,7 @@ define('AUTOLOAD_DIRECTORIES',  [
 define('APP_NAME', 'FastLight Framework');   // Título de la aplicación.
 define('APP_TYPE', 'WEB');                   // Tipo de aplicación: WEB o API.              
 
-define('APP_VERSION', '1.9.7');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '1.9.8');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);     // muestra la versión de la app en el footer (templates/Base.php)
 
 
@@ -287,6 +288,9 @@ define('USE_CUSTOM_ERROR_VIEWS', true);
 /* -------------------------------------------------------------
  * TESTS Y EJEMPLOS
  * -------------------------------------------------------------*/
+
+// activar test (en producción deben estar deshabilitados)
+define('TEST_ENABLED', true);
 
 // Carpeta para los test.
 define('TEST_FOLDER', '../test');  

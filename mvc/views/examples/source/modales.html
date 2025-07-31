@@ -1,10 +1,22 @@
 <main>
     <h1>Modales</h1>
     
+    <p>Un <b>modal</b> es un cuadro de diálogo posicionado en una capa
+    sobre el resto de elementos de la página. Se usa CSS para controlar su 
+    apariencia y comportamiento.</p>
+    
+    <h2>Índice</h2>
+    <ul>
+    	<li><a href="#modal">Modales</a></li>
+    	<li><a href="#modalForm">Formularios modales</a></li>
+    	<li><a href="#autoModal">Auto-modales</a></li>
+    	<li><a href="#galeriaModales">Galería de figuras con auto-modales</a></li>
+    </ul>
+    
     <section id="modal">
-	    <h2>Modal</h2>
+	    <h2>Modales</h2>
 	    
-	    <p>Para realizar <b>modales</b>, tan solo hay que añadir 
+	    <p>Para realizar <b>modales</b> con FastLight, tan solo hay que añadir 
 	    la clase <code>modal</code> a un contenedor.
 	    La estructura del modal es:</p>
 		<ul>
@@ -56,7 +68,7 @@
 		
 		
 	    
-    <section id="modal-form">
+    <section id="modalForm">
 	    <h2>Formulario en modal</h2>
 	    
 	    <p>De la misma forma que tenemos una figura en un modal, podemos tener un formulario.</p>
@@ -74,9 +86,7 @@
 		  
 	<div class="modal hidden p2" id="modal02">
 		<form class="w50" method="POST" autocomplete="off" id="login">
-			<div class="right maxi">
-				<a id="closeForm" href="#modal-form">[X]</a>
-			</div>
+			<a id="closeForm" class="close-modal" href="#modal-form">[X]</a>
 		   	
 			<h2>Login</h2>
 			<p>Este es un formulario de login simulado para el ejemplo de modales.</p>
@@ -111,7 +121,7 @@
 	
 		    
 	    
-		<section id="auto-modal">	    
+		<section id="autoModal">	    
 	    	<h2>Auto modales</h2>
 	     
 	    <p>FastLight <b>automatiza la creación de modales</b>, de momento solamente funciona
@@ -158,7 +168,7 @@
     
     
     
-    <section id="galeria-modales">
+    <section id="galeriaModales">
 	    <h2>Ejemplo de galería con auto-modales</h2>
 	    
 	    <p>En este ejemplo se muestra cómo hacer una galería con modales automáticos. Se
