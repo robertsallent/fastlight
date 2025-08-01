@@ -36,31 +36,31 @@
 		    	
 		    
 <div id="ejemplo01" class="my3">
-	<figure id="demoFigure" class="large card centered-block">
-		<img class="" src="/images/template/logo.png" alt="Logo">
+	<figure id="demoFigure" class="centered-block">
+		<img class="" src="/images/demo/18.jpg" alt="Platja Llarga, Cubelles">
 		<figcaption>Sin filtro</figcaption>
 	</figure>
 </div>
-
-				<p>Selecciona el filtro a aplicar:</p>
-		    	
-		    	<select id="selectFilter">
-		    		<option selected value="">Sin filtro</option>
-		    		<option value="blur">blur</option>
-		    		<option value="bright">bright</option>
-		    		<option value="high-contrast">high-contrast</option>
-		    		<option value="low-contrast">low-contrast</option>
-		    		<option value="shadow">shadow</option>
-		    		<option value="grayscale">grayscale</option>
-		    		<option value="invert">invert</option>
-		    		<option value="high-saturation">high-saturation</option>
-		    		<option value="low-saturation">low-saturation</option>
-		    		<option value="sepia">sepia</option>
-		    		<option value="hue90">hue90</option>
-		    		<option value="hue180">hue180</option>
-		    		<option value="hue270">hue270</option>
-		    	</select>
-		    
+				<div>
+					<span>Filtro a aplicar:</span>
+			    	
+			    	<select id="selectFilter">
+			    		<option selected value="">Sin filtro</option>
+			    		<option value="blur">blur</option>
+			    		<option value="bright">bright</option>
+			    		<option value="high-contrast">high-contrast</option>
+			    		<option value="low-contrast">low-contrast</option>
+			    		<option value="shadow">shadow</option>
+			    		<option value="grayscale">grayscale</option>
+			    		<option value="invert">invert</option>
+			    		<option value="high-saturation">high-saturation</option>
+			    		<option value="low-saturation">low-saturation</option>
+			    		<option value="sepia">sepia</option>
+			    		<option value="hue90">hue90</option>
+			    		<option value="hue180">hue180</option>
+			    		<option value="hue270">hue270</option>
+			    	</select>
+			    </div>
 		    	<script>
 		    		selectFilter.onchange = function(){
 		    			demoFigure.firstElementChild.className  = selectFilter.value;

@@ -143,9 +143,9 @@
   align-items: center;
 }
 
-.valign-up   				{   align-self: flex-start 				}
-.valign-bottom   		{   align-self: flex-end 					}
-.valign-center   		{   align-self: center 						}
+.valign-up   		{   align-self: flex-start 				}
+.valign-bottom   	{   align-self: flex-end 					}
+.valign-center   	{   align-self: center 						}
 .valign-stretch   	{   align-self: stretch 					}
 
 .flex-reverse{
@@ -653,6 +653,13 @@ img.tip{
 	filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.25));
 }
 
+img.icon{
+	height: 40px;
+	width: 40px;
+	vertical-align: middle;
+	margin: 0px 5px;
+}
+
 
 /* Carátulas (para las listas de productos o detalles) ---------------*/
 .cover{
@@ -673,6 +680,7 @@ img.tip{
 
 .galeria>figure, .gallery>figure{
 	flex: 1;
+	min-width: 160px;
 }
 
 
@@ -874,54 +882,61 @@ html{
 
 body{
 	color: var(--font-color);
-	padding: 10px 2%;
+	padding: 0;
 	font-family: arial, verdana, helvetica;
 	width: 100%;	
 	margin: 0px auto 20px auto;
 }
 
+#access-bar{
+	background-color: var(--bg-color);	
+	padding: 10px;
+	text-align: right;
+	width: 100%;
+}
+
 
 /* header principal (directamente dentro del body)---------------------------- */
-body>header{
-	display: flex;
-	flex-wrap: nowrap;
-	padding: 30px 2%;
+#main-header{
 	background-image: url(../images/template/header_base.jpg);
 	background-size: cover;
 	align-items: center;
 }
 
-body>header figure{
-	min-width: 5%;
+#main-header>div{
+	padding: 30px 1%;
+	color: var(--primary-bg-color);
+}
+
+#main-header figure{
+	min-width: 100px;
 	max-width: 160px;
 	padding: 1%;
 }
 
-body>header img{
+#main-header img{
 	width: 100%;
 	vertical-align: middle;
 }
 
-body>header hgroup{
+#main-header hgroup{
 	margin: 10px;
 	padding: 20px;
 	min-width: 40%;
 	max-width: 80%;
-	color: var(--primary-bg-color);
-	background-color: var(--primary-font-color);
 	border-radius: 3px;	
+	background-color: rgba(255, 255, 255, 0.9);
 }
 
-body>header h1{
-	margin: 0px 10px;
-	font-size: 2.25em;
-	width: 100%;
+#main-header h1{
+	margin: 0px 10px 10px 10px;
+	font-size: 3em;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
 
-body>header p{
+#main-header p{
 	margin: 0px 10px;
 }
 
@@ -931,7 +946,6 @@ body>header p{
 	padding: 8px 20px;
 	background: linear-gradient(45deg, var(--primary-bg-color), var(--primary-soft-color));
 	color: var(--primary-font-color);
-	border-radius: 3px;
 	font-size: 0;
 	min-width: var(--min-width);
 }
@@ -964,6 +978,10 @@ body>header p{
 
 
 /* Migas -----------------------------------------------------------*/
+.breadcrumbs{
+	margin-left: 10px;
+}
+
 .breadcrumbs ul{
 	display: inline-block;
 }

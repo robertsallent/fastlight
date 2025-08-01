@@ -88,8 +88,10 @@ class Base implements TemplateInterface{
             
             // prepara el HTML solamente con el botón de "LogIn"
             $html = " 
-            <div class='derecha'>
-               <a class='button' href='/Login'>LogIn</a>
+            <div id='access-bar'>
+               <a class='button-light' href='/Login'>
+                    LogIn
+               </a>
             </div>";
             
             
@@ -99,7 +101,7 @@ class Base implements TemplateInterface{
             
             // pone el texto "Bienvenido usuario" con un enlace a su home
             $html = "
-            <div class='right'>
+            <div id='access-bar'>
                 <span class='pc'>Bienvenido</span>
                 <a class='negrita' href='/User/home' title='Acceder al espacio personal'>
                     $user->displayname
@@ -115,11 +117,12 @@ class Base implements TemplateInterface{
                                 
                 // pone la imagen de perfil y el enlace a logout
                 $html .= " 
-                <img class='xx-small middle my1'
+                <a href='/User/home'>
+                <img class='icon'
                     src='".USER_IMAGE_FOLDER."/".($user->picture ?? DEFAULT_USER_IMAGE)."'
                     alt='Imagen de perfil'>
-                    
-                <a class='button' href='/Logout'>LogOut</a>
+                </a>   
+                <a class='button-light' href='/Logout'>LogOut</a>
             </div>";
         }
         return $html; // retorna el código HTML generado
@@ -135,26 +138,29 @@ class Base implements TemplateInterface{
      * 
      * @param string $title título a mostrar.
      * @param string $subtitle subtítulo a mostrar.
+     * @param bool $showAppName muestra el título de la aplicación en el header
      * 
      * @return string HTML con el header principal de la página.
      */
     public function header(
         ?string $title    = NULL, 
-        ?string $subtitle = NULL
+        ?string $subtitle = NULL,
+        bool $showAppName = true
     ){ 
         return "
-            <header>
-                <figure>
-                    <a href='/'>
-                        <img alt='FastLight Logo' src='/images/template/fastlight_base.png'>
-                    </a>
-                </figure>
-                <hgroup>
-                    
-            	    <h1>".($title ?? 'Página sin título' )."</h1>
-                    <p class='italic'>".APP_NAME."</p>
-                    ".($subtitle ? "<p>".$subtitle."</p>" : '')."
-                </hgroup>
+            <header id='main-header'>
+                <div class='flex-container gap1'>
+                    <figure class='flex1 centered-block centered'>
+                        <a href='/'>
+                            <img alt='FastLight Logo' src='/images/template/fastlight_base.png'>
+                        </a>
+                    </figure>
+                    <hgroup class='flex7'>
+                	    <h1>".($title ?? 'Página sin título' )."</h1>
+                        ".($showAppName ? "<p class='italic'>".APP_NAME."</p>" : "")."
+                        ".($subtitle ? "<p>".$subtitle."</p>" : "")."
+                    </hgroup>
+                </div>
             </header>
         ";
     }
@@ -208,8 +214,8 @@ class Base implements TemplateInterface{
      */
     public function acceptCookies(){
         return ACCEPT_COOKIES && !HttpCookie::get(ACCEPT_COOKIES_NAME) ?
-            "<div class='modal'>
-            	<form method='POST' class='message' id='accept-cookies' action='/Cookie/accept'>
+            "<div class='modal w50'>
+            	<form method='POST' class='centered-block' id='accept-cookies' action='/Cookie/accept'>
             		<h2>Aceptar cookies</h2>
             		".paragraph(ACCEPT_COOKIES_MESSAGE)."
             		<div class='centered'>

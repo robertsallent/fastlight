@@ -17,7 +17,7 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header('Portada') ?>
+		<?= $template->header('FastLight Framework', 'Desarrollo rápido de aplicaciones web y APIs RESTFUL', false) ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs() ?>
 		<?= $template->messages() ?>

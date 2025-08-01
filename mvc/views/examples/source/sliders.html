@@ -1,68 +1,434 @@
 <main>
     <h1>Sliders y presentaciones de diapositivas</h1>
     
+    <p>A continuación se muestra el uso de la herramienta de creación de pases
+    de diapositivas o <i>sliders</i> que se incluye en FastLight.</p>
     
+    <p>Ha sido pensada para cubrir la mayoría de las situaciones habituales y permite
+    un grado de personalización bastante interesante.</p>
+    
+       
     <h2>Índice</h2>
-    <ul>
-    	<li><a href="#full-slider">Slider completo con transiciones</a></li>
+    <ul>   	
+    	<li><a href="#one-slide">Una sola diapositiva</a></li>
+    	<li><a href="#one-slide-modals">Una sola diapositiva, con modales</a></li>
+    	<li><a href="#complete-slider">Slider completo con transiciones y modales</a></li>
+    	<li><a href="#only-manual">Solo avance manual</a></li>
+    	<li><a href="#only-auto">Solo avance automático</a></li>
+    	<li><a href="#variable">Número de diapositivas según la resolución de pantalla</a></li>
     </ul>
     
-    <section id="full-slider">
-        <h2>Slider completo con transiciones</h2>
+    
+    
+    
+    
+<section id="one-slide">
+        <h2>Una sola diapositiva</h2>
         
-        <div class="warning p2">
-        	<h3>ADVERTENCIA</h3>
-        	
-	        <p>La herramienta para añadir sliders y presentaciones de diapositivas está
-	        aún en fase de desarrollo.</p>
-	        <p>Actualmente se podría usar como se 
-	        muestra en el ejemplo, pero su funcionamiento cambiará en breve, así que 
-	        es mejor esperar a la versión definitiva.</p>
-        </div>
+        <p>Para crear un pase de diapositivas, debemos incluir lo siguiente:</p>
         
+        <ul>
+        	<li>El fichero de CSS: <code>/css/components/sliders.css</code>.</li>
+        	<li>El fichero de JS: <code>/js/components/Slider.js</code>.</li>
+        </ul>
+        
+        <p>Una vez hecho esto, podremos crear nuestras presentaciones a partir del
+        identificador del elemento padre para el slider y un
+        objeto de opciones (que podemos crear en JSON). Tal y como se muestra en este
+        primer ejemplo.</p>
+        
+        <p>Estas son las opciones del objeto de configuración:</p>
+        <ul>
+        	<li><code>numImagenes</code>: número de imágenes a mostrar simultáneamente (obligatorio).</li>
+        	<li><code>botones</code>: <i>true/false</i> permite indicar si queremos botones o no para realizar el avance manual. Por defecto activado.</li>
+        	<li><code>modales</code>: <i>true/false</i> permite indicar si queremos activar los modales en el slider, para que las fotos se abran a pantalla completa.</li>
+        	<li><code>tiempo</code>: tiempo para realizar el avance automático. Se puede indicar 0 u omitir este parámetro para indicar que no se desea avance automático.</li>
+        	<li><code>proporcion</code>: relación de aspecto para las imágenes, por defecto 4/3.</li>
+        	<li><code>fotos</code>: array con las URL de las fotos a colocar en la presentación (obligatorio).</li>
+        </ul>
+        
+        <p>Para realizar un pase de diapositivas mostrando solamente una, implemente
+        hay que indicar <code>numImagenes : 1</code> en el objeto de configuración.</p>
+        
+        <div class="flex-container gap2">
+    
+    		<div class="flex1"> 
 <h3>Ejemplo</h3>		
-<div id="ejemplo01">   
-	
+<div id="ejemplo01">   	
 	<!-- En el HEAD -->
 	<link rel="stylesheet" type="text/css" href="/css/components/sliders.css">   
-	<script src="/js/components/sliders.js"></script>
+	<script src="/js/components/Slider.js"></script>
 	 
-	<!--  En el BODY -->
+	<!--  En el BODY o en el HEAD -->
 	<script>
-		const sliderConfig = {
-			'numImagenes':4,
-			'tiempo':2.5,
-			'proporcion':1/1,
+		// Creación del objeto de configuración
+		const config0 = {
+			'numImagenes':1,
+			'tiempo':4,
+			'proporcion':8/7,
 			'fotos':[
-				'/images/template/github.png', 
-				'/images/template/logo.png', 
-				'/images/template/linkedin.png',
-				'/images/template/juegayestudia.png',
-				'/images/template/header_base.jpg',
-				'/images/template/logo.png', 
-				'/images/template/linkedin.png'
-				  ],
-			'inicial': 0,
-			'final': 6
+				'/images/demo/01.jpg',
+				'/images/demo/02.jpg',
+				'/images/demo/03.jpg',  
+				'/images/demo/04.jpg', 
+				'/images/demo/05.jpg' 
+			]
 		}
+		
+		// cuando cargue la ventana completamente...
+		window.addEventListener('load', function(){
+		
+			// crea un objeto slider a partir de la configuración
+			// y colócalo en el elemento con id 'complete-slider'
+			const sliderObject = new Slider('one-slide-slider', config0);
+			sliderObject.start();
+		});
 	</script>
-	
-	<div id="slider">
-		<span class="arrow" id="btnBack">&lt;&lt;</span>
-		<span class="arrow" id="btnNext">&gt;&gt;</span>
-	</div>	
-</div>
 
-		<h3>Código del ejemplo</h3>
-	    <div class="code-block code-display" data-example="ejemplo01">
-			Cargando el código del ejemplo...
-	    </div>      
+	<!--  En el BODY -->
+	<div id="one-slide-slider"></div>	
+</div>
+			</div>   
+	
+			<div class="flex1">
+				<h3>Código del ejemplo</h3>
+			    <div class="code-block code-display" data-example="ejemplo01">
+					Cargando el código del ejemplo...
+			    </div> 
+	   		</div>    
+	    </div>  
+	    
+	     <div class="warning p2 my2">
+	    	<h2>NOTA</h2>
+	    	<p>Se deben tener <b>al menos dos imágenes más</b> de las que se
+	    	muestran de forma simultánea en pantalla.
+	    	Por ejemplo, en el caso anterior que mostramos una, debemos
+	    	tener un listado de un mínimo de tres.</p>
+	    	
+	    	<p>Las dos imágenes extra se colocan en los extremos para que funcionen
+	    	bien las transiciones suaves hacia los lados. La primera imágen visible,
+	    	es en realidad la segunda de la lista <code>fotos</code>.</p>
+	    	
+	    	<p>Tal vez se corrija este comportamiento en el futuro, de momento
+	    	funciona así.</p>
+	    </div>   
     </section>    
     
     
     
     
+    
+    
+    <section id="one-slide-modals">
+        <h2>Una sola diapositiva, con modales</h2>
+        
+        <p>Si queremos usar también modales, hay que incluir también el fichero 
+        ubicado en <code>/js/Modal.js</code>.</p>
+        
+        <p>Una vez cargado el fichero, activaremos los modales
+        con la opción del objeto de configuración <code>'modales':true</code>.
+        Puedes comprobar suu funcionamiento haciendo clic sobre las distintas imágenes.</p>
+        
+        <div class="flex-container gap2 wrap-reverse">
+        	<div class="flex1">
+				<h3>Código del ejemplo</h3>
+			    <div class="code-block code-display" data-example="ejemplo02">
+					Cargando el código del ejemplo...
+			    </div> 
+	   		</div>
+    
+    		<div class="flex1"> 
+<h3>Ejemplo</h3>		
+<div id="ejemplo02">   
+	
+	<!-- Cargar antes el script y el CSS mostrados en el ejemplo anterior -->
+	<script src="/js/Modal.js"></script>
+
+	<script>
+		// Creación del objeto de configuración
+		const config1 = {
+			'numImagenes':1,
+			'tiempo':4,
+			'modales': true,
+			'proporcion':8/7,
+			'fotos':[
+				'/images/demo/06.jpg',
+				'/images/demo/07.jpg',  
+				'/images/demo/08.jpg', 
+				'/images/demo/09.jpg',
+				'/images/demo/10.jpg' 
+			]
+		}
+		
+		// cuando cargue la ventana completamente...
+		window.addEventListener('load', function(){
+		
+			// crea un objeto slider a partir de la configuración
+			// y colócalo en el elemento con id 'complete-slider'
+			const sliderObject = new Slider('one-slide-modals-slider', config1);
+			sliderObject.start();
+		});
+	</script>
+
+	<div id="one-slide-modals-slider"></div>	
+</div>
+			</div>   
+	    </div>     
+    </section>            
+    
+    
+    
+    
+    
+    
+    <section id="complete-slider">
+        <h2>Slider completo con transiciones y modales</h2>
+        
+       <p>En este ejemplo se ha indicado que el número de imágenes simultáneas
+       a mostrar es de cuatro usando <code>'numImagenes':4</code>. Además están 
+       activados también los modales.</p>
+        
+<h3>Ejemplo</h3>		
+<div id="ejemplo03">   
+	
+	
+	<script>
+		// Creación del objeto de configuración
+		const config2 = {
+			'numImagenes':4,
+			'modales':true,
+			'tiempo':4.2,
+			'proporcion':8/7,
+			'fotos':[
+				'/images/demo/11.jpg', 
+				'/images/demo/12.jpg',  
+				'/images/demo/13.jpg', 
+				'/images/demo/14.jpg', 
+				'/images/demo/15.jpg', 
+				'/images/demo/16.jpg',
+				'/images/demo/17.jpg',
+			]
+		}
+		
+		// cuando cargue la ventana completamente...
+		window.addEventListener('load', function(){
+		
+			// crea un objeto slider a partir de la configuración
+			// y colócalo en el elemento con id 'complete-slider'
+			const sliderObject = new Slider('full-slider', config2);
+			sliderObject.start();
+		});
+	</script>
+	
+	<!--  En el BODY -->
+	<!-- Contenedor para el slider -->
+	<div id="full-slider"></div>	
+</div>
+
+			<h3>Código del ejemplo</h3>
+		    <div class="code-block code-display" data-example="ejemplo03">
+				Cargando el código del ejemplo...
+		    </div>      
+	    
+	    </section>    
+    
+
+
+
+
+    
+<section id="only-manual">
+        <h2>Solamente avance manual</h2>
+        
+        <p>Para indicar solamente avance manual, el objeto de configuración
+        debe tener <code>'tiempo':0</code>, aunque también será solamente
+        manual si indicamos un tiempo negativo u omitimos directamente el
+        parámetro <code>tiempo</code>.</p>
+        
+        <div class="flex-container gap2 flex-reverse">
+        
+        	<div class="flex1">
+				<h3>Código del ejemplo</h3>
+			    <div class="code-block code-display" data-example="ejemplo04">
+					Cargando el código del ejemplo...
+			    </div> 
+	   		</div>
+    
+    		<div class="flex1"> 
+<h3>Ejemplo</h3>		
+<div id="ejemplo04">   
+	
+	<!-- Cargar antes el script y el CSS mostrados en el ejemplo anterior -->
+
+	<script>
+		// Creación del objeto de configuración
+		const config3 = {
+			'numImagenes':1,
+			'fotos':[
+				'/images/demo/09.jpg',
+				'/images/demo/08.jpg',
+				'/images/demo/10.jpg',  
+				'/images/demo/11.jpg',  
+				'/images/demo/12.jpg', 
+			]
+		}
+		
+		// cuando cargue la ventana completamente...
+		window.addEventListener('load', function(){
+		
+			// crea un objeto slider a partir de la configuración
+			// y colócalo en el elemento con id 'complete-slider'
+			const sliderObject = new Slider('only-manual-slider', config3);
+			sliderObject.start();
+		});
+	</script>
+	
+	<!--  En el BODY -->
+	<!-- Contenedor para el slider -->
+	<div id="only-manual-slider"></div>	
+</div>
+			</div>   
+	
+	    </div>  
+	    
+	    <div class="danger p2 my2">
+	    	<h2>NOTA</h2>
+	    	
+	    	<p>Se ha detectado un bug por el cual la primera imagen de la lista no
+	    	aparece en el segundo ciclo del pase de diapositivas. Se corregirá
+	    	en breve.</p>
+	    </div>
+		       
+    </section>            
  
+ 
+ 
+ 
+ 
+ 
+     
+<section id="only-auto">
+        <h2>Solamente avance automático</h2>
+        
+        <p>Si no queremos que el usuario haga avanzar o retroceder manualmente las diapositivas,
+        podemos indicar <code>'botones:false'</code> en el objeto de configuración.</p>
+
+        <div class="flex-container gap2">
+    
+    		<div class="flex1"> 
+<h3>Ejemplo</h3>		
+<div id="ejemplo05">   
+	
+	<!-- Cargar antes el script y el CSS mostrados en el ejemplo anterior -->
+
+	<script>
+		// Creación del objeto de configuración
+		const config4 = {
+			'numImagenes':2,
+			'tiempo' : 3.8,
+			'botones' : false,
+			'proporcion':8/7,
+			'fotos':[
+				'/images/demo/13.jpg',  
+				'/images/demo/14.jpg', 
+				'/images/demo/15.jpg', 
+				'/images/demo/16.jpg'
+			]
+		}
+		
+		// cuando cargue la ventana completamente...
+		window.addEventListener('load', function(){
+		
+			// crea un objeto slider a partir de la configuración
+			// y colócalo en el elemento con id 'complete-slider'
+			const sliderObject = new Slider('only-auto-slider', config4);
+			sliderObject.start();
+		});
+	</script>
+	
+	<!--  En el BODY -->
+	<!-- Contenedor para el slider -->
+	<div id="only-auto-slider"></div>	
+</div>
+			</div>   
+	
+			<div class="flex1">
+				<h3>Código del ejemplo</h3>
+			    <div class="code-block code-display" data-example="ejemplo05">
+					Cargando el código del ejemplo...
+			    </div> 
+	   		</div>
+	    
+	    </div>     
+    </section>               
+ 
+ 
+ 
+ 
+ 
+       <section id="variable">
+        <h2>Número de diapositivas variable según pantalla</h2>
+
+		<p>Para hacer variable el número de imágenes que se muestran en función
+		del tamaño disponible en pantalla, podemos jugar un poco con <i>JavaScript</i>.</p>
+		
+		<p>Mediante la propiedad <code>innerWidth</code> del objeto <code>Window</code>, podemos detectar
+		el espacio disponible y calcular el número de diapositivas a mostrar,
+		tal y como se muestra en el siguiente ejemplo donde:</p>
+		
+		<ul>
+			<li>Si hay más de 800 píxeles de ancho se muestran cuatro imágenes.</li>
+			<li>Entre 800 y 400 se muestran 2.</li>
+			<li>Menos de 400 se muestra solamente 1.</li>
+		</ul>
+		
+		<p>Para hacer pruebas, podéis redimensionar la ventana del navegador y
+		 pulsar <kbd>F5</kbd> para recalcular el número de imágenes a mostrar.</p>
+        
+<h3>Ejemplo</h3>		
+<div id="ejemplo06">   
+	<script>
+		// cálculo del número de imágenes en función del espacio disponible
+		let aColocar = innerWidth > 400 ? innerWidth > 800? 4 : 2 : 1;
+		
+		// Creación del objeto de configuración
+		const config5 = {
+			'numImagenes': aColocar,
+			'tiempo':3.5,
+			'proporcion':8/7,
+			'fotos':[
+				'/images/demo/17.jpg',  
+				'/images/demo/18.jpg',
+				'/images/demo/01.jpg',
+				'/images/demo/02.jpg',
+				'/images/demo/03.jpg',
+				'/images/demo/04.jpg', 
+				'/images/demo/05.jpg'
+			],
+			'inicial': 0
+		}
+		
+		// cuando cargue la ventana completamente...
+		window.addEventListener('load', function(){
+		
+			// crea un objeto slider a partir de la configuración
+			// y colócalo en el elemento con id 'complete-slider'
+			const sliderObject = new Slider('variable-slider', config5);
+			sliderObject.start();
+		});
+	</script>
+	
+	<!--  En el BODY -->
+	<!-- Contenedor para el slider -->
+	<div id="variable-slider"></div>	
+</div>
+
+		<h3>Código del ejemplo</h3>
+	    <div class="code-block code-display" data-example="ejemplo06">
+			Cargando el código del ejemplo...
+	    </div>      
+    </section>    
+    
 </main>   
     
     
