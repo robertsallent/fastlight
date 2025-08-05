@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="<?= LANGUAGE_CODE ?>">
 	<head>
 		<meta charset="UTF-8">
 		<title>Error 401 en <?= APP_NAME ?></title>

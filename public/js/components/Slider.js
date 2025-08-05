@@ -21,19 +21,23 @@ class Slider{
 	inicial;
 	final;
 	intervalo;
-	modales;
+	modales
+	captions;
+	descriptions;
 	
 	// constructor
 	constructor(container, options){
 		this.container 		= document.getElementById(container);
 		this.numImagenes 	= options.numImagenes ?? 1;
 		this.botones 		= options.botones ?? true;
-		this.fotos 			= options.fotos ?? [];
 		this.tiempo 		= options.tiempo ?? 0;
 		this.proporcion 	= options.proporcion ?? 4/3;
 		this.inicial 		= options.inicial ?? 0;
 		this.final 			= options.final ?? options.numImagenes+2;
 		this.modales		= options.modales ?? false;
+		this.fotos 			= options.fotos ?? [];
+		this.captions 		= options.captions ?? [];
+		this.descriptions	= options.descriptions ?? [];
 	}
 	
 	
@@ -49,11 +53,18 @@ class Slider{
 			let imagen = document.createElement('img');
 			imagen.src = this.fotos[j];
 			
+				
+			if(this.captions[j] != undefined)
+				imagen.setAttribute('data-caption', this.captions[j]);
+			
+			if(this.descriptions[j] != undefined)
+				imagen.setAttribute('data-description', this.descriptions[j]);
+			
 			if(this.modales)
 				imagen.addEventListener('click', function(){
 					new Modal().showFigure(imagen);
 				});
-
+			
 			// cálculos para el posicionamiento absoluto
 			imagen.style.width = 100/this.numImagenes+'%';
 			imagen.style.left = 100/(this.numImagenes)*(j-1)+'%';
@@ -124,7 +135,12 @@ class Slider{
 		// si varía el tamaño de la ventana, recalculamos el alto de la galería
 		window.addEventListener('resize', function(){
 			slider.container.style.height = slider.container.offsetWidth/(slider.numImagenes*slider.proporcion)+'px';
-		});		
+		});	
+		
+		// poner los índices correctos para las imágenes a mostrar
+		// impide que se repitan imágenes al avanzar o retroceder por primera vez
+		this.incial = 1;
+		this.final = 1+this.numImagenes;	
 	}
 	
 	
@@ -135,6 +151,14 @@ class Slider{
 			 
 		// crea una nueva imagen y colócala al final (derecha)
 		var imagen = document.createElement('img');
+		
+		
+			
+		if(this.captions[this.final] != undefined)
+			imagen.setAttribute('data-caption', this.captions[this.final]);
+						
+		if(this.descriptions[this.final] != undefined)
+			imagen.setAttribute('data-description', this.descriptions[this.final]);
 		
 		if(this.modales)
 			imagen.addEventListener('click', function(){
@@ -166,11 +190,18 @@ class Slider{
 		// crea una nueva imagen y colócala al inicio (izquierda)
 		var imagen = document.createElement('img');
 		
+		
+		if(this.captions[this.inicial] != undefined)
+			imagen.setAttribute('data-caption', this.captions[this.inicial]);
+									
+		if(this.descriptions[this.inicial] != undefined)
+			imagen.setAttribute('data-description', this.descriptions[this.inicial]);
+		
 		if(this.modales)
 			imagen.addEventListener('click', function(){
 				new Modal().showFigure(imagen);
 			});
-					
+								
 		imagen.src = this.fotos[this.inicial];
 		imagen.style.width = 100/this.numImagenes+'%';		// cálculo del ancho
 		imagen.style.left  = -(100/this.numImagenes)*2+'%';	// cálculo de su posición

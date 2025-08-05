@@ -20,7 +20,7 @@
  * 
  * Todas las directivas se encuentran documentadas en el mismo fichero config.php.
  * 
- * Última revisión: 21/07/25
+ * Última revisión: 05/08/25
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
  * @since v1.0.0 se pueden configurar las vistas de error personalizadas
@@ -36,6 +36,7 @@
  * @since v1.8.4 añadida la constante BLOCKED_MESSAGE con el mensaje a mostrar cuando haga login un usuario bloqueado
  * @since v1.8.4 añadida la constante BLOCKED_REDIRECT para configurar la redirección cuando haga login un usuario bloqueado
  * @since v1.9.8 añadida la consttante TEST_ENABLED, que permite habilitar o deshabilitar los test.
+ * @since v1.9.10 añadida la constante LANGUAGE_CODE, para indicar el código de idioma de la aplicación.
  */
    
 
@@ -64,9 +65,10 @@ define('AUTOLOAD_DIRECTORIES',  [
 define('APP_NAME', 'FastLight Framework');   // Título de la aplicación.
 define('APP_TYPE', 'WEB');                   // Tipo de aplicación: WEB o API.              
 
+define('LANGUAGE_CODE', 'es');               // código de idioma (para poner como atributo del elemento html en las vistas)
+
 define('APP_VERSION', '1.9.9');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);     // muestra la versión de la app en el footer (templates/Base.php)
-
 
 // Controlador y método por defecto (solamente para APP_TYPE WEB).
 define('DEFAULT_CONTROLLER', 'WelcomeController');

@@ -12,10 +12,11 @@
     <ul>   	
     	<li><a href="#one-slide">Una sola diapositiva</a></li>
     	<li><a href="#one-slide-modals">Una sola diapositiva, con modales</a></li>
-    	<li><a href="#complete-slider">Slider completo con transiciones y modales</a></li>
-    	<li><a href="#only-manual">Solo avance manual</a></li>
-    	<li><a href="#only-auto">Solo avance automático</a></li>
+    	<li><a href="#multiple-slider">Varias diapositivas visibles, con modales</a></li>
+    	<li><a href="#only-manual">Solamente avance manual</a></li>
+    	<li><a href="#only-auto">Solamente avance automático</a></li>
     	<li><a href="#variable">Número de diapositivas según la resolución de pantalla</a></li>
+    	<li><a href="#final"><b>EJEMPLO FINAL</b>: slider completo con transiciones, modales, leyendas y descripciones</a></li>
     </ul>
     
     
@@ -45,6 +46,8 @@
         	<li><code>tiempo</code>: tiempo para realizar el avance automático. Se puede indicar 0 u omitir este parámetro para indicar que no se desea avance automático.</li>
         	<li><code>proporcion</code>: relación de aspecto para las imágenes, por defecto 4/3.</li>
         	<li><code>fotos</code>: array con las URL de las fotos a colocar en la presentación (obligatorio).</li>
+        	<li><code>captions</code>: array con las leyendas para cada una de las imágenes.</li>
+        	<li><code>descriptions</code>: array con las descripciones para cada una de las imágenes.</li>
         </ul>
         
         <p>Para realizar un pase de diapositivas mostrando solamente una, implemente
@@ -64,8 +67,7 @@
 		// Creación del objeto de configuración
 		const config0 = {
 			'numImagenes':1,
-			'tiempo':4,
-			'proporcion':8/7,
+			'tiempo':3,
 			'fotos':[
 				'/images/demo/01.jpg',
 				'/images/demo/02.jpg',
@@ -108,11 +110,9 @@
 	    	<p>Las dos imágenes extra se colocan en los extremos para que funcionen
 	    	bien las transiciones suaves hacia los lados. La primera imágen visible,
 	    	es en realidad la segunda de la lista <code>fotos</code>.</p>
-	    	
-	    	<p>Tal vez se corrija este comportamiento en el futuro, de momento
-	    	funciona así.</p>
 	    </div>   
     </section>    
+    
     
     
     
@@ -129,8 +129,11 @@
         con la opción del objeto de configuración <code>'modales':true</code>.
         Puedes comprobar suu funcionamiento haciendo clic sobre las distintas imágenes.</p>
         
+        <p>Observad también que en este ejemplo se ha modificado la relación de aspecto
+        para mostrar diapositivas en orientación vertical.</p>
+        
         <div class="flex-container gap2 wrap-reverse">
-        	<div class="flex1">
+        	<div class="flex2">
 				<h3>Código del ejemplo</h3>
 			    <div class="code-block code-display" data-example="ejemplo02">
 					Cargando el código del ejemplo...
@@ -148,15 +151,14 @@
 		// Creación del objeto de configuración
 		const config1 = {
 			'numImagenes':1,
-			'tiempo':4,
+			'tiempo':3.2,
 			'modales': true,
-			'proporcion':8/7,
+			'proporcion':3/4,
 			'fotos':[
-				'/images/demo/06.jpg',
-				'/images/demo/07.jpg',  
-				'/images/demo/08.jpg', 
-				'/images/demo/09.jpg',
-				'/images/demo/10.jpg' 
+				'/images/demo/v01.jpg',
+				'/images/demo/v02.jpg',  
+				'/images/demo/v03.jpg', 
+				'/images/demo/v04.jpg'
 			]
 		}
 		
@@ -181,8 +183,8 @@
     
     
     
-    <section id="complete-slider">
-        <h2>Slider completo con transiciones y modales</h2>
+    <section id="multiple-slider">
+        <h2>Slider con múltiples diapositivas visibles y modales</h2>
         
        <p>En este ejemplo se ha indicado que el número de imágenes simultáneas
        a mostrar es de cuatro usando <code>'numImagenes':4</code>. Además están 
@@ -197,16 +199,14 @@
 		const config2 = {
 			'numImagenes':4,
 			'modales':true,
-			'tiempo':4.2,
-			'proporcion':8/7,
+			'tiempo':3.4,
 			'fotos':[
 				'/images/demo/11.jpg', 
 				'/images/demo/12.jpg',  
 				'/images/demo/13.jpg', 
 				'/images/demo/14.jpg', 
 				'/images/demo/15.jpg', 
-				'/images/demo/16.jpg',
-				'/images/demo/17.jpg',
+				'/images/demo/16.jpg'
 			]
 		}
 		
@@ -265,11 +265,9 @@
 		const config3 = {
 			'numImagenes':1,
 			'fotos':[
-				'/images/demo/09.jpg',
-				'/images/demo/08.jpg',
-				'/images/demo/10.jpg',  
-				'/images/demo/11.jpg',  
-				'/images/demo/12.jpg', 
+				'/images/demo/n01.jpg',
+				'/images/demo/n02.jpg',
+				'/images/demo/n03.jpg'  
 			]
 		}
 		
@@ -290,14 +288,6 @@
 			</div>   
 	
 	    </div>  
-	    
-	    <div class="danger p2 my2">
-	    	<h2>NOTA</h2>
-	    	
-	    	<p>Se ha detectado un bug por el cual la primera imagen de la lista no
-	    	aparece en el segundo ciclo del pase de diapositivas. Se corregirá
-	    	en breve.</p>
-	    </div>
 		       
     </section>            
  
@@ -325,9 +315,8 @@
 		// Creación del objeto de configuración
 		const config4 = {
 			'numImagenes':2,
-			'tiempo' : 3.8,
+			'tiempo' : 3.5,
 			'botones' : false,
-			'proporcion':8/7,
 			'fotos':[
 				'/images/demo/13.jpg',  
 				'/images/demo/14.jpg', 
@@ -395,15 +384,13 @@
 		const config5 = {
 			'numImagenes': aColocar,
 			'tiempo':3.5,
-			'proporcion':8/7,
 			'fotos':[
-				'/images/demo/17.jpg',  
-				'/images/demo/18.jpg',
 				'/images/demo/01.jpg',
 				'/images/demo/02.jpg',
 				'/images/demo/03.jpg',
-				'/images/demo/04.jpg', 
-				'/images/demo/05.jpg'
+				'/images/demo/04.jpg',
+				'/images/demo/05.jpg',
+				'/images/demo/06.jpg'
 			],
 			'inicial': 0
 		}
@@ -428,6 +415,87 @@
 			Cargando el código del ejemplo...
 	    </div>      
     </section>    
+    
+    
+    
+    
+    
+    <section id="final">
+        <h2>EJEMPLO FINAL</h2>
+        
+       <p>Slider completo, con número de imágenes variable, múltiples imágenes, avance
+       manual y automático e imágenes con leyenda y descripción.</p>
+       
+       <p>Para indicar las leyendas se ha usado la propiedad <code>captions</code> del objeto de 
+       configuración, mientras que para indicar las descripciones se usa la propiedad <code>descriptions</code>.</p>
+        
+<h3>Ejemplo</h3>		
+<div id="ejemplo07">   
+	
+	
+	<script>
+		// cálculo del número de imágenes en función del espacio disponible
+		let aColocar2 = innerWidth > 400 ? innerWidth > 800? 4 : 2 : 1;
+		
+		// Creación del objeto de configuración
+		const config6 = {
+			'numImagenes': aColocar2,
+			'modales':true,
+			'tiempo':3.4,
+			'fotos':[
+				'/images/demo/01.jpg', 
+				'/images/demo/02.jpg',  
+				'/images/demo/03.jpg', 
+				'/images/demo/04.jpg', 
+				'/images/demo/05.jpg', 
+				'/images/demo/06.jpg',
+				'/images/demo/07.jpg',
+				'/images/demo/08.jpg'
+			],
+			'captions':[
+				'Castell de sorra',
+				'Desembocadura del Foix',
+				'Petxines',
+				'Foix',
+				'Puesta de Sol',
+				'Puesta de sol en la playa',
+				'Club Marítim',
+				'Nido de ametralladora'
+			],
+			'descriptions':[
+				'Castillo de arena, creado por Laia, en Platja Llarga de Cubelles, Barcelona',
+				'Desembocadura del rio Foix, en Cubelles',
+				'Conchas varias sobre la arena de la playa de Cubelles',
+				'Desembocadura del rio Foix, vista desde la pasarela que se llevó la última dana',
+				'Puesta de Sol sobre el rio Foix',
+				'Puesta de sol sobre la Platja Llarga de Cubelles',
+				'Club marítimo de Cubelles, al límite con Vilanova i la Geltrú',
+				'Nido de ametralladora ubicado sobre la Platja de la Mota, en Cubelles'
+			]
+		}
+		
+		// cuando cargue la ventana completamente...
+		window.addEventListener('load', function(){
+		
+			// crea un objeto slider a partir de la configuración
+			// y colócalo en el elemento con id 'complete-slider'
+			const sliderObject = new Slider('caption-slider', config6);
+			sliderObject.start();
+		});
+	</script>
+	
+	<!--  En el BODY -->
+	<!-- Contenedor para el slider -->
+	<div id="caption-slider"></div>	
+</div>
+
+			<h3>Código del ejemplo</h3>
+		    <div class="code-block code-display" data-example="ejemplo07">
+				Cargando el código del ejemplo...
+		    </div>      
+	    
+	    </section>    
+    
     
 </main>   
     

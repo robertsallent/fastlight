@@ -4,7 +4,7 @@
 	FICHERO BASE PARA LOS ESTILOS DE FASTLIGHT
 	
 	Autor: Robert Sallent
-	Última revisión: 15/07/2025
+	Última revisión: 05/08/2025
 
 	Estructura del documento CSS:
 	- Colores
@@ -44,6 +44,8 @@
   --secondary-bg-color: rgb(60, 160, 100);
   --secondary-font-color: rgb(255, 255, 255);
   --secondary-soft-color: rgb(100, 200, 140);
+  
+  --alternative-bg-color: rgb(160, 180, 220);
 
   --shadow-color: rgba(100, 100, 100, 0.25);
   --font-shadow-color: rgba(0, 0, 0, 0.3);
@@ -566,16 +568,49 @@ dd{
 }
 
 
+.grid-list {
+  max-width: 100%;
+  margin: 0 auto;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.grid-list-header, .grid-list-item {
+  display: grid;
+  grid-template-columns: 2fr 3fr 2fr;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.grid-list-header {
+  color: white;
+  background-color: var(--alternative-bg-color);
+  font-weight: bold;
+}
+
+.grid-list-item:nth-of-type(even){
+	background-color: var(--td-even-bg-color);
+}
+
+.grid-list-item:nth-of-type(odd){
+	background-color: var(--td-odd-bg-color);
+}
+
+.grid-list-item:last-child {
+  border-bottom: none;
+}
+
 /* Figuras e imágenes -------------------------------------------------------- */
 
 figure{
 	text-align: center;
-	padding: 2%;
+	padding: 0;
 	transition: 0.1s;
 }
 
 figure img, figure video{
-	width: 96%;
+	width: 100%;
 }
 
 figcaption{
@@ -1020,11 +1055,11 @@ section h2{
 }
 
 section:target{
-	border: dashed 1px #D88;
+	border: dashed 1px #88D;
 }
 
 section:target h2{
-	color: #B66;
+	color: #66B;
 }
 
 
@@ -1171,6 +1206,11 @@ div.http-error{
 	height: 80%;
 	object-fit: cover;
 }
+
+.modal .no-caption img, .modal .no-caption video{
+	height: 100%;
+}
+
 
 .modal h2{
 	font-size: 1.2rem;

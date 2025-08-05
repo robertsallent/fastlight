@@ -2,7 +2,9 @@
     
     <h1>Listas</h1>
     
-    <p>Ejemplos de listas HTML en FastLight.</p>
+    <p>Ejemplos de listas <i>HTML</i> en <i>FastLight</i>. El ejemplo más importante 
+    es el último (<a href="#grid-list">Listas GRID</a>), en el que se muestra cómo maquetar
+    listas adaptables a distintos tamaños de pantalla.</p>
     
     <h2>Índice</h2>
     <ul>
@@ -10,6 +12,7 @@
     	<li><a href="#unordered-list">Listas no numeradas</a></li>
     	<li><a href="#definition-list">Listas de definiciones</a></li>
     	<li><a href="#inner-lists">Listas dentro de otras listas</a></li>
+    	<li><a href="#grid-list"><b>Listas GRID</b></a></li>
     </ul>
     
     <section id="ordered-list">
@@ -111,5 +114,50 @@
 			Cargando el código del ejemplo...
 	    </div>
     </section>
+    
+    
+    
+    
+        <section id="grid-list">
+        <h2>Listas GRID</h2>
+        
+        <p>Este tipo de listas sustituyen a las tablas para diseños adaptables.</p>
+
+<h3>Ejemplo</h3>
+<div id="ejemplo05">  
+	<div class="grid-list">
+		<div class="grid-list-header">
+		  <span>Nombre</span>
+		  <span>Email</span>
+		  <span>Rol</span>
+		</div>
+		
+		<div class="grid-list-item">
+		  <span data-label="Nombre">Robert Sallent</span>
+		  <span data-label="Email">robert@fastlight.org</span>
+		  <span data-label="Rol">Administrador</span>
+		</div>
+		
+		<div class="grid-list-item">
+		  <span data-label="Nombre">Marisa</span>
+		  <span data-label="Email">marisa@fastlight.org</span>
+		  <span data-label="Rol">Editora</span>
+		</div>
+		
+		<div class="grid-list-item">
+		  <span data-label="Nombre">Laia Sallent</span>
+		  <span data-label="Email">laia@juegayestudia.com</span>
+		  <span data-label="Rol">Usuario</span>
+		</div>
+	</div>
+</div>
+		<h3>Código del ejemplo</h3>
+	    <div class="code-block code-display" data-example="ejemplo05">
+			Cargando el código del ejemplo...
+	    </div> 
+
+    </section>
+    
+    
    
 </main> 

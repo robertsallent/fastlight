@@ -14,7 +14,7 @@
 	hay que añadir el atributo data-description a la imagen.
 	
 	Autor: Robert Sallent
-	Última modificación: 18/07/2025	
+	Última modificación: 04/07/2025	
 */ 
 
 class Modal{
@@ -68,6 +68,8 @@ class Modal{
 			}	
 			
 			figure.appendChild(caption);		
+		}else{
+			figure.classList.add('no-caption');
 		}
 		
 		// coloca la figura y el modal en el documento	

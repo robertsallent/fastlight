@@ -12,9 +12,9 @@
 
 .slider-container img{
 	position: absolute;
-	top: 5%;
-	height: 85%;
-	transition: 0.3s;
+	top: 0;
+	height: 100%;
+	transition: 0.4s;
 	outline: solid 1px white;
 }
 
@@ -23,9 +23,9 @@
 	font-size: 1rem;
 	font-weight: bold;
 	position: absolute;
-	top: 20%;
+	top: 15%;
 	color: white;
-	height: 50%;
+	height: 70%;
 	z-index: 10;
 	padding: 0px 5px;
 	background-color: rgba(200, 200, 200, 0.6);
