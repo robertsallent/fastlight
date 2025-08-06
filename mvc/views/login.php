@@ -17,7 +17,7 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header('LogIn') ?>
+		<?= $template->header(null, 'Acceso a la aplicación') ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs([
                 "LogIn" => null
@@ -30,22 +30,22 @@
     			
     			<?= csrf() ?>
     			
-    			<h2>Acceso a <?= APP_NAME ?></h2>
-				<p>Introduce tus datos en el formulario para identificarte.</p>
+    			<h2 class="centered">Acceso a <?= APP_NAME ?></h2>
+				<p class="info">Introduce tus datos para identificarte.</p>
 		
 				<div class="m1">
         			<label for="email">Email:</label>
-        			<input type="email" name="user" id="email" value="<?= old('user') ?>" required>
+        			<input class="long" type="email" name="user" id="email" value="<?= old('user') ?>" required>
         			<br>
         			<label for="password">Password:</label>
-        			<input type="password" name="password" id="password" required>
+        			<input class="long" type="password" name="password" id="password" required>
     			</div>
     			
-    			<div class="centered m2">
+    			<div class="centered m3">
     				<input type="submit" class="button" name="login" value="LogIn">
     			</div>
     			<div class="right">
-    				<a href="/Forgotpassword">Olvidé mi clave</a>
+    				<a class="button-light" href="/Forgotpassword">Olvidé mi clave</a>
     			</div>
     			
     		</form>

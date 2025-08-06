@@ -1,10 +1,10 @@
 /*
-	Fichero: dynamicFileInput.js
+	Fichero: DynamicFileInput.js
 	
 	para generar inputs de tipo file dinámicamente
 	
 	funcionamiento:
-	- incluir este fichero con <script src="js/preview.js"></script>
+	- incluir este fichero con <script src="js/DynamicFileInput.js"></script>
 	- añadir un elemento con ID dynamicFileInput de la siguiente forma:
 	
 		<div id="dynamicFileInput" 
@@ -35,11 +35,11 @@ class DynamicFileInput{
 	buttonLess = null;
 	
 	constructor(){
-		this.container = document.getElementById('dynamicFileInput');
-	    this.bytes = parseInt(this.container.dataset.bytes);
-		this.types = this.container.dataset.types;
-		this.minInputs = parseInt(this.container.dataset.mininputs);
-		this.maxInputs = parseInt(this.container.dataset.maxinputs);
+		this.container 		= document.getElementById('dynamicFileInput');
+	    this.bytes 			= parseInt(this.container.dataset.bytes);
+		this.types 			= this.container.dataset.types;
+		this.minInputs 		= parseInt(this.container.dataset.mininputs);
+		this.maxInputs 		= parseInt(this.container.dataset.maxinputs);
 		this.createButtons();
 		
 		while(this.inputNumber <= this.minInputs)
@@ -120,8 +120,10 @@ class DynamicFileInput{
 	
 }
 
+var dynamicFIleInput = null;
+
 window.addEventListener('load', function(){
-	dynamicFileInput = new DynamicFileInput();	
+	dynamicFIleInput = new DynamicFileInput();	
 });
 
 

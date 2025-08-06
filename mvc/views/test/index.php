@@ -17,7 +17,7 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header('Listado de test') ?>
+		<?= $template->header(null, 'Listado de test PHP') ?>
 		<?= $template->menu() ?>
 
 		<?= $template->breadCrumbs([

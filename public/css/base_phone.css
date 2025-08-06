@@ -21,20 +21,26 @@
 body{
 	margin: 0;
 	padding: 0;
-	width: 100%;
 }
 
 
 section{
-	margin: 1.5rem 0px;
-	padding: 5px;
+	margin: 2rem 0px;
+	padding: 8px;
 }
 
+#access-bar{
+	padding: 5px 5px 0px 0px;
+}
 
 /* Header principal (en el body)  -------------------------------  */
 #main-header{
+	padding: 0px 0px 20px 0px;
 	background: none;
+	border-bottom: solid 3px var(--primary-soft-color);
+	margin-bottom: 10px;
 }
+
 #main-header>div{
 	padding: 5px;
 }
@@ -44,6 +50,7 @@ section{
 	padding: 0px;
 	text-align: left;
 	width: 100%;
+	background: transparent;
 }
 
 #main-header h1{
@@ -56,28 +63,42 @@ section{
 }
 
 
-/* ------------------------------- MENU  -------------------------------  */
-.menu{
-	padding: 0px;
-	border-radius: 0px;
-}
-
-.menu li{
-	display: block;
-}
-
-.menu li a{
-	padding: 10px 20px;
-}
 
 
-.menu li:not(:first-of-type){
-	border-left: none
+/* ----------------------------------MENU ----------------------------------*/
+
+#main-menu{
+	justify-content: end;
 }
 
-.menu li:not(:last-of-type){
-	border-bottom: dotted 2px white;
+#burger { display: block }
+
+.menu {
+  position: absolute;
+  flex-direction: column;
+  padding: 6px;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  display: none;
+  flex-direction: column;
 }
+
+.menu li{ 
+	margin: auto;
+	width: 100%;
+}
+
+.menu.open {
+  display: flex;
+}
+
+ .menu li:not(:first-of-type) {
+   padding: 0;
+   border-top: 2px solid white;
+ }
+
+
 
 /* Formularios -------------------------------------  */
 form .long, form .short, form .medium{

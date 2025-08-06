@@ -17,7 +17,7 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header('Ejemplos de maquetación') ?>
+		<?= $template->header(null, 'Ejemplos de maquetación') ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs(["Ejemplos de maquetación" => NULL]) ?>
 		<?= $template->messages() ?>

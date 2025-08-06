@@ -17,7 +17,7 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header('Error') ?>
+		<?= $template->header(null, 'Se ha producido un error') ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs(["Error" => NULL]) ?>
 		<?= $template->messages() ?>

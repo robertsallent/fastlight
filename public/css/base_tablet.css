@@ -15,6 +15,7 @@
 .four-columns			{ column-count: 2 }
 
 
+
 /* -------------------------------- LISTAS ---------------------------------*/
 
 .grid-list-header {
@@ -53,3 +54,6 @@
 	display: block;
 }
 
+#login{
+	width: 90%;
+}

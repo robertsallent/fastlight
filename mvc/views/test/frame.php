@@ -19,7 +19,7 @@
 	
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header("Test de $test") ?>
+		<?= $template->header(null, "Test de $test") ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs([ "Test" => "/test", $test => NULL]) ?>
 		<?= $template->messages() ?>

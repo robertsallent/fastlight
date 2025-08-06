@@ -17,7 +17,7 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header('Visitas') ?>
+		<?= $template->header(null, 'Estadísticas de visitas') ?>
 		<?= $template->menu() ?>
  		
 		<?= $template->breadCrumbs([

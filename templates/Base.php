@@ -136,16 +136,14 @@ class Base implements TemplateInterface{
     /**
      * Genera el HTML con el header principal de la página.
      * 
-     * @param string $title título a mostrar.
+     * @param string $title título a mostrar, por defecto será el nombre de la aplicación.
      * @param string $subtitle subtítulo a mostrar.
-     * @param bool $showAppName muestra el título de la aplicación en el header
      * 
      * @return string HTML con el header principal de la página.
      */
     public function header(
-        ?string $title    = NULL, 
-        ?string $subtitle = NULL,
-        bool $showAppName = true
+        ?string $title    = null, 
+        ?string $subtitle = null
     ){ 
         return "
             <header id='main-header'>
@@ -156,8 +154,7 @@ class Base implements TemplateInterface{
                         </a>
                     </figure>
                     <hgroup class='flex7'>
-                	    <h1>".($title ?? 'Página sin título' )."</h1>
-                        ".($showAppName ? "<p class='italic'>".APP_NAME."</p>" : "")."
+                	    <h1>".($title ?? APP_NAME)."</h1>
                         ".($subtitle ? "<p>".$subtitle."</p>" : "")."
                     </hgroup>
                 </div>
@@ -178,9 +175,23 @@ class Base implements TemplateInterface{
      */
     public function menu(){ 
         
-        // parte izquierda (operaciones para todos los usuarios)
-        $html  = "<nav>\n";
-        $html .= "\t<menu class='menu'>\n";
+        // script para el botón de la hamburguesa
+        $html = "<script src='/js/components/burguerMenu.js'></script>";
+        
+        // menú
+        $html .= "<nav id='main-menu'>\n";
+        
+        // botón de la hamburguesa
+        $html .= "\t<button class='button' id='burger' aria-label='Abrir menú'>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                 </button>";
+        
+        $html .= "\t<menu class='menu flex1'>\n";
+        
+       
+        
         $html .= "\t\t<li><a href='/'>Inicio</a></li>\n";
         
         // Enlace a los ejemplos de maquetación.

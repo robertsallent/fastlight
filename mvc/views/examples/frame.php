@@ -20,7 +20,7 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header("Ejemplo de $example") ?>
+		<?= $template->header(null, "Ejemplo de $example") ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs([ "Ejemplos de maquetación" => "/example", $example => NULL]) ?>
 		<?= $template->messages() ?>

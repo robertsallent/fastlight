@@ -17,7 +17,7 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header('Nueva clave') ?>
+		<?= $template->header(null, 'Generación de una nueva clave') ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs(["LogIn" => "/Login", "Nueva clave" => NULL]) ?>
 		<?= $template->messages() ?>
@@ -29,25 +29,29 @@
         			
         			<?= csrf() ?>
         			
-        			<h2>Recuperación de password</h2>
-    				<p class="justificado">Rellena este formulario para recibir una 
-    					nueva clave en tu <i>email</i> con la que podrás acceder a la aplicación. 
-    					Recuerda que debes cambiarla lo antes posible.</p>
-    		
+        			<h2 class="centered">Generación de una nueva clave</h2>
+    				<p class="justificado info">Rellena este formulario para recibir una 
+    					nueva clave en tu <i>email</i> con la que podrás acceder a la aplicación.</p> 
+    				
     				<div style="margin: 10px;">
             			<label for="email">email:</label>
-            			<input type="email" name="email" id="email" value="<?= old('email') ?>" required>
+            			<input class="long" type="email" name="email" id="email" value="<?= old('email') ?>" required>
             			<br>
             			<label for="phone">teléfono:</label>
-            			<input type="text" name="phone" id="phone" value="<?= old('phone') ?>" required>
+            			<input class="long" type="text" name="phone" id="phone" value="<?= old('phone') ?>" required>
         			</div>
+        			
         			
         			<div class="centered m2">
         				<input type="submit" class="button" name="nueva" value="Nueva clave">
         			</div>  
+        			
+        			<p class="justificado info">Recuerda que debes cambiarla lo antes posible desde tu espacio personal.</p>
+    		
+    		
         			<div class="right">
-    				<a href="/Login">Volver a Login</a>
-    			</div>      			
+        				<a class="button-light" href="/Login">Volver a Login</a>
+        			</div>      			
         		</form>
         		
         		

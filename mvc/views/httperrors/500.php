@@ -17,7 +17,7 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header('Error 500') ?>
+		<?= $template->header(null, 'Error 500') ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs(["Error 500" => NULL]) ?>
 		<?= $template->messages() ?>

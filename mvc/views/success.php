@@ -17,7 +17,7 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header('Éxito') ?>
+		<?= $template->header(null, 'Éxito en la operación') ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs(["Éxito" => NULL]) ?>
 		<?= $template->messages() ?>

@@ -17,7 +17,7 @@
     	</head>
     	<body>
     		<?= $template->login() ?>
-    		<?= $template->header('Lista de errores') ?>
+    		<?= $template->header(null, 'Lista de errores detectados en tiempo de ejecución') ?>
     		<?= $template->menu() ?>
     		<?= $template->breadCrumbs([
 		              "Panel de administrador" => "/Panel/admin",

@@ -4,7 +4,7 @@
 	FICHERO BASE PARA LOS ESTILOS DE FASTLIGHT
 	
 	Autor: Robert Sallent
-	Última revisión: 05/08/2025
+	Última revisión: 06/08/2025
 
 	Estructura del documento CSS:
 	- Colores
@@ -424,6 +424,7 @@ span.path::before{
 }
 
 .no-border   	{ border: none !important }
+.no-outline   	{ outline: none !important }
 .no-background 	{
 	background: none !important;
 	background-color: transparent !important;
@@ -431,7 +432,10 @@ span.path::before{
 
 
 /* Botones -------------------------------------------------------- */
-.button, .button-light, .button-success, .button-warning, .button-danger{
+.button, .button-light, 
+.button-success, .button-success-light,
+.button-warning, .button-warning-light,
+.button-danger, .button-danger-light{
 	display: inline-block;
 	white-space: nowrap;
 	color: var(--primary-font-color);
@@ -445,12 +449,14 @@ span.path::before{
 	box-shadow: 0 0px 4px var(--shadow-color);
 }
 
-td .button, td .button-light, td .button-success, td .button-warning, td .button-danger{
+td .button, td .button-light, 
+td .button-success, td .button-success-light,
+td .button-warning, td .button-warning-light, 
+td .button-danger, td .button-danger-light{
 	font-size: 0.85em;
 	padding: 8px 10px;
 	margin: 0px;
 }
-
 
 .button.current, .button.active{
 	border: solid 2px var(--primary-bg-color);
@@ -459,21 +465,8 @@ td .button, td .button-light, td .button-success, td .button-warning, td .button
 .button{
 	background: linear-gradient(var(--primary-soft-color), var(--primary-bg-color));
 }
-
 .button:hover{
 	background: var(--primary-soft-color);
-}
-
-.buttonLight, .button-light{
-	outline: solid 1px var(--primary-bg-color);
-	color: var(--primary-bg-color);
-	background-color: var(--primary-font-color);
-}
-
-.buttonLight:hover, .button-light:hover{
-	outline: none;
-	background-color: var(--primary-soft-color);
-	color: var(--primary-font-color);
 }
 
 .button-success{
@@ -483,6 +476,13 @@ td .button, td .button-light, td .button-success, td .button-warning, td .button
 	background-color: var(--success-btn-hover-color);
 }
 
+.button-warning{
+	background-color: var(--warning-btn-color);
+}
+.button-warning:hover{
+	background-color: var(--warning-btn-hover-color);
+}
+
 .button-danger, .button-error{
 	background-color: var(--danger-btn-color);
 }
@@ -490,12 +490,44 @@ td .button, td .button-light, td .button-success, td .button-warning, td .button
 	background-color: var(--danger-btn-hover-color);
 }
 
-.button-warning{
-	background-color: var(--warning-btn-color);
+.button-light{
+	outline: solid 1px var(--primary-bg-color);
+	color: var(--primary-bg-color);
+	background-color: var(--primary-font-color);
 }
-.button-warning:hover{
-	background-color: var(--warning-btn-hover-color);
+.button-light:hover{
+	outline: none;
+	background-color: var(--primary-soft-color);
+	color: var(--primary-font-color);
 }
+
+.button-success-light{
+	outline: solid 1px var(--success-btn-color);
+	color: var(--success-font-color);
+	background-color: var(--primary-font-color);
+}
+.button-success-light:hover{
+	background-color: var(--success-bg-color);
+}
+
+.button-warning-light{
+	outline: solid 1px var(--warning-btn-color);
+	color: var(--warning-font-color);
+	background-color: var(--primary-font-color);
+}
+.button-warning-light:hover{
+	background-color: var(--warning-bg-color);
+}
+
+.button-danger-light{
+	outline: solid 1px var(--danger-btn-color);
+	color: var(--danger-font-color);
+	background-color: var(--primary-font-color);
+}
+.button-danger-light:hover{
+	background-color: var(--danger-bg-color);
+}
+
 
 
 
@@ -869,7 +901,6 @@ td form{
 
 #login{
 	min-width: var(--min-width);
-	text-align: center;
 }
 
 
@@ -993,12 +1024,51 @@ body{
 
 
 /* Menú -------------------------------------------------------- */
+
+#main-menu{
+	position: relative;
+	display: flex;
+}
+
+#burger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 60px;
+  cursor: pointer;
+  padding: 0;
+}
+
+#burger span {
+  display: block;
+  height: 4px;
+  margin: 8px;
+  background-color: white;
+  border-radius: 2px;
+  transition: 0.4s;
+}
+
+#burger:hover span{
+	background-color: white;
+}
+
+#burger.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 8px);
+}
+#burger.open span:nth-child(2) {
+  opacity: 0;
+}
+#burger.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(10px, -10px);
+}
+
 .menu{
+	display: flex;
 	padding: 8px 20px;
-	background: linear-gradient(45deg, var(--primary-bg-color), var(--primary-soft-color));
 	color: var(--primary-font-color);
 	font-size: 0;
 	min-width: var(--min-width);
+	background: linear-gradient(45deg, var(--primary-bg-color), var(--primary-soft-color));
 }
 
 .menu li{
@@ -1021,10 +1091,6 @@ body{
 .menu li a:hover{
 	background-color: var(--primary-font-color);
 	color: var(--primary-bg-color);
-}
-
-.menu li:not(:first-of-type){
-	border-left: dotted 2px var(--primary-font-color);
 }
 
 
