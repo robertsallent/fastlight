@@ -214,13 +214,17 @@
 .zoom-out				{ cursor: zoom-out }
 .readable				{ cursor: pointer  }
 
-/* TODO: revisar la posición de la imagen del altarvoz para los distintos tipos de elemento */
-.readable:not(figure):before{
-	content:url('../images/icons/speaker.png');
+
+/* Ayuda y readables -----------------------------------------------------*/
+.help:before, .info:before, .readable:before{
     display: inline-block;
     padding-right: 5px;
     vertical-align: middle;
 }
+
+.help:before					{ content:url('../images/icons/help.png') 	}
+.info:before					{ content:url('../images/icons/info.png') 	}
+.readable:not(figure):before	{ content:url('../images/icons/speaker.png')}
 
 figure.readable{
 	position: relative;
@@ -419,7 +423,11 @@ span.path::before{
 	border: dotted 1px var(--border-color);
 }
 
-.no-border   { border: none !important }
+.no-border   	{ border: none !important }
+.no-background 	{
+	background: none !important;
+	background-color: transparent !important;
+}
 
 
 /* Botones -------------------------------------------------------- */
@@ -570,7 +578,7 @@ dd{
 
 .grid-list {
   max-width: 100%;
-  margin: 0 auto;
+  margin: 10px auto;
   border: 1px solid var(--border-color);
   border-radius: 5px;
   overflow: hidden;
@@ -578,9 +586,13 @@ dd{
 
 .grid-list-header, .grid-list-item {
   display: grid;
-  grid-template-columns: 2fr 3fr 2fr;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
   padding: 12px 16px;
   border-bottom: 1px solid var(--border-color);
+}
+
+.grid-list-item span{
+	padding: 5px;
 }
 
 .grid-list-header {
@@ -851,6 +863,8 @@ td form{
 }
 
 
+
+
 /* formulario de login ----------------------------------------------------- */
 
 #login{
@@ -879,7 +893,9 @@ td form{
 	width: auto;
 }
 
-
+#filterFormButton{
+	margin: 0px 10px;
+}
 
 
 /* Paginador -------------------------------------------------------- */

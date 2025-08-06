@@ -252,7 +252,7 @@ class Paginator{
         
         // prepara el HTML con los enlaces para las vistas
         $resultado = "<div class='$divCssClasses'>";
-        $resultado .= "<a class='$linkCssClasses' href='$this->url/1'>".self::$langs[$this->lang][2]."</a>";
+        $resultado .= "<a class='pc $linkCssClasses' href='$this->url/1'>".self::$langs[$this->lang][2]."</a>";
         
         // cálculos
         $start = $this->page - 2;
@@ -272,7 +272,7 @@ class Paginator{
         if($end < $this->pages) 
             $resultado .= "<a class='$linkCssClasses' href='$this->url/".$this->getNext()."'>&gt;&gt;</a>";
         
-        $resultado .= "<a class='$linkCssClasses' href='$this->url/$this->pages'>".self::$langs[$this->lang][3]."</a>";
+        $resultado .= "<a class='pc $linkCssClasses' href='$this->url/$this->pages'>".self::$langs[$this->lang][3]."</a>";
         
         $resultado .= "</div>";
         
@@ -294,8 +294,8 @@ class Paginator{
         $resultados = number_format($this->total, 0, ',', '.');
         
         $langs = [
-            'ca' => "Pàgina $pagina de $paginas. Hi ha un total de $resultados resultats.",
-            'es' => "Página $pagina de $paginas. Hay un total de $resultados resultados.",
+            'ca' => "Pàgina $pagina de $paginas. Hi ha $resultados resultats.",
+            'es' => "Página $pagina de $paginas. Hay $resultados resultados.",
             'en' => "Page $pagina of $paginas. Total $resultados results.",
         ];
         

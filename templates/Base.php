@@ -38,7 +38,7 @@ class Base implements TemplateInterface{
      *  */
     protected array $mediaQueries = [
         'standard'  => 'screen',
-        'tablet'    => 'screen and (max-width: 850px) and (min-width: 451px)',
+        'tablet'    => 'screen and (max-width: 850px)',
         'phone'     => 'screen and (max-width: 450px)',
         'printer'   => 'print'
     ];
@@ -367,7 +367,7 @@ class Base implements TemplateInterface{
         $html .= "<form method='POST' id='filtro' class='derecha' action='".($action ?? URL::get())."'>";
        
         $html .= "<label>Buscar</label>";
-        $html .= "<input type='text' name='texto' placeholder='texto'> ";
+        $html .= "<input type='search' name='texto' placeholder='texto'> ";
         
         $html .= "<label>en</label>";
         $html .= "<select name='campo'>";
@@ -390,11 +390,12 @@ class Base implements TemplateInterface{
         }
         
         return $html."</select>
-    				<input type='radio' name='sentidoOrden' value='ASC'>
-    				<label>ascendente</label>
-    				<input type='radio' name='sentidoOrden' value='DESC' checked>
-    				<label>descendente</label>
-    				<input class='button' type='submit' name='filtrar' value='Filtrar'>
+                    <label>sentido</label>
+    				<select name='sentidoOrden'>
+                        <option value='ASC'>Ascendente</option>
+    				    <option value='DESC'>Descendente</option>
+                    </select>
+    				<input id='filterFormButton' class='button-light' type='submit' name='filtrar' value='Filtrar'>
     			</form>
             </search>";
     }
@@ -417,7 +418,7 @@ class Base implements TemplateInterface{
         
         return "<form id='filtro' class='derecha' method='POST' action='".($action ?? URL::get())."'>
 					<label class='long'>$filter</label>
-					<input class='button button-danger' style='display:inline' type='submit' 
+					<input id='filterFormButton' class='button-light' style='display:inline' type='submit' 
 					       name='quitarFiltro' value='Quitar filtro'>
 				</form>";
     }
@@ -431,20 +432,25 @@ class Base implements TemplateInterface{
      * @return string
      */
     public function exportForm(string $url):string{
-        return "<form class='flex1 right no-border no-shadow no-background p0 m0' method='POST' action='$url'>
-                    <select name='format'>
-                        <option value='JSON'>JSON</option>
-                        <option value='XML'>XML</option>
-                        <option value='CSV'>CSV</option>
-                        <option value='CSV-Excel'>CSV para Excel</option>
-                        <option value='TEXT'>Texto</option>
-                    </select>
-                    
-                    <input type='checkbox' name='download' value='1' id='chk-download'>
-                    <label for='chk-download'>Descargar</label>
-                    
-                    <input type='submit' class='button' value='Exportar todos los datos'>
-                </form>";
+        return "<section class='pc'>
+                    <h2>Exportación de datos</h2>
+                    <p class='info'>Puedes exportar todos los datos a <i>JSON, XML, CSV, CSV-Excel</i> o texto.</p>
+                    <form class='p1 m0 no-border no-shadow' method='POST' action='$url'>
+                        <span>En formato</span>
+                        <select name='format'>
+                            <option value='JSON'>JSON</option>
+                            <option value='XML'>XML</option>
+                            <option value='CSV'>CSV</option>
+                            <option value='CSV-Excel'>CSV para Excel</option>
+                            <option value='TEXT'>Texto</option>
+                        </select>
+                        
+                        <input type='checkbox' name='download' value='1' id='chk-download'>
+                        <label for='chk-download'>Descargar</label>
+                        
+                        <input type='submit' class='button' value='Exportar'>
+                    </form> 
+                </section>";
      }
     
  

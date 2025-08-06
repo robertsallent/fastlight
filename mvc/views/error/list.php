@@ -35,7 +35,11 @@
         		
             		<h2 id="errors">Errores detectados</h2>
         			
-        			<p>Utiliza el formulario de búsqueda para filtrar resultados. Las búsquedas 
+        			<p>A continuación se muestran los <b>errores detectados en tiempo de ejecución</b>.
+        			Esta herramienta es útil para detectar tanto errores como distintos tipos
+        			de ataques informáticos.</p>
+        			
+        			<p class="info">Puedes utilizar el formulario de búsqueda para realizar filtros. Las búsquedas 
         			   se mantendrán guardadas aunque cambies de página.</p>
         			   
         			<?php 
@@ -72,104 +76,103 @@
         					<?= $paginator->stats()?>
         				</div>
         		
-            			<table class="table w100 drop-shadow">
-                			<tr>
-                				<th>Tipo</th>
-                				<th>URL</th>
-                				<th>Clase</th>
-                				<th>Fecha</th>
-                				<th>Mensaje</th>
-                				<th>Usuario</th>
-                				<th>IP</th>
-                				<th class="centrado">Acciones</th>
-                			</tr>
+            			<div class="grid-list">
+                    		<div class="grid-list-header">
+                                <span>Tipo</span>
+                                <span>URL</span>
+                                <span>Clase</span>
+                                <span>Fecha</span>
+                                <span>Usuario e IP</span>
+                              	<span>Acciones</span>
+                    		</div>
+                    		                    		
                     		<?php foreach($errores as $error){ ?>
-                				<tr>
-                					<td class="negrita"><?=$error->type?></td>
-                					<td class='url mini'>
+                				<div class="grid-list-item">
+                					<span data-label="Tipo" class="bold"><?=$error->type?></span>
+                					<span data-label="URL" class='url'>
                     					<a href="<?=$error->url?>"><?=$error->url?></a>
-                    				</td>
-                    				<td class='negrita'><?=$error->level?></td>
-                    				<td class="mini"><?=$error->date?></td>
-                    				<td class="mini"><?=$error->message?></td>
-                    				<td>
+                    				</span>
+                    				<span title="<?=$error->message?>" class='bold' data-label="Clase"><?=$error->level?></span>
+                    				<span data-label="Fecha"><?=$error->date?></span>
+                    				<span data-label="Usuario e IP">
                     					<?php if($error->user){ ?>
                     						<a href="mailto:<?= $error->user?>"><?=$error->user ?></a>
-                    					<?php }else{ 
-                    						echo "Invitado";
-                    				    }?>
-                					</td>
-                    				<td><?=$error->ip?></td>
-                    				<td class="centrado">
+                    					<?php } ?>
+                					(<?=$error->ip?>)</span>
+                    				<span data-label="Acciones" class="centrado">
                     					<a class="button-danger" href="/Error/destroy/<?= $error->id ?>">Borrar</a>
-                					</td>
-                			   </tr>
+                					</span>
+                			   </div>
                     		<?php } ?>
-                		</table>
+                    		
+                    	</div>
                 		
                 		<?= $paginator->ellipsisLinks() ?>
             		
-     					<div class="flex-container my2">
-     						<div class="flex1">
-        						<a class="button-danger" href="/Error/clear">Vaciar lista</a>
-        					</div>
+     					<section class="my2">
+     						<h2>Operaciones</h2>
+     						<p class="info">Pulsa el botón para vaciar el registro de errores. 
+     						Esta operación no se puede deshacer.</p>
+     						<a class="button-danger" href="/Error/clear">Vaciar lista</a>
+        				</section>
         					
-        					<?= $template->exportForm('/Error/export') ?>
-        				</div>
+        				<?= $template->exportForm('/Error/export') ?>
         				
         				
-        				<section id="summary mt2">
+        				<section id="summary" class="mt1 pc">
                     		<h2>Resumen de errores</h2>
                     		
-                    		<p>A continuación se muestra un resumen de la cantidad de errores de cada clase y de cada
+                    		<p>A continuación se muestra un resumen del total de errores de cada clase y 
                     		tipo (WEB o API):</p>
                     		
+                    		<p class="info">Utiliza los botones para aplicar filtros directamente.</p>
+                    		
+                    		
                     		<div class="flex-container gap2">
-                        		<table class="table drop-shadow flex1 valign-up">
-                        			<tr>
-                        				<th class="w50">Clase</th>
-                        				<th>Ocurrencias</th>
-                        				<th>Operaciones</th>
-                        			</tr>
+                        		<div class="grid-list flex1 my1">
+                            		<div class="grid-list-header">
+                                        <span>Clase</span>
+                                        <span>Ocurrencias</span>
+                                        <span>Operaciones</span>
+                            		</div>
+                        	
                         			<?php foreach($summary as $line){?>
-                        			<tr>
-                        				<td class="w50 bold"><?= $line->level ?></td>
-                        				<td class="centrado"><?= $line->idcount ?></td>
-                        				<td class="centrado">
-                        					<form method="post" action="/Error/list#errors" class="no-border">
+                    				<form method="post" action="/Error/list#errors" class="grid-list-item no-border">
+                        				<span data-label="Nivel"><?= $line->level ?></span>
+                        				<span data-label="Recuento"><?= $line->idcount ?></span>
+                        				<span data-label="Operaciones">
                         						<input type="hidden" name="campo" value="level">
                         						<input type="hidden" name="texto" value="<?= $line->level ?>">
                         						<input type="hidden" name="campoOrden" value="date">
                         						<input type="hidden" name="sentidoOrden" value="DESC">
-                        						<input type="submit" class="button" name="filtrar" value="Filtrar por clase">
-                        					</form>
-                        				</td>
-                        			</tr>     
+                        						<input type="submit" class="button-light" name="filtrar" value="Filtrar por clase">
+                        					
+                        				</span>
+                    				</form>
                         			<?php } ?>
-                        		</table>
+                        		</div>
                         		
-                        		<table class="table drop-shadow flex1 valign-up">
-                        			<tr>
-                        				<th class="w50">Tipo</th>
-                        				<th>Ocurrencias</th>
-                        				<th>Operaciones</th>
-                        			</tr>
+                        		<div class="grid-list flex1 my1">
+                            		<div class="grid-list-header">
+                                        <span>Tipo</span>
+                                        <span>Ocurrencias</span>
+                                        <span>Operaciones</span>
+                            		</div>
+    
                         			<?php foreach($types as $line){?>
-                        			<tr>
-                        				<td class="w50 bold"><?= $line->type ?></td>
-                        				<td class="centrado"><?= $line->idcount ?></td>
-                        				<td class="centrado">
-                        					<form method="post" action="/Error/list#errors" class="no-border">
-                        						<input type="hidden" name="campo" value="type">
-                        						<input type="hidden" name="texto" value="<?= $line->type ?>">
-                        						<input type="hidden" name="campoOrden" value="date">
-                        						<input type="hidden" name="sentidoOrden" value="DESC">
-                        						<input type="submit" class="button" name="filtrar" value="Filtrar por tipo">
-                        					</form>
-                        				</td>
-                        			</tr>     
+                        			<form method="post" action="/Error/list#errors" class="grid-list-item no-border">
+                        				<span data-label="Tipo"><?= $line->type ?></span>
+                        				<span data-label="Recuento"><?= $line->idcount ?></span>
+                        				<span data-label="Operaciones">
+                       						<input type="hidden" name="campo" value="type">
+                    						<input type="hidden" name="texto" value="<?= $line->type ?>">
+                    						<input type="hidden" name="campoOrden" value="date">
+                    						<input type="hidden" name="sentidoOrden" value="DESC">
+                    						<input type="submit" class="button-light" name="filtrar" value="Filtrar por tipo">
+                        				</span>
+                        			</form>   
                         			<?php } ?>
-                        		</table>
+                        		</div>
                         		
                         	</div>
                     	</section>
@@ -188,7 +191,7 @@
             	
         		<?php if(LOG_ERRORS || LOG_LOGIN_ERRORS){ ?>
         		<section id="logs">
-            		<h2>Ficheros de LOG</h2>
+            		<h2>Ficheros de registro en disco</h2>
             		<p>Los ficheros de <i>log</i> sirven para <b>guardar los errores producidos en tiempo de ejecución
             		de la aplicación</b> en ficheros de texto.</p>
             		 
@@ -200,7 +203,7 @@
             		
             		<h3>Descargar</h3>
             		
-            		<p>Puedes descargar los ficheros de log mediante los siguientes enlaces 
+            		<p class="info">Descarga los ficheros de log mediante los siguientes enlaces 
             		   (no se muestran si no existen ficheros de LOG).</p>
             		   
             		<?php if(LOG_ERRORS && is_readable(ERROR_LOG_FILE)){ ?>
@@ -212,15 +215,15 @@
         			<?php } ?>
         			     			
             		<h3>Borrar</h3>
-            		<p>Puedes eliminar los ficheros de log mediante los siguientes enlaces 
-            		   (no se muestran si no existen ficheros de LOG).</p>
+            		<p class="info">Puedes eliminar los ficheros de log mediante los siguientes enlaces 
+            		   (no se muestran si no existen ficheros de LOG). Esta operación no se puede deshacer.</p>
             		   
             		<?php if(LOG_ERRORS && is_readable(ERROR_LOG_FILE)){ ?>
-            		<a class="button button-danger" href="/Error/erase">Borrar LOG</a>
+            		<a class="button-danger" href="/Error/erase">Borrar LOG</a>
             		<?php } ?>
             		
             		<?php if(LOG_LOGIN_ERRORS && is_readable(LOGIN_ERRORS_FILE)){ ?>
-        			<a class="button button-danger" href="/Error/erase/login">Borrar LOG de Login</a>
+        			<a class="button-danger" href="/Error/erase/login">Borrar LOG de Login</a>
         			<?php } ?>
         		</section>
         		<?php } ?>

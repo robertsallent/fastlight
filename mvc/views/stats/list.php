@@ -2,7 +2,7 @@
 <html lang="<?= LANGUAGE_CODE ?>">
 	<head>
 		<meta charset="UTF-8">
-		<title>Estadísticas de visitas  - <?= APP_NAME ?></title>
+		<title>Estadísticas de visitas - <?= APP_NAME ?></title>
 	
 		<!-- META -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,7 +37,7 @@
     		
         		<h2>Estadísticas</h2>
     			
-    			<p>Utiliza el formulario de búsqueda para filtrar resultados. Las búsquedas 
+    			<p class="info">Utiliza el formulario de búsqueda para filtrar resultados. Las búsquedas 
     			   se mantendrán guardadas aunque cambies de página.</p>
     			   
     			<?php 
@@ -69,39 +69,41 @@
     				<div class="derecha">
     					<?= $paginator->stats()?>
     				</div>
-        		           		         			
+        		        
+        		   <div class="grid-list">
+                    		<div class="grid-list-header">
+                                <span>URL</span>
+                                <span>Visitas</span>
+                                <span>Primera visita</span>
+                                <span>Última visita</span>
+                                <span>Último Usuario</span>
+                              	<span>Última IP</span>
+                    		</div>        		         			
         			
-        			<table class="table w100 drop-shadow">
-            			<tr>
-            				<th>URL</th>
-            				<th>Visitas</th>
-            				<th>Primera visita</th>
-            				<th>Última visita</th>
-            				<th>Último usuario</th>
-            				<th>Última IP</th>
-            			</tr>
-                		<?php foreach($stats as $stat){ ?>
-            				<tr>
-                				<td class="url"><?= "<a href='$stat->url'>$stat->url</a>" ?></td>
-                				<td class='negrita'><?= $stat->count ?></td>
-                				
-                				<td><?= $stat->created_at ?></td>
-                				<td><?= $stat->updated_at ?? 'Sin datos' ?></td>
-                				<td><?= $stat->user ? "<a href='mailto:$stat->user'>$stat->user</a>" : 'Sin datos' ?></td>
-                				<td><?= $stat->ip ?? 'Sin datos' ?></td>
-            			   </tr>
+                      		<?php foreach($stats as $stat){ ?>
+            				<div class="grid-list-item">
+                				<span data-label="URL"><?= "<a href='$stat->url'>$stat->url</a>" ?></span>
+                				<span data-label="visitas"><?= $stat->count ?></span>
+                   				<span data-label="Primera visita"><?= $stat->created_at ?></span>
+                				<span data-label="Última visita"><?= $stat->updated_at ?? 'Sin datos' ?></span>
+                				<span data-label="Último usuario"><?= $stat->user ? "<a href='mailto:$stat->user'>$stat->user</a>" : 'Sin datos' ?></span>
+                				<span data-label="Última IP"><?= $stat->ip ?? 'Sin datos' ?></span>
+            			   </div>
                 		<?php } ?>
-            		</table>
+            		</div>
             		
             		<?= $paginator->ellipsisLinks() ?>
         		
-        			<div class="flex-container">
- 						<div class="flex1">
-    						<a class="button button-danger" href="/Stat/clear">Vaciar lista</a>
-    					</div>
+  					
+    				<section class="my2">
+ 						<h2>Operaciones</h2>
+ 						<p class="info">Pulsa el botón para vaciar el registro de visitas. 
+ 						Esta operación no se puede deshacer.</p>
+ 						<a class="button-danger" href="/Stat/clear">Vaciar lista</a>
+    				</section>
     					
-    					<?= $template->exportForm('/Stat/export') ?>
-    				</div>
+					<?= $template->exportForm('/Stat/export') ?>
+    				
         				
         		<?php }else{ ?>
         			<div class="warning my2 p3 centrado">

@@ -89,6 +89,8 @@ form label{
 	width: 90%;
 }
 
+
+
 /* ------------------------ MODALES Y MENSAJES -------------------------  */
 .success-message, .error-message, .warning-message{
 	padding: 10px;
@@ -134,26 +136,6 @@ figure.card{
 }
 
 
-/* -------------------------------- LISTAS ---------------------------------*/
-
-.grid-list-header {
-   display: none;
-}
-
-.grid-list-item {
-   grid-template-columns: 1fr;
-   grid-row-gap: 8px;
-}
-
-.grid-list-item span {
-   display: block;
-   font-weight: normal;
-}
-
-.grid-list-item span::before {
-   content: attr(data-label) ": ";
-   font-weight: bold;
-}
   
 /* ------------------------------- FOOTER  -------------------------------  */
 .footer{
@@ -177,6 +159,8 @@ figure.card{
 	flex: 1;
 	text-align: center;
 }
+
+
 
 div.links img{
 	width: 80%;
