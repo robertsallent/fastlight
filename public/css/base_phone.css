@@ -2,7 +2,7 @@
 	FICHERO CON EL ESTILO PARA TELÉFONO
 	
 	Autor: Robert Sallent
-	Última revisión: 25/07/2024
+	Última revisión: 08/08/2025
 */
 
 
@@ -29,15 +29,14 @@ section{
 	padding: 8px;
 }
 
-#access-bar{
-	padding: 5px 5px 0px 0px;
-}
+
 
 /* Header principal (en el body)  -------------------------------  */
 #main-header{
-	padding: 0px 0px 20px 0px;
+	padding: 20px 0px 20px 0px;
 	background: none;
 	border-bottom: solid 3px var(--primary-soft-color);
+	border-top: solid 3px var(--primary-soft-color);
 	margin-bottom: 10px;
 }
 
@@ -69,6 +68,11 @@ section{
 
 #main-menu{
 	justify-content: end;
+	position: sticky;
+	z-index: 5;
+	top: 5px;
+	left: 5px;
+	width: 100%;
 }
 
 #burger { display: block }

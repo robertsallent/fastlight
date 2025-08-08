@@ -148,7 +148,7 @@ class Base implements TemplateInterface{
         return "
             <header id='main-header'>
                 <div class='flex-container gap1'>
-                    <figure class='flex1 centered-block centered'>
+                    <figure class='flex1 perfect-centered'>
                         <a href='/'>
                             <img alt='FastLight Logo' src='/images/template/fastlight_base.png'>
                         </a>

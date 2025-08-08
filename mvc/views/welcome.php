@@ -23,10 +23,10 @@
 		<?= $template->acceptCookies() ?>
 		
 		<main>
-    		<h1><?= APP_NAME ?></h1>
+    		<h1>Bienvenido</h1>
 
     		<section>
-        		<h2>¡Bienvenido!</h2>
+        		<h2>¿Qué es FastLight?</h2>
         		
         		<p><code><a href="https://github.com/robertsallent/fastlight">FastLight</a></code> es un <i>framework PHP</i> 
         			rápido y ligero para desarrollar <b>aplicaciones web</b> o <b>APIs RESTFUL</b>.</p>
@@ -62,6 +62,7 @@
                         	<li>Autoload mediante mapa de clases</li>
                         	<li>Gestión integrada de errores y herramientas de depuración.</li>
                         	<li>Motor de plantillas.</li>
+                        	<li>Herramientas para frontend (sliders, menús...).</li>
                         	<li>Sistema para tests unitarios.</li>
                         	<li>Mecanismos de búsqueda y paginación de resultados.</li>
                         	<li>Autenticación y autorización basada en roles.</li>
