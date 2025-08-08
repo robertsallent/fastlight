@@ -67,7 +67,7 @@ define('APP_TYPE', 'WEB');                   // Tipo de aplicación: WEB o API.
 
 define('LANGUAGE_CODE', 'es');               // código de idioma (para poner como atributo del elemento html en las vistas)
 
-define('APP_VERSION', '1.9.13');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '1.9.14');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);     // muestra la versión de la app en el footer (templates/Base.php)
 
 // Controlador y método por defecto (solamente para APP_TYPE WEB).
