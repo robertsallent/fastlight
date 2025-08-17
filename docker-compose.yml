@@ -1,13 +1,12 @@
 volumes:
   mysql-data:
     name: ${PROJECT_NAME}-data
-
 services:
   mysql:
     build:
       context: ./docker/mysql
       args:
-        mysql_version: ${MYSQL_VERSION}
+        MYSQL_VERSION: 8.0
     container_name: ${PROJECT_NAME}-mysql
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -24,17 +23,17 @@ services:
     build:
       context: ./docker/php
       args:
-        php_version: ${PHP_VERSION}
+        PHP_VERSION: 8.2-apache
     container_name: ${PROJECT_NAME}-php-apache
     ports:
-      - "${PHP_PORT}:80"
+      - "8080:80"
     volumes:
-      - ./src/:/var/www/html/
+      - ./src/:/var/www/html
     depends_on:
       - mysql
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
+    container_name: ${PROJECT_NAME}-phpmyadmin
     restart: always
     environment:
       PMA_HOST: mysql

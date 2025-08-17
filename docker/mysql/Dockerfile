@@ -1,8 +1,10 @@
 # =========================================================
 # MySQL
 # =========================================================
-# Creacion de la imagen con el SGDB
 
-# carga la imagen indicada en el fichero .env 
-ARG mysql_version
-FROM mysql:${mysql_version}
+# ./docker/mysql/Dockerfile
+ARG MYSQL_VERSION=8.0
+FROM mysql:${MYSQL_VERSION}
+
+# Exponer puerto
+EXPOSE 3306

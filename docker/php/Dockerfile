@@ -1,48 +1,44 @@
 # =========================================================
 # PHP8.2 con Apache
 # =========================================================
+# ./docker/php/Dockerfile
+ARG PHP_VERSION=8.2-apache
+FROM php:${PHP_VERSION}
 
-# carga la imagen indicada en el fichero .env (8.2-apache)
-ARG php_version
-FROM php:${php_version}
+# Instalar dependencias comunes
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    libicu-dev \
+    libzip-dev \
+    libpng-dev \
+    libonig-dev \
+    && docker-php-ext-install \
+        pdo_mysql \
+        mysqli \
+        intl \
+        zip \
+        gd \
+    && rm -rf /var/lib/apt/lists/*
 
+# Habilitar mod_rewrite de Apache (útil para frameworks como Laravel o Symfony)
+RUN a2enmod rewrite
 
-RUN apt-get update && apt-get install --no-install-recommends -y \
-  libzip-dev \
-  libxml2-dev \
-  mariadb-client \
-  zip \
-  unzip \
-  && apt-get clean && rm -rf /var/lib/apt/lists/*
+# Configurar el DocumentRoot a /var/www/html/public
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 
-RUN pecl install zip pcov
-RUN docker-php-ext-enable zip \
-  && docker-php-ext-install pdo_mysql \
-  && docker-php-ext-install mysqli \
-  && docker-php-ext-install zip \
-  && docker-php-ext-install fileinfo \
-  && docker-php-ext-install bcmath \
-  && docker-php-ext-install soap \
-  && docker-php-source delete
+# Reescribir la configuración de Apache para usar public/ como raíz
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
+    && sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
-RUN a2enmod rewrite \
-  && a2dissite * \
-  && a2disconf other-vhosts-access-log
+# Establecer el directorio de trabajo
+WORKDIR /var/www/html
 
-# modifica la configuracion de Apache
-COPY config/000-default.conf /etc/apache2/sites-available/000-default.conf
-COPY config/docker-php.conf /etc/apache2/conf-available/docker-php.conf
-COPY config/apache2.conf /etc/apache2/apache2.conf
+# Copiar el código de la app dentro del contenedor
+COPY . .
 
-# configuracion del php
-COPY config/php.ini-development "$PHP_INI_DIR/php.ini"
+# Dar permisos (opcional)
+RUN chown -R www-data:www-data /var/www/html
 
-# instalar composer
-COPY --from=composer /usr/bin/composer /usr/bin/composer
-
-# instalar postfix
-RUN echo "postfix postfix/mailname string test.example" | debconf-set-selections
-RUN echo "postfix postfix/main_mailer_type string 'Internet Site'" | debconf-set-selections
-RUN apt-get update && apt-get install --no-install-recommends -y postfix
-
-CMD ["apache2-foreground"]
+# Exponer puerto 80
+EXPOSE 80
