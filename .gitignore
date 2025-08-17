@@ -1,7 +1,7 @@
 /.project
 /.buildpath
 /.settings/
-/vendor/
-/tmp/*
-!/tmp/readme.txt
-/logs/*.log
+/src/vendor/
+/src/tmp/*
+!/src/tmp/readme.txt
+/src/logs/*.log

@@ -1,0 +1,197 @@
+/* 
+	FICHERO CON EL ESTILO PARA TELÉFONO
+	
+	Autor: Robert Sallent
+	Última revisión: 08/08/2025
+*/
+
+
+/* Correcciones de clases genéricas para adaptarlas a pantallas pequeñas */
+
+.pc{display: none !important;}
+
+.w50, .w75, .w100 { width: 100% }
+
+.two-columns			{ column-count: 1 }
+.three-columns			{ column-count: 1 }
+.four-columns			{ column-count: 2 }
+
+
+/* Elementos estructurales */
+body{
+	margin: 0;
+	padding: 0;
+}
+
+
+section{
+	margin: 2rem 0px;
+	padding: 8px;
+}
+
+
+
+/* Header principal (en el body)  -------------------------------  */
+#main-header{
+	padding: 20px 0px 20px 0px;
+	background: none;
+	border-bottom: solid 3px var(--primary-soft-color);
+	border-top: solid 3px var(--primary-soft-color);
+	margin-bottom: 10px;
+}
+
+#main-header>div{
+	padding: 5px;
+}
+
+#main-header hgroup{
+	margin: auto;
+	padding: 0px;
+	text-align: left;
+	width: 100%;
+	background: transparent;
+}
+
+#main-header h1{
+	font-size: 1.8rem;
+	white-space: wrap;
+}
+
+#main-header h2{
+	font-size: 1.15rem;
+}
+
+
+
+
+/* ----------------------------------MENU ----------------------------------*/
+
+#main-menu{
+	justify-content: end;
+	position: sticky;
+	z-index: 50;
+	top: 5px;
+	left: 5px;
+	width: 100%;
+}
+
+#burger { display: block }
+
+.menu {
+  position: absolute;
+  flex-direction: column;
+  padding: 6px;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  display: none;
+  flex-direction: column;
+}
+
+.menu li{ 
+	margin: auto;
+	width: 100%;
+}
+
+.menu.open {
+  display: flex;
+}
+
+ .menu li:not(:first-of-type) {
+   padding: 0;
+   border-top: 2px solid white;
+ }
+
+
+
+/* Formularios -------------------------------------  */
+form .long, form .short, form .medium{
+	width: 90%;
+	margin: 5px;
+}
+
+form label{
+	width: 90%;
+}
+
+
+
+/* ------------------------ MODALES Y MENSAJES -------------------------  */
+.success-message, .error-message, .warning-message{
+	padding: 10px;
+	height: 90%;
+	width: 90%;
+}
+
+#accept-cookies{
+	padding: 10px;
+	width: 90%;
+}
+
+
+.modal{
+	padding: 5px;
+}
+
+.modal figure.card{
+	margin: auto;
+	width: 96%;
+	padding: 5px;
+}
+
+.modal-cookies>form{
+	height: 50%;
+}
+
+.modal figure.card img, .modal figure.card img.no-description{
+	aspect-ratio: 3/4;
+}
+
+
+/* Imágenes y galerías ----- */
+figure.card{
+	margin: 10px 0px;
+}
+
+
+.code-block{
+	padding: 5px;
+	font-size: 0.75rem;
+	tab-size: 0.8rem;
+}
+
+
+  
+/* ------------------------------- FOOTER  -------------------------------  */
+.footer{
+	background-size: cover;
+}
+.footer>div{
+	width: 100%;
+	text-align: center;
+	margin: 5px;
+	padding: 5px;
+	background-color: rgba(255,255,255,0.8);
+}
+
+.footer div.links{
+	width: 100%;
+	display: flex;
+}
+
+.footer div.links a{
+	display: block;
+	flex: 1;
+	text-align: center;
+}
+
+
+
+div.links img{
+	width: 80%;
+	height: auto;
+}
+
+
+
+

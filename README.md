@@ -17,6 +17,7 @@ Como todo framework, dispone de herramientas para facilitar las tareas necesaria
 
 <h3>Lo que incorpora de serie:</h3>
 
+- Integración con Docker.
 - Patrón de diseño MVC con kernels distintos para aplicaciones web y apis restful. 
 - Dispatcher con mapeo directo de URL a controlador y metodo.
 - ORM completo, compatible con mysqli y PDO.
@@ -65,7 +66,23 @@ En unos meses se hará pública la documentación sobre cómo implementar proyec
 
 En docencia trabajamos cada año con las últimas versiones de PHP. En este sentido, el código del framework se va adaptando para funcionar en versiones nuevas, eliminando el soporte para las antiguas.
 
-Actualmente, la versión 1.8.0 del framework ha sido testeada en PHP 8.2 con MySQL 5.7, MySQL 8+ y MariaDB 10.4+. Esto no quiere decir que no funcione en versiones ligeramente anteriores o posteriores, pero no se garantiza que lo haga.
+Actualmente, la versión 2.0.0 del framework ha sido testeada en PHP 8.2 con MySQL 8.0. Esto no quiere decir que no funcione en versiones ligeramente anteriores o posteriores, pero no se garantiza que lo haga.
+
+
+<h2>Integración con Docker</h2>
+
+Si dispones de Docker instalado en el equipo, para montar el servidor con las
+versiones adecuadas de PHP y Mysql, tan solo tienes que hacer por terminal:
+
+docker-compose up -d
+
+Se creará todo lo necesario para poder trabajar, incuida la base de datos fastlight (que encontrarás en /docker/mysql/initdb) con las tablas base del framework.
+
+Para crear tus propias aplicaciones, puedes cambiar los ficheros SQL de esta carpeta (recomendado) o importar el SQL posteriormente.
+
+Para realizar las pruebas, en el navegador escribe:
+- Pruebas de la aplicación: localhost:8080 
+- Phpmyadmin: localhost:8081
 
 <h2>Consideraciones</h2>
 
