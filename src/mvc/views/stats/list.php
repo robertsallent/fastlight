@@ -17,8 +17,8 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header(null, 'Estadísticas de visitas') ?>
 		<?= $template->menu() ?>
+		<?= $template->header(null, 'Estadísticas de visitas') ?>
  		
 		<?= $template->breadCrumbs([
               "Panel de administrador" => "/Panel/admin",
@@ -72,22 +72,22 @@
         		        
         		   <div class="grid-list">
                     		<div class="grid-list-header">
-                                <span>URL</span>
+                                <span class="span3">URL</span>
                                 <span>Visitas</span>
-                                <span>Primera visita</span>
-                                <span>Última visita</span>
-                                <span>Último Usuario</span>
-                              	<span>Última IP</span>
+                                <span class="span2">Primera visita</span>
+                                <span class="span2">Última visita</span>
+                                <span class="span2">Último Usuario</span>
+                              	<span class="span2">Última IP</span>
                     		</div>        		         			
         			
                       		<?php foreach($stats as $stat){ ?>
             				<div class="grid-list-item">
-                				<span data-label="URL"><?= "<a href='$stat->url'>$stat->url</a>" ?></span>
+                				<span class="span3" data-label="URL"><?= "<a href='$stat->url'>$stat->url</a>" ?></span>
                 				<span data-label="visitas"><?= $stat->count ?></span>
-                   				<span data-label="Primera visita"><?= $stat->created_at ?></span>
-                				<span data-label="Última visita"><?= $stat->updated_at ?? 'Sin datos' ?></span>
-                				<span data-label="Último usuario"><?= $stat->user ? "<a href='mailto:$stat->user'>$stat->user</a>" : 'Sin datos' ?></span>
-                				<span data-label="Última IP"><?= $stat->ip ?? 'Sin datos' ?></span>
+                   				<span class="span2" data-label="Primera visita"><?= $stat->created_at ?></span>
+                				<span class="span2" data-label="Última visita"><?= $stat->updated_at ?? 'Sin datos' ?></span>
+                				<span class="span2" data-label="Último usuario"><?= $stat->user ? "<a href='mailto:$stat->user'>$stat->user</a>" : 'Sin datos' ?></span>
+                				<span class="span2" data-label="Última IP"><?= $stat->ip ?? 'Sin datos' ?></span>
             			   </div>
                 		<?php } ?>
             		</div>

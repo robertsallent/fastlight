@@ -57,7 +57,6 @@ class Email{
         // el mensaje será con formato HTML
         $this->headers = "MIME-Version: 1.0\r\n";
         $this->headers .= "Content-type: text/html; charset=utf-8\r\n";
-        $this->headers .= "To: <$this->to>\r\n";
         $this->headers .= "From: $this->name <$this->from>\r\n";
         
         // preparamos el mensaje que se enviará

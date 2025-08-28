@@ -159,8 +159,7 @@ function formatFloat(int $number, int $decimal = 0):string{
  | FECHAS
  |--------------------------------------------------------------------------
  */
-
-function humanDate(string $date):string{
+function humanDate(string $date, bool $time = true):string{
     
     $months = [
         "enero",
@@ -182,7 +181,7 @@ function humanDate(string $date):string{
     
     $result = intval($dateArray[2])." de ".$months[$dateArray[1]-1]." de ".$dateArray[0];
     
-    if($dateTime[1])
+    if($time && $dateTime[1])
         $result .= ", a las ".$dateTime[1];   
     
     return $result;

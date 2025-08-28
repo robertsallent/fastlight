@@ -30,7 +30,10 @@
  */
 
 // carga el fichero de configuración
-require '../config/config.php';         
+require '../config/config.php';     
+
+if(!DISPLAY_ERRORS)
+    ini_set('display_errors', 0);
 
 
 // comprueba la versión de PHP (se configura en config.php)

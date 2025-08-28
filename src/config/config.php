@@ -37,6 +37,7 @@
  * @since v1.8.4 añadida la constante BLOCKED_REDIRECT para configurar la redirección cuando haga login un usuario bloqueado
  * @since v1.9.8 añadida la consttante TEST_ENABLED, que permite habilitar o deshabilitar los test.
  * @since v1.9.10 añadida la constante LANGUAGE_CODE, para indicar el código de idioma de la aplicación.
+ * @since v2.0.2 añadida la constante DISPLAY_ERRORS, que permite mostrar errores en pantalla (en producción debe estar a false).
  */
    
 
@@ -67,7 +68,7 @@ define('APP_TYPE', 'WEB');                   // Tipo de aplicación: WEB o API.
 
 define('LANGUAGE_CODE', 'es');               // código de idioma (para poner como atributo del elemento html en las vistas)
 
-define('APP_VERSION', '2.0.0');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '2.0.2');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);     // muestra la versión de la app en el footer (templates/Base.php)
 
 // Controlador y método por defecto (solamente para APP_TYPE WEB).
@@ -211,7 +212,7 @@ define('SESSION_COOKIE_EXPIRE', 0);
 define('VIEWS_FOLDER', '../mvc/views');     
 
 // Template a usar en las vistas 
-// Las plantillas que se incluyen son: Base, Dark, Neon y Retro.
+// Las plantillas que se incluyen son: Base, Dark y Retro.
 // Se pueden crear nuevas en la carpeta templates.
 define('TEMPLATE', 'Base');
 
@@ -264,6 +265,7 @@ define('ACCEPT_COOKIES_EXPIRATION', time()+604800);
  * HERRAMIENTAS DE DEPURACIÓN (PARA APP_TYPE WEB)
  * -------------------------------------------------------------*/
     
+define('DISPLAY_ERRORS', true); // Muestra errores en pantalla (en producción debe estar a false).
 define('DEBUG', true); // Activa el modo debug.   
 
 // Detalles que queremos mostrar en modo debug en la página de error

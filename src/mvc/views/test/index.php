@@ -17,9 +17,8 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header(null, 'Listado de test PHP') ?>
 		<?= $template->menu() ?>
-
+		<?= $template->header(null, 'Listado de test PHP') ?>
 		<?= $template->breadCrumbs([
 	              "Panel del administrador" => "/Panel/admin",
 		          "Test" => NULL

@@ -17,8 +17,8 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header(null, 'Error 404') ?>
 		<?= $template->menu() ?>
+		<?= $template->header(null, 'Error 404') ?>
 		<?= $template->breadCrumbs(["Error 404" => NULL]) ?>
 		<?= $template->messages() ?>
 		

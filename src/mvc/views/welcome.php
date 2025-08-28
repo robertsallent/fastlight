@@ -17,8 +17,9 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header(null, 'Desarrollo rápido de aplicaciones web y APIs RESTFUL') ?>
+		
 		<?= $template->menu() ?>
+		<?= $template->header(null, 'Para desarrollo web y APIs RESTFUL') ?>
 		<?= $template->messages() ?>
 		<?= $template->acceptCookies() ?>
 		
@@ -66,44 +67,46 @@
 
 		</main>
 		
-		<!-- este mapa web solamente se muestra en pantallas grandes -->
-		<nav class="web-map pc">  
-		<h2>Links</h2>
 		
-    	<ul class="flex-container">   		
-    		<li class="flex1"><a href="#">Recursos</a>
-    			<ul>
-	    			<li><a target="_blank" href="https://github.com/robertsallent/fastlight">GitHub</a></li>
-	    			<li><a target="_blank" href="https://fastlight.org">Documentación oficial</a></li>
-    			</ul>
-    		</li>
-    		
-    		<li class="flex1"><a href="https://fastlight.org/Example#list">Maquetación</a>
-    			<ul>
-	    			<li><a target="_blank" href="https://fastlight.org/Example/botones">Buttons</a></li>
-	    			<li><a target="_blank" href="https://fastlight.org/Example/formularios">Forms</a></li>
-	    			<li><a target="_blank" href="https://fastlight.org/Example/modal">Modals</a></li>
-	    			<li><a target="_blank" href="https://fastlight.org/Example/sliders">Sliders</a></li>
-    			</ul>
-    		</li>
-    		
-    		<li class="flex1"><a href="#">Ejemplos de clase</a>
-    			<ul>
-	    			<li><a target="_blank" href="https://larabikes.robertsallent.com">Larabikes <code>(Laravel)</code></a></li>
-	    			<li><a target="_blank" href="https://symfofilms.robertsallent.com">SymfoFilms <code>(Symfony)</code></a></li>
-	    			<li><a target="_blank" href="https://biblioteca.fastlight.org">Biblioteca <code>(FastLight)</code></a></li>
-    			</ul>
-    		</li>
-    		
-    		<li class="flex1"><a href="#">Otros proyectos</a>
-    			<ul>
-	    			<li><a target="_blank" href="https://juegayestudia.com">Juega y Estudia</a></li>
-    			</ul>
-    		</li>
-    		
-    		
-    	</ul>
-    </nav>
+
+		<!-- este mapa web solamente se muestra en pantallas grandes -->
+		<nav class="web-map">  
+			<h2>Links</h2>
+			
+			<ul class="flex-container">   		
+				<li class="flex1"><a href="#">Recursos</a>
+					<ul>
+						<li><a target="_blank" href="https://github.com/robertsallent/fastlight">GitHub</a></li>
+						<li><a target="_blank" href="https://fastlight.org">Documentación oficial</a></li>
+					</ul>
+				</li>
+				
+				<li class="flex1"><a href="https://fastlight.org/Example#list">Ejemplos de maquetación</a>
+					<ul>
+						<li><a target="_blank" href="https://fastlight.org/Example/botones">Buttons</a></li>
+						<li><a target="_blank" href="https://fastlight.org/Example/formularios">Forms</a></li>
+						<li><a target="_blank" href="https://fastlight.org/Example/modal">Modals</a></li>
+						<li><a target="_blank" href="https://fastlight.org/Example/sliders">Sliders</a></li>
+					</ul>
+				</li>
+				
+				<li class="flex1"><a href="#">Ejemplos de clase</a>
+					<ul>
+						<li><a target="_blank" href="https://larabikes.robertsallent.com">Larabikes (Laravel)</a></li>
+						<li><a target="_blank" href="https://symfofilms.robertsallent.com">SymfoFilms (Symfony)</a></li>
+						<li><a target="_blank" href="https://biblioteca.fastlight.org">Biblioteca (FastLight)</a></li>
+					</ul>
+				</li>
+				
+				<li class="flex1"><a href="#">Otros proyectos</a>
+					<ul>
+						<li><a target="_blank" href="https://juegayestudia.com">Juega y Estudia</a></li>
+					</ul>
+				</li>
+				
+				
+			</ul>
+		</nav>
     
 		<?= $template->footer() ?>
 		<?= $template->version() ?>

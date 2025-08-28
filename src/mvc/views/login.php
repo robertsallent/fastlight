@@ -17,8 +17,8 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header(null, 'Acceso a la aplicación') ?>
 		<?= $template->menu() ?>
+		<?= $template->header(null, 'Acceso a la aplicación') ?>
 		<?= $template->breadCrumbs([
                 "LogIn" => null
     	    ]) ?>
@@ -26,7 +26,7 @@
 		<?= $template->acceptCookies() ?>
 		
 		<main>
-    		<form class="w50 centered-block" method="POST" autocomplete="off" id="login" action="/Login/enter">
+    		<form class="w50 centered-block my2" method="POST" autocomplete="off" id="login" action="/Login/enter">
     			
     			<?= csrf() ?>
     			

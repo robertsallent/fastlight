@@ -17,8 +17,8 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header(null, 'Error 400') ?>
 		<?= $template->menu() ?>
+		<?= $template->header(null, 'Error 400') ?>
 		<?= $template->breadCrumbs(["Error 400" => NULL]) ?>
 		<?= $template->messages() ?>
 		

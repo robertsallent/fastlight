@@ -17,8 +17,8 @@
     	</head>
     	<body>
     		<?= $template->login() ?>
+			<?= $template->menu() ?>
     		<?= $template->header(null, 'Lista de errores detectados en tiempo de ejecución') ?>
-    		<?= $template->menu() ?>
     		<?= $template->breadCrumbs([
 		              "Panel de administrador" => "/Panel/admin",
     		          "Lista de errores" => NULL  
@@ -79,28 +79,30 @@
             			<div class="grid-list">
                     		<div class="grid-list-header">
                                 <span>Tipo</span>
-                                <span>URL</span>
-                                <span>Clase</span>
-                                <span>Fecha</span>
-                                <span>Usuario e IP</span>
-                              	<span>Acciones</span>
+                                <span class="span3">URL</span>
+                                <span class="span2">Clase</span>
+                                <span class="span2">Fecha</span>
+                                <span class="span3">Usuario e IP</span>
+                              	<span class="right">Acciones</span>
                     		</div>
                     		                    		
                     		<?php foreach($errores as $error){ ?>
                 				<div class="grid-list-item">
                 					<span data-label="Tipo" class="bold"><?=$error->type?></span>
-                					<span data-label="URL" class='url'>
+                					<span data-label="URL" class='url span3'>
                     					<a href="<?=$error->url?>"><?=$error->url?></a>
                     				</span>
-                    				<span title="<?=$error->message?>" class='bold' data-label="Clase"><?=$error->level?></span>
-                    				<span data-label="Fecha"><?=$error->date?></span>
-                    				<span data-label="Usuario e IP">
+                    				<span title="<?=$error->message?>" class='bold span2' data-label="Clase"><?=$error->level?></span>
+                    				<span class="span2" data-label="Fecha"><?=$error->date?></span>
+                    				<span class="span3" data-label="Usuario e IP">
                     					<?php if($error->user){ ?>
                     						<a href="mailto:<?= $error->user?>"><?=$error->user ?></a>
                     					<?php } ?>
                 					(<?=$error->ip?>)</span>
-                    				<span data-label="Acciones" class="centrado">
-                    					<a class="button-danger" href="/Error/destroy/<?= $error->id ?>">Borrar</a>
+                    				<span data-label="Acciones" class="right">
+										<a class="button-danger action-icon" href="/Error/destroy/<?= $error->id ?>">
+											<img src="/images/icons/delete.png" alt="Borrar" title="Borrar registro">
+										</a>
                 					</span>
                 			   </div>
                     		<?php } ?>

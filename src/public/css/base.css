@@ -62,7 +62,7 @@
   
   --a-color: rgb(60, 100, 180);
   
-  --main-bg-color: rgb(250, 250, 253); 
+  --main-bg-color: rgb(240, 240, 243); 
   
   --th-bg-color: rgb(60, 100, 160);
   --th-font-color: rgb(255, 255, 255);
@@ -221,7 +221,7 @@
 
 
 /* Ayuda y readables -----------------------------------------------------*/
-.help:before, .info:before, .readable:before{
+.help:before, .info:before, .readable:before, .caution:before{
     display: inline-block;
     padding-right: 5px;
     vertical-align: middle;
@@ -229,7 +229,15 @@
 
 .help:before					{ content:url('../images/icons/help.png') 	}
 .info:before					{ content:url('../images/icons/info.png') 	}
-.readable:not(figure):before	{ content:url('../images/icons/speaker.png')}
+.caution:before					{ content:url('../images/icons/warning.png') 	}
+
+.readable:not(figure, section):before	{ content:url('../images/icons/speaker.png')}
+
+section.readable>h2:before{
+	content:url('../images/icons/speaker.png');
+	padding: 5px 5px 0px 0px;
+	vertical-align: middle;
+}
 
 figure.readable{
 	position: relative;
@@ -245,6 +253,7 @@ figure.readable:before{
     top: 5px;
     right: 5px;
  }
+
 
 /* Rellenos y márgenes estándar (5 niveles) ------------------------------- */
 
@@ -534,6 +543,36 @@ td .button-danger, td .button-danger-light{
 }
 
 
+/* botones para acciones -------------------------------------------------------- */
+a.social-icon{
+	display: inline-block;
+	width: 40px;
+	text-align: center;
+	padding: 0px;
+	margin: 4px;
+}
+
+a.action-icon{
+	display: inline-block;
+	width: 30px;
+	text-align: center;
+	padding: 5px;
+	margin: 0px;
+}
+
+a.action-icon img, a.social-icon img{
+	width: 100%;
+	vertical-align: middle;
+}
+
+input[type="image"].action-icon{
+	display: inline-block;
+	vertical-align: middle;
+	width: 30px;
+	min-width: 30px;
+	padding: 5px;
+	margin: 0px;
+}
 
 
 /* Tablas -------------------------------------------------------- */
@@ -631,6 +670,15 @@ dd{
 .grid-list-item span{
 	padding: 5px;
 }
+
+.grid-list span.span1{	grid-column: span 1;}
+.grid-list span.span2{	grid-column: span 2;}
+.grid-list span.span3{	grid-column: span 3;}
+.grid-list span.span4{	grid-column: span 4;}
+.grid-list span.span5{	grid-column: span 5;}
+.grid-list span.span6{	grid-column: span 6;}
+.grid-list span.span7{	grid-column: span 7;}
+.grid-list span.span8{	grid-column: span 8;}
 
 .grid-list-header {
   color: white;
@@ -976,29 +1024,33 @@ body{
 }
 
 #access-bar{
-	background-color: var(--bg-color);	
-	padding: 10px;
-	text-align: right;
-	width: 100%;
+	display: flex;
+	justify-content: space-between; /* separación entre los dos divs */
+	align-items: center; /* alinear verticalmente al centro */
+	padding: 4px;
 }
-
 
 /* header principal (directamente dentro del body)---------------------------- */
 #main-header{
-	background-image: url(../images/template/header_base.jpg);
+	background-image: url(../images/template/header.jpg);
 	background-size: cover;
 	align-items: center;
+	color: white;
+	text-shadow: 0 0 4px black;
 }
 
 #main-header>div{
-	padding: 30px 1%;
-	color: var(--primary-bg-color);
+	padding: 30px 0px;
 }
 
 #main-header figure{
 	min-width: 100px;
 	max-width: 160px;
-	padding: 1%;
+	background-color: rgba(255,255,255,0.65);
+	padding: 15px;
+	border-radius: 5px;
+	box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
+	transform: rotate(-10deg);
 }
 
 #main-header img{
@@ -1011,13 +1063,11 @@ body{
 	padding: 20px;
 	min-width: 40%;
 	max-width: 80%;
-	border-radius: 3px;	
-	background-color: rgba(255, 255, 255, 0.9);
 }
 
 #main-header h1{
 	margin: 0px 10px 10px 10px;
-	font-size: 3em;
+	font-size: 3.25em;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -1025,6 +1075,7 @@ body{
 
 #main-header p{
 	margin: 0px 10px;
+	font-size: 1.5em;
 }
 
 
@@ -1163,6 +1214,7 @@ main{
 	padding: 10px 4%;
 	margin: 0 auto;
 	font-size: 1.3em;
+	background-color: transparent;
 }
 
 .web-map h2{
@@ -1182,7 +1234,7 @@ main{
 
 /* footer principal de la página (directamente dentro del body) ---- */
 .page-footer{
-	background: linear-gradient(45deg, var(--primary-bg-color), var(--primary-soft-color));
+	background: linear-gradient(var(--primary-soft-color), var(--primary-bg-color));
 	color: var(--primary-font-color);
 	border-radius: 3px;
 }
@@ -1197,7 +1249,7 @@ main{
 }
 
 .page-footer figure{
-	background-color: white;
+	background-color: rgba(255,255,255,0.6);
 	border-radius: 3px;
 	display: inline-block;
 	min-width: 30px !important;

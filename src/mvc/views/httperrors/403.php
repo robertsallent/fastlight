@@ -17,8 +17,8 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header(null, 'Error 403') ?>
 		<?= $template->menu() ?>
+		<?= $template->header(null, 'Error 403') ?>
 		<?= $template->breadCrumbs(["Error 403" => NULL]) ?>
 		<?= $template->messages() ?>
 		

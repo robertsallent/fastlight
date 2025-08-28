@@ -17,8 +17,8 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header(null, 'Panel de administrador') ?>
 		<?= $template->menu() ?>
+		<?= $template->header(null, 'Panel de administrador') ?>
 		<?= $template->breadCrumbs(["Panel de administrador" => null]) ?>
 		<?= $template->messages() ?>
 		

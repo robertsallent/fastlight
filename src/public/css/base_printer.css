@@ -2,36 +2,14 @@
 	FICHERO CON EL ESTILO PARA IMPRESORA
 	
 	Autor: Robert Sallent
-	Última revisión: 25/07/2024
+	Última revisión: 21/08/2025
 */
 
 @page{
-  size:  auto;   	  /* auto is the initial value */
-  margin: 15mm 10mm;  /* this affects the margin in the printer settings */
-	
-/*
-  @bottom-right-corner {
-    content: "Pàgina " counter(page);
-  }
-  
-  @bottom-center {
-    content: "FastLight Framework, by Robert Sallent";
-  }
-  
-  @top-right-corner {
-    content: url(../images/logos/cifo.png);
-  }
-  
-  @bottom-left-corner {
-    content: url(../images/logos/generalitat.png);
-  }
-*/  
+  size:  auto;   	  
+  margin: 15mm 10mm; 
 }
 
-*{
-	color: #006 !important;
-	border:none;
-}
 
 .pagebreak { 
 	page-break-before: always; 
@@ -41,71 +19,110 @@
 	display:initial !important;
 }
 
-main .flex-container{
-	display: initial;
-}
-
-body{
-	width: 100%; 
-	border:none;
-	box-shadow: none;
-	margin: 0px;
-	padding: 0px;
-}
-
-main{
-	 border: none; 
-	 padding: 0px;
-}	
-
-
-nav, #migas, #login, #logout, .pc{
+.no-print{
 	display:none !important;
 }
 
-header, header figure img{
-	border: none !important;
-	padding: 0px;
-	margin: 0px;
+/* Elementos que no deben ser visibles en las páginas impresas -------------------------------------------------------*/
+#login-bar, #login, #logout, #main-menu, #breadcrumbs, #filtro, #main-footer, #version, 
+.modal, .info, .pc,
+.button, .button-light, .button-success, .button-warning, .button-danger, .button-light, .button-light-success, .button-light-warning, .button-light-danger{
+	display:none !important;
 }
 
-header h1{
-	color: #09c; 
-	text-shadow: none;
-	font-size: 2em;
-}
 
+/* Retoques para los elementos genéricos ----------------------------------------------------------------------------*/
 p{
 	margin-bottom: 1.2rem;
 }
 
 
-footer p{
-	color: grey;
-	font-style: italic;
+/* Estructura del documento -------------------------------------------------------*/
+body{
+	font-family: Arial, Helvetica, sans-serif;
+	width: 100%; 
+	border:none;
+	box-shadow: none;
+	margin: 0;
+	padding: 0;
 }
 
-/* TABLAS */
+
+#main-header{
+	padding: 0px;
+	margin: 0px;
+}
+
+#main-header h1{
+	text-shadow: none;
+	font-size: 2em;
+}
+
+#main-header figure{
+	float: right;
+	margin: 0;
+	padding: 0;
+	width: 80px;
+}
+
+#main-header figure img{
+	width: 100%;
+	height: auto;
+}
+
+
+main{
+	 border: none; 
+	 padding: 0;
+    margin: 0;
+}
+
+
+
+/* LISTAS RESPONSIVE -------------------------------------------------------------*/
+
+.grid-list-header{
+	display: none;
+}
+
+.grid-list-item{
+	display: block;
+	width: 100%;
+	margin-bottom: 0.5rem;
+	padding: 0.25rem;
+	box-shadow: none;
+}
+
+.grid-list-item:nth-of-type(even){
+	background-color: #ddd;
+}
+
+/* TABLAS ------------------------------------------------------------------------*/
 
 table{
 	border: solid 1px lightgrey;
 	/* page-break-inside: avoid; */
 }
+
 table tr, table td{
 	border: none !important;
 	font-size: 0.8rem !important;
 }
+
 table th, table td{
 	background-color: transparent !important;
 }
+
 table th{
 	border-bottom: solid 1px lightgrey !important;
 	font-size: 1rem !important;
 }
+
 table tr:nth-of-type(even){
   background-color: unset;
   box-shadow: inset 0 0 0 200px #eee; 
 }
+
 table tr:nth-of-type(odd){
 	background-color: #fff;
 }

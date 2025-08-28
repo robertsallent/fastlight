@@ -30,13 +30,9 @@ section{
 }
 
 
-
 /* Header principal (en el body)  -------------------------------  */
 #main-header{
 	padding: 20px 0px 20px 0px;
-	background: none;
-	border-bottom: solid 3px var(--primary-soft-color);
-	border-top: solid 3px var(--primary-soft-color);
 	margin-bottom: 10px;
 }
 
@@ -49,7 +45,11 @@ section{
 	padding: 0px;
 	text-align: left;
 	width: 100%;
-	background: transparent;
+}
+
+#main-header figure{
+	transform: none;
+	background-color: white;
 }
 
 #main-header h1{
@@ -57,8 +57,8 @@ section{
 	white-space: wrap;
 }
 
-#main-header h2{
-	font-size: 1.15rem;
+#main-header p{
+	font-size: 1rem;
 }
 
 
@@ -115,6 +115,17 @@ form label{
 }
 
 
+/* Grid lists ------------------------------------------ */
+.grid-list span.span1, 
+.grid-list span.span2,
+.grid-list span.span3,
+.grid-list span.span4,
+.grid-list span.span5,
+.grid-list span.span6,
+.grid-list span.span7,
+.grid-list span.span8{	grid-column: span 1;}
+
+
 
 /* ------------------------ MODALES Y MENSAJES -------------------------  */
 .success-message, .error-message, .warning-message{
@@ -161,7 +172,17 @@ figure.card{
 }
 
 
-  
+ /* ------------------------------ MAPA WEB --------------------------------*/
+ 
+ .web-map>ul.flex-container{
+	padding: 5px;
+	display: initial;
+}
+
+.web-map>ul>li{
+	margin-bottom: 1.2rem;
+}
+
 /* ------------------------------- FOOTER  -------------------------------  */
 .footer{
 	background-size: cover;

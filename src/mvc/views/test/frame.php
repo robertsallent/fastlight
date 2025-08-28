@@ -19,8 +19,8 @@
 	
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header(null, "Test de $test") ?>
 		<?= $template->menu() ?>
+		<?= $template->header(null, "Test de $test") ?>
 		<?= $template->breadCrumbs([ "Test" => "/test", $test => NULL]) ?>
 		<?= $template->messages() ?>
 		<?= $template->acceptCookies() ?>

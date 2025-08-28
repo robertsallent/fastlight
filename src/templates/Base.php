@@ -82,17 +82,29 @@ class Base implements TemplateInterface{
      * @return string HTML con los enlaces a login y logout.
      */
     public function login(){
+
+        $html = "<nav id='access-bar'>";
+
+
+        // enlaces a las redes sociales
+        $html .= "\t<div class='left no-print'>
+                        <a class='social-icon' href='https://www.linkedin.com/in/robert-sallent-l%C3%B3pez-4187a866'>
+                            <img src='/images/logos/linkedin.png' alt='LinkediIn'>
+                        </a><a class='social-icon' href='https://github.com/robertsallent/fastlight'>
+                            <img src='/images/logos/github.png' alt='GitHub'>
+                        </a>
+                    </div>";
         
+        
+        // Opciones de LogIn y LogOut
         // si el usuario no está identificado
         if(Login::guest()){
             
             // prepara el HTML solamente con el botón de "LogIn"
-            $html = " 
-            <div id='access-bar'>
-               <a class='button-light' href='/Login'>
-                    LogIn
-               </a>
-            </div>";
+            $html .= "
+                <div class='right m1' id='login-bar'>
+                    <a class='button-light' href='/Login'>Acceso</a>
+                </div>";
             
             
         // en caso de que el usuario sí esté identificado
@@ -100,31 +112,35 @@ class Base implements TemplateInterface{
             $user = Login::user(); // recupera el usuario
             
             // pone el texto "Bienvenido usuario" con un enlace a su home
-            $html = "
-            <div id='access-bar'>
-                <span class='pc'>Bienvenido</span>
-                <a class='negrita' href='/User/home' title='Acceder al espacio personal'>
-                    $user->displayname
-                </a>
-                <span class='pc cursiva'>&lt;$user->email&gt;</span>";
-                            
-                // si el usuario es administrador, le informa de ello
-                if($user->isAdmin())
-                    $html .= "
-                <span class='pc'> eres
-                    <a class='negrita' href='/Panel/admin' title='Ir al panel del administrador'>administrador</a>.
-                </span>";
+            $html .= "
+                <div class='right m1' id='login-bar'>
+                    <span class='pc'>Bienvenido</span>
+                    <a class='negrita' href='/User/home' title='Acceder al espacio personal'>
+                        $user->displayname
+                    </a>
+                    <span class='pc cursiva'>&lt;$user->email&gt;</span>";
                                 
-                // pone la imagen de perfil y el enlace a logout
-                $html .= " 
-                <a href='/User/home'>
-                <img class='icon'
-                    src='".USER_IMAGE_FOLDER."/".($user->picture ?? DEFAULT_USER_IMAGE)."'
-                    alt='Imagen de perfil'>
-                </a>   
-                <a class='button-light' href='/Logout'>LogOut</a>
-            </div>";
+                    // si el usuario es administrador, le informa de ello
+                    if($user->isAdmin())
+                        $html .= "
+                    <span class='pc'> eres
+                        <a class='negrita' href='/Panel/admin' title='Ir al panel del administrador'>administrador</a>.
+                    </span>";
+                                    
+                    // pone la imagen de perfil y el enlace a logout
+                    $html .= " 
+                    <a href='/User/home'>
+                    <img class='icon'
+                        src='".USER_IMAGE_FOLDER."/".($user->picture ?? DEFAULT_USER_IMAGE)."'
+                        alt='Imagen de perfil'>
+                    </a>   
+                    <a class='button-light' href='/Logout'>LogOut</a>
+                </div>";
+
         }
+
+        $html .= "</nav>";
+
         return $html; // retorna el código HTML generado
     }
         
@@ -150,7 +166,7 @@ class Base implements TemplateInterface{
                 <div class='flex-container gap1'>
                     <figure class='flex1 perfect-centered'>
                         <a href='/'>
-                            <img alt='FastLight Logo' src='/images/template/fastlight_base.png'>
+                            <img alt='FastLight Logo' src='/images/logos/fastlight.png'>
                         </a>
                     </figure>
                     <hgroup class='flex7'>
@@ -204,7 +220,7 @@ class Base implements TemplateInterface{
                 
         // Enlace al repositorio de FastLight en GitHub  
         // Lo podéis eliminar, para que no aparezca en vuestras aplicaciones
-        $html .=   "\t\t<li><a href='https://github.com/robertsallent/fastlight'>GitHub</a></li>\n";
+        // $html .=   "\t\t<li><a href='https://github.com/robertsallent/fastlight'>GitHub</a></li>\n";
             
         $html .= "\t</menu>\n";
         $html .= "</nav>\n";
@@ -477,30 +493,30 @@ class Base implements TemplateInterface{
      */
     public function footer(){
         return "
-        <footer class='page-footer flex-container left drop-shadow'>
+        <footer id='main-footer' class='page-footer flex-container left drop-shadow'>
             
-            <div class='flex4 p2'>
+            <div class='flex4 p1'>
                 <p><a class='negrita maxi cursiva' href='https://github.com/robertsallent/fastlight'>FastLight Framework</a></p>
-                <p>
+                <p class='pc'>
                     Desarrollado por <a href='https://robertsallent.com'>
                     Robert Sallent</a> para sus cursos de desarrollo de aplicaciones web (2022/2025).
                 </p>
             </div>
 
-            <div class='flex1 p1 m1 mt3 right'>
+            <div class='flex1 p1 m1 right'>
                 <figure class='p1 centrada drop-shadow'>
                     <a href='https://robertsallent.com' rel='author'>
-                        <img class='w100' src='/images/template/logo.png' alt='Robert Sallent'>
+                        <img class='w100' src='/images/logos/robertsallent.png' alt='Robert Sallent'>
                     </a>
                 </figure>
                 <figure class='p1 centrada drop-shadow'>
                     <a href='https://www.linkedin.com/in/robert-sallent-l%C3%B3pez-4187a866'>
-                        <img class='w100' src='/images/template/linkedin.png' alt='LinkedIn'>
+                        <img class='w100' src='/images/logos/linkedin.png' alt='LinkedIn'>
                     </a>
                 </figure>
                 <figure class='p1 centrada drop-shadow'>
                     <a href='https://github.com/robertsallent'>
-                        <img class='w100' src='/images/template/github.png' alt='GitHub'>
+                        <img class='w100' src='/images/logos/github.png' alt='GitHub'>
                     </a>
                 </figure>
             </div>

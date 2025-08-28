@@ -17,8 +17,8 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header(null, 'Generación de una nueva clave') ?>
 		<?= $template->menu() ?>
+		<?= $template->header(null, 'Generación de una nueva clave') ?>
 		<?= $template->breadCrumbs(["LogIn" => "/Login", "Nueva clave" => NULL]) ?>
 		<?= $template->messages() ?>
 		<?= $template->acceptCookies() ?>

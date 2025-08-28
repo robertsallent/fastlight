@@ -17,8 +17,8 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header(null, 'Éxito en la operación') ?>
 		<?= $template->menu() ?>
+		<?= $template->header(null, 'Éxito en la operación') ?>
 		<?= $template->breadCrumbs(["Éxito" => NULL]) ?>
 		<?= $template->messages() ?>
 		<?= $template->acceptCookies() ?>
