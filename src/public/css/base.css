@@ -79,19 +79,19 @@
   --footer-bg-color: rgba(255, 255, 255, 0.85);
   --modal-bg-color: rgba(120, 120, 120, 0.85);
     
-  --success-bg-color: rgb(180, 250, 180);
-  --success-font-color: #363;
+  --success-bg-color: rgb(40, 167, 69);
+  --success-font-color: rgb(255,255,255);
   --success-btn-color: rgb(60, 180, 60);
   --success-btn-hover-color: rgb(110, 250, 110);
   
-  --warning-bg-color: rgb(250, 250, 180);
-  --warning-font-color: rgb(150, 120, 0);
+  --warning-bg-color: rgb(255, 211, 0);
+  --warning-font-color: rgb(34, 34, 34);
   --warning-btn-color: rgb(250, 200, 50);
-  --warning-btn-hover-color: rgb(230, 230, 80);
+  --warning-btn-hover-color: rgb(200, 200, 110);
   
   
-  --danger-bg-color: rgb(250, 180, 180);
-  --danger-font-color: #753;
+  --danger-bg-color: rgb(217, 0, 0);
+  --danger-font-color: rgb(255, 255, 255);
   --danger-btn-color: rgb(180, 60, 60);
   --danger-btn-hover-color: rgb(250, 120, 120); 
   
@@ -102,6 +102,11 @@
   --min-width: 280px; 
 }
 
+
+/* =========================  ELEMENTOS IMPRIMIBLES ======================= */
+.print{
+	display: none !important;
+}
 	
 
 /* =========================  PARA TODOS LOS ELEMENTOS ======================= */
@@ -369,7 +374,7 @@ h2, h3{
 }
 
 h2:first-child, h3:first-child{
-	margin:  0.8em 0;
+	margin:  0.2em 0;
 }
 
 p{
@@ -397,7 +402,7 @@ hr{
 }
 
 code { 
-	font-size: 1.05rem;
+	font-size: 1.05em;
 	color: var(--code-color); 
 }
 
@@ -516,30 +521,33 @@ td .button-danger, td .button-danger-light{
 }
 
 .button-success-light{
-	outline: solid 1px var(--success-btn-color);
-	color: var(--success-font-color);
+	outline: solid 1px var(--success-bg-color);
+	color: var(--success-bg-color);
 	background-color: var(--primary-font-color);
 }
 .button-success-light:hover{
 	background-color: var(--success-bg-color);
+	color: var(--success-font-color);
 }
 
 .button-warning-light{
-	outline: solid 1px var(--warning-btn-color);
-	color: var(--warning-font-color);
+	outline: solid 1px var(--warning-bg-color);
+	color: var(--warning-bg-color);
 	background-color: var(--primary-font-color);
 }
 .button-warning-light:hover{
 	background-color: var(--warning-bg-color);
+	color: var(--warning-font-color);
 }
 
 .button-danger-light{
-	outline: solid 1px var(--danger-btn-color);
-	color: var(--danger-font-color);
+	outline: solid 1px var(--danger-bg-color);
+	color: var(--danger-bg-color);
 	background-color: var(--primary-font-color);
 }
 .button-danger-light:hover{
 	background-color: var(--danger-bg-color);
+	color: var(--danger-font-color);
 }
 
 
@@ -732,27 +740,27 @@ img.scale, video.scale{
 }
 
 
-img.portrait, video.portrait{
+img.portrait, video.portrait, iframe.portrait{
 	aspect-ratio: 3/4;
 }
 
-img.slim, video.slim{
+img.slim, video.slim, iframe.slim{
 	aspect-ratio: 2/5;
 }
 
-img.landscape, video.landscape{
+img.landscape, video.landscape, iframe.landscape{
 	aspect-ratio: 4/3;
 }
 
-img.wide, video.wide{
+img.wide, video.wide, iframe.wide{
 	aspect-ratio: 5/2;
 }
 
-img.square, video.square{
+img.square, video.square, iframe.square{
 	aspect-ratio: 1/1;
 }
 
-img.legacy, video.legacy{
+img.legacy, video.legacy, iframe.legacy{
 	aspect-ratio: 3/2;
 }
 
@@ -1045,12 +1053,7 @@ body{
 
 #main-header figure{
 	min-width: 100px;
-	max-width: 160px;
-	background-color: rgba(255,255,255,0.65);
-	padding: 15px;
-	border-radius: 5px;
-	box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
-	transform: rotate(-10deg);
+	max-width: 180px;
 }
 
 #main-header img{
@@ -1179,17 +1182,12 @@ body{
 }
 
 
-
 section{
 	box-shadow: 1px 1px 3px var(--shadow-color);
 	border-radius: 3px;
 	background-color: var(--bg-color);
-	padding: 2%;
-	margin: 2% 0%;
-}
-
-section h2{
-	margin: 0 0 1rem 0;
+	padding: 20px;
+	margin: 20px 0;
 }
 
 section:target{
@@ -1371,7 +1369,7 @@ div.http-error{
 	width: 70%;
 	padding: 50px;
 	border-radius: 5px;
-	margin: auto;
+	margin: auto auto;
 	font-size: 1.2em;
 }
 
@@ -1390,6 +1388,10 @@ div.http-error{
 	color: var(--danger-font-color);
 }
 
+
+.error a, .danger a{
+	color: #89c !important;
+}
 
 /* ----------------- ACEPTAR COOKIES ----------------- */
 

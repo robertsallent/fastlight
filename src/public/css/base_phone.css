@@ -47,11 +47,6 @@ section{
 	width: 100%;
 }
 
-#main-header figure{
-	transform: none;
-	background-color: white;
-}
-
 #main-header h1{
 	font-size: 1.8rem;
 	white-space: wrap;

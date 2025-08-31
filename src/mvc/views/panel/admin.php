@@ -33,7 +33,7 @@
         		
         		<section class="flex1">
         			<h2>Administración</h2>
-        			<ul>
+        			<ul class="my2">
         				<?php if((Login::oneRole(ERROR_ROLES)) && (DB_ERRORS || LOG_ERRORS || LOG_LOGIN_ERRORS)){ ?>
         				<li><a href='/Error/list'>Errores</a></li>
         				<?php } ?>
@@ -54,7 +54,7 @@
         		<section class="flex1">
         			<h2>Gestión de usuarios</h2>
     
-        			<ul>
+        			<ul class="my2">
         				<li><a href='/User'>Lista de usuarios</a> (TODO)</li>
         				<li><a href='/User/create'>Nuevo usuario</a> (TODO)</li>
         				<li>...</li>

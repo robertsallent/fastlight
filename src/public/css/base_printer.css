@@ -15,6 +15,8 @@
 	page-break-before: always; 
 }
 
+
+
 .print{
 	display:initial !important;
 }
@@ -29,6 +31,7 @@
 .button, .button-light, .button-success, .button-warning, .button-danger, .button-light, .button-light-success, .button-light-warning, .button-light-danger{
 	display:none !important;
 }
+
 
 
 /* Retoques para los elementos genéricos ----------------------------------------------------------------------------*/
@@ -94,7 +97,7 @@ main{
 }
 
 .grid-list-item:nth-of-type(even){
-	background-color: #ddd;
+	background-color: unset;
 }
 
 /* TABLAS ------------------------------------------------------------------------*/
