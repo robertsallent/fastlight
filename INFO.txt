@@ -16,7 +16,3 @@ se requieran condiciones de seguridad y/o privacidad estrictas.
 El autor no se hará responsable de cualquier tipo de robo o pérdida de datos, ni de vulneración de la seguridad
 derivada de la utilización del framework. Las medidas o correcciones pertinentes para garantizar la seguridad corren por
 cuenta de los desarrolladores que hagan uso del mismo.
-
-
-
- 

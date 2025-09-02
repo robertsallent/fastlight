@@ -956,6 +956,34 @@ td form{
 }
 
 
+/* Campos de password e icono para mostrar el password -----------------------------------------*/
+.password-wrapper{
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.password-wrapper input {
+  flex: 1; 
+  min-width: 0;
+}
+
+.password-wrapper a{
+	display: inline-block;
+	width: 30px;
+	text-align: center;
+	padding: 5px;
+	margin: 0px;
+}
+
+.password-wrapper a img{
+	width: 100%;
+	vertical-align: middle;
+}
+
+
+
+
 
 
 /* formulario de login ----------------------------------------------------- */

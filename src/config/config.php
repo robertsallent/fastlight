@@ -136,6 +136,9 @@ define('SGDB','mysql');         // Driver que debe usar PDO (solamente para PDO)
 // La única opción incluida actualmente es User (no lo cambiéis).
 define('USER_PROVIDER', 'User');
 
+// longitud para los passwords
+define('PASSWORD_LENGTH', 6);
+
 // ROLES para los usuarios. Podemos crear o eliminar roles según las necesidades.
 define('USER_ROLES', [
     'Usuario'       => 'ROLE_USER',

@@ -29,7 +29,7 @@
         			
         			<?= csrf() ?>
         			
-        			<h2 class="centered">Generación de una nueva clave</h2>
+        			<h2 class="centered">Nueva clave</h2>
     				<p class="justificado info">Rellena este formulario para recibir una 
     					nueva clave en tu <i>email</i> con la que podrás acceder a la aplicación.</p> 
     				
@@ -46,10 +46,10 @@
         				<input type="submit" class="button" name="nueva" value="Nueva clave">
         			</div>  
         			
-        			<p class="justificado info">Recuerda que debes cambiarla lo antes posible desde tu espacio personal.</p>
+        			<p class="justificado info">Recuerda que deberás cambiarla lo antes posible desde tu espacio personal.</p>
     		
     		
-        			<div class="right">
+        			<div class="centered">
         				<a class="button-light" href="/Login">Volver a Login</a>
         			</div>      			
         		</form>

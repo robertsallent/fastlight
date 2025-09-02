@@ -37,18 +37,32 @@
         			<label for="email">Email:</label>
         			<input class="long" type="email" name="user" id="email" value="<?= old('user') ?>" required>
         			<br>
+
+					<script>
+        				function showPassword(input){
+        					input.type = input.type == 'password' ? 'text' : 'password';
+        				}
+        			</script>
+
         			<label for="password">Password:</label>
-        			<input class="long" type="password" name="password" id="password" required>
+        			<div class="password-wrapper long">
+        				<input class="long" type="password" name="password" id="password" required>
+        				<a class="button" onclick="showPassword(this.previousElementSibling)">
+            				<img src="/images/icons/view.png" alt="Mostrar password">
+            			</a>
+        			</div>
     			</div>
     			
     			<div class="centered m3">
     				<input type="submit" class="button" name="login" value="LogIn">
     			</div>
-    			<div class="right">
+    			<div class="centered">
     				<a class="button-light" href="/Forgotpassword">Olvidé mi clave</a>
     			</div>
     			
     		</form>
+
+	
 
     		
 		</main>

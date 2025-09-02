@@ -6,7 +6,7 @@ Lista de mecanismos y herramientas que se irán incorporando (o no) en próximas
 versiones del framework FastLight.
 
 Autor: Robert Sallent
-Última revisión: 25/07/25
+Última revisión: 02/08/25
 
 Los cambios marcados con un ? están en fase de evaluación, no es seguro
 que se implementen.
@@ -22,7 +22,6 @@ que se implementen.
 	- (v2.x) Nuevos middlewares: CSRF, modo mantenimiento, usuario bloqueado.
 	
 - LIBRARIES
-	- Implementar un sistema de seeding tipo faker.
 	- Mejorar el método XML::encode() para que sea recursivo y testearlo a fondo. Probarlo con APIs.
 	- Implementar el método CSV::decode()
 	- Mejorar la clase Email.
@@ -30,11 +29,11 @@ que se implementen.
 
 - MODELO
 	- ? Nuevo método Model::insertRelated(entidadA, entidadB, ?tabla) que inserta en la tabla intermedia en relaciones N a N.
-	- ? trabajar con snake case en la BDD en lugar de lowercase
+	- ? Trabajar con snake case en la BDD en lugar de lowercase
+	- (v2.x) Trabajar con sentencias preparadas, para mejorar la seguridad (importante)
 		
 - TEMPLATES Y VISTAS
 	- Añadir herramientas JS para formularios
-	- Añadir herramientas para Sliders
 	- Añadir herramientas para videos (lista de reproducción...)
 	- ? Hacer uso de <dialog> para modales
 	- (v2.x) Uso de componentes en las vistas.

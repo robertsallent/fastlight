@@ -5,7 +5,7 @@
  *
  *   Facilita la tarea de enviar emails.
  *
- *   Última mofidicación: 12/02/2025
+ *   Última mofidicación: 01/09/2025
  *
  *   @author Robert Sallent <robertsallent@gmail.com>
  */
@@ -36,23 +36,29 @@ class Email{
      * Constructor de la clase Email
      * 
      * @param string $to destinatario del email
-     * @param string $from remitente del mensaje
-     * @param string $name nombre del remitente
+     * @param string $from dirección de correo para el envío del email (por ejemplo 'noreply@fastlight.org')
+     * @param string $name nombre del remitente para el envío del email (por ejemplo 'Fastlight Contact Form')
      * @param string $subject asunto del mensaje
      * @param string $message cuerpo del mensaje
+     * @param ?string $realFrom email de la persona que se pone en contacto (para la operación de contacto)
+     * @param ?string $realName nombre de la persona que se pone en contacto (para la operación de contacto)
      */
     public function __construct(
-        string $to,         // destinatario
-        string $from,       // remitente
-        string $name,       // nombre
-        string $subject,    // asunto
-        string $message     // mensaje
+        string $to,        
+        string $from,      
+        string $name,      
+        string $subject,   
+        string $message,   
+        ?string $realFrom = null,
+        ?string $realName = null 
     ){
         $this->date = date('d/m/y H:i:s');
         $this->to = $to;
         $this->from = $from;
         $this->name = $name;
         $this->subject = $subject;
+        $this->realFrom = $realFrom;
+        $this->realName = $realName;
         
         // el mensaje será con formato HTML
         $this->headers = "MIME-Version: 1.0\r\n";
@@ -61,10 +67,12 @@ class Email{
         
         // preparamos el mensaje que se enviará
         $this->message = "<h1>MENSAJE</h1>";
-        $this->message .= "<p>De $this->name ($this->from).";
+        $this->message .= "<p>De ".($this->realName ?? $this->name)." (".($this->realFrom ?? $this->from)."). ";
         $this->message .= "Recibido el $this->date.</p>"; 
         $this->message .= "<h2>$this->subject</h2>";
         $this->message .= "<p>$message</p>"; 
+
+        $this->message .= "<hr><p>Enviado desde $this->name</p>";
     }
       
     /**
