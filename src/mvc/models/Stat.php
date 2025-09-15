@@ -7,9 +7,10 @@
  *
  * @author: Robert Sallent <robert@juegayestudia.com>
  * 
- * Última revisión: 03/02/2025
+ * Última revisión: 15/09/2025
  * 
  * @since v1.4.1
+ * @since v2.0.5 el método saveOrIncrement() puede recibir el parámetro adicional $queryString
  */
 
 
@@ -18,14 +19,17 @@ class Stat extends Model{
     /** @var string $table nombre de la tabla en la base de datos */ 
     protected static string $table = STATS_TABLE;
     
-    
     /**
      * Comprueba si la estadística de visitas existe para la URL indicada
      * 
      * @param string $url la URL a comprobar
+     * @param bool $queryString false para no distinguir URLs a un mismo sitio pero con parámetros adicionales distintos
      * @return bool true si ya está guardada esa estadística en la tabla
      */
-    private static function statExists(string $url):bool{ 
+    private static function statExists(
+        string $url
+    ):bool{ 
+        // retorna true si la URL ya está en la BDD
         return count(self::whereExactMatch(['url' => $url])) > 0;       
     }
     
@@ -34,16 +38,21 @@ class Stat extends Model{
      * Permite crear un nuevo objeto Stat y guardarlo en base de datos.
      * 
      * @param string $url    url de la estadística
+     * @param bool $queryString false para no distinguir URLs a un mismo sitio pero con parámetros adicionales distintos
      * @return int número de visitas a la URL (1)
      */
-    private static function add(string $url):int{
+    private static function add(
+        string $url
+    ):int{
+        // crea una nueva estadística
         $stat           = new self();
-        $request        = request();
         
+        // toma los datos
         $stat->url      = $url; 
-        $stat->ip       = $request->ip;
-        $stat->user     = $request->user ? $request->user->email : NULL;
-        
+        $stat->ip       = request()->ip;
+        $stat->user     = user() ? user()->email : NULL;
+                
+        // guarda los datos en la bdd
         return $stat->save() ? 1 : 0;
     }    
     
@@ -58,7 +67,10 @@ class Stat extends Model{
         // recupera la estadística para esa URL
         $stat = self::whereExactMatch(['url' => $url])[0];
                 
-        $stat->count++;     // incrementa el contador
+        // modifica los datos de visitas y el último usuario
+        $stat->count++; 
+        $stat->user = user() ? user()->email : NULL;
+        
         $stat->update();    // actualiza el dato en la BDD
         
         return $stat->count;
@@ -71,9 +83,27 @@ class Stat extends Model{
      * el objeto Request.
      * 
      * @param string $url
+     * @param bool $queryString false para no distinguir URLs a un mismo sitio pero con parámetros adicionales distintos
+     * @param bool $index false para no distinguir las URLs que acaben en index.php de las que acaben en / (las que acaban en index.php darán un error, excepto en la raíz /index.php)
+     * @param bool $finalBar false para quitar la / al final de la URL
      * @return int número de visitas de la URL indicada
      */
-    public static function saveOrIncrement(string $url):int{
+    public static function saveOrIncrement(
+        string $url,
+        bool $queryString   = false,   // tener en cuenta o no los parámetros adicionales
+        bool $index         = false,   // tener en cuenta o no las URLs que acaben en index.php
+        bool $finalBar      = false    // quita la / del final
+    ):int{
+              
+        if(!$queryString && str_contains($url, '?')) 
+            $url = substr($url, 0, strpos($url, '?'));
+        
+        if(!$index && str_contains($url, 'index.php'))
+            $url = substr($url, 0, strpos($url, 'index.php'));
+        
+        if(!$finalBar && $url != '/')
+            $url = rtrim($url, '/');
+               
         return self::statExists($url) ? self::increment($url) : self::add($url);
     }
     
