@@ -13,6 +13,15 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     libpng-dev \
     libonig-dev \
+	libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    libwebp-dev \
+    libgif-dev \
+	&& docker-php-ext-configure gd \
+        --with-freetype \
+        --with-jpeg \
+        --with-webp \
     && docker-php-ext-install \
         pdo_mysql \
         mysqli \

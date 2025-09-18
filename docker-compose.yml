@@ -6,7 +6,7 @@ services:
     build:
       context: ./docker/mysql
       args:
-        MYSQL_VERSION: 8.0
+        MYSQL_VERSION: ${MYSQL_VERSION}
     container_name: ${PROJECT_NAME}-mysql
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -23,7 +23,7 @@ services:
     build:
       context: ./docker/php
       args:
-        PHP_VERSION: 8.2-apache
+        PHP_VERSION: ${PHP_VERSION}
     container_name: ${PROJECT_NAME}-php-apache
     ports:
       - "8080:80"

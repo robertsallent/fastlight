@@ -71,7 +71,7 @@ window.addEventListener('load', function(){
 		const previo = this.previousElementSibling;
 		if(previo != null && previo.tagName == 'INPUT' && previo.name == "MAX_FILE_SIZE"){
 			if(previo.value < this.files[0].size){ 
-				alert('El tamaño máximo es de  '+(previo.value)+'bytes.');
+				alert('El tamaño máximo es de  '+(Math.floor(previo.value/1024))+' Kbytes.');
 				preview.image.src = preview.defaultImage; // pone de nuevo la imagen original
 				this.value = ''; 	    // borra el contenido del input	
 				return;
