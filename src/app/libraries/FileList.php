@@ -4,6 +4,9 @@
  *
  * Permite hacer listados de directorio y búsqueda de ficheros por extensión
  * o por nombre de forma muy simple.
+ * 
+ * Consulta la documentación y ejemplos en:
+ * https://fastlight.org/Backend/filelist
  *
  * Última mofidicación: 06/02/2025.
  *

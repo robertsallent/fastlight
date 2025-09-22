@@ -38,6 +38,7 @@
  * @since v1.9.8 añadida la consttante TEST_ENABLED, que permite habilitar o deshabilitar los test.
  * @since v1.9.10 añadida la constante LANGUAGE_CODE, para indicar el código de idioma de la aplicación.
  * @since v2.0.2 añadida la constante DISPLAY_ERRORS, que permite mostrar errores en pantalla (en producción debe estar a false).
+ * @since v2.0.6 añadidas nuevas directivas de configuración de correo
  */
    
 
@@ -68,23 +69,41 @@ define('APP_TYPE', 'WEB');                   // Tipo de aplicación: WEB o API.
 
 define('LANGUAGE_CODE', 'es');               // código de idioma (para poner como atributo del elemento html en las vistas)
 
-define('APP_VERSION', '2.0.2');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '2.0.6');   // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);     // muestra la versión de la app en el footer (templates/Base.php)
 
 // Controlador y método por defecto (solamente para APP_TYPE WEB).
 define('DEFAULT_CONTROLLER', 'WelcomeController');
 define('DEFAULT_METHOD', 'index');
    
-// Email del administrador, para la operación de "contacto".
-// Esta operación no está implementada de serie en FastLight,
-// la implementamos en clase.
-define('ADMIN_EMAIL', 'robert@fastlight.org');
-
-// ¿Deben las cadenas vacías ser convertidas a NULL? 
+// ¿Deben las cadenas vacías ser convertidas a NULL?
 // se aplica al recuperar los datos de la petición mediante el objeto Request,
 // tanto si llegan por GET, POST, COOKIE...
 define('EMPTY_STRINGS_TO_NULL', true);
 
+/* ---------------------------------------------------------------------------
+ * EMAIL
+ * ---------------------------------------------------------------------------*/
+
+// ubicación del servidor de correo saliente SMTP
+// se puede comentar o borrar para usar la configuración por defecto en php.ini
+define('SMTP', 'localhost');
+
+// puerto para el servidor de correo saliente SMTP
+// se puede comentar o borrar para usar la configuración por defecto en php.ini
+define('SMTP_PORT', '25');
+
+// Email del administrador.
+define('ADMIN_EMAIL', 'admin@fastlight-test.org');
+
+// Nombre para el remitente de envíos genéricos
+define('ADMIN_EMAIL_NAME', 'App admin');
+
+// Email para el remitente de envíos genéricos
+define('DEFAULT_EMAIL', 'no-reply@fastlight-test.org');
+
+// Nombre para el remitente de envíos genéricos
+define('DEFAULT_EMAIL_NAME', 'No-reply test');
 
 
 /* -------------------------------------------------------------

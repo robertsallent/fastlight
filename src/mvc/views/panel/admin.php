@@ -30,40 +30,62 @@
     		
     		
         	<div class="flex-container gap2">
-        		<section class="flex1">
+        		<section class="flex3">
         			<h2 class="my2">Administración</h2>
         			<ul class="my2">
         				<?php if((Login::oneRole(ERROR_ROLES)) && (DB_ERRORS || LOG_ERRORS || LOG_LOGIN_ERRORS)){ ?>
-        				<li><a href='/Error/list'>Errores</a></li>
+        				<li><a href='/Error/list'>Listado de errores</a>.</li>
         				<?php } ?>
         				
         				<?php if(SAVE_STATS && Login::oneRole(STATS_ROLES)){ ?>
-        				<li><a href='/Stat'>Visitas</a></li>
+        				<li><a href='/Stat'>Recuento de visitas</a>.</li>
         				<?php } ?>
         				
         				<?php if(Login::oneRole(TEST_ROLES)){ ?>
-           				<li><a href='/Test'>Test</a></li>
+           				<li><a href='/Test'>Ejecución de tests</a>.</li>
 						<?php } ?>
         			</ul>
         			
         		</section>
         		
+        		<figure class="flex1 pc">
+        			<img src="/images/template/user.png" alt="operaciones con usuarios" title="operaciones con usuarios">
+        		</figure>
+        	</div>
+        	
+        	<div class="flex-container gap2">	
+        	
+        		<figure class="flex1 pc">
+        			<img src="/images/template/user.png" alt="operaciones con usuarios" title="operaciones con usuarios">
+        		</figure>
+        	
+        	
         		<?php if(Login::isAdmin()) {?>
-        		<section class="flex1">
+        		<section class="flex3">
         			<h2 class="my2">Gestión de usuarios</h2>
-    
+     				
+     				<p class="info">Estas operaciones se implementan en clase, también se puede encontrar
+     				la información en la documentación en PDF.</p>
+     				
         			<ul class="my2">
-        				<li><a href='/User'>Lista de usuarios</a> (se implementa en clase)</li>
-        				<li><a href='/User/create'>Nuevo usuario</a> (se implementa en clase)</li>
+        				<li><a href='/User'>Lista de usuarios (TODO)</a></li>
+        				<li><a href='/User/create'>Nuevo usuario (TODO)</a></li>
         			</ul>
         		</section>
+        		<?php }else{ ?>
+        		    
+        		    <div class="error p2">
+        		    	<h2>PELIGRO</h2>
+        		    	<p class="caution">No deberías estar aquí.</p>
+        		    </div>
+        		    
         		<?php } ?>
     		</div>
     		
     		
     		<div class="flex-container gap2">
         		
-        		<section class="flex2 p1">
+        		<section class="flex3 p1">
         			<h2 class="my2">Estadísticas del disco</h2>
 
 					<p>Estas estadísticas muestran el espacio total y disponible del 
@@ -105,7 +127,7 @@
 					
         		</section>
         		
-        		<figure class="flex1">
+        		<figure class="flex1 pc">
         			<img src="/images/template/disk.png" alt="estadísticas del disco" title="estadísticas del disco">
         		</figure>
         	</div>

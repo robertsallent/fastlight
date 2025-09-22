@@ -14,6 +14,9 @@
 		
 		<!-- CSS -->
 		<?= $template->css() ?>
+		
+		<!-- JS -->
+		<script src="/js/TextReader.js"></script>
 	</head>
 	<body>
 		<?= $template->login() ?>
@@ -26,32 +29,42 @@
 		<main>
     		<h1>Bienvenido</h1>
 
-    		<section>
-        		<h2>¿Qué es FastLight?</h2>
-        		
-        		<p><code><a href="https://github.com/robertsallent/fastlight">FastLight</a></code> es un <i>framework PHP</i> 
-        			rápido y ligero para desarrollar <b>aplicaciones web</b> o <b>APIs RESTFUL</b>.</p>
-        		
-        		
-    		   	<p>Está <b>pensado para docencia</b>, con lo que incorpora las 
-    		   	 características  esenciales para desarrollo de una aplicación web rápida, sólida y fiable, pero no
-    			  incluye algunas funcionalidades complejas que desarrollamos en clase (pero que encontraréis en la documentación). </p>
-    			      		       
-    		    <p>Su modo de empleo está inspirado en <code>Laravel</code> (aunque sus ancestros
-    		       se inspiraban en <code>CodeIgniter</code>), lo que deriva en una transición muy sencilla
-    		       desde <code>FastLight</code> hacia <code>Laravel</code>, <code>Symfony</code> u otros <i>frameworks</i> 
-    		       MVC sobre <code>PHP</code>.</p>	 
-    		       
-    		    <p>Encontrarás más información en la documentación oficial y en los manuales, en 
-    		    <a href="https://fastlight.org" target="_blank">https://fastlight.org</a>.</p>    
+    		<section id="queesfastlight"  class="flex-container gap2">
+				<div class="flex2 readable" data-event="dblclick">
+            		<h2>¿Qué es FastLight?</h2>
+            		
+            		<p>
+            			<a href="https://github.com/robertsallent/fastlight">FastLight</a>
+            			es un <b>framework PHP</b> rápido y ligero para desarrollar 
+            			<b>aplicaciones web</b> y <b>APIs RESTFUL</b>.</p>
+            		
+            		
+        		   	<p>Está <b>pensado para docencia</b>, con lo que incorpora las 
+        		   	 características  esenciales para desarrollo de una aplicación web rápida, sólida y fiable, pero no
+        			  incluye algunas funcionalidades complejas que desarrollamos en clase (pero que encontraréis en la documentación). </p>
+        			      		       
+        		    <p>Su modo de empleo está inspirado en <code>Laravel</code> (aunque sus ancestros
+        		       se inspiraban en <code>CodeIgniter</code>), lo que deriva en una transición muy sencilla
+        		       desde <code>FastLight</code> hacia <code>Laravel</code>, <code>Symfony</code> u otros <i>frameworks</i> 
+        		       MVC sobre <code>PHP</code>.</p>	 
+        		       
+        		    <p>La documentación oficial y los manuales están disponibles en 
+    		    </div>   
+    		    
+    		    <figure class="flex1 medium centered centered-block">
+    		    	<img class="square fit" src="/images/template/phpmysql.png" alt="FastLight recomienda PHP8.2 y MySQL8">
+    		    </figure>
 		    </section>
 		    
 		               
             <section class="warning">
 		    	<h2>IMPORTANTE</h2>
-		    	<p>En unos meses <b>se hará pública la documentación</b> sobre cómo implementar proyectos
-		    	web completos haciendo uso de este framework. Estad atentos a mi 
- 				<a href='https://www.linkedin.com/in/robert-sallent-l%C3%B3pez-4187a866'>LinkedIn</a>.</p>
+		    	<p>Se está elaborando la <a href="https://fastlight.org/Backend">documentación Backend</a> (esto me llevará un tiempo) y en
+		    	breve también se comenzarán a publicar los manuales en PDF con ejemplos prácticos.
+		    	Lo encontraréis todo en <a href="https://fastlight.org">la documentación oficial de FastLight</a>. 
+		    	</p>
+		    	<p>Estad también atentos a mi 
+ 				<a href='https://www.linkedin.com/in/robert-sallent-l%C3%B3pez-4187a866'>LinkedIn</a> personal.</p>
 		    </section>
 		    
            <section class="flex1">
@@ -81,12 +94,11 @@
 					</ul>
 				</li>
 				
-				<li class="flex1"><a href="https://fastlight.org/Example#list">Ejemplos de maquetación</a>
+				<li class="flex1"><a href="https://fastlight.org/Example#list">Documentación</a>
 					<ul>
-						<li><a target="_blank" href="https://fastlight.org/Example/botones">Buttons</a></li>
-						<li><a target="_blank" href="https://fastlight.org/Example/formularios">Forms</a></li>
-						<li><a target="_blank" href="https://fastlight.org/Example/modal">Modals</a></li>
-						<li><a target="_blank" href="https://fastlight.org/Example/sliders">Sliders</a></li>
+						<li><a target="_blank" href="https://fastlight.org/Example">Frontend</a></li>
+						<li><a target="_blank" href="https://fastlight.org/Backend">Backend</a></li>
+						<li><a target="_blank" href="#">Manuales PDF (TODO)</a></li>
 					</ul>
 				</li>
 				
