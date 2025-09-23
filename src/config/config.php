@@ -271,7 +271,7 @@ define('ACCEPT_COOKIES', true);    // habilita el mensaje de "aceptar cookies"
 define(
     'ACCEPT_COOKIES_MESSAGE', 
     "Para visitar este sitio debes aceptar las cookies. 
-     Este cuado de diálogo se puede configurar para que aparezca o no en el fichero config.php."
+     Este cuadro de diálogo se puede configurar para que aparezca o no en el fichero config.php."
 );
 
 // nombre de la cookie que se guardará para saber que nos han aceptado las cookies

@@ -49,7 +49,7 @@
         		</section>
         		
         		<figure class="flex1 pc">
-        			<img src="/images/template/user.png" alt="operaciones con usuarios" title="operaciones con usuarios">
+        			<img src="/images/template/admin.png" alt="Tareas del administrador" title="Tareas del administrador">
         		</figure>
         	</div>
         	

@@ -87,7 +87,7 @@ class Email{
      * 
      * @param string mensaje
      */
-    private function prepareMessage(string $message){
+    protected function prepareMessage(string $message){
     
         $this->message = "
             <h2>MENSAJE</h2>

@@ -188,6 +188,7 @@
 
 .mayusculas, .uppercase { text-transform: uppercase }
 .minusculas, .lowercase { text-transform: lowercase }
+.capitalize				{ text-transform: capitalize }
 
 .cursiva, .italic       { font-style: italic  }
 .negrita, .bold         { font-weight: bold   }
@@ -375,6 +376,10 @@ h2, h3{
 
 h2:first-child, h3:first-child{
 	margin:  0.2em 0;
+}
+
+h4{
+	margin: 1em;
 }
 
 p{
