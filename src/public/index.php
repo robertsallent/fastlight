@@ -13,12 +13,13 @@
  * - Envia la Response final, invocando al método send().
  * - Si se produce algún error en la fase de arranque, carga una vista de  error genérica (código 500).
  * 
- * Última revisión: 23/03/2025
+ * Última revisión: 23/09/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
  * @since v1.4.5 se puede comprobar que la versión de PHP sea la adecuada
  * @since v1.7.6 se gestiona el nombre y duración de la sesión
+ * @since v2.0.7 se añaden parámetros de seguridad a la cookie de sesión
  */
 
 
@@ -51,8 +52,16 @@ require '../app/helpers/helpers.php';
 // ajusta el nombre y tiempo de sesión (se configura en config.php)
 session_name(SESSION_NAME);
 ini_set('session.gc_maxlifetime', SESSION_TIME);
-session_set_cookie_params(SESSION_COOKIE_EXPIRE);
 
+// configuración de la cookie de sesión, configurable en config.php
+session_set_cookie_params([
+    'lifetime'  => SESSION_COOKIE_EXPIRE,   // duración de la cookie
+    'path'      => '/',                     // disponible en todo el dominio
+    'domain'    => '',                      // por defecto el dominio actual
+    'secure'    => SESSION_COOKIE_SECURE,   // solo sobre HTTPS
+    'httponly'  => SESSION_COOKIE_HTTPONLY,                    // no accesible desde JavaScript 
+    'samesite'  => 'Lax'                    // evita el envío en peticiones cross-site 
+]);
 
 // inicia la gestión de sesiones
 session_start();                        

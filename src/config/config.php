@@ -39,6 +39,7 @@
  * @since v1.9.10 añadida la constante LANGUAGE_CODE, para indicar el código de idioma de la aplicación.
  * @since v2.0.2 añadida la constante DISPLAY_ERRORS, que permite mostrar errores en pantalla (en producción debe estar a false).
  * @since v2.0.6 añadidas nuevas directivas de configuración de correo
+ * @since v2.0.8 añadidos nuevos parámetros de configuración de la cookie de sesión
  */
    
 
@@ -46,7 +47,7 @@
  * AUTOLOAD
  * -------------------------------------------------------------*/
 
-// listado de directorios para que el el autoload busque clases (no PSR-4) 
+// listado de directorios (classmap) para que el el autoload busque clases (no PSR-4) 
 define('AUTOLOAD_DIRECTORIES',  [
     '../app/core',          // core 
     '../app/http',          // peticiones y respuestas 
@@ -64,13 +65,13 @@ define('AUTOLOAD_DIRECTORIES',  [
  * APLICACIÓN
  * -------------------------------------------------------------*/
 
-define('APP_NAME', 'FastLight Framework 2');   // Título de la aplicación.
-define('APP_TYPE', 'WEB');                   // Tipo de aplicación: WEB o API.              
+define('APP_NAME', 'FastLight Framework 2'); // Título de la aplicación.
+define('APP_TYPE', 'WEB');       // Tipo de aplicación: WEB o API.              
 
-define('LANGUAGE_CODE', 'es');               // código de idioma (para poner como atributo del elemento html en las vistas)
+define('LANGUAGE_CODE', 'es');   // código de idioma (para poner como atributo del elemento html en las vistas)
 
-define('APP_VERSION', '2.0.6');   // versión actual del framework o aplicación desarrollada
-define('SHOW_VERSION', true);     // muestra la versión de la app en el footer (templates/Base.php)
+define('APP_VERSION', '2.0.8');  // versión actual del framework o aplicación desarrollada
+define('SHOW_VERSION', true);    // muestra la versión de la app en el footer (templates/Base.php)
 
 // Controlador y método por defecto (solamente para APP_TYPE WEB).
 define('DEFAULT_CONTROLLER', 'WelcomeController');
@@ -80,6 +81,8 @@ define('DEFAULT_METHOD', 'index');
 // se aplica al recuperar los datos de la petición mediante el objeto Request,
 // tanto si llegan por GET, POST, COOKIE...
 define('EMPTY_STRINGS_TO_NULL', true);
+
+
 
 /* ---------------------------------------------------------------------------
  * EMAIL
@@ -93,17 +96,14 @@ define('SMTP', 'localhost');
 // se puede comentar o borrar para usar la configuración por defecto en php.ini
 define('SMTP_PORT', '25');
 
-// Email del administrador.
+// Email y nombre del administrador.
 define('ADMIN_EMAIL', 'admin@fastlight-test.org');
-
-// Nombre para el remitente de envíos genéricos
 define('ADMIN_EMAIL_NAME', 'App admin');
 
-// Email para el remitente de envíos genéricos
+// Email y nombre para el remitente de envíos genéricos
 define('DEFAULT_EMAIL', 'no-reply@fastlight-test.org');
-
-// Nombre para el remitente de envíos genéricos
 define('DEFAULT_EMAIL_NAME', 'No-reply test');
+
 
 
 /* -------------------------------------------------------------
@@ -130,19 +130,19 @@ define('RESPONSE_CHARSET', 'utf-8'); // charset para las respuestas HTTP
  * -------------------------------------------------------------*/
 
 // Parámetros de configuración de la base de datos:
-# define('DB_HOST','localhost');    // Host (configuración habitual)
+// define('DB_HOST','localhost');    // Host (configuración habitual)
 define('DB_HOST','mysql');          // Host (configuración para Docker)
 
-define('DB_USER','fastlight_user'); // Usuario.
-define('DB_PASS','fastlight_pass'); // Password.
+define('DB_USER','fastlight_user'); // Usuario para identificarse con la BDD.
+define('DB_PASS','fastlight_pass'); // Password para identificarse con la BDD.
 define('DB_NAME','fastlight');      // Nombre de la base de datos.
 define('DB_PORT',  3306);           // Puerto.
-define('DB_CHARSET','utf8');        // Codificación de caracteres.
+define('DB_CHARSET','utf8');        // Codificación de caracteres para la conexión.
 
 define('DB_CLASS','DBPDO');     // Clase a usar, puede ser DBMysqli (mysqli) o DBPDO (PDO).
 define('SGDB','mysql');         // Driver que debe usar PDO (solamente para PDO).
 
-// En el futuro existirá una DB_CLASS llamada DBPS, que usará sentencias preparadas.
+// En el futuro existirá una DB_CLASS llamada DBPS, que usará sentencias preparadas sobre PDO.
 
 
 /* -------------------------------------------------------------
@@ -169,7 +169,6 @@ define('USER_ROLES', [
 ]);
 
 
-// PANEL DEL ADMINISTRADOR
 // roles que pueden acceder al panel del administrador
 define('ADMIN_PANEL_ROLES', ['ROLE_ADMIN', 'ROLE_TEST', 'ROLE_STUDENT']);
 
@@ -182,16 +181,6 @@ define('TEST_ROLES', ['ROLE_ADMIN', 'ROLE_TEST', 'ROLE_STUDENT']);
 // roles que tienen autorización para ver las estadísticas
 define('STATS_ROLES', ['ROLE_ADMIN', 'ROLE_TEST']);
 
-
-
-
-// mensaje que se mostrará al usuario bloqueado cuando intenta hacer Login
-define('BLOCKED_MESSAGE', "Has sido bloqueado por un administrador, si consideras 
-                           que es un error puedes contactar mediante el formulario de contacto.");
-
-// redirección tras el intento de Login del usuario bloqueado
-define('BLOCKED_REDIRECT', '/');
-
 // carpeta para las imágenes de los usuarios
 define('USER_IMAGE_FOLDER','/images/users');
 
@@ -199,21 +188,32 @@ define('USER_IMAGE_FOLDER','/images/users');
 define('DEFAULT_USER_IMAGE', 'default.png');
 
 
+
 /* -------------------------------------------------------------
  * LOGIN
  * -------------------------------------------------------------*/
 
-define('REDIRECT_AFTER_LOGIN', '/');                // Redirección tras login.
+// redirección tras el Login correcto del usuario, no aplica si hay una operación pendiente
+// (por ejemplo, si hace login tras intentar acceder a una página que requiere estar autenticado)
+define('REDIRECT_AFTER_LOGIN', '/');
 
-define('LOG_LOGIN_ERRORS', false);                 // Guardar errores de login en fichero de log.
-define('LOGIN_ERRORS_FILE', '../logs/login.log');  // Nombre del fichero para los errores de login.
+// redirección tras el intento de Login del usuario bloqueado
+define('BLOCKED_REDIRECT', '/');
 
-define('DB_LOGIN_ERRORS', false);                  // Guardar errores de login en la base de datos.
+// mensaje que se mostrará al usuario bloqueado cuando intenta hacer Login
+define('BLOCKED_MESSAGE', "Has sido bloqueado por un administrador, si consideras 
+                           que es un error puedes contactar mediante el formulario de contacto.");
+
+
+define('LOG_LOGIN_ERRORS', false);                 // guardar errores de login en fichero de log.
+define('LOGIN_ERRORS_FILE', '../logs/login.log');  // ruta del fichero para los errores de login.
+
+define('DB_LOGIN_ERRORS', false);                  // guardar errores de login en la base de datos.
 
 
 
 /* -------------------------------------------------------------
- * SESIÓN
+ * SESIÓN Y COOKIE DE SESIÓN
  * -------------------------------------------------------------*/
 
 // nombre de la sesión (y de la cookie de sesión)
@@ -224,6 +224,13 @@ define('SESSION_TIME', 1440);
 
 // tiempo de expiración de la cookie de sesión (0 cuando se reinicie el navegador)
 define('SESSION_COOKIE_EXPIRE', 0); 
+
+// la cookie de sesión solamente se enviará si la conexión es segura (HTTPS)
+define('SESSION_COOKIE_SECURE', true);
+
+// la cookie de sesión no podrá ser accedida desde JavaScript
+define('SESSION_COOKIE_HTTPONLY', true);
+
 
 
 /* -------------------------------------------------------------
@@ -287,8 +294,8 @@ define('ACCEPT_COOKIES_EXPIRATION', time()+604800);
  * HERRAMIENTAS DE DEPURACIÓN (PARA APP_TYPE WEB)
  * -------------------------------------------------------------*/
     
-define('DISPLAY_ERRORS', true); // Muestra errores en pantalla (en producción debe estar a false).
-define('DEBUG', true); // Activa el modo debug.   
+define('DISPLAY_ERRORS', true); // Muestra errores en pantalla. En producción debe estar a false.
+define('DEBUG', true);          // Activa el modo debug. En producción debe estar a false.  
 
 // Detalles que queremos mostrar en modo debug en la página de error
 // OPCIONES: user, trace, request, session
@@ -299,19 +306,19 @@ define('DEBUG_INFO', [
     'session',  // Muestra las variables de sesión.   
 ]);
 
-define('LOG_ERRORS', true);                        // Guardar errores en fichero de log.
-define('ERROR_LOG_FILE', '../logs/error.log');     // Nombre del fichero de log.
+define('LOG_ERRORS', true);                        // guardar errores en fichero de log.
+define('ERROR_LOG_FILE', '../logs/error.log');     // ruta del fichero de log.
 define('LOG_MAX_SIZE', 8388608);                   // tamaño máximo del fichero de LOG en Bytes (0 ilimitado)
 
-define('DB_ERRORS', true);                         // Guardar errores en la base de datos.
-define('ERROR_DB_TABLE', 'errors');                // Nombre de la tabla en la BDD para los errores.
+define('DB_ERRORS', true);                         // guardar errores en la base de datos.
+define('ERROR_DB_TABLE', 'errors');                // nombre de la tabla en la BDD para los errores.
 
 
 // usar vistas personalizadas de error 401, 403...
 // se deben colocar en el directorio de vistas en la subcarpeta httperrors y el nombre
 // del fichero debe ser el código del error, por ejemplo 404.php
-// solamente se muestran si no estamos en modo DEBUG
 define('USE_CUSTOM_ERROR_VIEWS', true);
+
 
 
 /* -------------------------------------------------------------
@@ -324,9 +331,7 @@ define('TEST_ENABLED', true);
 // Carpeta para los test.
 define('TEST_FOLDER', '../test');  
 
-// Carpeta para los ejemplos de maquetación.
-define('EXAMPLE_FOLDER', '../mvc/views/examples/source'); 
-   
+
 
 /* -------------------------------------------------------------
  * ESTADÍSTICAS DE VISITAS
