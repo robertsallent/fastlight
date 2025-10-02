@@ -20,7 +20,6 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		
 		<?= $template->menu() ?>
 		<?= $template->header(null, 'Para desarrollo web y APIs RESTFUL') ?>
 		<?= $template->messages() ?>
@@ -36,10 +35,10 @@
             		<p>
             			<a href="https://github.com/robertsallent/fastlight">FastLight</a>
             			es un <b>framework PHP</b> rápido y ligero para desarrollar 
-            			<b>aplicaciones web</b> y <b>APIs RESTFUL</b>.</p>
+            			<b>aplicaciones web</b> y <b>APIs RESTFUL</b>.
+            		</p>
             		
-            		
-        		   	<p>Está <b>pensado para docencia</b>, con lo que incorpora las 
+            		<p>Está <b>pensado para docencia</b>, con lo que incorpora las 
         		   	 características  esenciales para desarrollo de una aplicación web rápida, sólida y fiable, pero no
         			  incluye algunas funcionalidades complejas que desarrollamos en clase (pero que encontraréis en la documentación). </p>
         			      		       
@@ -67,6 +66,7 @@
  				<a href='https://www.linkedin.com/in/robert-sallent-l%C3%B3pez-4187a866'>LinkedIn</a> personal.</p>
 		    </section>
 		    
+		    
            <section class="flex1">
            		<h2>Requisitos</h2>
            		 
@@ -74,13 +74,9 @@
            		testeada en <b>PHP <?= MIN_PHP_VERSION ?></b> con <b>MySQL 8</b>.
            		Esto no quiere decir que no funcione en versiones ligeramente anteriores o posteriores,
            		pero no se garantiza que lo haga.</p>
-           		
            		<?= "Actualmente este servidor dispone de <b>PHP ".phpversion().".</b>" ?>
            </section>
-
 		</main>
-		
-		
 
 		<!-- este mapa web solamente se muestra en pantallas grandes -->
 		<nav class="web-map">  
@@ -113,10 +109,9 @@
 				<li class="flex1"><a href="#">Otros proyectos</a>
 					<ul>
 						<li><a target="_blank" href="https://juegayestudia.com">Juega y Estudia</a></li>
+						<li><a target="_blank" href="https://veinspercubelles.org">Veïns per Cubelles</a></li>
 					</ul>
 				</li>
-				
-				
 			</ul>
 		</nav>
     

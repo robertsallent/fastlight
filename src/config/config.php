@@ -20,7 +20,7 @@
  * 
  * Todas las directivas se encuentran documentadas en el mismo fichero config.php.
  * 
- * Última revisión: 05/08/25
+ * Última revisión: 02/10/25
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
  * @since v1.0.0 se pueden configurar las vistas de error personalizadas
@@ -48,14 +48,16 @@
  * -------------------------------------------------------------*/
 
 // listado de directorios (classmap) para que el el autoload busque clases (no PSR-4) 
+// listado de directorios (mapa de clases) para que el el autoload busque las clases a cargar (no PSR-4)
 define('AUTOLOAD_DIRECTORIES',  [
-    '../app/core',          // core 
-    '../app/http',          // peticiones y respuestas 
+    '../app/core',          // core
+    '../app/http',          // peticiones y respuestas
     '../app/libraries',     // librerías
-    '../app/interfaces',    // interfaces
     '../mvc/controllers',   // controladores
-    '../mvc/models',        // modelos 
+    '../mvc/models',        // modelos
+    '../app/orm',           // mapeador objeto-relacional
     '../templates',         // plantillas para las vistas
+    '../app/interfaces',    // interfaces
     '../app/exceptions'     // excepciones
 ]);
  
@@ -70,7 +72,7 @@ define('APP_TYPE', 'WEB');       // Tipo de aplicación: WEB o API.
 
 define('LANGUAGE_CODE', 'es');   // código de idioma (para poner como atributo del elemento html en las vistas)
 
-define('APP_VERSION', '2.0.8');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '2.0.9');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);    // muestra la versión de la app en el footer (templates/Base.php)
 
 // Controlador y método por defecto (solamente para APP_TYPE WEB).
@@ -226,7 +228,9 @@ define('SESSION_TIME', 1440);
 define('SESSION_COOKIE_EXPIRE', 0); 
 
 // la cookie de sesión solamente se enviará si la conexión es segura (HTTPS)
-define('SESSION_COOKIE_SECURE', true);
+// el valor "true" nos puede dar problemas en localhost si no usamos HTTPS
+// en producción debería estar a true
+define('SESSION_COOKIE_SECURE', false);
 
 // la cookie de sesión no podrá ser accedida desde JavaScript
 define('SESSION_COOKIE_HTTPONLY', true);

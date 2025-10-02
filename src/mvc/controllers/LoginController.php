@@ -2,9 +2,9 @@
     
 /** LoginController
  *
- * Gestiona la operación de LogIn
- *
- * Última revisión: 07/03/2025
+ * Gestiona la operación de LogIn.
+ * 
+ * Última revisión: 25/09/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * 
@@ -21,8 +21,11 @@ class LoginController extends Controller{
      * @return ViewResponse
      */
     public function index():ViewResponse{
-        Auth::guest();          // solo para usuarios no identificados
-        return view('login');   // carga la vista de login     
+        // solo para usuarios no identificados
+        Auth::guest();  
+        
+        // carga la vista con el fomulario de login
+        return view('login');        
     }
     
     
@@ -33,6 +36,7 @@ class LoginController extends Controller{
      * @return RedirectResponse
      */
     public function enter():RedirectResponse{
+        
         // esta operación tan solo la pueden realizar los usuarios no identificados
         Auth::guest();  
         
@@ -46,10 +50,13 @@ class LoginController extends Controller{
         // TODO: en la versión 2.0 esto se implementará mediante un middleware
         CSRF::check($this->request->post('csrf_token'));
             
-        // recupera el usuario (email) y la clave (hay que encriptarla)
-        // TODO: sustituir el mecanismo de encriptado por otro más seguro (bcrypt)
+        // recupera el usuario (email)
         $user       = $this->request->post('user');
-        $password   = md5($this->request->post('password'));          
+        
+        // recupera el password, no se sanea para no cambiar los caracteres 
+        // especiales por otros ni eliminar los espacios de los extremos. 
+        // TODO: sustituir el mecanismo de encriptado por otro más seguro (bcrypt)
+        $password   = md5($_POST['password']);          
         
         // recupera el usuario con los datos enviados desde el formulario de LogIn
         $identificado = (USER_PROVIDER)::authenticate($user, $password); 

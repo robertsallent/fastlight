@@ -2,12 +2,13 @@
 
 /** CookieController
  *
- * Implementa el mecanismo de "aceptar cookies"
+ * Implementa el mecanismo de "aceptar cookies".
  *
- * Última revisión: 09/01/2025
+ * Última revisión: 24/09/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v1.2.2
+ * @since v2.0.9 añadido método policy(), que carga la vista con la política de cookies.
  */
 
 class CookieController extends Controller{
@@ -32,5 +33,15 @@ class CookieController extends Controller{
         // si no llegó el formulario, redirigimos a la portada
         return redirect('/');
     }  
+    
+    
+    /**
+     * Muestra la política de cookies
+     *
+     * @return ViewResponse
+     */
+    public function policy(){
+        return view('politicacookies');
+    }
 }
 

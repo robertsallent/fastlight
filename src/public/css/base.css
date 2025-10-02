@@ -226,8 +226,19 @@
 .readable				{ cursor: pointer  }
 
 
-/* Ayuda y readables -----------------------------------------------------*/
-.help:before, .info:before, .readable:before, .caution:before{
+/* Ayuda, iconos y readables -----------------------------------------------------*/
+.help:before, 
+.info:before, 
+.readable:before, 
+.caution:before,
+span.document:before,
+span.zip:before,
+span.vídeo:before,
+span.audio:before,
+span.word:before,
+span.url:before,
+span.URL:before
+{
     display: inline-block;
     padding-right: 5px;
     vertical-align: middle;
@@ -236,6 +247,14 @@
 .help:before					{ content:url('../images/icons/help.png') 	}
 .info:before					{ content:url('../images/icons/info.png') 	}
 .caution:before					{ content:url('../images/icons/warning.png') 	}
+
+span.document:before			{ content:url('../images/icons/pdf.png') 		}
+span.word:before				{ content:url('../images/icons/word.png') 		}
+span.zip:before					{ content:url('../images/icons/zip.png') 		}
+span.vídeo:before				{ content:url('../images/icons/video.png') 	}
+span.audio:before				{ content:url('../images/icons/audio.png') 	}
+span.url:before, span.URL:before{ content:url('../images/icons/url.png') 	}
+
 
 .readable:not(figure, section):before	{ content:url('../images/icons/speaker.png')}
 
@@ -675,6 +694,7 @@ dd{
 
 .grid-list-header, .grid-list-item {
   display: grid;
+  align-items: center;
   grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
   padding: 12px 16px;
   border-bottom: 1px solid var(--border-color);

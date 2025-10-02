@@ -501,6 +501,9 @@ class Base implements TemplateInterface{
                     Desarrollado por <a href='https://robertsallent.com'>
                     Robert Sallent</a> para sus cursos de desarrollo de aplicaciones web (2022/2025).
                 </p>
+                <p class='mini'>
+                    <a href='/Cookie/policy'>Política de cookies</a>
+                </p>
             </div>
 
             <div class='flex1 p1 m1 right'>

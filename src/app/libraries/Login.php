@@ -6,7 +6,7 @@
   * Implementa las operaciones de login/logout y también permite hacer comprobaciones
   * sobre los distintos roles de que dispone el usuario identificado. 
   *
-  * Última revisión: 27/03/2024
+  * Última revisión: 25/09/2025
   * 
   * @author Robert Sallent <robertsallent@gmail.com>
   */
@@ -34,17 +34,14 @@ class Login{
         // recupera el usuario activo de la variable de sesión
         self::$activeUser = Session::get('user') ??  NULL;
                 
-        // Si hay operación pendiente pero no estamos en /Login, eliminaremos la operación pendiente.
-        
-        // Para los casos en los que el usuario no identificado no llega a identificarse al solicitar
-        // una URL protegida y ser redirigido a login. 
-        
-        // Así evitamos que se haga la redirección en una identificación posterior
-        
-        // TODO: comprobar si esto también funciona correctamente para la API.
-        if(Session::has('_pending_operation') && !URL::beginsWith('/Login')){
+        /*
+         * Si hay operación pendiente, pero no estamos en /Login, eliminaremos la operación pendiente.
+         * Esto es para los casos en que el usuario no identificado solicita una URL protegida, pero
+         * finalmente no llega a identificarse correctamente.
+         * Así evitamos que se haga la redirección en una identificación posterior.
+         */
+        if(Session::has('_pending_operation') && !URL::beginsWith('/Login'))
             Session::forget('_pending_operation');
-        }
     }
 
     
@@ -58,7 +55,10 @@ class Login{
      * @param Authenticable $user
      */
     public static function set(Authenticable $user){
+        
         self::$activeUser = $user; 
+        
+        // guarda en sesión el usuario para que sea recordado (hace login)
 	    Session::set('user', $user);
 	}
 	
@@ -75,7 +75,10 @@ class Login{
 	 * una vez eliminado del sistema.
 	 */
 	public static function clear(){
+	    
 	    self::$activeUser = NULL;
+	    
+	    // elimina completamente la sesión (array, cookie y fichero)
 	    Session::destroy();  
 	}
 	
