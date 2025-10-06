@@ -5,11 +5,12 @@
  *
  *   Facilita la tarea de enviar y recuperar cabeceras HTTP.
  *
- *   Última mofidicación: 15/07/2024
+ *   Última mofidicación: 06/10/2025
  *
  *   @author Robert Sallent <robertsallent@gmail.com>
  *   @since v1.3.0
  *   @since v1.4.2 añadido el método all() que retorna un array con todas las cabeceras recibidas
+ *   @since v2.1.0 añadido el parámetro $default al método get()
  */
 class HttpHeader{
     
@@ -32,11 +33,15 @@ class HttpHeader{
      * Recupera un encabezado HTTP
      * 
      * @param string $name nombre de la cabecera HTTP
+     * @param ?string $default valor por defecto
      *
      * @return ?string valor recuperado o null si no existe
      */
-    public static function get(string $name):?string{
-        return apache_request_headers()[$name] ?? null;
+    public static function get(
+        string $name,
+        ?string $default = null    
+    ):?string{
+        return apache_request_headers()[$name] ?? $default;
     }
     
     

@@ -89,7 +89,7 @@ class UploadedFile extends File{
      * @param string $prefix prefijo para el nombre del fichero en el servidor, en el caso de generar nombres únicos.
      * @param bool $returnFullRoute retornar ruta completa o solo el nombre del fichero?
      * 
-     * @throws FileException si se puede mover el fichero a su ubicación definitiva.
+     * @throws UploadException si no se puede mover el fichero a su ubicación definitiva.
      * 
      * @return string la ruta completa del fichero en el servidor o solamente el nombre.
      */
@@ -121,7 +121,7 @@ class UploadedFile extends File{
      * @param string $name nombre del fichero, NULL mantiene el nombre original.
      * @param bool $returnFullRoute permite seleccionar si el método debe retornar la ruta entera o solamente el nombre del fichero.
      *
-     * @throws FileException si se puede mover el fichero a su ubicación definitiva.
+     * @throws UploadException si se puede mover el fichero a su ubicación definitiva.
      *
      * @return string la ruta completa del fichero en el servidor o solamente el nombre.
      */

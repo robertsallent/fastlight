@@ -4,7 +4,7 @@
  *
  * Respuestas HTTP
  *
- * Última modificación: 12/01/2025
+ * Última modificación: 06/10/2025
  *
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.9.13
@@ -234,8 +234,8 @@ class Response{
         self::addHeader($_SERVER['SERVER_PROTOCOL']." $this->httpCode $this->status");
                 
         // añade unas cabeceras adicionales con informacion del framework
-        self::addHeader("Framework: FastLight <fastlight@robertsallent.com>");
-        self::addHeader("Author: Robert Sallent <robert@juegayestudia.com>");
+        self::addHeader("Framework: FastLight <info@fastlight.org>");
+        self::addHeader("Author: Robert Sallent <robert@fastlight.org>");
                
         // ENVÍO DE LAS CABECERAS
         if(self::$headers)

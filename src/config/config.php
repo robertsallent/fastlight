@@ -55,7 +55,7 @@ define('AUTOLOAD_DIRECTORIES',  [
     '../app/libraries',     // librerías
     '../mvc/controllers',   // controladores
     '../mvc/models',        // modelos
-    '../app/orm',           // mapeador objeto-relacional
+    '../app/orm',           // FastLight ORM, mapeador objeto-relacional
     '../templates',         // plantillas para las vistas
     '../app/interfaces',    // interfaces
     '../app/exceptions'     // excepciones

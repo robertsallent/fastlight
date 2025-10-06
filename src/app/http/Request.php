@@ -4,7 +4,7 @@
  * 
  * Permitirá acceder a los datos de la petición fácilmente desde los controladores.
  * 
- * Última modificación: 26/02/2025.
+ * Última modificación: 06/10/2025.
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.6.5
@@ -14,6 +14,7 @@
  * @since v1.4.2 añadida la propiedad $ip
  * @since v1.4.2 añadido el método headers()
  * @since v1.5.2 añadida la propiedad estática $request, con una instancia de Request generada a partir de la petición recibida.
+ * @since v2.1.0 añadido el parámetro $default a los métodos: get(), post(), cookie() y header()
  */
 
 
@@ -194,18 +195,20 @@ class Request{
     /**
      * Recupera parámetros que llegan por POST.
      *
-     * @param string $name nombre del parámetro a recuperar.
+     * @param string $name nombre del parámetro a recuperar
+     * @param ?string $default valor por defecto
      *
-     * @return string|NULL valor recuperado o NULL si no existe el parámetro.
+     * @return string|NULL valor recuperado o NULL si no existe el parámetro y no se indicó valor por defecto.
      */
     public function post(
-        string $name        // nombre del campo a recuperar
+        string $name,
+        ?string $default = null
     ): ?string{
         
         $data = filter_input(INPUT_POST, $name, FILTER_SANITIZE_SPECIAL_CHARS);
         
         if(!$data || EMPTY_STRINGS_TO_NULL && trim($data === ''))
-            return NULL;
+            return $default;
             
         return trim($data);
     }
@@ -216,17 +219,19 @@ class Request{
      * Recupera parámetros que llegan por GET.
      *
      * @param string $name nombre del parámetro a recuperar.
+     * @param ?string $default valor por defecto
      *
-     * @return string|NULL valor recuperado o NULL si no existe el parámetro.
+     * @return string|NULL valor recuperado o NULL si no existe el parámetro y no se indicó valor por defecto.
      */
     public function get(
-        string $name        // nombre del parámetro a recuperar
+        string $name,
+        ?string $default = null
     ): ?string{
         
         $data = filter_input(INPUT_GET, $name, FILTER_SANITIZE_SPECIAL_CHARS);
         
         if(!$data || EMPTY_STRINGS_TO_NULL && trim($data === ''))
-            return NULL;
+            return $default;
             
         return trim($data);
     }
@@ -237,13 +242,15 @@ class Request{
      * Recupera valores que llegan por COOKIE.
      *
      * @param string $name nombre de la cookie a recuperar.
+     * @param ?string $default valor por defecto
      *
-     * @return string|NULL valor recuperado o NULL si no existe la cookie.
+     * @return string|NULL valor recuperado o NULL si no existe la cookie y no se indicó valor por defecto.
      */
     public function cookie(
-        string $name        
+        string $name,
+        ?string $default = null
     ):?string{  
-        return HttpCookie::get($name);
+        return HttpCookie::get($name, $default);
     }
      
     
@@ -252,12 +259,16 @@ class Request{
     /**
      * Recupera valores de los encabezados.
      *
-     * @param string $name nombre del encabezado a recuperar.
+     * @param string $name nombre del encabezado a recuperar
+     * @param string $default valor por defecto
      *
-     * @return string|NULL valor recuperado o NULL si no existe .
+     * @return string|NULL valor recuperado o NULL si no existe y no hay valor por defecto
      */
-    public function header(string $name):?string{
-        return HttpHeader::get($name);
+    public function header(
+        string $name,
+        ?string $default = null
+    ):?string{
+        return HttpHeader::get($name, $default);
     }
     
     

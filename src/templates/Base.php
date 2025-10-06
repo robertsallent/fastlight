@@ -102,7 +102,7 @@ class Base implements TemplateInterface{
             
             // prepara el HTML solamente con el botón de "LogIn"
             $html .= "
-                <div class='right m1' id='login-bar'>
+                <div class='right' id='login-bar'>
                     <a class='button-light' href='/Login'>Acceso</a>
                 </div>";
             
@@ -124,14 +124,13 @@ class Base implements TemplateInterface{
                     if($user->isAdmin())
                         $html .= "
                     <span class='pc'> eres
-                        <a class='negrita' href='/Panel/admin' title='Ir al panel del administrador'>administrador</a>.
+                        <a class='negrita' href='/Admin' title='Ir al panel del administrador'>administrador</a>.
                     </span>";
                                     
                     // pone la imagen de perfil y el enlace a logout
                     $html .= " 
                     <a href='/User/home'>
-                    <img class='icon'
-                        src='".USER_IMAGE_FOLDER."/".($user->picture ?? DEFAULT_USER_IMAGE)."'
+                    <img src='".USER_IMAGE_FOLDER."/".($user->picture ?? DEFAULT_USER_IMAGE)."'
                         alt='Imagen de perfil'>
                     </a>   
                     <a class='button-light' href='/Logout'>LogOut</a>
@@ -206,8 +205,6 @@ class Base implements TemplateInterface{
         
         $html .= "\t<menu class='menu flex1'>\n";
         
-       
-        
         $html .= "\t\t<li><a href='/'>Inicio</a></li>\n";
         
         // Enlace a los ejemplos de maquetación.
@@ -216,7 +213,7 @@ class Base implements TemplateInterface{
            
         // Panel del administrador
         if(Login::oneRole(ADMIN_PANEL_ROLES))
-            $html .= "\t\t<li><a href='/Panel/admin'>Panel del administrador</a></li>\n";
+            $html .= "\t\t<li><a href='/Admin'>Panel del administrador</a></li>\n";
                 
         // Enlace al repositorio de FastLight en GitHub  
         // Lo podéis eliminar, para que no aparezca en vuestras aplicaciones

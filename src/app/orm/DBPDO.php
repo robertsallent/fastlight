@@ -92,7 +92,7 @@ class DBPDO extends DB{
                 throw new SQLException($mensaje);
             }else
                 // muestra un error genérico (para no mostrar detalles en producción)
-                throw new SQLException('ERROR al realizar la operación.');
+                throw new SQLException('Error al realizar la operación sobre la base de datos.');
         }
     }
             

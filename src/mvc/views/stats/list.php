@@ -21,7 +21,7 @@
 		<?= $template->header(null, 'Estadísticas de visitas') ?>
  		
 		<?= $template->breadCrumbs([
-              "Panel de administrador" => "/Panel/admin",
+              "Panel de administrador" => "/Admin",
 	          "Visitas" => NULL
 	      ]);
 	    ?>

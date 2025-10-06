@@ -2,13 +2,14 @@
 	FICHERO CON EL ESTILO PARA TELÉFONO
 	
 	Autor: Robert Sallent
-	Última revisión: 08/08/2025
+	Última revisión: 02/10/2025
 */
 
 
 /* Correcciones de clases genéricas para adaptarlas a pantallas pequeñas */
 
 .pc{display: none !important;}
+.phone{display: initial !important;}
 
 .w50, .w75, .w100 { width: 100% }
 

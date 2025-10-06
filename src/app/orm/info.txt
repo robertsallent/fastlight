@@ -1,1 +1,0 @@
-En esta carpeta se encontrará FastLight ORM a partir de la versión 2.1.0

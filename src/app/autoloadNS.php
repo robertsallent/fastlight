@@ -1,16 +1,16 @@
 <?php
 
 /*
+ * Autoload a partir de espacios de nombres
  * 
- * Fichero: autoloadNS.php
- * Autor: Robert Sallent
  * Última mofidicación: 24/02/2023
  *
  * Permitirá la carga de clases automática a partir de un espacio de nombres
  *
- * Aún no se aplica, se usará más adelante cuando se actualicen los NS de las clases
- * y se reestructure el sistema de carpetas y ficheros del framework.
+ * Aún no se aplica, ya veremos si se usa más adelante o no. Por motivos docentes
+ * de momento no se incluyen namespaces en FastLight.
  *
+ * @author Robert Sallent <robertsallent@gmail.com>
  */
 
 // al usar namespaces, llegará el nombre plenamente cualificado,

@@ -20,7 +20,7 @@
 			<?= $template->menu() ?>
     		<?= $template->header(null, 'Lista de errores detectados en tiempo de ejecución') ?>
     		<?= $template->breadCrumbs([
-		              "Panel de administrador" => "/Panel/admin",
+		              "Panel de administrador" => "/Admin",
     		          "Lista de errores" => NULL  
     		      ]);
     		?>

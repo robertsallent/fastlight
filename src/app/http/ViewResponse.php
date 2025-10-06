@@ -62,7 +62,7 @@ class ViewResponse extends Response{
      * Prepara y envía la respuesta al cliente
      */
     public function send(){      
-        $this->prepare();      // añade las cookies y las cabeceras http a la respuesta
+        $this->prepare();      // añade las cookies y las cabeceras HTTP a la respuesta
         $this->view->load();   // carga la vista
         die();                 // finaliza la ejecución
     } 

@@ -20,7 +20,7 @@
 		<?= $template->menu() ?>
 		<?= $template->header(null, 'Listado de test PHP') ?>
 		<?= $template->breadCrumbs([
-	              "Panel del administrador" => "/Panel/admin",
+	              "Panel del administrador" => "/Admin",
 		          "Test" => NULL
 		      ]);
 		?>

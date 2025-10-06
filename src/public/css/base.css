@@ -4,7 +4,7 @@
 	FICHERO BASE PARA LOS ESTILOS DE FASTLIGHT
 	
 	Autor: Robert Sallent
-	Última revisión: 11/08/2025
+	Última revisión: 02/10/2025
 
 	Estructura del documento CSS:
 	- Colores
@@ -103,11 +103,9 @@
 }
 
 
-/* =========================  ELEMENTOS IMPRIMIBLES ======================= */
-.print{
-	display: none !important;
-}
-	
+/* ===================  ELEMENTOS IMPRIMIBLES U OCULTOS ====================== */
+.print{ display: none !important; }
+.phone{ display: none !important; }
 
 /* =========================  PARA TODOS LOS ELEMENTOS ======================= */
 
@@ -1087,8 +1085,19 @@ body{
 #access-bar{
 	display: flex;
 	justify-content: space-between; /* separación entre los dos divs */
-	align-items: center; /* alinear verticalmente al centro */
-	padding: 4px;
+	align-items: center; 			/* alinear verticalmente al centro */
+	padding: 2px;
+}
+
+#login-bar{
+	text-align: right;
+	font-size: 0.9rem;
+	padding: 0;
+}
+
+#login-bar img{
+	height: 35px;
+	vertical-align: middle;
 }
 
 /* header principal (directamente dentro del body)---------------------------- */
@@ -1098,6 +1107,7 @@ body{
 	align-items: center;
 	color: white;
 	text-shadow: 0 0 4px black;
+	border-bottom: solid 4px var(--primary-bg-color);
 }
 
 #main-header>div{
@@ -1140,6 +1150,7 @@ body{
 #main-menu{
 	position: relative;
 	display: flex;
+	background-color: #5796;
 }
 
 #burger {

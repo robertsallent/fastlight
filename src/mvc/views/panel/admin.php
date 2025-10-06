@@ -44,7 +44,16 @@
         				<?php if(Login::oneRole(TEST_ROLES)){ ?>
            				<li><a href='/Test'>Ejecución de tests</a>.</li>
 						<?php } ?>
+						
+						<?php if(Login::isAdmin()){ ?>
+           				<li><a href='/Admin/exportdb'>Descargar backup de la BDD (Linux)</a>.</li>
+						<?php } ?>
         			</ul>
+        			
+        			<?php if(Login::isAdmin()){ ?>
+        			<p class="caution">Para poder exportar la base de datos, el usuario debe tener 
+        			<b>permiso de SELECT y LOCK TABLES</b> y, si hay vistas también necesita <b>SHOW VIEW</b> .</p>
+        			<?php } ?>
         			
         		</section>
         		

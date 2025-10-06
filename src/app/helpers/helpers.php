@@ -11,6 +11,7 @@
  * @since v1.7.3 el helper arrayToString recibe un quinto parámetro (opcional).
  * @since v1.7.4 añadidos helpers formatInt() y formatFloat()
  * @since v2.0.0 añadido el helper humanDate()
+ * @since v2.1.0 añadidos métodos snakeToCamelCase() y toSnakeCase()
 */
 
 
@@ -154,11 +155,54 @@ function formatFloat(int $number, int $decimal = 0):string{
 }
 
 
+/**
+ * Convierte un texto a snake case
+ * 
+ * @param string $texto el texto a convertir
+ * 
+ * @return string el texto convertido
+ */
+function toSnakeCase(string $texto): string {
+    // reemplaza espacios o guiones por guiones bajos
+    $texto = preg_replace('/[\s\-]+/', '_', $texto);
+    
+    // inserta guiones bajos antes de mayúsculas (de camel case a snake case)
+    $texto = preg_replace('/([a-z])([A-Z])/', '$1_$2', $texto);
+    
+    // convierte todo a minúsculas
+    return strtolower($texto);
+}
+
+
+
+/**
+ * Convierte de snake case a camel o Pascal case
+ * 
+ * @param string $texto texto a convertir
+ * @param bool $pascal si está a true retornará Pascal Case (inicial en mayúsculas). Opcional, por defecto false
+ * 
+ * @return string el resultado de pasar de snake a camel case o Pascal case
+ */
+function snakeToCamelCase(string $texto, bool $pascal = false): string {
+    
+    // divide la cadena en partes separadas por guiones bajos
+    $partes = explode('_', strtolower($texto));
+    
+    // convierte la primera letra de cada parte en mayúscula
+    $partes = array_map('ucfirst', $partes);   
+    $resultado = implode('', $partes);
+    
+    // retorna Pascal case o camel case
+    return $pascal? $resultado : lcfirst($resultado);
+}
+
+
 /*
  |--------------------------------------------------------------------------
  | FECHAS
  |--------------------------------------------------------------------------
  */
+
 function humanDate(string $date, bool $time = true):string{
     
     $months = [
@@ -181,7 +225,7 @@ function humanDate(string $date, bool $time = true):string{
     
     $result = intval($dateArray[2])." de ".$months[$dateArray[1]-1]." de ".$dateArray[0];
     
-    if($time && $dateTime[1])
+    if($time && ($dateTime[1] ?? false))
         $result .= ", a las ".$dateTime[1];   
     
     return $result;
@@ -352,7 +396,10 @@ function old(string $inputName, string $dbValue = NULL):string{
  * 
  * @return string selected o cadena vacía.
  */
-function oldSelected(string $inputName, string $value):string{
+function oldSelected(
+    string $inputName, 
+    string $value
+):string{
     return request()->previousInputs[$inputName] == $value ? ' selected ' : '';
 }
 

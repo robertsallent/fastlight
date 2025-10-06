@@ -5,10 +5,11 @@
  *
  *   Facilita la tarea de enviar y recuperar cookies.
  *
- *   Última mofidicación: 26/02/2025
+ *   Última mofidicación: 06/10/2025
  *
  *   @author Robert Sallent <robertsallent@gmail.com>
  *   @since v1.2.2
+ *   @since v2.1.0 añadido el parámetro $default al método get()
  */
 class HttpCookie{
     
@@ -61,15 +62,19 @@ class HttpCookie{
      * Recupera el valor de una cookie,
      * 
      * @param string $name nombre de la cookie a recuperar
+     * @param ?string $default valor por defecto
      * 
      * @return string|NULL valor recuperado o null si no existe la cookie
      */
-    public static function get(string $name):?string{
+    public static function get(
+        string $name,
+        ?string $default = null
+    ):?string{
             
         $data = filter_input(INPUT_COOKIE, $name, FILTER_SANITIZE_SPECIAL_CHARS);
         
         if(!$data || EMPTY_STRINGS_TO_NULL && trim($data === ''))
-            return NULL;
+            return $default;
             
         return trim($data);
     }
