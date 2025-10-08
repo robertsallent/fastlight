@@ -1,16 +1,35 @@
 /*
 	Fichero: TextReader.js
 	
-	Implementa el lector de pantalla
+	DESCRIPCION
 	
-	Funcionamiento:
-	- Incluir este fichero con <script src="/js/TextReader.js"></script>.
-	- Poner elementos con la clase "readable".
+	Implementa el lector de pantalla.
+	
+	El lector de pantalla leerá de viva voz los elementos "readables" cuando 
+	se produzca un determinado evento en ellos (por defecto clic).
+	
+	
+	MODO DE EMPLEO
+	
+	- Incluir este fichero haciendo: <script src="/js/TextReader.js"></script>.
+	- Poner la clase "readable" a los elementos que queramos que puedan ser leidos.
+	
+	Se puede indicar el tipo de evento que debe disparar la lectura del elemento,
+	mediante el atributo personalizado data-event, por ejemplo para que el texto
+	sea leido al hacer doble clic, indicaremos: data-event="dblclick".
+		
+	El lector intentará seleccionar automáticamente una voz en el idioma definido en 
+	el elemento html de la página (en el framework FastLight se puede 
+	indicar en el fichero config.php).
+	
+	Si queremos que no lea el texto de algunos elementos internos al
+	elemento de clase "readable", debemos poner el atributo aria-hidden="true"
+	a esos elementos internos.
 	
 	Ejemplos en https://www.demo.fastlight.org/example/legibles
 	
 	Autor: Robert Sallent
-	Última modificación: 17/07/2025	
+	Última modificación: 08/10/2025	
 */ 
 
 class TextReader{
@@ -22,7 +41,7 @@ class TextReader{
 	volume;			// volumen
 	
 	constructor(
-		voiceIndex 	= 0, 
+		voiceIndex 	= null, 
 		pitch 		= 1.0, 
 		rate  		= 1.0, 
 		volume		= 1.0
@@ -34,14 +53,13 @@ class TextReader{
 	}
 	
 	// método de objeto para leer textos
-	// TextReader read(String text)
 	read(text){
 		const toRead = new SpeechSynthesisUtterance(text);
 		
 		toRead.pitch = this.pitch;	 	// 0.0 a 2.0, 1 es paso normal
 		toRead.rate  = this.rate;   	// 0.1 a 10, 1.0 es velocidad normal
 		toRead.volumen = this.volume;
-		toRead.voice = window.speechSynthesis.getVoices()[this.voiceIndex];
+		toRead.voice = window.speechSynthesis.getVoices()[this.voiceIndex ?? this.getBestVoiceIndex()];
 		
 		window.speechSynthesis.speak(toRead);
 		return this;
@@ -59,9 +77,58 @@ class TextReader{
 		this.voiceIndex = voiceIndex;
 		return this;
 	}
+	
+	
+	// calcula el índice de la voz adecuada para el idioma de la página
+	getBestVoiceIndex() {
+	  const pageLang = (document.documentElement.lang || 'es').toLowerCase();
+	  const voices = speechSynthesis.getVoices();
+
+	  // si no están cargadas, usaremos la 0 por defecto
+	  if (!voices.length) 
+		return 0; 
+
+	  // coincidencia total
+	  let index = voices.findIndex(v => v.lang.toLowerCase() === pageLang);
+
+	  // coincidencia parcial (si no hay coincidencia total)
+	  if (index === -1)
+	    index = voices.findIndex(v => v.lang.toLowerCase().startsWith(pageLang.split('-')[0]));
+
+	  // si no hay coincidencia alguna, usaremos la primera 
+	  if (index === -1) index = 0;
+
+	  this.voiceIndex = index;
+	}
 }
 
 
+
+// retorna el texto visible de un elemento. Se quitan los elementos con atributo aria-hidden="true"
+function getVisibleText(element) {
+  // si el elemento o alguno de sus ancestros tiene aria-hidden="true", ignóralo
+  if (element.closest('[aria-hidden="true"]')) 
+    return '';
+
+  // si el elemento no tiene hijos, devuelve su texto directamente
+  if (!element.children.length)
+    return element.textContent.trim();
+
+
+  // si tiene hijos, recorre recursivamente solo los visibles
+  let text = '';
+  for (const child of element.childNodes) {
+    if (child.nodeType === Node.TEXT_NODE) {
+      text += child.textContent;
+    } else if (child.nodeType === Node.ELEMENT_NODE && !child.matches('[aria-hidden="true"]')) {
+      text += ' ' + getVisibleText(child);
+    }
+  }
+  return text.trim();
+}
+
+
+// al cargar la ventana...
 window.addEventListener('load', function(){
 			
 	// crea un oebjeto TextReader con los valores por defecto
@@ -84,10 +151,11 @@ window.addEventListener('load', function(){
 			
 			// cambia la voz (si es necesario)
 			if(r.dataset.voice != undefined)
-				textReader.changeVoice(r.dataset.voice).read(r.textContent);
+				textReader.changeVoice(r.dataset.voice).read(getVisibleText(r));
 			else
-				textReader.read(r.textContent);
+				textReader.read(getVisibleText(r));
 			
 		});
 	}
+	
 });

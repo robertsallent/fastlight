@@ -256,7 +256,9 @@ span.url:before, span.URL:before{ content:url('../images/icons/url.png') 	}
 
 .readable:not(figure, section):before	{ content:url('../images/icons/speaker.png')}
 
-section.readable>h2:before{
+section.readable>h2:first-child:before, 
+section.readable>h3:first-child:before, 
+section.readable>h4:first-child:before{
 	content:url('../images/icons/speaker.png');
 	padding: 5px 5px 0px 0px;
 	vertical-align: middle;
@@ -374,7 +376,7 @@ figure.readable:before{
 /* ========================  ELEMENTOS BÁSICOS HTML ======================= */
 
 h1, h2, h3{
-	margin-top:    0.8em;
+	margin-top:    1.2em;
 	margin-bottom: 0.7em;
 }
 
@@ -396,7 +398,7 @@ h2:first-child, h3:first-child{
 }
 
 h4{
-	margin: 1em;
+	margin: 1em 0;
 }
 
 p{
@@ -424,19 +426,29 @@ hr{
 }
 
 code { 
-	font-size: 1.05em;
+	font-size: 1.10em;
 	color: var(--code-color); 
 }
 
 .code-block { 
 	font-family: "Lucida Console", "Courier New", "Monaco";
-	font-size: 0.9rem;
+	font-size: 1rem;
 	border: solid 1px var(--border-color);
 	white-space: pre-wrap;
 	word-break: break-word;
 	background-color: var(--main-bg-color);
 	border-radius: 5px;
 	padding: 8px 0px 10px;
+	tab-size: 1rem;
+}
+
+.code-execution { 
+	font-family: "Arial";
+	font-size: 0.9rem;
+	color: white;
+	background-color: #357;
+	border-radius: 5px;
+	padding: 20px;
 	tab-size: 1rem;
 }
 
@@ -1150,7 +1162,7 @@ body{
 #main-menu{
 	position: relative;
 	display: flex;
-	background-color: #5796;
+	background-color: #DDDC;
 }
 
 #burger {

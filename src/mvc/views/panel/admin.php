@@ -46,7 +46,8 @@
 						<?php } ?>
 						
 						<?php if(Login::isAdmin()){ ?>
-           				<li><a href='/Admin/exportdb'>Descargar backup de la BDD (Linux)</a>.</li>
+           				<!-- <li><a href='/Admin/exportdb'>Descargar backup de la BDD (Linux)</a>.</li>  --> 
+           				<li><a href='/Admin/exportdbzip'>Descargar backup de la BDD en ZIP (Linux)</a>.</li>
 						<?php } ?>
         			</ul>
         			

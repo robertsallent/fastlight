@@ -113,7 +113,7 @@ class Base implements TemplateInterface{
             
             // pone el texto "Bienvenido usuario" con un enlace a su home
             $html .= "
-                <div class='right m1' id='login-bar'>
+                <div class='right' id='login-bar'>
                     <span class='pc'>Bienvenido</span>
                     <a class='negrita' href='/User/home' title='Acceder al espacio personal'>
                         $user->displayname
@@ -193,32 +193,27 @@ class Base implements TemplateInterface{
         // script para el botón de la hamburguesa
         $html = "<script src='/js/components/burguerMenu.js'></script>";
         
-        // menú
+        // inicio del menú
         $html .= "<nav id='main-menu'>\n";
         
-        // botón de la hamburguesa
+        // botón de la hamburguesa (para pantallas pequeñas)
         $html .= "\t<button class='button' id='burger' aria-label='Abrir menú'>
                   <span></span>
                   <span></span>
                   <span></span>
                  </button>";
         
+        // listado de enlaces del menú principal
         $html .= "\t<menu class='menu flex1'>\n";
         
         $html .= "\t\t<li><a href='/'>Inicio</a></li>\n";
-        
-        // Enlace a los ejemplos de maquetación.
-        // Lo eliminaremos en producción junto con la carpeta mvc/views/examples y el ExampleController
-        $html .= "\t\t<li><a target='_blank' href='https://fastlight.org'>Documentación</a></li>\n";
+        $html .= "\t\t<li><a target='_blank' href='https://fastlight.org' title='https://fastlight.org'>Documentación online</a></li>\n";
            
-        // Panel del administrador
+        // enlace al panel del administrador
         if(Login::oneRole(ADMIN_PANEL_ROLES))
             $html .= "\t\t<li><a href='/Admin'>Panel del administrador</a></li>\n";
-                
-        // Enlace al repositorio de FastLight en GitHub  
-        // Lo podéis eliminar, para que no aparezca en vuestras aplicaciones
-        // $html .=   "\t\t<li><a href='https://github.com/robertsallent/fastlight'>GitHub</a></li>\n";
-            
+     
+        // fin del menú principal
         $html .= "\t</menu>\n";
         $html .= "</nav>\n";
         
@@ -238,16 +233,20 @@ class Base implements TemplateInterface{
      */
     public function acceptCookies(){
         return ACCEPT_COOKIES && !HttpCookie::get(ACCEPT_COOKIES_NAME) ?
-            "<div class='modal w50'>
+        "<div class='modal w50' id='cookieModal'>
             	<form method='POST' class='centered-block' id='accept-cookies' action='/Cookie/accept'>
             		<h2>Aceptar cookies</h2>
             		".paragraph(ACCEPT_COOKIES_MESSAGE)."
             		<div class='centered'>
                         <input type='submit' class='button' name='accept' value='Aceptar'>
+                        <input type='button' class='button-light' value='Omitir' onclick='cookieModal.remove()'>
                     </div>
+                    <p class='mt2 right'>
+                        <a href='/Cookie/policy'>Política de cookies</a>
+                    </p>
         		</form>
-            </div>"  		    
-	    : '';
+            </div>"
+            : '';
     }
     
     

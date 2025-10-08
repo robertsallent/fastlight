@@ -24,7 +24,6 @@
 		<?= $template->header(null, 'Política de cookies') ?>
 		<?= $template->breadCrumbs() ?>
 		<?= $template->messages() ?>
-		<?= $template->acceptCookies() ?>
 		
 		<main>
     		<h1>Declaración de responsabilidad y política de cookies</h1>

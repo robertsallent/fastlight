@@ -40,6 +40,7 @@
  * @since v2.0.2 añadida la constante DISPLAY_ERRORS, que permite mostrar errores en pantalla (en producción debe estar a false).
  * @since v2.0.6 añadidas nuevas directivas de configuración de correo
  * @since v2.0.8 añadidos nuevos parámetros de configuración de la cookie de sesión
+ * @since v2.1.1 añadida la constante APP_PASSWORD para definir un password para las herramientas del framework que lo necesiten
  */
    
 
@@ -69,6 +70,10 @@ define('AUTOLOAD_DIRECTORIES',  [
 
 define('APP_NAME', 'FastLight Framework 2'); // Título de la aplicación.
 define('APP_TYPE', 'WEB');       // Tipo de aplicación: WEB o API.              
+
+// define un password para usar en las herramientas que lo requieran, por ejemplo:
+// - al descargar un backup de la BDD comprimido en ZIP, será el password del fichero
+define('APP_PASSWORD', '1234');
 
 define('LANGUAGE_CODE', 'es');   // código de idioma (para poner como atributo del elemento html en las vistas)
 
@@ -219,7 +224,7 @@ define('DB_LOGIN_ERRORS', false);                  // guardar errores de login e
  * -------------------------------------------------------------*/
 
 // nombre de la sesión (y de la cookie de sesión)
-define('SESSION_NAME', 'FASTLIGHTSESSID');   
+define('SESSION_NAME', 'FL2SESSID');   
 
 // tiempo (en segundos) antes de marcar los datos de sesión como basura
 define('SESSION_TIME', 1440);           
