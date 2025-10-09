@@ -33,7 +33,7 @@ class Captcha{
         }else{
             $letras = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
             for($i = 0 ; $i< $long; $i++)
-                $result .= $letras[random_int(0, $max)];
+                $result .= $letras[random_int(0, strlen($letras)-1)];
         }
 
         // lo guarda en sesión

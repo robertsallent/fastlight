@@ -6,7 +6,8 @@
 	Implementa el lector de pantalla.
 	
 	El lector de pantalla leerá de viva voz los elementos "readables" cuando 
-	se produzca un determinado evento en ellos (por defecto clic).
+	se produzca un determinado evento en ellos (por defecto clic). Ante el mismo
+	evento mientras está reproduciendo, se detendrá.
 	
 	
 	MODO DE EMPLEO
@@ -39,6 +40,7 @@ class TextReader{
 	pitch;			// velocidad
 	rate;			// paso
 	volume;			// volumen
+	reading;		// para saber si está leyendo o parado
 	
 	constructor(
 		voiceIndex 	= null, 
@@ -50,18 +52,25 @@ class TextReader{
 		this.pitch = pitch;
 		this.rate  = rate;
 		this.volume = volume;
+		this.reading = false;
 	}
 	
 	// método de objeto para leer textos
 	read(text){
-		const toRead = new SpeechSynthesisUtterance(text);
-		
+		let toRead = new SpeechSynthesisUtterance(text);
+		this.reading = true;
+				
 		toRead.pitch = this.pitch;	 	// 0.0 a 2.0, 1 es paso normal
 		toRead.rate  = this.rate;   	// 0.1 a 10, 1.0 es velocidad normal
-		toRead.volumen = this.volume;
+		toRead.volume = this.volume;
 		toRead.voice = window.speechSynthesis.getVoices()[this.voiceIndex ?? this.getBestVoiceIndex()];
 		
 		window.speechSynthesis.speak(toRead);
+		
+		toRead.addEventListener('end', () => {
+			this.reading = false;
+		});
+		
 		return this;
 	}
 	
@@ -69,6 +78,16 @@ class TextReader{
 	// int getVoiceIndex()
 	getVoiceIndex(){
 		return this.voiceIndex;
+	}
+	
+	// retorna si está leyendo o no
+	isReading(){
+		return this.reading;
+	}
+	
+	stopReading(){
+		speechSynthesis.cancel()
+		this.reading = false;
 	}
 
 	// cambia la voz del lector a partir de un índice
@@ -151,9 +170,10 @@ window.addEventListener('load', function(){
 			
 			// cambia la voz (si es necesario)
 			if(r.dataset.voice != undefined)
-				textReader.changeVoice(r.dataset.voice).read(getVisibleText(r));
-			else
-				textReader.read(getVisibleText(r));
+				textReader.changeVoice(r.dataset.voice);
+			
+			// comienza a leer o detiene la lectura
+			textReader.isReading() ? textReader.stopReading() : textReader.read(getVisibleText(r));
 			
 		});
 	}

@@ -4,13 +4,13 @@
  *
  * Controlador para las operaciones del administrador
  *
- * Última revisión: 08/10/2025
+ * Última revisión: 09/10/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v1.9.4
  * @since v2.1.0 cambia el nombre de PanelController por AdminController
  * @since v2.1.0 se añade el método exportdb()
- * @since v2.1.1 se añade el método exportdbzip()
+ * @since v2.2.0 se añade el método exportdbzip()
  */
 
 
@@ -77,7 +77,7 @@ class AdminController extends Controller{
     /**
      * Exporta la base de datos en un fichero comprimido
      */
-    public function exportdbzip() {
+    public function exportdbzip():Response{
         
         // debes ser administrador
         Auth::admin();
@@ -86,58 +86,43 @@ class AdminController extends Controller{
         $fecha = date('Y_m_d_H_i_s');
         $baseName = toSnakeCase(APP_NAME) . "_backup_{$fecha}";
         
-        // rutas para el fichero sql y el zip
-        $sqlFile = "../tmp/{$baseName}.sql";
-        $zipFile = "../tmp/{$baseName}.zip";
+        // cálculo de la ruta para el fichero SQL
+        $sqlPath = "../tmp/{$baseName}.sql";
         
         // prepara el comando mysqldump
-        $comando = "mysqldump --single-transaction --no-tablespaces --skip-extended-insert -h ".DB_HOST." -P ".DB_PORT." -u ".DB_USER." -p'".DB_PASS."' ".DB_NAME." > {$sqlFile}";
+        $comando = "mysqldump --single-transaction --no-tablespaces --skip-extended-insert -h ".DB_HOST." -P ".DB_PORT." -u ".DB_USER." -p'".DB_PASS."' ".DB_NAME." > {$sqlPath}";
         
         try{
-            // ejecuta el comando y genera el .sql
+            // ejecuta el comando y genera el fichero SQL
             system($comando, $resultado);
-            
-           
-            if ($resultado !== 0 || !file_exists($sqlFile))
+                      
+            // si no ha funcionado...
+            if ($resultado !== 0 || !file_exists($sqlPath))
                 throw new FileException("Error al crear el backup de la base de datos en SQL.");
             
-                
-            // TODO: trasladar la compresión de ficheros hacia la librería File
-            // TODO: retornar una FileResponse con el fichero zip
+            // crea el objeto File a partir del fichero SQL generado    
+            $sqlFile = new File($sqlPath);
             
-            // crea el fichero ZIP
-            $zip = new ZipArchive();
+            // crea el fichero zip comprimido y con el password
+            $zipFile = $sqlFile->zip(null, '../tmp', APP_PASSWORD);
             
-            // unav ez descargado, el fichero requerirá la clave configurada en el fichero config.php
-            if ($zip->open($zipFile, ZipArchive::CREATE) === TRUE) {
-                $zip->setPassword(APP_PASSWORD);
-                $zip->addFile($sqlFile, basename($sqlFile));
-                $zip->setEncryptionName(basename($sqlFile), ZipArchive::EM_AES_256); // cifrado AES-256
-                $zip->close();
-            } else 
-                throw new FileException("Error al crear el archivo ZIP.");
+            // genera y envía la nueva respuesta, no se puede hacer el return porque hay 
+            // que borrar los ficheros tras enviar la respuesta
+            $response = new FileResponse($zipFile, true);
+            $response->send();
             
-            
-            // Cabeceras HTTP para forzar la descarga
-            header('Content-Type: application/zip');
-            header('Content-Disposition: attachment; filename="'.basename($zipFile).'"');
-            header('Pragma: no-cache');
-            header('Expires: 0');
-            header('Content-Length: '.filesize($zipFile));
-            
-            // Enviar el ZIP al navegador
-            readfile($zipFile);
-            
-            // Limpieza de archivos temporales
-            unlink($sqlFile);
-            unlink($zipFile);
+            // Limpieza de los ficheros creados (importante)
+            $sqlFile->delete();
+            $zipFile->delete();
             
             die();
-            
+          
+        // en caso de error
         }catch(Throwable $t){
             
             Session::error($t->getMessage());
             
+            // intenta limpiar los ficheros que se hubieran creado (importante)
             @unlink($sqlFile);
             @unlink($zipFile);
             

@@ -6,13 +6,14 @@
  * Facilita el trabajo con ficheros. Dispone de métodos interesantes
  * para trabajar con ficheros y para comprobar tipos MIME.
  *
- * Última mofidicación: 06/02/2025.
+ * Última mofidicación: 09/10/2025.
  * 
  * @author Robert Sallent
+ * 
  * @since v1.1.4 añadidos métodos para copiar y mover ficheros.
  * @since v1.3.7 añadido el método getSize() y su alias size().
  * @since v1.7.4 añadido el método append().
- * 
+ * @since v2.1.2 añadido el método zip()
  */
 
     class File{
@@ -346,6 +347,60 @@
         }
         
         
+        
+        /**
+         * Comprime el fichero a un fichero ZIP
+         * 
+         * Los ficheros comprimidos se colocarán directamente en la carpeta temporal, a no
+         * ser que se indique otra carpeta.
+         *  
+         * @param ?string $name nombre del fichero de destino (opcional, por defecto será el nombre original con enxtensión ZIP)
+         * @param string $folder carpeta de destino (opcional, por defecto la carpeta temporal del proyecto)
+         * @param ?string $password si se indica, se encripta el fichero y ésta es la clave para poderlo recuperar cuando se abra el ZIP (opcional)
+         * 
+         * @return File intancia de File que referencia al nuevo fichero comprimido en la carpeta temporal.
+         */
+        public function zip(
+            ?string $name       = null, 
+            string $folder      = '../tmp',
+            ?string $password   = null,
+            
+        ):File{
+            // Verifica si el archivo existe y es legible
+            if(!$this->isReadable())
+                throw new FileException("No se pudo leer el fichero a comprimir.");
+            
+            // Si no viene el nombre, usaremos el nombre original del fichero pero con extensión zip
+            if(empty($name))
+                $name = pathinfo($this->path, PATHINFO_FILENAME).".zip";
+            
+            // los ficheros comprimidos generados se colocarán en la carpeta temporal
+            $path = "$folder/{$name}";
+                
+            // crea la instancia de ZipArchive
+            $zip = new ZipArchive(); 
+            
+            // intenta crear el fichero en la carpeta temporal
+            if($zip->open($path, ZipArchive::CREATE) === false)
+                throw new FileException("No se pudo crear el fichero {$name}.");
+            
+            // si hay password, se añade
+            if(!empty($password))
+                $zip->setPassword($password);
+            
+            // añade el fichero
+            $zip->addFile($this->path, $this->getBaseName());
+            
+            // si hay password, se encripta el fichero con AES 256
+            if(!empty($password))
+                $zip->setEncryptionName($this->getBaseName(), ZipArchive::EM_AES_256); 
+            
+            // cierra el ZIP
+            $zip->close();
+            
+            // retorna una instancia File que referencia al nuevo fichero comprimido
+            return new File($path);           
+        }
         
         
         /* -----------------------------------------------------------------
