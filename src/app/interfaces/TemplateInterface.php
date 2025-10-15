@@ -17,7 +17,12 @@
 
 interface TemplateInterface{
     
-   public function metaData();          // coloca los metadatos (head de la página )
+    // coloca los metadatos (head de la página )
+    public function metaData(
+        string $title,
+        string $description
+    ); 
+    
    public function css();               // coloca los links CSS con sus media queries
    
    public function login();             // pone los enlaces de login/logout
