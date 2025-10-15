@@ -77,7 +77,7 @@ section{
 .menu {
   position: absolute;
   flex-direction: column;
-  padding: 6px;
+  padding: 0px 6px;
   top: 100%;
   left: 0;
   width: 100%;
@@ -87,14 +87,19 @@ section{
 
 .menu li{ 
 	margin: auto;
-	width: 100%;
+	width: 100%;;
+}
+
+.menu li a.url,
+.menu li a.URL{
+	padding: 6px;
 }
 
 .menu.open {
   display: flex;
 }
 
- .menu li:not(:first-of-type) {
+ .menu li:not(:first-of-type){
    padding: 0;
    border-top: 2px solid white;
  }

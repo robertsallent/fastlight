@@ -32,40 +32,38 @@
         			Esta herramienta es útil para detectar tanto errores como distintos tipos
         			de ataques informáticos.</p>
         			
-        			<p class="info">Puedes utilizar el formulario de búsqueda para realizar filtros. Las búsquedas 
-        			   se mantendrán guardadas aunque cambies de página.</p>
-        			   
+     
         			<?php 
         			
-        			// coloca el formulario de filtro
-        			echo isset($filtro) ?
-        			     $template->removeFilterForm($filtro):
-        			     
-        			     $template->filterForm(
-            			     [
-            			         'Tipo' => 'type',
-            			         'Clase' => 'level',
-            			         'URL' => 'url',
-            			         'Mensaje' => 'message',
-            			         'Usuario' => 'user',
-            			         'Fecha' => 'date'
-            			     ],
-            			     [
-            			         'Tipo' => 'type',
-            			         'Clase' => 'level',
-            			         'URL' => 'url',
-            			         'Mensaje' => 'message',
-            			         'Usuario' => 'user',
-            			         'Fecha' => 'date'
-            			     ], 
-            			     'Clase',
-            			     'Fecha'
-		            );
+        			// coloca el formulario para poner o quitar filtro
+        			echo $template->filter(
+            			// opciones para el desplegable "buscar en"
+            			[
+                			'Tipo' => 'type',
+                			'Clase' => 'level',
+                			'URL' => 'url',
+                			'Mensaje' => 'message',
+                			'Usuario' => 'user',
+                			'Fecha' => 'date'
+        			    ],
+        			    
+        			    // opciones para el desplegable "ordenar por"
+        			    [
+            			    'Tipo' => 'type',
+            			    'Clase' => 'level',
+            			    'URL' => 'url',
+            			    'Mensaje' => 'message',
+            			    'Usuario' => 'user',
+            			    'Fecha' => 'date'
+            		    ],
+            		    'Clase', // opción seleccionada por defecto en "buscar en"
+            		    'Fecha', // opción seleccionada por defecto en "ordenar por"
+            		    $filtro  // filtro aplicado (null si no hay) - viene del controlador
+        		    );
 
         			     
         			if($errores) { ?>
-     	
-        				<div class="derecha">
+        				<div class="right">
         					<?= $paginator->stats()?>
         				</div>
         		

@@ -4,7 +4,7 @@
 	FICHERO BASE PARA LOS ESTILOS DE FASTLIGHT
 	
 	Autor: Robert Sallent
-	Última revisión: 02/10/2025
+	Última revisión: 15/10/2025
 
 	Estructura del documento CSS:
 	- Colores
@@ -195,6 +195,9 @@
 .mini   				{ font-size: 0.8rem   }
 .maxi   				{ font-size: 1.2rem   }
 
+.scroll-y				{ overflow-y: scroll  }
+.scroll-x				{ overflow-x: scroll  }
+
 /* br{
 	line-height: 2.5rem;
 } */
@@ -254,11 +257,14 @@ span.audio:before				{ content:url('../images/icons/audio.png') 	}
 span.url:before, span.URL:before{ content:url('../images/icons/url.png') 	}
 
 
-.readable:not(figure, section):before	{ content:url('../images/icons/speaker.png')}
+.readable:not(figure, section, div):before	{ content:url('../images/icons/speaker.png')}
 
 section.readable>h2:first-child:before, 
 section.readable>h3:first-child:before, 
-section.readable>h4:first-child:before{
+section.readable>h4:first-child:before,
+div.readable>h2:first-child:before, 
+div.readable>h3:first-child:before, 
+div.readable>h4:first-child:before{
 	content:url('../images/icons/speaker.png');
 	padding: 5px 5px 0px 0px;
 	vertical-align: middle;
@@ -1123,7 +1129,7 @@ body{
 }
 
 #main-header>div{
-	padding: 30px 0px;
+	padding: 35px 0px;
 }
 
 #main-header figure{
@@ -1200,7 +1206,7 @@ body{
 .menu{
 	display: flex;
 	align-items: center;
-	padding: 10px;
+	padding: 6px;
 	color: var(--primary-font-color);
 	font-size: 0;
 	min-width: var(--min-width);
@@ -1209,11 +1215,28 @@ body{
 
 .menu li{
 	margin: 0;
-	padding: 0 4px;
+	padding: 4px;
 	text-align: center;
 	display: inline-block;
 	list-style-type: none;
 	font-size: 1rem;
+}
+
+.menu li a.url{
+	padding: 4px 8px 1px;
+	font-style : normal;
+}
+
+.menu li a.url:before, 
+.menu li a.URL:before{
+    display: inline-block;
+    padding-right: 5px;
+    vertical-align: middle;
+}
+
+.menu li a.url:before, 
+.menu li a.URL:before{ 
+	content:url('../images/icons/url.png'); 	
 }
 
 .menu li a{

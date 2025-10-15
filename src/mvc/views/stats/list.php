@@ -18,48 +18,43 @@
 	          "Visitas" => NULL
 	      ]);
 	    ?>
-		
+
 		<?= $template->messages() ?>
-		<?= $template->acceptCookies() ?>
 		
 		<main>
     		<h1><?= APP_NAME ?></h1>
     		
     		<?php if(SAVE_STATS){ ?>
     		
-    		
         		<h2>Estadísticas</h2>
-    			
-    			<p class="info">Utiliza el formulario de búsqueda para filtrar resultados. Las búsquedas 
-    			   se mantendrán guardadas aunque cambies de página.</p>
-    			   
+
     			<?php 
     			
     			// coloca el formulario de filtro
-    			echo isset($filtro) ?
-    			     $template->removeFilterForm($filtro):
-    			     
-    			     $template->filterForm(
-        			     [
-        			         'URL' => 'url',
-        			         'Último usuario' => 'user',
-        			         'Última IP' => 'ip',
-        			     ],
-        			     [
-        			         'URL'    => 'url',
-        			         'Cuenta' => 'count',
-        			         'Primera visita'     => 'created_at',
-        			         'Última visita'  => 'updated_at',
-        			         'Último usuario' => 'user',
-        			     ], 
-        			     'URL',
-        			     'Cuenta'
-	            );
+    			echo $template->filter(
+        			// opciones para el desplegable "buscar en"
+        			[
+            			'URL' => 'url',
+            			'Último usuario' => 'user',
+            			'Última IP' => 'ip',
+        			],
+        			
+        			// opciones para el desplegable "ordenar por"
+        			[
+            			'URL'    => 'url',
+            			'Cuenta' => 'count',
+            			'Primera visita'     => 'created_at',
+            			'Última visita'  => 'updated_at',
+            			'Último usuario' => 'user',
+        			],
+        			'URL',    // opción seleccionada por defecto en "buscar en"
+        			'Cuenta',  // opción seleccionada por defecto en "ordenar por"
+        			$filtro  // filtro aplicado (null si no hay) - viene del controlador
+    			);
 
     			     
     			if($stats) { ?> 					
-
-    				<div class="derecha">
+    				<div class="right">
     					<?= $paginator->stats()?>
     				</div>
         		        

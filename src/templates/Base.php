@@ -4,7 +4,7 @@
  *
  * Se usa para generar las partes comunes de todas las vistas
  *
- * Última revisión: 14/10/2025
+ * Última revisión: 15/10/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  *
@@ -254,17 +254,17 @@ class Base implements TemplateInterface{
         // enlace a inicio
         $html .= "\t\t<li><a href='/'>Inicio</a></li>\n";
         
-        // enlace externo a la documentación online en https://fastlight.org
-        $html .= "\t\t<li>
-                    <a target='_blank' href='https://fastlight.org' title='https://fastlight.org'>
-                        <span class='url'>Documentación online</span>
-                    </a>
-            </li>\n";
-           
         // enlace al panel del administrador
         if(Login::oneRole(ADMIN_PANEL_ROLES))
             $html .= "\t\t<li><a href='/Admin'>Panel del administrador</a></li>\n";
-     
+            
+        // enlace externo a la documentación online en https://fastlight.org
+        $html .= "\t\t<li>
+                    <a target='_blank' class='url' href='https://fastlight.org' title='https://fastlight.org'>
+                        Documentación online
+                    </a>
+            </li>\n";
+
         // fin del menú principal
         $html .= "\t</menu>\n";
         $html .= "</nav>\n";
@@ -420,6 +420,32 @@ class Base implements TemplateInterface{
      *****************************************************************************/
     
     /**
+     * Coloca el formulario para realizar filtros o para quitarlos
+     *
+     * @param array $fields array asociativo de campos para el desplegable "buscar en" pares de nombre a mostrar => nombre del campo
+     * @param array $orders array asociativo de campos para el desplegable "ordenar por" pares de nombre a mostrar => nombre del campo
+     * @param string $selectedField opción seleccionada por defecto en el desplegable "buscar en"
+     * @param string $selectedOrder opción seleccionada por defecto en el desplegable "ordenar por"
+     * @param ?Filter $filter filtro aplicado (si lo hubiera)
+     * @param ?string $action URL a la que enviar el formulario, por defecto se hace la petición a la misma URL
+     *
+     * @return string HTML resultante
+     */
+    public function filter(
+        array $fields         = [],
+        array $orders         = [],
+        string $selectedField = '',
+        string $selectedOrder = '',
+        ?Filter $filter       = null,
+        ?string $action       = null,
+    ){
+        return empty($filter) ?
+            $this->filterForm($fields, $orders, $selectedField, $selectedOrder, $action):
+            $this->removeFilterForm($filter, $action);
+    }
+    
+    
+    /**
      * Retorna el HTML para los formularios de filtrado de resultados.
      * 
      * @param array $fields lista de campos para el desplegable con el campo de búsqueda.
@@ -439,7 +465,11 @@ class Base implements TemplateInterface{
     ){
         
         $html = "<search>";
-        $html .= "<form method='POST' id='filtro' class='derecha' action='".($action ?? URL::get())."'>";
+        
+        $html .= "<p class='info'>Realiza búsquedas con el
+                  <a onclick=\"filtro.classList.toggle('hidden')\">formulario de búsqueda</a>.</p>";
+        
+        $html .= "<form method='POST' id='filtro' class='right hidden' action='".($action ?? URL::get())."'>";
        
         $html .= "<label>Buscar</label>";
         $html .= "<input type='search' name='texto' placeholder='texto'> ";

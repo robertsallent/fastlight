@@ -9,6 +9,7 @@
 		
 		<!-- JS -->
 		<script src="/js/TextReader.js"></script>
+		<script src="/js/Modal.js"></script>
 	</head>
 	
 	<body>
@@ -44,7 +45,12 @@
     		    </div>   
     		    
     		    <figure class="flex1 medium centered centered-block">
-    		    	<img class="square fit" src="/images/template/phpmysql.png" alt="FastLight recomienda PHP8.2 y MySQL8">
+    		    	<img class="square fit with-modal" src="/images/template/phpmysql.png" 
+    		    		 alt="FastLight recomienda PHP8.2 y MySQL8"
+    		    		 title="FastLight recomienda PHP8.2 y MySQL8"
+    		    		 data-caption="La combinación perfecta"
+    		    		 data-description="Se recomienda PHP8.2 y MySQL8"
+    		    	>
     		    </figure>
 		    </section>
 		    
