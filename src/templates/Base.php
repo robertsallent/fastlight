@@ -4,7 +4,7 @@
  *
  * Se usa para generar las partes comunes de todas las vistas
  *
- * Última revisión: 18/02/2025
+ * Última revisión: 14/10/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  *
@@ -44,6 +44,51 @@ class Base implements TemplateInterface{
     ];
     
     
+    
+    /* ****************************************************************************
+     * METADATA
+     *****************************************************************************/
+    
+    /**
+     * Coloca las etiquetas META, el título y el favicon de la web
+     *
+     * @param string $titulo texto para el elemento TITLE de la página
+     * @param string $descripcion descripción para la meta description
+     * @param ?string $imagen imagen a mostrar en redes (por ejemplo FaceBook) si se enlaz la página desde ellas
+     * @param string $autor autor del sitio web
+     */
+    public function metaData(
+        string $title,
+        string $description,
+        ?string $image = APP_LOGO,
+        string $author = APP_AUTHOR
+    ){ ?>
+
+        <!-- CHARSET Y TITULO -->
+    	<meta charset="<?= HTML_CHARSET ?>">
+    	<title><?= $title ?>, en <?= APP_NAME ?></title>
+    	
+        <!-- META TAGS -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="<?= $description ?>">
+        <meta name="author" content="<?= $author ?>">
+        
+        <!-- META PARA REDES SOCIALES -->
+        <meta property="og:title" content="<?= $title ?>, en <?= APP_NAME ?>">
+        <meta property="og:description" content="<?= $description ?>">
+        <meta property="og:image" content="<?= $image ?>">
+        <meta property="og:url" content="<?= APP_URL.request()->url ?>">
+        <meta property="og:type" content="website">
+
+        <!-- WEBMANIFEST -->
+        <link rel="manifest" href="/site.webmanifest">
+        
+        <!-- FAVICON -->
+    	<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
+    <?php }
+    
+    
+    
     /* ****************************************************************************
      * CARGA DE FICHEROS CSS
      *****************************************************************************/
@@ -55,7 +100,7 @@ class Base implements TemplateInterface{
      * @return string HTML con los links a los ficheros CSS.
      */
     public function css(){
-        $html = "\n";
+        $html = "\n        <!-- CSS -->\n";
         
         // para cada fichero CSS a cargar...
         foreach($this->css as $device => $file){
@@ -206,8 +251,15 @@ class Base implements TemplateInterface{
         // listado de enlaces del menú principal
         $html .= "\t<menu class='menu flex1'>\n";
         
+        // enlace a inicio
         $html .= "\t\t<li><a href='/'>Inicio</a></li>\n";
-        $html .= "\t\t<li><a target='_blank' href='https://fastlight.org' title='https://fastlight.org'>Documentación online</a></li>\n";
+        
+        // enlace externo a la documentación online en https://fastlight.org
+        $html .= "\t\t<li>
+                    <a target='_blank' href='https://fastlight.org' title='https://fastlight.org'>
+                        <span class='url'>Documentación online</span>
+                    </a>
+            </li>\n";
            
         // enlace al panel del administrador
         if(Login::oneRole(ADMIN_PANEL_ROLES))
@@ -290,7 +342,7 @@ class Base implements TemplateInterface{
       
           
     /* ****************************************************************************
-     * MENSAJES FLASHEADOS DE ÉXITO Y ERROR
+     * MENSAJES FLASHEADOS DE ÉXITO, ADVERTENCIA Y ERROR
      *****************************************************************************/
     
     
@@ -392,7 +444,7 @@ class Base implements TemplateInterface{
         $html .= "<label>Buscar</label>";
         $html .= "<input type='search' name='texto' placeholder='texto'> ";
         
-        $html .= "<label>en</label>";
+        $html .= "<label class='pc'>en</label>";
         $html .= "<select name='campo'>";
         
         foreach($fields as $nombre=>$valor){
@@ -413,7 +465,7 @@ class Base implements TemplateInterface{
         }
         
         return $html."</select>
-                    <label>sentido</label>
+                    <label class='pc'>sentido</label>
     				<select name='sentidoOrden'>
                         <option value='ASC'>Ascendente</option>
     				    <option value='DESC'>Descendente</option>

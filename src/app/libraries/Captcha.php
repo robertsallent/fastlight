@@ -1,11 +1,17 @@
 <?php
 
-/*
+/**
  *   Clase: Captcha
- *   Autor: Robert Sallent
- *   Última mofidicación: 31/08/2025
- *
+ *   
  *   Librería para generar y comprobar captchas sencillos
+ *   
+ *   Última mofidicación: 09/10/2025
+ *   
+ *   Consulta la documentación y ejemplos en:
+ *   https://fastlight.org/Backend/captcha
+ *   
+ *   @author Robert Sallent <robertsallent@gmail.com>
+ *   @since v2.0.0
 */
 
 class Captcha{
@@ -31,7 +37,7 @@ class Captcha{
             for($i = 0 ; $i< $long; $i++)
                 $result .= random_int(0,9);
         }else{
-            $letras = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $letras = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
             for($i = 0 ; $i< $long; $i++)
                 $result .= $letras[random_int(0, strlen($letras)-1)];
         }
@@ -53,7 +59,6 @@ class Captcha{
      */
     public static function verify(?string $text = ''):bool{
         return $text == Session::get('Captcha');
-
     }
     
 }

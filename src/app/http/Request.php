@@ -4,7 +4,7 @@
  * 
  * Permitirá acceder a los datos de la petición fácilmente desde los controladores.
  * 
- * Última modificación: 06/10/2025.
+ * Última modificación: 14/10/2025.
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.6.5
@@ -15,6 +15,7 @@
  * @since v1.4.2 añadido el método headers()
  * @since v1.5.2 añadida la propiedad estática $request, con una instancia de Request generada a partir de la petición recibida.
  * @since v2.1.0 añadido el parámetro $default a los métodos: get(), post(), cookie() y header()
+ * @since v2.2.0 la propiedad $user es ahora de tipo ?User
  */
 
 
@@ -23,8 +24,8 @@ class Request{
     /** @var Request petición recibida */
     private static ?Request $request = null;
     
-    /** @var Authenticable|null $user usuario identificado en la aplicación */
-    public ?Authenticable $user;
+    /** @var User|null $user usuario identificado en la aplicación */
+    public ?User $user;
     
     /** @var string|null $url url indicada en la petición http. */
     public ?string $url;

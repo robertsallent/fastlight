@@ -41,6 +41,7 @@
  * @since v2.0.6 añadidas nuevas directivas de configuración de correo
  * @since v2.0.8 añadidos nuevos parámetros de configuración de la cookie de sesión
  * @since v2.1.1 añadida la constante APP_PASSWORD para definir un password para las herramientas del framework que lo necesiten
+ * @since v2.2.0 añadidas HTML_CHARSET, APP_AUTHOR, APP_URL, APP_LOGO, LOGIN_FIELD y ALLOW_OTHER_LOGIN_FIELD
  */
    
 
@@ -69,15 +70,23 @@ define('AUTOLOAD_DIRECTORIES',  [
  * -------------------------------------------------------------*/
 
 define('APP_NAME', 'FastLight Framework 2'); // Título de la aplicación.
-define('APP_TYPE', 'WEB');       // Tipo de aplicación: WEB o API.              
+define('APP_TYPE', 'WEB');       // Tipo de aplicación: WEB o API. 
+
+// para las etiquetas META de autor (en el template)
+define('APP_AUTHOR', 'Robert Sallent');  
+
+// para las etiquetas META de redes sociales (en el template)
+define('APP_URL', 'https://fastlight.org');
+define('APP_LOGO', 'https://fastlight.org/images/logos/fastlight.png');
 
 // define un password para usar en las herramientas que lo requieran, por ejemplo:
 // - al descargar un backup de la BDD comprimido en ZIP, será el password del fichero
 define('APP_PASSWORD', '1234');
 
+define('HTML_CHARSET', 'UTF-8'); // codificación de caracteres para el HTML (para la etiqueta meta charset, en el template)
 define('LANGUAGE_CODE', 'es');   // código de idioma (para poner como atributo del elemento html en las vistas)
 
-define('APP_VERSION', '2.0.9');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '2.2.0');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);    // muestra la versión de la app en el footer (templates/Base.php)
 
 // Controlador y método por defecto (solamente para APP_TYPE WEB).
@@ -137,7 +146,7 @@ define('RESPONSE_CHARSET', 'utf-8'); // charset para las respuestas HTTP
  * -------------------------------------------------------------*/
 
 // Parámetros de configuración de la base de datos:
-// define('DB_HOST','localhost');    // Host (configuración habitual)
+// define('DB_HOST','localhost');      // Host (configuración habitual)
 define('DB_HOST','mysql');          // Host (configuración para Docker)
 
 define('DB_USER','fastlight_user'); // Usuario para identificarse con la BDD.
@@ -156,13 +165,7 @@ define('SGDB','mysql');         // Driver que debe usar PDO (solamente para PDO)
  * USUARIOS, ROLES Y PRIVILEGIOS BÁSICOS
  * -------------------------------------------------------------*/
 
-// Proveedor de usuarios para autenticación.
-//  - Debe implementar la interfaz Autenticable.
-//  - Debe usar el trait Autorizable.
-// La única opción incluida actualmente es User (no lo cambiéis).
-define('USER_PROVIDER', 'User');
-
-// longitud para los passwords
+// longitud mínima para los passwords
 define('PASSWORD_LENGTH', 6);
 
 // ROLES para los usuarios. Podemos crear o eliminar roles según las necesidades.
@@ -177,16 +180,25 @@ define('USER_ROLES', [
 
 
 // roles que pueden acceder al panel del administrador
-define('ADMIN_PANEL_ROLES', ['ROLE_ADMIN', 'ROLE_TEST', 'ROLE_STUDENT']);
+define('ADMIN_PANEL_ROLES', ['ROLE_ADMIN', 'ROLE_TEST']);
 
 // roles  que tienen acceso al listado de errores
 define('ERROR_ROLES', ['ROLE_ADMIN']);
 
 // roles que tienen autorización para ver y ejecutar test
-define('TEST_ROLES', ['ROLE_ADMIN', 'ROLE_TEST', 'ROLE_STUDENT']); 
+define('TEST_ROLES', ['ROLE_ADMIN', 'ROLE_TEST']); 
 
-// roles que tienen autorización para ver las estadísticas
+// roles que tienen autorización para ver las estadísticas de visitas
 define('STATS_ROLES', ['ROLE_ADMIN', 'ROLE_TEST']);
+
+// redirección tras el intento de Login de un usuario bloqueado
+// será '/Contacto' una vez implementado el formulario de contacto (en clase)
+define('BLOCKED_REDIRECT', '/');
+
+// mensaje que se mostrará al usuario bloqueado cuando intenta hacer Login
+define('BLOCKED_MESSAGE', "Has sido bloqueado por un administrador, si consideras
+                           que es un error puedes contactar mediante el formulario de contacto.");
+
 
 // carpeta para las imágenes de los usuarios
 define('USER_IMAGE_FOLDER','/images/users');
@@ -194,25 +206,30 @@ define('USER_IMAGE_FOLDER','/images/users');
 // imagen por defecto para los usuarios que no tengan
 define('DEFAULT_USER_IMAGE', 'default.png');
 
+// tamaño mámximo para la imagen de usuario (en bytes)
+define('USER_IMAGE_MAX_SIZE', 0);
 
 
 /* -------------------------------------------------------------
  * LOGIN
  * -------------------------------------------------------------*/
 
+// campo usado para la identificación del usuario (junto con el password)
+// puede ser email, phone o both (si queremos que sirva cualquiera de los dos)
+// también se puede indicar otro campo de la tabla users siempre y cuando
+// sus valores sean únicos, por ejemplo podríamos usar un dni
+define('LOGIN_FIELD', 'email');
+
+// si queremos usar otro campo que no sea email, phone o both, hay que indicarlo expresamente
+define('ALLOW_OTHER_LOGIN_FIELD', false); 
+
 // redirección tras el Login correcto del usuario, no aplica si hay una operación pendiente
 // (por ejemplo, si hace login tras intentar acceder a una página que requiere estar autenticado)
+// será '/User/home' una vez implementado el espacio personal del usuario (en clase)
 define('REDIRECT_AFTER_LOGIN', '/');
 
-// redirección tras el intento de Login del usuario bloqueado
-define('BLOCKED_REDIRECT', '/');
-
-// mensaje que se mostrará al usuario bloqueado cuando intenta hacer Login
-define('BLOCKED_MESSAGE', "Has sido bloqueado por un administrador, si consideras 
-                           que es un error puedes contactar mediante el formulario de contacto.");
-
-
 define('LOG_LOGIN_ERRORS', false);                 // guardar errores de login en fichero de log.
+
 define('LOGIN_ERRORS_FILE', '../logs/login.log');  // ruta del fichero para los errores de login.
 
 define('DB_LOGIN_ERRORS', false);                  // guardar errores de login en la base de datos.

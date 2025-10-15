@@ -59,7 +59,7 @@ class LoginController extends Controller{
         $password   = md5($_POST['password']);          
         
         // recupera el usuario con los datos enviados desde el formulario de LogIn
-        $identificado = (USER_PROVIDER)::authenticate($user, $password); 
+        $identificado = User::authenticate($user, $password); 
         
         // si la identificación no es correcta...
         if(!$identificado){

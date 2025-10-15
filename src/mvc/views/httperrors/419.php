@@ -2,8 +2,8 @@
 <html lang="<?= LANGUAGE_CODE ?>">
 	<head>
 		<?= $template->metaData(
-                "Error 403",
-                "Se ha producido un error con código HTTP 403 - FORBIDDEN"
+                "Error 419",
+                "Se ha producido un error con código HTTP 419 - PAGE EXPIRED"
         ) ?>           
         <?= $template->css() ?>
 	</head>
@@ -11,13 +11,13 @@
 	<body>
 		<?= $template->login() ?>
 		<?= $template->menu() ?>
-		<?= $template->header(null, 'Error 403') ?>
-		<?= $template->breadCrumbs(["Error 403" => NULL]) ?>
+		<?= $template->header(null, 'Error 419') ?>
+		<?= $template->breadCrumbs(["Error 419" => NULL]) ?>
 		<?= $template->messages() ?>
 		
 		<main>
-    		<h2 class="http-code">403</h2>
-    		<p class="http-message centrado">Forbidden</p>
+    		<h2 class="http-code">419</h2>
+    		<p class="http-message centrado">Page Expired</p>
     
     		<section class='danger p2 m2'>
     			<h2>Información adicional</h2>

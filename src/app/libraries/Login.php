@@ -6,17 +6,21 @@
   * Implementa las operaciones de login/logout y también permite hacer comprobaciones
   * sobre los distintos roles de que dispone el usuario identificado. 
   *
-  * Última revisión: 25/09/2025
+  * Última revisión: 14/10/2025
   * 
   * @author Robert Sallent <robertsallent@gmail.com>
+  * 
+  * @since v2.2.0 se trabaja directamente con objetos User
   */
 
 
 class Login{
         
-    /** @var $activeUser contiene el usuario identificado en la aplicación.
-     *  No dispone de setter, así que es de solamente lectura.*/
-    private static ?Authenticable $activeUser = NULL; 
+    /** 
+     * @var ?User $activeUser contiene el usuario identificado en la aplicación.
+     *  No dispone de setter, así que es de solamente lectura.
+     *  */
+    private static ?User $activeUser = NULL; 
 
 
     
@@ -52,9 +56,9 @@ class Login{
      * Se usa desde LoginController::enter() y en principio no tendremos
      * necesidad de usarlo desde ningún otro lugar.
      * 
-     * @param Authenticable $user
+     * @param User $user
      */
-    public static function set(Authenticable $user){
+    public static function set(User $user){
         
         self::$activeUser = $user; 
         
@@ -87,9 +91,9 @@ class Login{
 	/**
 	 * Recupera el usuario identificado.
 	 * 
-	 * @return Authenticable|NULL el usuario identificado o NULL si no hay nadie identificado.
+	 * @return User|NULL el usuario identificado o NULL si no hay nadie identificado.
 	 */
-	public static function user():?Authenticable{
+	public static function user():?User{
 	    return self::$activeUser;
 	}
 	
@@ -98,9 +102,9 @@ class Login{
 	/**
 	 * Alias de Login::user()
 	 * 
-	 * @return Authenticable|NULL el usuario identificado o NULL si no hay nadie identificado.
+	 * @return User|NULL el usuario identificado o NULL si no hay nadie identificado.
 	 */
-	public static function get():?Authenticable{
+	public static function get():?User{
 	    return self::user();
 	}
 	
@@ -179,5 +183,4 @@ class Login{
     }
 
 }
-    
-    
+   

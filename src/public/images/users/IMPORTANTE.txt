@@ -1,2 +1,2 @@
 Si las imágenes de los usuarios se encuentran en el interior de la carpeta public, serán visibles públicamente.
-Para hacerlas privadas, se deben colocar en la carpeta storage y recuperarlas mediante un contorlador para ficheros (en la documentación).
+Para hacerlas privadas, se deben colocar en la carpeta storage y recuperarlas mediante un contorlador para ficheros (en la documentación en PDF se muestran ejemplos).

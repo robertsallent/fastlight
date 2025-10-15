@@ -4,12 +4,18 @@
 /** View
  *
  * Trabajo con vistas
+ * 
+ * Es importante saber que las vistas, además de las variables mapeadas,
+ * dispondrán de una variable $template y otra $identifiedUser, que contendrán
+ * una referencia a la instancia del template a usar y al usuario identificado
+ * respectivamente.
  *
- * Última revisión: 09/01/2025
+ * Última revisión: 10/10/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v1.3.0
  * @since v1.5.0 añadidos setters y getters para las propiedades
+ * @sicne v2.1.3 soporte para templates configurables para cada usuario
  */
 
 class View{
@@ -119,8 +125,14 @@ class View{
         foreach($this->parameters as $variable => $valor)
             $$variable = $valor;
         
-        // genera una instancia del template configurado template
-        $template = new (TEMPLATE);
+        // añade una instancia del usuario identificado
+        $identifiedUser = Login::user();
+            
+        // calcula el template a cargar en función de las preferencias del usuario 
+        $template = $identifiedUser ? ($identifiedUser->template ?? TEMPLATE) : TEMPLATE;
+        
+        // añade la instancia del template
+        $template = new $template();
             
         // carga la vista indicada desde el directorio de vistas
         try{

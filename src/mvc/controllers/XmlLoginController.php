@@ -39,7 +39,7 @@ class XmlLoginController extends Controller{
         $user     = $login->user ?? '';
         $password = md5($login->password ?? '');
         
-        $identificado = (USER_PROVIDER)::authenticate($user, $password); // recuperar el usuario
+        $identificado = User::authenticate($user, $password); // recuperar el usuario
         
        
         // si hubo un error de identificación

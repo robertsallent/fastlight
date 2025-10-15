@@ -31,9 +31,9 @@ class JsonLoginController extends Controller{
         // convierte a JSON los datos recibidos
         $login = JSON::decode($json)[0];
               
-        $user     = $login->user ?? '';               // recupera el nombre de usuario
-        $password = md5($login->password ?? '');      // recupera el password
-        $identificado = (USER_PROVIDER)::authenticate($user, $password); // recupera el usuario
+        $user           = $login->user ?? '';               // recupera el nombre de usuario
+        $password       = md5($login->password ?? '');      // recupera el password
+        $identificado   = User::authenticate($user, $password); // recupera el usuario
         
         // si hubo un error de identificación
         if(!$identificado){

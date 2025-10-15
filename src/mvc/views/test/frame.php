@@ -1,21 +1,12 @@
 <!DOCTYPE html>
 <html lang="<?= LANGUAGE_CODE ?>">
 	<head>
-		<meta charset="UTF-8">
-		<title>Test de <?= $test ?> - <?= APP_NAME ?></title>
-		
-		<!-- META -->
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="Test de <?= $test ?> en <?= APP_NAME ?>">
-		<meta name="author" content="Robert Sallent">
-		
-		<!-- FAVICON -->
-		<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
-		
-		<!-- CSS -->
-		<?= $template->css() ?>
+		<?= $template->metaData(
+            "Test de {$test}",
+            "Resultado de la ejecución del test {$test}"
+        ) ?>           
+        <?= $template->css() ?>
 	</head>
-	
 	
 	<body>
 		<?= $template->login() ?>

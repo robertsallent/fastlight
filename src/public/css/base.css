@@ -1199,7 +1199,8 @@ body{
 
 .menu{
 	display: flex;
-	padding: 8px 20px;
+	align-items: center;
+	padding: 10px;
 	color: var(--primary-font-color);
 	font-size: 0;
 	min-width: var(--min-width);

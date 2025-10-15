@@ -95,8 +95,44 @@ INSERT INTO products(id, name, description, price) VALUES
     (12, 'Furby', 'Old retro toy, boomer memories.', 50),
     (13, 'Pijama', 'Not suitable for the office', 30),
     (14, 'Newspaper', 'Still in paper.', 4),
-    (15, 'Screen', 'EGA resolution, nice pixels.', 40)
+    (15, 'Screen', 'EGA resolution, nice pixels.', 40),
+    (16, 'Smartphone', 'Smarter than some people, still lags.', 900),
+    (17, 'Headphones', 'Blocks sound and reality.', 60),
+    (18, 'Coffee Mug', 'Fuel container for developers.', 12),
+    (19, 'Chair', 'Spins, squeaks, and causes back pain.', 100),
+    (20, 'Router', 'Your internet’s mood depends on it.', 80),
+    (21, 'Notebook', 'Paper version of Stack Overflow.', 5),
+    (22, 'Lamp', 'Because coding in the dark is overrated.', 25),
+    (23, 'Webcam', 'Always watching. Probably.', 70),
+    (24, 'Microphone', 'Turns noise into meetings.', 45),
+    (25, 'SSD Drive', 'Fast, until it dies suddenly.', 150),
+    (26, 'Graphics Card', 'Costs more than your rent.', 1200),
+    (27, 'USB Cable', 'Always the wrong side first.', 8),
+    (28, 'HDMI Cable', 'Mysteriously disappears every week.', 12),
+    (29, 'Notebook Stand', 'Helps your laptop breathe... sometimes.', 35),
+    (30, 'Backpack', 'Carries everything, even regrets.', 40),
+    (31, 'Mechanical Keyboard', 'Sounds like a typewriter apocalypse.', 120),
+    (32, 'Mouse Pad', 'Soft place for your wrist to cry on.', 10),
+    (33, 'External Hard Drive', 'Backup that you’ll never actually use.', 90),
+    (34, 'Power Bank', 'Portable electricity, almost.', 35),
+    (35, 'Smartwatch', 'Reminds you to stand while you code.', 250),
+    (36, 'Bluetooth Speaker', 'Makes you the office DJ (unwillingly).', 70),
+    (37, 'Cable Organizer', 'Your last hope against chaos.', 15),
+    (38, 'Whiteboard', 'Where dreams and bad UMLs are drawn.', 50),
+    (39, 'Eraser', 'Deletes evidence of bad ideas.', 2),
+    (40, 'Sticky Notes', 'The illusion of organization.', 6),
+    (41, 'Printer', 'Works once. Then never again.', 120),
+    (42, 'Scanner', 'Legacy device that still somehow exists.', 90),
+    (43, 'VR Headset', 'Reality not included.', 450),
+    (44, 'Tablet', 'Phone too big, laptop too small.', 350),
+    (45, 'Drawing Tablet', 'For those who think they can draw.', 200),
+    (46, 'Smart Bulb', 'Needs Wi-Fi to turn on. Progress.', 30),
+    (47, 'AirPods', 'Tiny, expensive, easy to lose.', 180),
+    (48, 'T-Shirt', 'Printed with a funny JS bug.', 20),
+    (49, 'Hoodie', 'Developer camouflage.', 45),
+    (50, 'Office Plant', 'Dies slowly from neglect.', 18)
 ;
+
 
 
 
@@ -114,74 +150,84 @@ INSERT INTO customers(id, name, city, email) VALUES
 	(10, 'Ignacio', 'Terrassa', 'ignacio@terrassa.cat'),
     (11, 'Roberto', 'Girona', 'roberto@girona.cat'),
     (12, 'Carlos', 'Terrassa', 'carlos@terrassa.cat'),
-    (13, 'Paco', 'Sabadell', 'paco@sabadell.cat')
+    (13, 'Paco', 'Sabadell', 'paco@sabadell.cat'),
+    (14, 'Laura', 'Manresa', 'laura@manresa.cat'),
+    (15, 'Andreu', 'Mataró', 'andreu@mataro.cat'),
+    (16, 'Clara', 'Granollers', 'clara@granollers.cat'),
+    (17, 'Jordi', 'Vic', 'jordi@vic.cat'),
+    (18, 'Meritxell', 'Badalona', 'meritxell@badalona.cat'),
+    (19, 'Núria', 'Sants', 'nuria@sants.cat'),
+    (20, 'Pau', 'Cornellà de Llobregat', 'pau@cornella.cat'),
+    (21, 'Rosa', 'Sabadell', 'rosa@sabadell.cat'),
+    (22, 'Albert', 'Rubí', 'albert@rubi.cat'),
+    (23, 'Marc', 'Sant Cugat del Vallès', 'marc@santcugat.cat'),
+    (24, 'Anna', 'Vilafranca del Penedès', 'anna@vilafranca.cat'),
+    (25, 'Carla', 'Castelldefels', 'carla@castelldefels.cat'),
+    (26, 'David', 'Mollet del Vallès', 'david@mollet.cat'),
+    (27, 'Miquel', 'Esplugues de Llobregat', 'miquel@esplugues.cat'),
+    (28, 'Elena', 'Cerdanyola del Vallès', 'elena@cerdanyola.cat'),
+    (29, 'Pol', 'Santa Coloma de Gramenet', 'pol@santacoloma.cat'),
+    (30, 'Sandra', 'Berga', 'sandra@berga.cat'),
+    (31, 'Gerard', 'Igualada', 'gerard@igualada.cat'),
+    (32, 'Berta', 'Martorell', 'berta@martorell.cat'),
+    (33, 'Roger', 'Premià de Mar', 'roger@premiademar.cat'),
+    (34, 'Sílvia', 'El Prat de Llobregat', 'silvia@elprat.cat'),
+    (35, 'Arnau', 'Vic', 'arnau@vic.cat'),
+    (36, 'Esther', 'Terrassa', 'esther@terrassa.cat')
 ;
+
 
 -- algunas ventas
 INSERT INTO sales(id, idcustomer, idproduct, quantity, price) VALUES
-	(1,1,2,5,11),
-	(2,1,3,1,2),
-	(3,1,5,3,175),
-	(4,2,3,1,3),
-	(5,2,4,3,10),
-	(6,2,5,5,150),
-	(7,3,1,1,1950),
-	(8,4,1,4,2100),
-	(9,4,5,1,145),
-	(10,4,6,1,550),
-	(11,5,4,1,17.50),
-	(12,5,5,1,180),
-	(13,6,10,2,2500),
-	(14,6,5,1,180),
-	(15,7,1,1,2050),
-	(16,5,11,2,559),
-	(17,2,11,1,649),
-	(18,4,11,3,649),
-	(19,NULL,5,1,190),
-	(20,6,4,1,17.50),
-    (21,7,5,1,150),
-	(22,7,10,1,2100),
-	(23,8,5,1,145),
-	(24,10,1,1,1590),
-    (25,11,8,3,25),
-    (26,1,7,1,25),
-    (27,12,2,1,11.50),
-    (28,NULL,5,1,150),
-    (29,11,6,1,559),
-    (30,NULL,8,2,35.90)
+(1,1,2,5,11), (2,1,3,1,2), (3,1,5,3,175), (4,2,3,1,3), (5,2,4,3,10), (6,2,5,5,150), (7,3,1,1,1950), (8,4,1,4,2100), (9,4,5,1,145), (10,4,6,1,550),
+(11,5,4,1,17.50), (12,5,5,1,180), (13,6,10,2,2500), (14,6,5,1,180), (15,7,1,1,2050), (16,5,11,2,559), (17,2,11,1,649), (18,4,11,3,649), (19,NULL,5,1,190), (20,6,4,1,17.50),
+(21,7,5,1,150), (22,7,10,1,2100), (23,8,5,1,145), (24,10,1,1,1590), (25,11,8,3,25), (26,1,7,1,25), (27,12,2,1,11.50), (28,NULL,5,1,150), (29,11,6,1,559), (30,NULL,8,2,35.90),
+(31,8,9,1,130), (32,9,7,2,32), (33,9,3,5,2.5), (34,10,12,1,45), (35,11,15,1,39), (36,12,6,1,520), (37,13,10,2,1950), (38,14,18,1,10), (39,14,19,2,95), (40,15,21,3,12),
+(41,15,25,1,140), (42,16,26,1,1100), (43,17,30,2,38), (44,18,31,1,115), (45,19,35,1,240), (46,19,8,1,29), (47,20,33,1,85), (48,21,40,4,6), (49,21,41,1,125), (50,22,42,1,95),
+(51,22,43,1,440), (52,23,45,2,180), (53,24,46,1,28), (54,24,47,1,175), (55,25,49,2,40), (56,26,32,3,9), (57,26,37,2,14), (58,27,36,1,65), (59,28,38,1,55), (60,29,39,5,2),
+(61,30,44,1,340), (62,31,48,3,18), (63,31,50,1,20), (64,32,28,2,11), (65,33,27,3,9), (66,33,20,1,75), (67,34,23,1,68), (68,35,10,1,1900), (69,35,11,1,680), (70,35,24,2,65),
+(71,36,22,1,24), (72,36,12,1,55), (73,1,13,2,28), (74,2,14,1,3.5), (75,3,18,1,12), (76,4,17,1,850), (77,5,16,2,890), (78,6,19,2,85), (79,7,21,1,8), (80,8,22,1,20),
+(81,9,23,1,60), (82,10,24,1,50), (83,11,25,1,155), (84,12,26,1,1250), (85,13,27,3,9.5), (86,14,28,2,10), (87,15,29,1,32), (88,16,30,1,40), (89,17,31,1,125), (90,18,32,2,8),
+(91,19,33,1,85), (92,20,34,1,30), (93,21,35,1,255), (94,22,36,1,68), (95,23,37,1,14), (96,24,38,1,55), (97,25,39,4,2), (98,26,40,2,5.5), (99,NULL,41,1,120), (100,NULL,42,1,88)
 ;
 
 
--- algunos proveedores
+
+
 INSERT INTO providers(id, name, contactperson, contactphone, contactemail) VALUES
-(1, 'Suministradora del Vallès', 'Ramón', '123456987', 'ramon@lasumi.cat'),
-(2, 'PcBox', 'Pedro', '98745854', 'pedrito@pcbox.es'),
-(3, 'PcComponentes', 'Lola', '987458745', 'lola@pccomponentes.es'),
-(4, 'Dell España', 'Ana', '9874584758', 'ana@dell.es'),
-(5, 'Logic Center Sabadell', 'Julián', '525252541', 'juli@lcs.cat'),
-(6, 'Valve', 'Gabe', '984984415', 'gabe@valve.com'),
-(7, 'Ikea', 'Steven', '958547858', 'steven@ikea.com'),
-(8, 'Llibreria Paes', 'Marta', '874745847', 'marta@paes.cat'),
-(9, 'Toys R us', 'Lucy', '123878784', 'lucy@toysrus.com'),
-(10, 'Burger King', 'Claudio', '984984988', 'claudio@burgerking.ar')
+(1, 'Suministradora del Vallès', 'Ramón', '934567890', 'ramon@suministrosvalles.cat'),
+(2, 'PecBoxx', 'Pedro', '987458541', 'pedro@pecboxx.es'),
+(3, 'PecCompunentes', 'Lola', '987458745', 'lola@peccompunentes.es'),
+(4, 'Del España', 'Ana', '987458475', 'ana@delespana.es'),
+(5, 'Logicenter Sabadell', 'Julián', '935252541', 'julian@logicenter.cat'),
+(6, 'Valvex', 'Gabi', '984984415', 'gabi@valvex.com'),
+(7, 'Ikia', 'Esteban', '958547858', 'esteban@ikia.com'),
+(8, 'Llibres Paes', 'Marta', '874745847', 'marta@llibrespaes.cat'),
+(9, 'Toys 4 Us', 'Lucía', '923878784', 'lucia@toys4us.com'),
+(10, 'Burger Prince', 'Claudio', '984984988', 'claudio@burgerprince.cat'),
+(11, 'Mediomarkt BCN', 'Carla', '934875412', 'carla@mediomarkt.es'),
+(12, 'HP Iberika', 'Roberto', '931458963', 'roberto@hpiberika.es'),
+(13, 'Appletree BCN', 'Joan', '932145698', 'joan@appletree.com'),
+(14, 'Amason EU', 'Laura', '934789654', 'laura@amason.es'),
+(15, 'Dekathlon Terrassa', 'Pere', '935214879', 'pere@dekathlon.cat'),
+(16, 'Ofipapel BCN', 'Anna', '933214875', 'anna@ofipapel.cat'),
+(17, 'Informatika Vallès', 'Núria', '936547821', 'nuria@informatika.cat'),
+(18, 'Electrònika Martí', 'Martí', '937894512', 'marti@electronika.cat'),
+(19, 'Fnak Barcelona', 'Miquel', '934125987', 'miquel@fnak.es'),
+(20, 'Bricoroma Catalunya', 'Oriol', '938457632', 'oriol@bricoroma.cat')
 ;
+
 
 -- productos que suministran los proveedores
 INSERT INTO products_providers(idproduct, idprovider) VALUES
-(1,1), (1,2), (1,3),
-(2,8),
-(3,8),
-(4,1), (4,3), (4,4), (4,5),
-(5,7),
-(6,3), (6,4), (6,5),
-(7,1), (7,2), (7,5),
-(8,1), (8,3),
-(9,7),
-(10,4),
-(11,6),
-(12,9),
-(15, 1),(15,2), (15,3)
+(1,1), (1,2), (1,3), (2,8), (3,8), (4,1), (4,3), (4,4), (4,5), (5,7),
+(6,3), (6,4), (6,5), (7,1), (7,2), (7,5), (8,1), (8,3), (9,7), (10,4),
+(11,6), (12,9), (15,1), (15,2), (15,3), (13,8), (14,16), (16,3), (17,4), (18,11),
+(19,20), (20,12), (21,13), (22,17), (23,14), (24,15), (25,1), (26,2), (27,3), (28,4),
+(29,5), (30,6), (31,7), (32,8), (33,9), (34,10), (35,11), (36,12), (37,13), (38,14),
+(39,15), (40,16)
 ;
+
 
 
 -- VISTAS

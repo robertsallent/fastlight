@@ -6,7 +6,7 @@ Lista de mecanismos y herramientas que se irán incorporando (o no) en próximas
 versiones del framework FastLight.
 
 Autor: Robert Sallent
-Última revisión: 02/08/25
+Última revisión: 15/10/25
 
 Los cambios marcados con un ? están en fase de evaluación, no es seguro
 que se implementen.
@@ -24,20 +24,20 @@ que se implementen.
 - LIBRARIES
 	- Mejorar el método XML::encode() para que sea recursivo y testearlo a fondo. Probarlo con APIs.
 	- Implementar el método CSV::decode()
-	- Mejorar la clase Email.
-	- Templated emails.
 
 - MODELO
 	- ? Nuevo método Model::insertRelated(entidadA, entidadB, ?tabla) que inserta en la tabla intermedia en relaciones N a N.
-	- ? Trabajar con snake case en la BDD en lugar de lowercase
-	- (v2.x) Trabajar con sentencias preparadas, para mejorar la seguridad (importante)
+	- (v3.x) Trabajar con snake case en la BDD en lugar de lowercase
+	- (v2.x) Trabajar con sentencias preparadas, para mejorar la seguridad 
+	- (v2.x) Query Builder (WIP)
 		
 - TEMPLATES Y VISTAS
 	- Añadir herramientas JS para formularios
 	- Añadir herramientas para videos (lista de reproducción...)
 	- ? Hacer uso de <dialog> para modales
-	- (v2.x) Uso de componentes en las vistas.
+	- (v3.x) Uso de componentes en las vistas.
 		- Componente modal
+		- Componente slider
 		- Componente tabla (datos en json?)
 		- Componente tarjeta (card)
 		- Componente paginación
@@ -46,25 +46,30 @@ que se implementen.
 		- Otros componentes...
 
 - TEST Y DOCUMENTACIÓN
-	- (En proceso): Mejorar la documentación y los ejemplos en los test.
-	- (En proceso): Añadir docblocks en todas las librerías.
-	- Crear documentación web a partir de los docblocks.
+	- (En proceso): Mejorar la documentación online y sacar los test.
+	- Crear una documentación web a partir de los docblocks con phpdocumentor.
 	
 - HELPERS
 	- ? helper json() que retorna una JsonResponse
 	- ? helper xml() que retorna una XmlResponse
 	- ? helper csv() que retorna una CsvResponse
 		
+- INTEGRACIÓN CON DOCKER
+	- Hacer que funcione correctamente la exportación de BDD en entorno de desarrollo (mysqldump)
+	- Añadir un servidor de correo		
+		
 - API
-	- implementar mecanismo de API Keys	
+	- Implementar mecanismo de API Keys	
 	- Arreglar XmlResponse para que trabaje correctamente con XML::encode() (una vez que esté revisado)
 
-- PETICIONES ASÍNCRONAS.
+- PETICIONES ASÍNCRONAS
 	- Añadir un controlador específico para procesar las peticiones asíncronas y retornar respuestas JSON (XML?)
 
-- EXTRAS:
+- MISCELANEA
 	- ? En la vista del listado de errores, mostrar algunos gráficos de totales con chart.js
 	- Mejorar el mecanismo de password hashing para hacerlo más seguro.
+	- Permitir configurar el idioma del paginador en config.php
+
 
 -------------------------------------------------------------------------------------------------------------
  A evaluar... tal vez no se implemente por motivos docentes y se deja para los cursos de Laravel o Symfony

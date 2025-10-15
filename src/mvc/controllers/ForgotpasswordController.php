@@ -4,7 +4,7 @@
  *
  * Se usa para regenerar la clave del usuario en caso de que lo solicite.
  *
- * Última revisión: 08/03/2025
+ * Última revisión: 10/10/2025
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  */   
@@ -58,7 +58,7 @@ class ForgotpasswordController extends Controller{
             
             // prepara el email
             $to       = $user->email;
-            $from     = "passwordrecovery@fastlight.com";
+            $from     = DEFAULT_EMAIL;
             $name     = "Sistema de generación de claves";
             $subject  = "Aquí tienes tu nueva clave de acceso";
             $message  = "Tu nueva clave es: <b>$password</b>, recuerda que 

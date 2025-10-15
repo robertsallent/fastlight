@@ -5,23 +5,24 @@
  *   
  *   Herramienta para comprobar autorización.
  *    
- *   Última mofidicación: 13/07/2023
+ *   Última mofidicación: 14/10/2025
  *   
  *   @author Robert Sallent <robertsallent@gmail.com>
+ *   
+ *   @since v2.2.0 se trabaja directamente con el modelo User
 */
 
 class Auth{
     
-    
-    
+        
     /**
      * Recupera el usuario identificado.
      * Es una alternativa a Login::user() o Login::get().
      * 
-     * @return Authenticable el usuario identificado.
+     * @return ?User el usuario identificado.
      */
     
-    public static function user():Authenticable{
+    public static function user():?User{
         return Login::user();
     }
     
@@ -65,7 +66,7 @@ class Auth{
         if(!Login::isAdmin($adminRole))
             throw new AuthException(
                 DEBUG ? 
-                    "Se requiere privilegio de administrador ($adminRole)." : 
+                    "Se requiere privilegio de administrador ({$adminRole})." : 
                     "No estás autorizado a realizar esta operación."
             );
     }
@@ -86,7 +87,7 @@ class Auth{
         if(!Login::role($role))
             throw new AuthException(
                 DEBUG ? 
-                    "Se requiere rol de $role para continuar." : 
+                    "Se requiere rol de {$role} para continuar." : 
                     "No estás autorizado a realizar esta operación."
             );
     }

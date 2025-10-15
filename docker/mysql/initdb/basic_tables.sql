@@ -6,7 +6,7 @@
 --  la tabla errores, permite registrar los errores de la aplicación en BDD.
 --  la tabla stats, para contar las visitas de cada URL de la aplicación.
 
--- Última modificación: 17/08/2025
+-- Última modificación: 10/10/2025
 
 
 DROP DATABASE IF EXISTS fastlight;
@@ -17,7 +17,7 @@ CREATE DATABASE fastlight
 USE fastlight;
 
 -- tabla users
--- se pueden crear campos adicionales o relaciones con otras entidadessi es necesario
+-- se pueden crear campos adicionales o relaciones con otras entidades si es necesario
 CREATE TABLE users(
 	id INT PRIMARY KEY auto_increment,
 	displayname VARCHAR(32) NOT NULL,
@@ -26,6 +26,7 @@ CREATE TABLE users(
 	password VARCHAR(255) NOT NULL,
 	roles VARCHAR(1024) NOT NULL DEFAULT '["ROLE_USER"]',
 	picture VARCHAR(256) DEFAULT NULL,
+	template VARCHAR(32) NULL DEFAULT NULL COMMENT 'Template a cargar, de entre los que se encuentran en la carpeta templates',
 	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -33,14 +34,16 @@ CREATE TABLE users(
 
 -- usuarios para las pruebas, podéis crear tantos como necesitéis
 INSERT INTO users(id, displayname, email, phone, picture, password, roles) VALUES 
-	(1, 'admin', 'admin@fastlight.org', '666666661', 'admin.png', md5('1234'), '["ROLE_USER", "ROLE_ADMIN"]'),
-	(2, 'editor', 'editor@fastlight.org', '666666662', NULL, md5('1234'), '["ROLE_USER", "ROLE_EDITOR"]'),
-	(3, 'user', 'user@fastlight.org', '666666663', 'user.png', md5('1234'), '["ROLE_USER"]'),
-	(4, 'test', 'test@fastlight.org', '666666664', 'test.png', md5('1234'), '["ROLE_USER", "ROLE_TEST"]'),
-	(5, 'api', 'api@fastlight.org', '666666665', NULL, md5('1234'), '["ROLE_API"]'),
-    (6, 'blocked', 'blocked@fastlight.org', '666666666', NULL, md5('1234'), '["ROLE_USER", "ROLE_BLOCKED"]'),
-    (7, 'Robert', 'robert@fastlight.org', '666666667', NULL, md5('1234'), '["ROLE_USER", "ROLE_ADMIN", "ROLE_TEST"]')
+	(1, 'admin', 'admin@fastlight.org', '000001', 'admin.png', md5('1234'), '["ROLE_USER", "ROLE_ADMIN"]'),
+	(2, 'editor', 'editor@fastlight.org', '000002', 'editor.png', md5('1234'), '["ROLE_USER", "ROLE_EDITOR"]'),
+	(3, 'user', 'user@fastlight.org', '000003', 'user.png', md5('1234'), '["ROLE_USER"]'),
+	(4, 'test', 'test@fastlight.org', '000004', 'test.png', md5('1234'), '["ROLE_USER", "ROLE_TEST"]'),
+	(5, 'api', 'api@fastlight.org', '000005', 'api.png', md5('1234'), '["ROLE_API"]'),
+    (6, 'blocked', 'blocked@fastlight.org', '000006', 'blocked.png', md5('1234'), '["ROLE_USER", "ROLE_BLOCKED"]'),
+    (7, 'default', 'default@fastlight.org', '000007', NULL, md5('1234'), '[]'),
+    (8, 'Robert', 'robert@fastlight.org', '000008', 'other.png', md5('1234'), '["ROLE_USER", "ROLE_ADMIN", "ROLE_TEST"]')    
 ;
+
 
 
 -- tabla errors

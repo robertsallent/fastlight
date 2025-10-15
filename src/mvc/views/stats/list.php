@@ -1,20 +1,13 @@
 <!DOCTYPE html>
 <html lang="<?= LANGUAGE_CODE ?>">
 	<head>
-		<meta charset="UTF-8">
-		<title>Estadísticas de visitas - <?= APP_NAME ?></title>
-	
-		<!-- META -->
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="Estadísticas de visitas<?= APP_NAME ?>">
-		<meta name="author" content="Robert Sallent">
-		
-		<!-- FAVICON -->
-		<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
-		
-		<!-- CSS -->
-		<?= $template->css() ?>    		
+		<?= $template->metaData(
+            "Número de visitas",
+            "Estadísticas de visitas para todas las URLs de la aplicación"
+        ) ?>           
+        <?= $template->css() ?>    		
 	</head>
+	
 	<body>
 		<?= $template->login() ?>
 		<?= $template->menu() ?>
