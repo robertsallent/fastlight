@@ -12,6 +12,7 @@
  * @since v1.7.4 añadidos helpers formatInt() y formatFloat()
  * @since v2.0.0 añadido el helper humanDate()
  * @since v2.1.0 añadidos métodos snakeToCamelCase() y toSnakeCase()
+ * @since v2.2.3 nuevos helpers para texto
 */
 
 
@@ -101,31 +102,105 @@ function arrayToString(
  * en blanco consecutivos.
  * 
  * @param string $text texto a convertir
- * @param bool $edges coloca las etiquetas <p> y </p> al inicio y final del texto (por defecto true).
- * @param bool $collapse une múltiples espacios en blanco en uno solo.
  * 
  * @return string texto metido en párrafos.
  */
-function paragraph(
-    string $text = '', 
-    bool $edges = true,
-    bool $collapse = true
+function makeParagraphs(
+    string $text    = ''
 ):string{
     
+    // Normalizar y eliminar saltos de línea consecutivos
+    $text = preg_replace("/(?:&#13;&#10;|&#13;|&#10;){2,}/", "\n", $text);
+
+    // eliminar los saltos de línea al inicio y final
+    $text = trim($text, "\n");
+ 
     // cambia los saltos de línea por etiquetas HTML
-    $text =  str_replace("\n", "</p><p>", $edges ? "<p>$text</p>" : $text);
-    $text =  str_replace('&#13;', "</p><p>", $edges ? "<p>$text</p>" : $text);
+    $text =  str_replace("\n", "</p><p>", $text);
+    // $text =  str_replace('&#10;', "</p><p>", $text);
         
-    if($collapse){
-        // elimina espacios en blanco consecutivos
-        $text = preg_replace('/\s+/', ' ', $text);
-        
-        // limpia espacios en blanco después de la apertura o antes del cierre
-        $text = preg_replace('/(\s<)/', '<', $text);
-        $text = preg_replace('/(>\s)/', '>', $text);
-    }
+    // elimina espacios en blanco consecutivos
+    $text = preg_replace('/\s+/', ' ', $text);
     
-    return $text;
+    return "<p>{$text}</p>";
+}
+
+
+/**
+ * Convierte párrafos que comienzan por guión en listas HTML.
+ * 
+ * @param string $html el código HTML a procesar.
+ * 
+ * @return string el código HTML con las listas convertidas.
+ */
+function makeLists(string $html) {
+    preg_match_all('/<p>(.*?)<\/p>/s', $html, $matches);
+
+    $resultado = '';
+    $enLista = false;
+
+    foreach ($matches[1] as $contenido) {
+        $contenido = trim($contenido);
+        
+        // Detectar guión al inicio del párrafo (posibles espacios antes) 
+        // y permitir cero o más espacios después del guión
+        if (preg_match('/^\s*-\s*/', $contenido)) {
+            if (!$enLista) {
+                $resultado .= "<ul>\n";
+                $enLista = true;
+            }
+            // Quitar solo el guión inicial y los espacios inmediatos
+            $contenidoSinGuion = preg_replace('/^\s*-\s*/', '', $contenido);
+            $resultado .= "\t<li>$contenidoSinGuion</li>\n";
+        } else {
+            if ($enLista) {
+                $resultado .= "</ul>\n";
+                $enLista = false;
+            }
+            $resultado .= "<p>$contenido</p>\n";
+        }
+    }
+
+    if ($enLista) {
+        $resultado .= "</ul>\n";
+    }
+
+    return $resultado;
+}
+
+
+
+/**
+ * Convierte los enlaces de texto en enlaces HTML
+ * 
+ * @param string $texto texto donde realizar la sustitución
+ */
+function makeLinks(string $text): string {
+     return preg_replace_callback(
+        '/\b(https?:\/\/[^\s<>"\'()]+)([.,;:!?]*)/i',
+        function ($m) {
+            $href    = htmlspecialchars($m[1], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); 
+            $display = htmlspecialchars($m[1] . $m[2], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+            return '<a href="' . $href . '" rel="nofollow noopener noreferrer">' . $display . '</a>';
+        },
+        $text
+    );
+}
+
+/**
+ * Procesa el texto cambiando saltos de línea por <p>, urls por enlaces con <a>
+ */
+function processText(string $text): string {
+    return makeLists(makelinks(makeParagraphs($text)));
+}
+
+
+/**
+ * Alias de processText (temporal, se acabará eliminando)
+ * 
+ */
+function paragraph(string $text){
+    return processText($text);
 }
 
 

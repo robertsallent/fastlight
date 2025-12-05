@@ -29,12 +29,12 @@ class Filter{
     
     /** @var string $fields nombres de los campos del formulario */
     protected static array $fields = [
-        'filter'        => 'filtrar',       // nombre para una petición de nuevo filtro
-        'removeFilter'  => 'quitarFiltro',  // nombre para una petición de quitar filtro
-        'text'          => 'texto',         // nombre del input para el texto
-        'field'         => 'campo',         // nombre del input para el campo 
-        'orderField'    => 'campoOrden',    // nombre del input para el campo de ordenación
-        'order'         => 'sentidoOrden'   // nombre del input para el campo de sentido
+        'filter'        => '_filtrar',       // nombre para una petición de nuevo filtro
+        'removeFilter'  => '_quitarFiltro',  // nombre para una petición de quitar filtro
+        'text'          => '_texto',         // nombre del input para el texto
+        'field'         => '_campo',         // nombre del input para el campo 
+        'orderField'    => '_campoOrden',    // nombre del input para el campo de ordenación
+        'order'         => '_sentidoOrden'   // nombre del input para el campo de sentido
     ];
     
     
