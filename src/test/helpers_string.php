@@ -61,8 +61,8 @@
     </section>
     
     
-    <section id="paragraph()">
-        <h2>paragraph()</h2>
+    <section id="toHTML()">
+        <h2>toHTML()</h2>
         <p>Convierte un texto con saltos de línea a formato HTML en párrafos.
         Para la siguiente prueba se usa un texto con tres saltos de línea 
         (ver el código fuente).</p>
@@ -73,7 +73,7 @@
                       Se deben mostrar tres párrafos HTML en el resultado.
                       En otro caso no estará funcionando bien.";
             
-            echo paragraph($texto);
+            echo toHTML($texto);
         ?>
         </div>
     </section>

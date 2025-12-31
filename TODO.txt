@@ -6,24 +6,32 @@ Lista de mecanismos y herramientas que se irán incorporando (o no) en próximas
 versiones del framework FastLight.
 
 Autor: Robert Sallent
-Última revisión: 15/10/25
+Última revisión: 22/10/25
 
 Los cambios marcados con un ? están en fase de evaluación, no es seguro
 que se implementen.
 
 -------------------------------------------------------------------------------------------------------------
+- CAMBIOS IMPORTANTES
+	- Separar la creación de APIs a un nuevo proyecto (FastLight API).
+
 - CONFIG
 	- (v2.x) Ficheros de configuración de entorno.
 	- (v2.x) helper env()
 
 - CORE/HTTP
 	- (v2.x) Router que combine bien con el dispatcher actual (rutas por defecto).
-	- (v2.x) Middleware.
-	- (v2.x) Nuevos middlewares: CSRF, modo mantenimiento, usuario bloqueado.
+	- (v3.x) Middleware.
+	- (v3.x) Nuevos middlewares: CSRF, modo mantenimiento, usuario bloqueado.
 	
 - LIBRARIES
 	- Mejorar el método XML::encode() para que sea recursivo y testearlo a fondo. Probarlo con APIs.
 	- Implementar el método CSV::decode()
+
+- ORM
+	- El método create() de Model invoca a validate() antes de guardar (si el objeto dispone del mismo). Esto permitirá hacer validaciones aunque usemos el método create() en una sola línea.
+	- Seguir trabajando en el Query builder.
+	- Mantener tan solo una clase DB que haga uso de sentencias preparadas sobre PDO
 
 - MODELO
 	- ? Nuevo método Model::insertRelated(entidadA, entidadB, ?tabla) que inserta en la tabla intermedia en relaciones N a N.
@@ -66,7 +74,7 @@ que se implementen.
 	- Añadir un controlador específico para procesar las peticiones asíncronas y retornar respuestas JSON (XML?)
 
 - MISCELANEA
-	- ? En la vista del listado de errores, mostrar algunos gráficos de totales con chart.js
+	- ? En la vista del listado de errores, mostrar algunos gráficos de totales con chart.js (usándolo desde el CND)
 	- Mejorar el mecanismo de password hashing para hacerlo más seguro.
 	- Permitir configurar el idioma del paginador en config.php
 

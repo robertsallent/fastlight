@@ -72,6 +72,7 @@ class Base implements TemplateInterface{
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="<?= $description ?>">
         <meta name="author" content="<?= $author ?>">
+        <meta name="theme-color" content="#579">
         
         <!-- META PARA REDES SOCIALES -->
         <meta property="og:title" content="<?= $title ?>, en <?= APP_NAME ?>">
@@ -85,6 +86,19 @@ class Base implements TemplateInterface{
         
         <!-- FAVICON -->
     	<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
+    	
+    	<!-- APPLE TOUCH ICONS -->
+    	<link rel="apple-touch-icon" sizes="57x57" href="/images/icons/apple/apple-touch-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/images/icons/apple/apple-touch-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/images/icons/apple/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/images/icons/apple/apple-touch-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/images/icons/apple/apple-touch-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/images/icons/apple/apple-touch-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/images/icons/apple/apple-touch-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/images/icons/apple/apple-touch-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="167x167" href="/images/icons/apple/apple-touch-icon-167x167.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple/apple-touch-icon-180x180.png">
+        <link rel="apple-touch-icon" href="/images/icons/apple/apple-touch-icon-180x180.png"> 
     <?php }
     
     
@@ -100,7 +114,8 @@ class Base implements TemplateInterface{
      * @return string HTML con los links a los ficheros CSS.
      */
     public function css(){
-        $html = "\n        <!-- CSS -->\n";
+        $html = "
+        <!-- CSS -->\n";
         
         // para cada fichero CSS a cargar...
         foreach($this->css as $device => $file){
@@ -288,7 +303,7 @@ class Base implements TemplateInterface{
         "<div class='modal w50' id='cookieModal'>
             	<form method='POST' class='centered-block' id='accept-cookies' action='/Cookie/accept'>
             		<h2>Aceptar cookies</h2>
-            		".paragraph(ACCEPT_COOKIES_MESSAGE)."
+            		".toHTML(ACCEPT_COOKIES_MESSAGE)."
             		<div class='centered'>
                         <input type='submit' class='button' name='accept' value='Aceptar'>
                         <input type='button' class='button-light' value='Omitir' onclick='cookieModal.remove()'>
@@ -466,8 +481,8 @@ class Base implements TemplateInterface{
         
         $html = "<search>";
         
-        $html .= "<p class='info'>Realiza búsquedas con el
-                  <a onclick=\"filtro.classList.toggle('hidden')\">formulario de búsqueda</a>.</p>";
+        $html .= "<p class='info'>Busca con el
+                  <a class='button-light phone100' onclick=\"filtro.classList.toggle('hidden')\">formulario de búsqueda</a></p>";
         
         $html .= "<form method='POST' id='filtro' class='right hidden' action='".($action ?? URL::get())."'>";
        
@@ -500,7 +515,7 @@ class Base implements TemplateInterface{
                         <option value='ASC'>Ascendente</option>
     				    <option value='DESC'>Descendente</option>
                     </select>
-    				<input id='filterFormButton' class='button-light' type='submit' name='filtrar' value='Filtrar'>
+    				<input id='filterFormButton' class='button-light phone75' type='submit' name='filtrar' value='Filtrar'>
     			</form>
             </search>";
     }

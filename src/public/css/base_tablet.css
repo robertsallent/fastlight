@@ -47,9 +47,18 @@
 	text-align: left;
 }
 
-#filtro label, #filtro input[type='text'], #filtro input[type='search'], #filtro select{
+#filtro label, 
+#filtro input[type='text'], 
+#filtro input[type='search'], 
+#filtro select{
 	display: block;
 	width: 100%;
+}
+
+#filtro input[type='text'], 
+#filtro input[type='search'],
+#filtro select{
+	margin-bottom: 5px;
 }
 
 #filterFormButton{

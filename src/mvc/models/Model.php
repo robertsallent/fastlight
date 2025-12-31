@@ -13,7 +13,7 @@
  * protected static array $jsonFields: para indicar los campos JSON que se deben 
  * convertir automáticamente en arrays PHP.
  *
- * Última revisión 12/03/25
+ * Última revisión 19/12/25
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
@@ -26,6 +26,7 @@
  * @since v1.8.0 se puede indicar la propiedad estática $fillable en las clases del modelo
  * @since v1.8.0 se puede usar el método create() tanto para crear como para actualizar
  * @since v1.8.7 se implementa el método validate() de forma genérica
+ * @since v2.2.2 se añade los métodos getNext() y getPrevious()
  */
 
 #[\AllowDynamicProperties]
@@ -86,6 +87,35 @@ abstract class Model{
         return $this;
     }
     
+    
+    /**
+     * Recupera la entidad con el id siguiente a la actual
+     *
+     * @return Model la instancia o null si no existe
+     */
+    public function getNext():?Model{
+        
+        $class = get_called_class();    // recupera el nombre de la clase del modelo
+        $table = self::getTable();      // recupera el nombre de la tabla
+        
+        $consulta = "SELECT * FROM {$table} WHERE id > {$this->id} ORDER BY ID ASC LIMIT 1";
+        return (DB_CLASS)::select($consulta, $class);
+    }
+    
+    
+    /**
+     * Recupera la entidad con el id siguiente a la actual
+     *
+     * @return Model la instancia o null si no existe
+     */
+    public function getPrevious():?Model{
+        
+        $class = get_called_class();    // recupera el nombre de la clase del modelo
+        $table = self::getTable();      // recupera el nombre de la tabla
+        
+        $consulta = "SELECT * FROM {$table} WHERE id < {$this->id} ORDER BY ID DESC LIMIT 1";
+        return (DB_CLASS)::select($consulta, $class);
+    }
     
     
     

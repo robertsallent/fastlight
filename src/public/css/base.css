@@ -735,11 +735,11 @@ dd{
   font-weight: bold;
 }
 
-.grid-list-item:nth-of-type(even){
+.grid-list-item:nth-of-type(odd){
 	background-color: var(--td-even-bg-color);
 }
 
-.grid-list-item:nth-of-type(odd){
+.grid-list-item:nth-of-type(even){
 	background-color: var(--td-odd-bg-color);
 }
 

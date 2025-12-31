@@ -96,12 +96,12 @@ echo "Size: ".$log->getSize()." bytes";
 		
 		<p>Podemos usar el método <code><a href="/test/library_file#read">read()</a></code> para recuperar su contenido
 		textual. Para que se muestren bien los saltos de línea, podemos
-		usar el <i>helper</i> <code>paragraph()</code>.</p>
+		usar el <i>helper</i> <code>toHTML()</code>.</p>
 				
 		<pre>
 		<code>
 $text = $log->read();	
-echo paragraph($text);
+echo toHTML($text);
 		</code>
 		</pre>
 		
@@ -109,7 +109,7 @@ echo paragraph($text);
 		<div class="border p1 my1">
 		<?php 
 	      $text = $log->read();
-		  echo paragraph($text);
+		  echo toHTML($text);
 		?>
 		</div>
 		<p><?= "El tamaño ahora es de: <b>".$log->getSize()." bytes</b>" ?></p>		
@@ -130,7 +130,7 @@ echo paragraph($text);
 $log->setMaxSize(150);
 $log->add('ERROR', 'Este mensaje hará que el fichero ocupe más de 150 bytes.');
 
-echo paragraph($log->read());
+echo toHTML($log->read());
 		</code>
 		</pre>
 		
@@ -140,7 +140,7 @@ echo paragraph($log->read());
     		$log->setMaxSize(150);
     		$log->add('ERROR', 'Este mensaje hará que el fichero ocupe más de 150 bytes.');
     		
-    		echo paragraph($log->read());
+    		echo toHTML($log->read());
 		?>
 		</div>
 		<p><?= "El tamaño ahora es de: <b>".$log->getSize()." bytes</b>" ?>, no pasa nada si excede
@@ -152,7 +152,7 @@ echo paragraph($log->read());
 $log->add('NOTICE', 'Toma otro mensaje.');
 $log->add('NOTICE', 'Y otro.');
 
-echo paragraph($log->read());
+echo toHTML($log->read());
 		</code>
 		</pre>
 		<div class="border p1 my1">
@@ -160,7 +160,7 @@ echo paragraph($log->read());
     		$log->add('NOTICE', 'Toma otro mensaje.');
     		$log->add('NOTICE', 'Y otro.');
     		
-    		echo paragraph($log->read());
+    		echo toHTML($log->read());
 		?>
 		</div>
 		<p><?= "El tamaño ahora es de: <b>".$log->getSize()." bytes</b>" ?></p>
