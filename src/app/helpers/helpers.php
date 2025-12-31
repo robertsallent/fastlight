@@ -95,6 +95,23 @@ function arrayToString(
 
 
 /**
+ * Normaliza los saltos de línea en \n. 
+ * 
+ * Se implementa de esta forma porque FastLight (por ahora) guarda los datos escapados y las entidades
+ * en la base de datos. Al ser un framework para docencia, lo hago así por seguridad.
+ * 
+ * @param string $text texto a normalizar
+ * @return string texto normalizado
+ */
+function makeEndLines(string $text = ''): string{
+    // Normalizar y eliminar saltos de línea consecutivos
+    $text = preg_replace("/(?:&#13;&#10;|&#13;|&#10;){2,}/", "\n", $text);
+    
+    // eliminar los saltos de línea al inicio y final
+    return trim($text, "\n");
+}
+
+/**
  * Convierte un texto a párrafos HTML.
  * 
  * Añade las etiquetas <p> y </p> al inicio y final y reemplaza los saltos de línea \n
@@ -105,17 +122,9 @@ function arrayToString(
  * 
  * @return string texto metido en párrafos.
  */
-function makeParagraphs(
-    string $text    = ''
-):string{
+function makeParagraphs(string $text    = ''):string{
     
-    // Normalizar y eliminar saltos de línea consecutivos
-    $text = preg_replace("/(?:&#13;&#10;|&#13;|&#10;){2,}/", "\n", $text);
-
-    // eliminar los saltos de línea al inicio y final
-    $text = trim($text, "\n");
- 
-    // cambia los saltos de línea por etiquetas HTML
+     // cambia los saltos de línea por etiquetas HTML
     $text =  str_replace("\n", "</p><p>", $text);
     // $text =  str_replace('&#10;', "</p><p>", $text);
         
@@ -127,40 +136,74 @@ function makeParagraphs(
 
 
 /**
- * Convierte párrafos que comienzan por guión en listas HTML.
+ * Función obsoleta que será eliminada con el tiempo
  * 
- * @param string $html el código HTML a procesar.
+ * @param string $text
+ * @return string
  * 
- * @return string el código HTML con las listas convertidas.
+ * @deprecated ahora se usa toHTML()
+ */
+function paragraph(string $text    = ''):string{
+    return makeParagraphs(makeEndLines($text));
+}
+
+
+/**
+ * Convierte líneas que comienzan por guión en listas HTML.
+ * Cada línea se considera un "párrafo".
+ * 
+ * @param string $html el texto a procesar.
+ * 
+ * @return string el HTML con las listas convertidas.
  */
 function makeLists(string $html) {
-    preg_match_all('/<p>(.*?)<\/p>/s', $html, $matches);
+
+    // Separar por saltos de línea
+    $lineas = preg_split('/\r\n|\r|\n/', $html);
 
     $resultado = '';
     $enLista = false;
 
-    foreach ($matches[1] as $contenido) {
-        $contenido = trim($contenido);
-        
-        // Detectar guión al inicio del párrafo (posibles espacios antes) 
-        // y permitir cero o más espacios después del guión
-        if (preg_match('/^\s*-\s*/', $contenido)) {
-            if (!$enLista) {
-                $resultado .= "<ul>\n";
-                $enLista = true;
-            }
-            // Quitar solo el guión inicial y los espacios inmediatos
-            $contenidoSinGuion = preg_replace('/^\s*-\s*/', '', $contenido);
-            $resultado .= "\t<li>$contenidoSinGuion</li>\n";
-        } else {
+    foreach ($lineas as $linea) {
+
+        $contenido = trim($linea);
+
+        // Línea vacía → cerrar lista si está abierta y saltar
+        if ($contenido === '') {
             if ($enLista) {
                 $resultado .= "</ul>\n";
                 $enLista = false;
             }
+            continue;
+        }
+
+        // Detecta si la línea comienza por guión
+        if (preg_match('/^\s*-\s*/', $contenido)) {
+
+            // Abrir lista si no está abierta
+            if (!$enLista) {
+                $resultado .= "<ul>\n";
+                $enLista = true;
+            }
+
+            // Quitar el guión y espacios
+            $contenidoSinGuion = preg_replace('/^\s*-\s*/', '', $contenido);
+
+            $resultado .= "\t<li>$contenidoSinGuion</li>\n";
+
+        } else {
+
+            // Terminar lista si está abierta
+            if ($enLista) {
+                $resultado .= "</ul>\n";
+                $enLista = false;
+            }
+
             $resultado .= "<p>$contenido</p>\n";
         }
     }
 
+    // Cerrar lista si el texto termina dentro de una lista
     if ($enLista) {
         $resultado .= "</ul>\n";
     }
@@ -170,38 +213,77 @@ function makeLists(string $html) {
 
 
 
+
+
 /**
  * Convierte los enlaces de texto en enlaces HTML
  * 
  * @param string $texto texto donde realizar la sustitución
  */
-function makeLinks(string $text): string {
+function makeLinks(string $html): string {
      return preg_replace_callback(
-        '/\b(https?:\/\/[^\s<>"\'()]+)([.,;:!?]*)/i',
-        function ($m) {
-            $href    = htmlspecialchars($m[1], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); 
-            $display = htmlspecialchars($m[1] . $m[2], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-            return '<a href="' . $href . '" rel="nofollow noopener noreferrer">' . $display . '</a>';
+        '/\b(https?:\/\/[^\s,<>"\'()]+)/i',
+        function ($match) {
+            $href    = preg_replace('/(?:[.;:!?\'""]|(?:&#0*39;|&apos;|&quot;))+$/', '', $match[1]);
+            $display = $match[1];
+            return "<a href='{$href}' rel='nofollow noopener noreferrer'>{$display}</a> ";
         },
-        $text
+        $html
     );
 }
 
-/**
- * Procesa el texto cambiando saltos de línea por <p>, urls por enlaces con <a>
- */
-function processText(string $text): string {
-    return makeLists(makelinks(makeParagraphs($text)));
-}
-
 
 /**
- * Alias de processText (temporal, se acabará eliminando)
+ * Convierte las líneas que comiencen por _hx en cabeceras de orden x (<hx>)
  * 
+ * @param string $html
+ * @return string|array|NULL
  */
-function paragraph(string $text){
-    return processText($text);
+function makeHeaders(string $html = '') {
+    // Buscar todas las líneas que comiencen por _h[1-6]
+    return preg_replace_callback(
+        '/_h([1-6])\s(.*?)\n/s',                          // regexp de búsqueda
+        function($match){
+            return "<h{$match[1]}>{$match[2]}</h{$match[1]}>";      // retorna las líneas bien formadas
+        },
+        $html
+    );
 }
+
+
+/**
+ * Procesa el texto para ser mostrado como HTML
+ * 
+ * @param string $text
+ * @param bool $endlines
+ * @param bool $lists
+ * @param bool $headers
+ * @param bool $links
+ * @param bool $paragraphs
+ * 
+ * @return string
+ */
+function toHTML(
+    ?string $text    = null,
+    bool $endLines   = true,
+    bool $lists      = true,
+    bool $headers    = true,
+    bool $links      = true,
+    bool $paragraphs = true
+    
+): string {
+    
+    if($text){
+        $text = $endLines   ? makeEndLines($text)   : $text;
+        $text = $lists      ? makeLists($text)      : $text;
+        $text = $headers    ? makeHeaders($text)    : $text;
+        $text = $links      ? makeLinks($text)      : $text;
+        $text = $paragraphs ? makeParagraphs($text) : $text;       
+    }
+    return $text ?? '';
+}
+
+
 
 
 
