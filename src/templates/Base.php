@@ -487,10 +487,10 @@ class Base implements TemplateInterface{
         $html .= "<form method='POST' id='filtro' class='right hidden' action='".($action ?? URL::get())."'>";
        
         $html .= "<label>Buscar</label>";
-        $html .= "<input type='search' name='texto' placeholder='texto'> ";
+        $html .= "<input type='search' name='_texto' placeholder='texto'> ";
         
         $html .= "<label class='pc'>en</label>";
-        $html .= "<select name='campo'>";
+        $html .= "<select name='_campo'>";
         
         foreach($fields as $nombre=>$valor){
             $html .= "<option value='$valor' ";
@@ -501,7 +501,7 @@ class Base implements TemplateInterface{
         $html .= "</select>";
         
         $html .= "<label>ordenado por</label>";
-        $html .= "<select name='campoOrden'>";
+        $html .= "<select name='_campoOrden'>";
         
         foreach($orders as $nombre=>$valor){
             $html .= "<option value='$valor' ";
@@ -511,11 +511,11 @@ class Base implements TemplateInterface{
         
         return $html."</select>
                     <label class='pc'>sentido</label>
-    				<select name='sentidoOrden'>
+    				<select name='_sentidoOrden'>
                         <option value='ASC'>Ascendente</option>
     				    <option value='DESC'>Descendente</option>
                     </select>
-    				<input id='filterFormButton' class='button-light phone75' type='submit' name='filtrar' value='Filtrar'>
+    				<input id='filterFormButton' class='button-light phone75' type='submit' name='_filtrar' value='Filtrar'>
     			</form>
             </search>";
     }
@@ -539,7 +539,7 @@ class Base implements TemplateInterface{
         return "<form id='filtro' class='derecha' method='POST' action='".($action ?? URL::get())."'>
 					<label class='long'>$filter</label>
 					<input id='filterFormButton' class='button-light' style='display:inline' type='submit' 
-					       name='quitarFiltro' value='Quitar filtro'>
+					       name='_quitarFiltro' value='Quitar filtro'>
 				</form>";
     }
     
