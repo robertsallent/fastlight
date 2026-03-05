@@ -3,7 +3,7 @@
 /**
  * Funciones helper para realizar tareas habituales.
  * 
- * Última revisión: 17/08/2025
+ * Última revisión: 23/02/2026
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v1.4.2 añadido el helper request() que retorna el objeto Request con información de la petición.
@@ -13,6 +13,7 @@
  * @since v2.0.0 añadido el helper humanDate()
  * @since v2.1.0 añadidos métodos snakeToCamelCase() y toSnakeCase()
  * @since v2.2.3 nuevos helpers para texto
+ * @since v2.3.0 nuevo método decodeStringFields() que corrige las entidades HTML en los campos de un objeto. Útil para respuestas de APIs.
 */
 
 
@@ -303,11 +304,11 @@ function formatInt(int $number):string{
 /**
  * Formatea un número float para poner el separador de miles y de decimales
  *
- * @param int $number el número a formatear
+ * @param float $number el número a formatear
  *
  * @return string el número formateado
  */
-function formatFloat(int $number, int $decimal = 0):string{
+function formatFloat(float $number, int $decimal = 0):string{
     return number_format($number, $decimal, ',', '.');
 }
 
@@ -353,6 +354,32 @@ function snakeToCamelCase(string $texto, bool $pascal = false): string {
     return $pascal? $resultado : lcfirst($resultado);
 }
 
+
+
+/**
+ * Decodifica el html_entities en las cadenas de texto de objetos.
+ *
+ * Útil para respuestas de APIS.
+ *
+ * @param mixed $obj
+ * @return mixed
+ */
+function decodeStringFields(mixed $obj):mixed{
+    
+    foreach ($obj as $key => $value)
+        if (is_string($value)){
+            // Primero decodificamos entidades HTML normales
+            $decoded = html_entity_decode($value, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+            // Luego reemplazamos los &#13; por salto de línea
+            $decoded = str_replace(["\r", "\n", "&#13;"], " ", $decoded);
+            // También podemos limpiar múltiples espacios
+            $decoded = preg_replace('/\s+/', ' ', $decoded);
+            $obj->$key = $decoded;
+    }
+    
+    // retorna el objeto con las html_entities decodificadas
+    return $obj;
+}
 
 /*
  |--------------------------------------------------------------------------

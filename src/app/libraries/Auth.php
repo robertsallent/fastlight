@@ -5,7 +5,7 @@
  *   
  *   Herramienta para comprobar autorización.
  *    
- *   Última mofidicación: 14/10/2025
+ *   Última mofidicación: 20/01/2026
  *   
  *   @author Robert Sallent <robertsallent@gmail.com>
  *   
@@ -35,7 +35,7 @@ class Auth{
      */
     public static function check(){
         if(!Login::check())
-            throw new NotIdentifiedException("Debes estar identificado.");
+            throw new NotIdentifiedException();
     }
     
     

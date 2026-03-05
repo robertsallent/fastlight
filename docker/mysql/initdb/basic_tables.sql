@@ -6,7 +6,7 @@
 --  la tabla errores, permite registrar los errores de la aplicación en BDD.
 --  la tabla stats, para contar las visitas de cada URL de la aplicación.
 
--- Última modificación: 10/10/2025
+-- Última modificación: 02/02/2026
 
 
 DROP DATABASE IF EXISTS fastlight;
@@ -37,7 +37,7 @@ INSERT INTO users(id, displayname, email, phone, picture, password, roles) VALUE
 	(1, 'admin', 'admin@fastlight.org', '000001', 'admin.png', md5('1234'), '["ROLE_USER", "ROLE_ADMIN"]'),
 	(2, 'editor', 'editor@fastlight.org', '000002', 'editor.png', md5('1234'), '["ROLE_USER", "ROLE_EDITOR"]'),
 	(3, 'user', 'user@fastlight.org', '000003', 'user.png', md5('1234'), '["ROLE_USER"]'),
-	(4, 'test', 'test@fastlight.org', '000004', 'test.png', md5('1234'), '["ROLE_USER", "ROLE_TEST"]'),
+	(4, 'test', 'test@fastlight.org', '000004', 'test.png', md5('1234'), '["ROLE_USER", "ROLE_TEST", "ROLE_DEBUG"]'),
 	(5, 'api', 'api@fastlight.org', '000005', 'api.png', md5('1234'), '["ROLE_API"]'),
     (6, 'blocked', 'blocked@fastlight.org', '000006', 'blocked.png', md5('1234'), '["ROLE_USER", "ROLE_BLOCKED"]'),
     (7, 'default', 'default@fastlight.org', '000007', NULL, md5('1234'), '[]'),

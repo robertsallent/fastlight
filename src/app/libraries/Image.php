@@ -93,7 +93,7 @@ class Image{
             imagesavealpha($imagenFinal, true);
         }
         
-        imagecopy($imagenFinal, $imagenEscalada, 0, 0, $x, $y, $anchoFinal, $altoFinal);
+        imagecopy($imagenFinal, $imagenEscalada, 0, 0, (int) $x, (int) $y, $anchoFinal, $altoFinal);
         
         // Guardar según formato
         switch ($tipo) {

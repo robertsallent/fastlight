@@ -5,33 +5,43 @@
 ARG PHP_VERSION=8.2-apache
 FROM php:${PHP_VERSION}
 
-# Instalar dependencias comunes
+# Instalar dependencias del sistema
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
+    sendmail \
     libicu-dev \
     libzip-dev \
     libpng-dev \
     libonig-dev \
-	libfreetype6-dev \
+    libxml2-dev \
     libjpeg62-turbo-dev \
-    libpng-dev \
-    libwebp-dev \
-    libgif-dev \
-	&& docker-php-ext-configure gd \
-        --with-freetype \
-        --with-jpeg \
-        --with-webp \
-    && docker-php-ext-install \
-        pdo_mysql \
-        mysqli \
-        intl \
-        zip \
-        gd \
+	libwebp-dev \
+	libgif-dev \
+    libfreetype6-dev \
     && rm -rf /var/lib/apt/lists/*
+	
+# Configurar GD correctamente
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp 
 
-# Habilitar mod_rewrite de Apache (útil para frameworks como Laravel o Symfony)
+# Instalar extensiones PHP
+RUN docker-php-ext-install \
+    pdo_mysql \
+    mysqli \
+    intl \
+    zip \
+    gd \
+    soap \
+    opcache
+	
+# Habilitar mod_rewrite de Apache 
 RUN a2enmod rewrite
+
+# Instalar Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Configuración de correo
+RUN echo "sendmail_path=/usr/sbin/sendmail -t -i" > /usr/local/etc/php/conf.d/mail.ini
 
 # Configurar el DocumentRoot a /var/www/html/public
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public

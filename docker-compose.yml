@@ -1,12 +1,13 @@
 volumes:
   mysql-data:
     name: ${PROJECT_NAME}-data
+
 services:
   mysql:
     build:
       context: ./docker/mysql
       args:
-        MYSQL_VERSION: ${MYSQL_VERSION}
+        mysql_version: 8.0
     container_name: ${PROJECT_NAME}-mysql
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -19,18 +20,21 @@ services:
     ports:
       - "3306:3306"
     restart: always
+
   php:
     build:
       context: ./docker/php
       args:
-        PHP_VERSION: ${PHP_VERSION}
+        php_version: 8.2-apache
     container_name: ${PROJECT_NAME}-php-apache
     ports:
       - "8080:80"
     volumes:
-      - ./src/:/var/www/html
+      - ./src/:/var/www/html/
     depends_on:
       - mysql
+      - postfix
+ 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: ${PROJECT_NAME}-phpmyadmin
@@ -44,3 +48,13 @@ services:
       - "8081:80"
     depends_on:
       - mysql
+ 
+  postfix:
+    image: boky/postfix
+    container_name: ${PROJECT_NAME}-postfix
+    restart: always
+    environment:
+      ALLOWED_SENDER_DOMAINS: ${MAIL_DOMAIN}
+      HOSTNAME: mail.${MAIL_DOMAIN}
+    ports:
+      - "25:25"

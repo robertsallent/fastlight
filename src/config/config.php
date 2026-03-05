@@ -86,7 +86,7 @@ define('APP_PASSWORD', '1234');
 define('HTML_CHARSET', 'UTF-8'); // codificación de caracteres para el HTML (para la etiqueta meta charset, en el template)
 define('LANGUAGE_CODE', 'es');   // código de idioma (para poner como atributo del elemento html en las vistas)
 
-define('APP_VERSION', '2.2.0');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '2.3.0');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);    // muestra la versión de la app en el footer (templates/Base.php)
 
 // Controlador y método por defecto (solamente para APP_TYPE WEB).
@@ -175,6 +175,7 @@ define('USER_ROLES', [
     'Test'          => 'ROLE_TEST',
     'API'           => 'ROLE_API',
     'Estudiante'    => 'ROLE_STUDENT',
+    'Debug'         => 'ROLE_DEBUG',
     'Bloqueado'     => 'ROLE_BLOCKED'
 ]);
 

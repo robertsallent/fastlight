@@ -4,7 +4,7 @@
  *
  * Se usa para generar las partes comunes de todas las vistas
  *
- * Última revisión: 15/10/2025
+ * Última revisión: 20/01/2026
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  *
@@ -354,6 +354,18 @@ class Base implements TemplateInterface{
     } 
     
     
+    /* ****************************************************************************
+     * BOTÓN DE IMPRIMIR
+     *****************************************************************************/
+    
+    public function printButton(){
+        return "<p class='no-print'>
+    				<span class='pc'>Puedes imprimir esta página haciendo clic en el botón de impresión<span>
+    				<a class='button action-icon' onclick='window.print()'>
+    					<img src='/images/icons/print.png' alt='Imprimir' title='Imprimir'>
+    				</a>
+    			</p>";
+    }
       
           
     /* ****************************************************************************

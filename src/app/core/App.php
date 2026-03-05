@@ -4,7 +4,7 @@
  *
  * Núcleo para el desarrollo de aplicaciones web en FastLight.
  *
- * Última revisión: 23/03/2025
+ * Última revisión: 20/01/2026
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
@@ -69,8 +69,15 @@ class App extends Kernel{
         // si es un problema de identificación...
         }catch(NotIdentifiedException $e){ 
             
-            // recordamos la operación que estaba intentando hacer...
-            Session::set('_pending_operation', '/'.request()->get('url'));
+            // recuperamos la operación para la redirección tras login, que puede ser (por orden de prioridad):
+            // - la indicada en la excepción
+            // - la operación que se estaba intentando hacer
+            // - lo que diga el fichero de config
+            // - la portada del sitio
+            $redirectUrl = $e->getUrl() ?? request()->get('url') ?? REDIRECT_AFTER_LOGIN ?? '/';
+            
+            // guardamos en sesión la operación a la que queramos redirigir tras login
+            Session::set('_pending_operation', "/{$redirectUrl}");
             
             // ... y redirigimos a login (tras el login recuperaremos la operación pendiente).
             return redirect('/Login');
@@ -85,7 +92,7 @@ class App extends Kernel{
             
             // Prepara el mensaje de error en formato HTML.
             // En modo DEBUG, se añade información adicional al mensaje de error.
-            $message = DEBUG ? 
+            $message = DEBUG ||  user() && user()->hasRole('ROLE_DEBUG')? 
                 (new DebugInformation($t, $controller, $method, $url))->toHtml() :
                 "No se pudo realizar la operación solicitada.";
             

@@ -36,6 +36,12 @@
    text-align: left;
 }
 
+.grid-list-item figure{
+	display: block;
+	width: 100%;
+}
+
+
 .grid-list-item span::before {
    content: attr(data-label) ": ";
    font-weight: bold;
