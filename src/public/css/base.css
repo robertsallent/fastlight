@@ -4,7 +4,7 @@
 	FICHERO BASE PARA LOS ESTILOS DE FASTLIGHT
 	
 	Autor: Robert Sallent
-	Última revisión: 15/10/2025
+	Última revisión: 09/03/2026
 
 	Estructura del documento CSS:
 	- Colores
@@ -776,13 +776,12 @@ figure.card{
 }
 
 
-img.fit video.fit{
-	object-fit: cover;
-}
-
-img.scale, video.scale{
-	object-fit: scale-down;
-}
+/* Escalado de imágenes y vídeos */
+img.fit, 		video.fit,
+img.cover, 		video.cover		{ object-fit: cover 	}
+img.scale, 		video.scale		{ object-fit: scale-down}
+img.contain, 	video.contain	{ object-fit: contain 	}
+img.fill, 		video.fill		{ object-fit: fill		}
 
 
 img.portrait, video.portrait, iframe.portrait{
@@ -819,12 +818,15 @@ video.xx-small, figure.x-large,  img.x-large		{ max-width: 500px; min-width: 280
 video.xx-small, figure.xx-large, img.xx-large		{ max-width: 600px; min-width: 320px;}
 
 
+/* figuras seleccionables */
 figure.seleccionada, figure.selected{
-	transform: scale(0.85);	
+	transform: scale(0.85);
+	filter: saturate(70%);
 }
 figure.card.seleccionada, figure.card.selected{
 	background-color: var(--selected-bg-color);	
 }
+
 
 img.baseline	{ vertical-align: baseline }
 img.middle		{ vertical-align: middle }

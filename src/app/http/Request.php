@@ -4,7 +4,7 @@
  * 
  * Permitirá acceder a los datos de la petición fácilmente desde los controladores.
  * 
- * Última modificación: 14/10/2025.
+ * Última modificación: 09/03/2026.
  * 
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.6.5
@@ -16,6 +16,7 @@
  * @since v1.5.2 añadida la propiedad estática $request, con una instancia de Request generada a partir de la petición recibida.
  * @since v2.1.0 añadido el parámetro $default a los métodos: get(), post(), cookie() y header()
  * @since v2.2.0 la propiedad $user es ahora de tipo ?User
+ * @since v2.3.0 añadido nuevo método imageFile(), que recupera un fichero subido a modo de UploadedImage
  */
 
 
@@ -364,12 +365,12 @@ class Request{
     
     
     /**
-     * Recupera un fichero subido desde un formulario.
-     * 
-     * @param string $key clave de $_FILES a recuperar.
+     * Recupera un fichero subido desde un formulario a modo de UploadedFile.
+     *
+     * @param string $key clave de $_FILES a recuperar (nombre del input).
      * @param int $maxSize tamaño máximo del fichero (0 sin límite)
      * @param array $mimes lista de tipos MIME permitidos. Lista vacía para cualquier tipo de fichero.
-     * 
+     *
      * @return UploadedFile|NULL un objeto de tipo UploadedFile o NULL si no existe la clave indicada.
      */
     public function file(
@@ -380,11 +381,32 @@ class Request{
         
         if(UploadedFile::check($key))
             return new UploadedFile($key, $maxSize, $mimes);
-        
-        return NULL; 
+            
+        return NULL;
     }
-        
     
+    
+    
+    /**
+     * Recupera una imagen subida desde un formulario a modo de UploadedImage
+     *
+     * @param string $key clave de $_FILES a recuperar (nombre del input).
+     * @param int $maxSize tamaño máximo del fichero (0 sin límite)
+     * @param array $mimes lista de tipos MIME permitidos. Lista vacía para cualquier tipo de fichero.
+     *
+     * @return UploadedImage|NULL un objeto de tipo UploadedImage o NULL si no existe la clave indicada.
+     */
+    public function imageFile(
+        string $key,
+        int $maxSize = UPLOAD_MAX_SIZE,  // definido en config.php
+        array $mimes = []
+    ):?UploadedImage{
+        
+        if(UploadedImage::check($key))
+            return new UploadedImage($key, $maxSize, $mimes);
+            
+        return NULL;
+    }
     
     /**
      * Recupera los datos en el body de la petición. Los datos no son
