@@ -145,6 +145,9 @@ define('RESPONSE_CHARSET', 'utf-8'); // charset para las respuestas HTTP
  * BASE DE DATOS
  * -------------------------------------------------------------*/
 
+// FastLight usa PDO, el driver por defecto será "mysql"
+define('SGDB','mysql');             // Driver que debe usar PDO.
+
 // Parámetros de configuración de la base de datos:
 // define('DB_HOST','localhost');      // Host (configuración habitual)
 define('DB_HOST','mysql');          // Host (configuración para Docker)
@@ -154,11 +157,6 @@ define('DB_PASS','fastlight_pass'); // Password para identificarse con la BDD.
 define('DB_NAME','fastlight');      // Nombre de la base de datos.
 define('DB_PORT',  3306);           // Puerto.
 define('DB_CHARSET','utf8');        // Codificación de caracteres para la conexión.
-
-define('DB_CLASS','DBPDO');     // Clase a usar, puede ser DBMysqli (mysqli) o DBPDO (PDO).
-define('SGDB','mysql');         // Driver que debe usar PDO (solamente para PDO).
-
-// En el futuro existirá una DB_CLASS llamada DBPS, que usará sentencias preparadas sobre PDO.
 
 
 /* -------------------------------------------------------------

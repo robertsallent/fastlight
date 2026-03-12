@@ -37,7 +37,7 @@ class AppError extends Model{
         // prepara el nivel y el mensaje de error
         $e->type    = APP_TYPE;
         $e->level   = $level;
-        $e->message = (DB_CLASS)::escape($message);
+        $e->message = DB::escape($message);
         
         // recupera la URL, usuario e IP de la Request
         $request    = request();

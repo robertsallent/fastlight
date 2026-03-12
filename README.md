@@ -20,7 +20,7 @@ Como todo framework, dispone de herramientas para facilitar las tareas necesaria
 - Integración con Docker.
 - Patrón de diseño MVC con kernels distintos para aplicaciones web y apis restful. 
 - Dispatcher con mapeo directo de URL a controlador y metodo.
-- ORM completo, compatible con mysqli y PDO.
+- ORM con Query builder y clase base para los modelos, que hace uso de PDO e implementa "magia".
 - Autoload mediante mapa de clases.
 - Gestión integrada de errores y herramientas de depuración.
 - Registo en ficheros (log).

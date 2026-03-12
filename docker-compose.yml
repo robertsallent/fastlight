@@ -19,7 +19,7 @@ services:
       - ./docker/mysql/initdb:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
-    restart: always
+    restart: "no"
 
   php:
     build:
@@ -34,11 +34,12 @@ services:
     depends_on:
       - mysql
       - postfix
+    restart: "no"
  
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: ${PROJECT_NAME}-phpmyadmin
-    restart: always
+    restart: "no"
     environment:
       PMA_HOST: mysql
       PMA_PORT: 3306
@@ -52,7 +53,7 @@ services:
   postfix:
     image: boky/postfix
     container_name: ${PROJECT_NAME}-postfix
-    restart: always
+    restart: "no"
     environment:
       ALLOWED_SENDER_DOMAINS: ${MAIL_DOMAIN}
       HOSTNAME: mail.${MAIL_DOMAIN}

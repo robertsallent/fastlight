@@ -20,7 +20,7 @@ class SQLException extends FastLightException{
      * @return ?string el mensaje enviado por el SGDB.
      */
     public function errorMessage():?string{
-        return (DB_CLASS)::errorMessage();
+        return DB::errorMessage();
     }
 }
     

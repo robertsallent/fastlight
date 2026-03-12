@@ -25,6 +25,7 @@ LIMIPIEZA
 --------------------------------------------------------------------------------------
 
 Si queremos limpiar completamente y reconstruirlo todo desde cero, podemos hacer:
+
 docker compose down -v --remove-orphans
 docker builder prune -f
 docker compose build --no-cache

@@ -31,10 +31,11 @@
 
 #[\AllowDynamicProperties]
 abstract class Model{
-         
- 
+             
     /**
-     * Retorna el nombre de la tabla, que será el nombre indicado en la propiedad
+     * Retorna el nombre de la tabla asociada al modelo.
+     * 
+     * El nombre de la tabla será el nombre indicado en la propiedad
      * estática $table de la clase hija. En caso de no existir esta propiedad, 
      * será el nombre de la clase en lowercase con una s al final
      * Ejemplo: Libro --> libros
@@ -71,6 +72,7 @@ abstract class Model{
     
     /**
      * Convierte los campos JSON en arrays.
+     * 
      * Se utiliza, por ejemplo, para recuperar correctamente
      * los roles de los usuarios desde la BDD, convirtiéndolos de string
      * a un array de roles.
@@ -99,7 +101,7 @@ abstract class Model{
         $table = self::getTable();      // recupera el nombre de la tabla
         
         $consulta = "SELECT * FROM {$table} WHERE id > {$this->id} ORDER BY ID ASC LIMIT 1";
-        return (DB_CLASS)::select($consulta, $class);
+        return DB::select($consulta, $class);
     }
     
     
@@ -114,7 +116,7 @@ abstract class Model{
         $table = self::getTable();      // recupera el nombre de la tabla
         
         $consulta = "SELECT * FROM {$table} WHERE id < {$this->id} ORDER BY ID DESC LIMIT 1";
-        return (DB_CLASS)::select($consulta, $class);
+        return DB::select($consulta, $class);
     }
     
     
@@ -122,29 +124,41 @@ abstract class Model{
     /**
      * Permite crear o actualizar una entidad a partir de un array asociativo y la guarda en BDD. 
      * 
-     * Ejemplo:
+     * Ejemplo para guardar:
      * 
      * Perro::create([
      *      'nombre' => request()->post('nombre'),
      *      'raza'   => request()->post('raza'),
      *      'peso'   => floatval(request()->post('peso'));
      * ]);
+     *
+     *
+     * Ejemplo para actualizar: 
+     * 
+     * Perro::create([
+     *      'nombre' => request()->post('nombre'),
+     *      'raza'   => request()->post('raza'),
+     *      'peso'   => floatval(request()->post('peso'));
+     * ], request()->post('id'));
      *  
      * 
-     * Puede ser peligroso si se usa en combinación con alguno de los métodos que recuperan 
-     * los inputs de la Request en un array asociativo.
+     * Puede ser PELIGROSO si se usa en combinación con alguno de los métodos que recuperan 
+     * los inputs de la Request en un array asociativo (por request()->posts()). 
      * 
      * Si hacemos User::create($request->posts()) crearemos un usuario a partir de los campos
      * del formulario de registo que llegan por POST en un solo paso, no tendremos que tomar
-     * los campos uno a uno. 
+     * los campos uno a uno. Esto puede parecer ventajoso, pero nos exponemos a que inyecten 
+     * datos adicionales  a la BDD. Siguiendo el ejemplo, inyectar un campo "roles" con valor 
+     * "['ROLE_ADMIN']" provocaría que esa persona que se estaba registrando lo haga como 
+     * administrador. 
      * 
-     * Sin embargo, nos exponemos a que inyecten un campo "roles" con valor "ROLE_ADMIN" y que 
-     * esa persona que se estaba registrando lo haga como administrador. 
-     * 
-     * Para evitar eso, se ha implementado una protección: solamente se mapearán al modelo
+     * Para evitar eso, se ha implementado una PROTECCIÓN: solamente se mapearán 
      * los campos indicados en la propiedad estática $fillable de la clase del modelo.
-     * Por ejemplo el modelo User no permite la asignación masiva sobre el campo roles, puesto que no
-     * está incluido en la propiedad estática $fillable (consultad la clase User del modelo).
+     * Por ejemplo el modelo User no permite la asignación masiva sobre el campo roles, puesto 
+     * que no está incluido en la propiedad estática $fillable.
+     * 
+     * // en la clase User:
+     * protected static $fillable = ['nombre','email','telefono','password'];
      * 
      * @param array $data lista de propiedades de la entidad a modo de array asociativo.
      * @param int si se trata de una actualización, id del objeto a actualizar
@@ -173,10 +187,10 @@ abstract class Model{
         return $entity;
     }
     
-    
+       
     
     /**
-     * Recupera todas las entidades y las retorna en un array.
+     * Recupera todas las entidades del modelo y las retorna en un array.
      * 
      * @param int $limit límite de resultados (para paginación).
      * @param int $offset desplazamiento (para paginación).
@@ -185,7 +199,7 @@ abstract class Model{
      */
     public static function all(
         int $limit = 0,    
-        int $offset = 0    
+        int $offset = 0
     ):array{
         
         $table = self::getTable(); // recupera el nombre de la tabla
@@ -194,7 +208,7 @@ abstract class Model{
         $query = "SELECT * FROM $table ";
         $query .= $limit? "LIMIT $limit OFFSET $offset" :"";
         
-        $entities = (DB_CLASS)::selectAll($query, get_called_class());
+        $entities = DB::selectAll($query, get_called_class());
         
         foreach($entities as $entity)
             $entity->parseJsonFields();
@@ -203,6 +217,7 @@ abstract class Model{
     }
     
       
+
     
     /**
      * Alias de all(). 
@@ -234,7 +249,7 @@ abstract class Model{
         $table = self::getTable(); // recupera el nombre de la tabla
         
         $query = "SELECT * FROM $table WHERE id=$id";
-        $entity = (DB_CLASS)::select($query, get_called_class());
+        $entity = DB::select($query, get_called_class());
         
         if($entity)
             $entity->parseJsonFields();
@@ -310,7 +325,7 @@ abstract class Model{
 
         $query .= $limit? "LIMIT $limit OFFSET $offset" :"";
         
-        $entities = (DB_CLASS)::selectAll($query, get_called_class());
+        $entities = DB::selectAll($query, get_called_class());
         
         foreach($entities as $entity)
             $entity->parseJsonFields();
@@ -344,7 +359,7 @@ abstract class Model{
                    WHERE $field LIKE '%$value%'
                    ORDER BY $orderField $order";
         
-        $entities = (DB_CLASS)::selectAll($consulta, get_called_class());
+        $entities = DB::selectAll($consulta, get_called_class());
         
         
         foreach($entities as $entity)
@@ -377,7 +392,7 @@ abstract class Model{
                    WHERE $field IS NULL
                    ORDER BY $orderField $order";
         
-        $entities = (DB_CLASS)::selectAll($consulta, get_called_class());
+        $entities = DB::selectAll($consulta, get_called_class());
         
         
         foreach($entities as $entity)
@@ -411,7 +426,7 @@ abstract class Model{
                WHERE $field IS NOT NULL
                ORDER BY $orderField $order";
         
-        $entities = (DB_CLASS)::selectAll($consulta, get_called_class());
+        $entities = DB::selectAll($consulta, get_called_class());
         
         
         foreach($entities as $entity)
@@ -450,7 +465,7 @@ abstract class Model{
                        LIMIT $limit 
                        OFFSET $offset ";
             
-            $entities = (DB_CLASS)::selectAll($consulta, get_called_class());
+            $entities = DB::selectAll($consulta, get_called_class());
             
             foreach($entities as $entity)
                 $entity->parseJsonFields();
@@ -475,7 +490,7 @@ abstract class Model{
                        WHERE $filtro->field LIKE '%$filtro->text%'
                        ORDER BY $filtro->orderField $filtro->order ";
         
-        $total = ((DB_CLASS)::select($consulta))->total;
+        $total = (DB::select($consulta))->total;
             
         return $total;
     }
@@ -511,7 +526,7 @@ abstract class Model{
         
         $consulta .= "ORDER BY $orden $sentido";
        
-        $entities = (DB_CLASS)::selectAll($consulta, get_called_class());
+        $entities = DB::selectAll($consulta, get_called_class());
         
         foreach($entities as $entity)
             $entity->parseJsonFields();
@@ -551,7 +566,7 @@ abstract class Model{
         
         $consulta .= "ORDER BY $orden $sentido";
         
-        $entities = (DB_CLASS)::selectAll($consulta, get_called_class());
+        $entities = DB::selectAll($consulta, get_called_class());
         
         foreach($entities as $entity)
             $entity->parseJsonFields();
@@ -594,7 +609,7 @@ abstract class Model{
         $consulta = rtrim($consulta, ', '); // quita la última coma
         $consulta .= ")";
         
-        $this->id = (DB_CLASS)::insert($consulta); // guarda el nuevo objeto
+        $this->id = DB::insert($consulta); // guarda el nuevo objeto
         
         // retorna el id del nuevo objeto
         return $this->id;
@@ -628,7 +643,7 @@ abstract class Model{
         $consulta .= " WHERE id=$this->id";
 
         // lanza la consulta y retorna el número de filas afectadas
-        return (DB_CLASS)::update($consulta);
+        return DB::update($consulta);
     }
     
         
@@ -644,7 +659,7 @@ abstract class Model{
         $tabla = self::getTable(); // recupera el nombre de la tabla
         
         $consulta="DELETE FROM $tabla WHERE id=$id";
-        return (DB_CLASS)::delete($consulta);
+        return DB::delete($consulta);
     }
     
     
@@ -683,7 +698,7 @@ abstract class Model{
             $consulta .= " ORDER BY $orderField $order LIMIT $numero";
         
         // ejecuta la consulta
-        return (DB_CLASS)::delete($consulta);
+        return DB::delete($consulta);
     }
     
     
@@ -701,7 +716,7 @@ abstract class Model{
     ){
         $tabla = self::getTable(); // recupera el nombre de la tabla
         
-        return (DB_CLASS)::total($tabla, $operacion, $campo);
+        return DB::total($tabla, $operacion, $campo);
     }
     
     
@@ -723,7 +738,7 @@ abstract class Model{
     ){
         $tabla = self::getTable(); // recupera el nombre de la tabla
         
-        return (DB_CLASS)::groupBy($tabla, $totales, $agruparPor);
+        return DB::groupBy($tabla, $totales, $agruparPor);
     }
     
     
@@ -737,7 +752,7 @@ abstract class Model{
         
         foreach($this as $propiedad => $valor)
             if(gettype($valor) == 'string')
-                $this->$propiedad = (DB_CLASS)::escape($valor, $entities);
+                $this->$propiedad = DB::escape($valor, $entities);
            
         return $this;
     }
@@ -788,7 +803,7 @@ abstract class Model{
         $foreignKey = $foreignKey ?? 'id'.strtolower(get_called_class());  // cálculo foranea
         
         $consulta = "SELECT * FROM $tabla WHERE $foreignKey = ".$this->$localKey; // consulta
-        $entities =  (DB_CLASS)::selectAll($consulta, $related);
+        $entities =  DB::selectAll($consulta, $related);
         
         foreach($entities as $entity)
             $entity->parseJsonFields();
@@ -822,7 +837,7 @@ abstract class Model{
                      FROM $table 
                      WHERE $foreignKey = ".$this->$localKey; // consulta
         
-        $result =  (DB_CLASS)::select($query);
+        $result =  DB::select($query);
         
         return $result->total;
     }
@@ -856,7 +871,7 @@ abstract class Model{
         $foreignKey = $foreignKey ?? 'id'.strtolower($related);  // cálculo  foranea
         
         $consulta="SELECT * FROM $tabla WHERE $ownerKey = ".($this->$foreignKey ?? 'NULL');
-        $entity = (DB_CLASS)::select($consulta, $related);
+        $entity = DB::select($consulta, $related);
         
         if($entity)
             $entity->parseJsonFields();
@@ -890,7 +905,7 @@ abstract class Model{
                    FROM $table 
                    WHERE $ownerKey = ".($this->$foreignKey ?? 'NULL');
         
-        $result = (DB_CLASS)::select($query);
+        $result = DB::select($query);
         
         return $result->total;
     }
@@ -952,7 +967,7 @@ abstract class Model{
                 WHERE $tabla1.$owner1 = ".$this->$owner1;
         
         // ejecución de la consulta
-        $entities =  (DB_CLASS)::selectAll($consulta, $related);
+        $entities =  DB::selectAll($consulta, $related);
         
         foreach($entities as $entity)
             $entity->parseJsonFields();

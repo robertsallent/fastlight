@@ -38,7 +38,7 @@ class User extends Model{
         $consulta = "SELECT * FROM users WHERE phone = '$phone' AND email = '$email' ";
         
         // ejecuta la consulta
-        if($usuario = (DB_CLASS)::select($consulta, self::class))
+        if($usuario = DB::select($consulta, self::class))
             $usuario->parseJsonFields();
          
         // retorna el usuario
@@ -86,7 +86,7 @@ class User extends Model{
         $consulta .= "AND password='$password'";
         
         // ejecución de la consulta
-        $usuario = (DB_CLASS)::select($consulta, self::class);
+        $usuario = DB::select($consulta, self::class);
         
         if($usuario)
             $usuario->parseJsonFields();

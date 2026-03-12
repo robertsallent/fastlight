@@ -8,7 +8,7 @@
     echo Session::get('csrf_token');  
     
     echo "<p>Generando un input (previsualización)</p>";
-    echo "<p><b>".(DB_CLASS)::escape(CSRF::createInput())."</b></p>";
+    echo "<p><b>".DB::escape(CSRF::createInput())."</b></p>";
     
     echo "<p>Generando un input (solo se verá en el código fuente)</p>";
     echo CSRF::createInput();
