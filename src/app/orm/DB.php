@@ -258,27 +258,15 @@ class DB{
     
     
     /**
-     * Recupera todos los registros de una tabla
-     *
-     * @param string $tableName nombre de la tabla de la BDD que se quiere recuperar
-     * @param string $className nombre de la clase a la que mapear los resultados
-     * @param int $limit límite de resultados (para paginación)
-     * @param int $offset desplazamiento (para paginación)
+     * Retorna una instancia de QueryBuilder que recupera todos los registros de una tabla.
      * 
-     * @return array de objetos de la clase indicada o stdClass si no se indica
+     * @param string $tableName nombre de la tabla de la BDD que se quiere recuperar
+     * @return QueryBuilder instancia de QueryBuilder sobre la que podremos seguir trabajando
      */
     public static function table(
-        string $tableName,
-        string $className   = 'stdClass',
-        int $limit          = 0,
-        int $offset         = 0
-    ):array{
-        $qb = QueryBuilder::select($tableName, self::$connection);
-        
-        if($limit)
-            $qb->limit($limit, $offset);
-        
-        return $qb->get()->fetchAll(PDO::FETCH_CLASS, $className);
+        string $tableName
+    ):QueryBuilder{       
+        return QueryBuilder::select($tableName, self::$connection);
     }
     
     
