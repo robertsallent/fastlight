@@ -9,7 +9,7 @@
  * @author Robert Sallent <robertsallent@gmail.com>
  *
  */
-class Base implements TemplateInterface{
+class Base{
     
     /** Lista de ficheros CSS para usar con este template 
      * 
@@ -80,6 +80,9 @@ class Base implements TemplateInterface{
         <meta property="og:image" content="<?= $image ?>">
         <meta property="og:url" content="<?= APP_URL.request()->url ?>">
         <meta property="og:type" content="website">
+        
+        <!-- COLOR DEL TEMA -->
+        <meta name="theme-color" content="<?= APP_COLOR ?>>">
 
         <!-- WEBMANIFEST -->
         <link rel="manifest" href="/site.webmanifest">
@@ -604,7 +607,7 @@ class Base implements TemplateInterface{
                 <p><a class='negrita maxi cursiva' href='https://github.com/robertsallent/fastlight'>FastLight Framework</a></p>
                 <p class='pc'>
                     Desarrollado por <a href='https://robertsallent.com'>
-                    Robert Sallent</a> para sus cursos de desarrollo de aplicaciones web (2022/2025).
+                    Robert Sallent</a> para sus cursos de desarrollo de aplicaciones web (2022 - 2026).
                 </p>
                 <p class='mini'>
                     <a href='/Cookie/policy'>Política de cookies</a>

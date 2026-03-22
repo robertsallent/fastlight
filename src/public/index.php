@@ -31,16 +31,20 @@
 // carga el fichero de configuración
 require '../config/config.php';         
 
+// si no se deben mostrar errores sobre la web, asegura que estén desactivados
+// si está configurado a true (en config.php), los mostrará o no dependiendo de la configuración del servidor 
 if(!DISPLAY_ERRORS)
     ini_set('display_errors', 0);
 
-// comprueba la versión de PHP (se configura en config.php)
+    
+// comprueba la versión de PHP (según lo especificado en config.php)
 if (CHECK_PHP_VERSION && version_compare(PHP_VERSION, MIN_PHP_VERSION, '<')) 
     die("ERROR: se requiere PHP ".MIN_PHP_VERSION." pero se detectó PHP ".PHP_VERSION.". Puedes actualizar la 
          versión de PHP en el servidor o modificar el parámetro MIN_PHP_VERSION en el fichero de configuración 
          (pero no se garantiza el correcto funcionamiento).");
 
- 
+
+
 // carga el autoload y las funciones helper globales
 require '../app/autoload.php';          
 require '../app/helpers/helpers.php';   
@@ -50,7 +54,8 @@ require '../app/helpers/helpers.php';
 session_name(SESSION_NAME);
 ini_set('session.gc_maxlifetime', SESSION_TIME);
 
-// parámetros de la cookie de sesión
+
+// parámetros de la cookie de sesión (se configuran en config.php)
 session_set_cookie_params([
     'lifetime'  => SESSION_COOKIE_EXPIRE,   // duración de la cookie
     'path'      => '/',                     // disponible en todo el dominio
@@ -59,21 +64,21 @@ session_set_cookie_params([
     'httponly'  => SESSION_COOKIE_HTTPONLY, // no accesible desde JavaScript 
     'samesite'  => 'Lax'                    // evita el envío en peticiones cross-site 
 ]);
-
+    
 
 // inicia la gestión de sesiones
 session_start();                        
-
-
-/*
- * A partir de este punto: 
- * 
- *  - Se crea una instancia del Kernel adecuada al tipo de aplicación.
- *  - Se llama al método boot() del Kernel, que retorna la Response a enviar al cliente.
- *  - Se envía la respuesta al cliente mediante el método send() de Response.
- *  - Se comprueba si se produjo algún error en el proceso.
- * 
- */
+    
+    
+    /*
+     * A partir de este punto: 
+     * 
+     *  - Se crea una instancia del Kernel adecuada al tipo de aplicación.
+     *  - Se llama al método boot() del Kernel, que retorna la Response a enviar al cliente.
+     *  - Se envía la respuesta al cliente mediante el método send() de Response.
+     *  - Se comprueba si se produjo algún error en el proceso.
+     * 
+     */
 
 try{
     // Se comprueba si el proyecto es una WEB o una API.
@@ -108,7 +113,7 @@ try{
     
     // prepara el mensaje.
     $mensaje = DEBUG ? 
-        'ERROR: '.$t->getMessage() : 
+        'Error en el proceso de incialización, el mensaje es: '.$t->getMessage() : 
         'Se produjo un error, contacte con el administrador '.ADMIN_EMAIL.' si lo considera necesario.';
     
     // aborta, cargando la vista personalizada de error 500.

@@ -19,6 +19,26 @@
 .four-columns			{ column-count: 2 }
 
 
+/* Anchos en teléfono */
+.phone100{ width: 100% !important; margin: 0.5rem 0 }
+.phone75 { width: 75% !important;  margin: 0.5rem auto}
+.phone50 { width: 50% !important;  margin: 0.5rem auto}
+.phone25 { width: 25% !important;  margin: 0.5rem auto}
+.phone10 { width: 10% !important;  margin: 0.5rem auto}
+
+/* Alineación en teléfonos */
+.phone-centered	{ text-align: center !important; }
+.phone-left		{ text-align: left !important;	 }
+.phone-right	{ text-align: right !important;  }
+.phone-justified{ text-align: justify !important;}
+
+.phonemxauto {
+	margin-left:  auto !important; 
+	margin-right: auto !important;
+}
+
+
+
 /* Elementos estructurales */
 body{
 	margin: 0;

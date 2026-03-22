@@ -41,7 +41,8 @@
         		       desde <code>FastLight</code> hacia <code>Laravel</code>, <code>Symfony</code> u otros <i>frameworks</i> 
         		       MVC sobre <code>PHP</code>.</p>	 
         		       
-        		    <p>La documentación oficial y los manuales están disponibles en 
+        		    <p>La documentación oficial y los tutoriales en <i>pdf</i> están disponibles en 
+        		     <a>https://fastlight.org</a>.</p>
     		    </div>   
     		    
     		    <figure class="flex1 medium centered centered-block">

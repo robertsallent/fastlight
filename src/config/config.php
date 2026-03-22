@@ -20,7 +20,7 @@
  * 
  * Todas las directivas se encuentran documentadas en el mismo fichero config.php.
  * 
- * Última revisión: 02/10/25
+ * Última revisión: 23/03/26
  * @author Robert Sallent <robertsallent@gmail.com>
  * @since v0.1.0
  * @since v1.0.0 se pueden configurar las vistas de error personalizadas
@@ -42,6 +42,7 @@
  * @since v2.0.8 añadidos nuevos parámetros de configuración de la cookie de sesión
  * @since v2.1.1 añadida la constante APP_PASSWORD para definir un password para las herramientas del framework que lo necesiten
  * @since v2.2.0 añadidas HTML_CHARSET, APP_AUTHOR, APP_URL, APP_LOGO, LOGIN_FIELD y ALLOW_OTHER_LOGIN_FIELD
+ * @since v2.4.3 añadida APP_COLOR, que permite definir el color del tema para mejor integración de aspecto en el teléfono móvil.
  */
    
 
@@ -59,7 +60,6 @@ define('AUTOLOAD_DIRECTORIES',  [
     '../mvc/models',        // modelos
     '../app/orm',           // FastLight ORM, mapeador objeto-relacional
     '../templates',         // plantillas para las vistas
-    '../app/interfaces',    // interfaces
     '../app/exceptions'     // excepciones
 ]);
  
@@ -79,6 +79,9 @@ define('APP_AUTHOR', 'Robert Sallent');
 define('APP_URL', 'https://fastlight.org');
 define('APP_LOGO', 'https://fastlight.org/images/logos/fastlight.png');
 
+// Color para el tema del navegador (en el teléfono)
+define('APP_COLOR', '#579');
+
 // define un password para usar en las herramientas que lo requieran, por ejemplo:
 // - al descargar un backup de la BDD comprimido en ZIP, será el password del fichero
 define('APP_PASSWORD', '1234');
@@ -86,7 +89,7 @@ define('APP_PASSWORD', '1234');
 define('HTML_CHARSET', 'UTF-8'); // codificación de caracteres para el HTML (para la etiqueta meta charset, en el template)
 define('LANGUAGE_CODE', 'es');   // código de idioma (para poner como atributo del elemento html en las vistas)
 
-define('APP_VERSION', '2.3.0');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '2.4.2');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);    // muestra la versión de la app en el footer (templates/Base.php)
 
 // Controlador y método por defecto (solamente para APP_TYPE WEB).
@@ -113,11 +116,11 @@ define('SMTP', 'localhost');
 define('SMTP_PORT', '25');
 
 // Email y nombre del administrador.
-define('ADMIN_EMAIL', 'admin@fastlight-test.org');
+define('ADMIN_EMAIL', 'admin@fastlight.test.local');
 define('ADMIN_EMAIL_NAME', 'App admin');
 
 // Email y nombre para el remitente de envíos genéricos
-define('DEFAULT_EMAIL', 'no-reply@fastlight-test.org');
+define('DEFAULT_EMAIL', 'no-reply@fastlight.test.local');
 define('DEFAULT_EMAIL_NAME', 'No-reply test');
 
 
@@ -179,6 +182,7 @@ define('USER_ROLES', [
 
 
 // roles que pueden acceder al panel del administrador
+// también podrán realizar las tareas que se muestran en dicho panel
 define('ADMIN_PANEL_ROLES', ['ROLE_ADMIN', 'ROLE_TEST']);
 
 // roles  que tienen acceso al listado de errores
