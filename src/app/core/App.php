@@ -4,13 +4,14 @@
  *
  * Núcleo para el desarrollo de aplicaciones web en FastLight.
  *
- * Última revisión: 20/01/2026
+ * Última revisión: 24/03/2026
  * 
- * @author Robert Sallent <robertsallent@gmail.com>
+ * @author Robert Sallent <robert@fastlight.org>
  * @since v0.1.0
  * @since v0.9.1 se ha cambiado el nombre de FrontController a App.
  * @since v1.5.0 el método boot() retorna un objeto de tipo Response.
  * @since v1.5.2 el método boot() usa el helper request() para mejor tolerancia a los cambios.
+ * @since v2.5.0 se aceptan URLs en kebab-case, convirtiendo a camelCase.
  */
  
 class App extends Kernel{
@@ -34,20 +35,27 @@ class App extends Kernel{
             $url = $url ? explode('/', rtrim($url, '/')) : [];
             
             
-            // Recupera el controlador a usar, que se corresponde con la primera posición del array.
-            // Si no fue indicado en la URL, el controlador a usar es WelcomeController (DEFAULT_CONTROLLER en config.php)
-            // EJ: si la URL comenzaba por /libro, el controlador a usar será LibroController
+            // Recupera el controlador a usar, es la primera posición del array.
+            // Si no fue indicado, el controlador es WelcomeController (DEFAULT_CONTROLLER en config.php)
+            
+            // SE DEBE USAR KEBAB CASE, QUE SERA CONVERTIDO A PASCAL CASE
+            // EJEMPLO: la URL /libro       => controlador LibroController
+            // EJEMPLO: la URL /test-suite  => controlador TestSuiteController
+            
             $controller = empty($url[0]) ? 
                 DEFAULT_CONTROLLER : 
-                ucfirst(strtolower(array_shift($url))).'Controller';
+                kebabToCamel(array_shift($url),true).'Controller';
      
                 
-            // recupera el método a invocar, que se corresponde con la segunda posición del array.
-            // Si no existe, el método a invocar es index() (DEFAULT_METHOD en config.php)
-            // EJ: si llega create, el método a invocar es create()
+            // Recupera el método a invocar, que se corresponde con la segunda posición del array.
+            // Si no se indicó, el método es index() (DEFAULT_METHOD en config.php)
+            
+            // SE DEBE USAR KEBAB CASE, QUE SERA CONVERTIDO A CAMEL CASE
+            // EJEMPLO: para la URL /libro/create       => método create()
+            // EJEMPLO: para la URL /libro/add-ejemplar => método addEjemplar()
             $method = empty($url[0]) ? 
                 DEFAULT_METHOD : 
-                strtolower(array_shift($url));         
+                kebabToCamel(array_shift($url));         
                 
             // si el controlador calculado anteriormente no existe...
             if(!class_exists($controller))

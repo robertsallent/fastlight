@@ -14,12 +14,10 @@
 		<?= $template->header(null, 'Listado de test PHP') ?>
 		<?= $template->breadCrumbs([
 	              "Panel del administrador" => "/Admin",
-		          "Test" => NULL
+		          "Ejecución de tests" => NULL
 		      ]);
-		?>
-    		
+		?>    		
 		<?= $template->messages() ?>
-		<?= $template->acceptCookies() ?>
 		
 		<main>
         	<h1>Listado de tests</h1>
@@ -40,8 +38,7 @@
             	<h3>Añadiendo tests</h3>
             	
             	<p>Para crear vuestros propios tests, tan solo tenéis que añadir el fichero <i>PHP</i> con la prueba
-            	   a realizar en la carpeta <span class='path'><?= TEST_FOLDER ?></span>. 
-            	   Tomad como ejemplo alguno de los existentes.</p>
+            	   a realizar en la carpeta <span class='path'><?= TEST_FOLDER ?></span>.</p>
         
             	<h3>Consideraciones:</h3>
             	<ul>
@@ -70,33 +67,32 @@
             	motivos docentes</b>. A producción 
             	<b class="uppercase maxi">no subiremos</b> la carpeta <span class='path'><?= TEST_FOLDER ?></span>,
             	 el controlador <i>TestController</i> ni la carpeta <span class='path'>mvc/views/test</span>. 
-            	También deberíamos eliminar el enlace desde el menú, que se encuentra en el fichero
-            	<span class='path'>templates/Base.php</span>.</p>
+            	También podemos eliminar el enlace desde el panel del administrador.</p>
         	</section>
      
 
         	<section id="test-list-section">
             	<h2>Tests disponibles</h2>
             	
-            	<ul id="test-list" class="three-columns">
+            	<ul id="test-list" class="three-columns my2">
                 <?php
+                foreach ($tests as $source){
                     
-                foreach ($tests as $fichero){
-                    
-                    $file = new File($fichero);
-                    echo "<li>";
-                    echo "<a title='fichero ".TEST_FOLDER."/".$file->getBaseName()." (".$file->getSize()." bytes)' ";
-                    echo "href='/test/".$file->getName()."'>".$file->getName()."</a>";
-                    echo "</li>";    
-                }
-             
+                    $file       = new File($source);
+                    $fileName   = $file->getName();
+                    $showFile   = ucfirst(fromSnake($fileName));
+                    $size       = $file->getSize();
                 ?>
-            	</ul>
+                    <li>
+                    	<a title="Ejemplo <?= $showFile ?> (<?= $size ?> bytes)" href="/test/<?= $fileName ?>">
+                           <?= $showFile ?>
+                        </a>
+                    </li>    
+                <?php } ?>
+                </ul>
         	</section>
-
-   
-        
         </main>
+        
 		<?= $template->footer() ?>
 		<?= $template->version() ?>
 	</body>

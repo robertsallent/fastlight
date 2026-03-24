@@ -1,19 +1,15 @@
 <?php
 
-/**
- * Funciones helper para realizar tareas habituales.
+/** Funciones helper para realizar tareas habituales.
  * 
- * Última revisión: 23/02/2026
+ * Última revisión: 23/03/2026
  * 
- * @author Robert Sallent <robertsallent@gmail.com>
- * @since v1.4.2 añadido el helper request() que retorna el objeto Request con información de la petición.
- * @since v1.4.2 añadido el helper user() que retorna el usuario identificado.
- * @since v1.7.3 el helper arrayToString recibe un quinto parámetro (opcional).
+ * @author Robert Sallent <robert@fastlight.org>
+ * @since v1.4.2 añadidos request() y user().
  * @since v1.7.4 añadidos helpers formatInt() y formatFloat()
  * @since v2.0.0 añadido el helper humanDate()
- * @since v2.1.0 añadidos métodos snakeToCamelCase() y toSnakeCase()
- * @since v2.2.3 nuevos helpers para texto
- * @since v2.3.0 nuevo método decodeStringFields() que corrige las entidades HTML en los campos de un objeto. Útil para respuestas de APIs.
+ * @since v2.1.0 añadidas snakeToCamel() y snake()
+ * @since v2.4.3 nuevas funciones kebab(), camel(), fromKebab(), fromCamel(), fromSnake(), kebabToCamel() y camelToKebab()
 */
 
 
@@ -57,7 +53,7 @@ function dd($thing, string $message = 'Se detuvo la ejecución.'){
 
 /*
  |--------------------------------------------------------------------------
- | ARRAYS Y STRINGS
+ | ARRAYS
  |--------------------------------------------------------------------------
 */
 
@@ -95,6 +91,197 @@ function arrayToString(
 }
 
 
+/*
+ |--------------------------------------------------------------------------
+ | STRINGS
+ |--------------------------------------------------------------------------
+ */
+
+/**
+ * Convierte un texto a lower snake case
+ *
+ * @param string $texto el texto a convertir
+ * @return string el texto convertido
+ */
+function snake(string $texto): string {
+    // reemplaza espacios o guiones por guiones bajos
+    $texto = preg_replace('/[\s\-]+/', '_', $texto);
+    
+    // inserta guiones bajos antes de mayúsculas (de camel case a snake case)
+    $texto = preg_replace('/([a-z])([A-Z])/', '$1_$2', $texto);
+    
+    // convierte todo a minúsculas
+    return strtolower($texto);
+}
+
+
+/** Convierte un texto a lower kebab case
+ * 
+ * @param string $texto texto original
+ * @return string resultado en kebab case
+ */
+function kebab(string $texto): string {
+    return strtolower(trim(preg_replace('/[^a-z0-9]+/i', '-', $texto), '-'));
+}
+
+
+/** Convierte un texto a camel case
+ * 
+ * @param string $texto texto a convertir
+ * @param bool $pascal si deseamos usar pascal case (inicial en mayúsculas)
+ * @return string resultado
+ */
+function camel(
+    string $texto, 
+    bool $pascal = false
+): string {
+    
+    // realiza las sustituciones
+    $resultado = str_replace(' ', '', ucwords(preg_replace('/[^a-z0-9]+/i', ' ', strtolower($texto))));
+    
+    // retorna el resultado, la inicial estará en mayúsculas si se indicó Pascal case
+    return $pascal ? $resultado : lcfirst($resultado);
+}
+
+
+/**
+ * Convierte de snake case a camel o Pascal case
+ *
+ * @param string $texto texto a convertir
+ * @param bool $pascal si está a true retornará Pascal Case (inicial en mayúsculas). Opcional, por defecto false
+ *
+ * @return string el resultado de pasar de snake a camel case o Pascal case
+ */
+function snakeToCamel(
+    string $texto, 
+    bool $pascal = false
+): string {
+    
+    // divide la cadena en partes separadas por guiones bajos
+    $partes = explode('_', strtolower($texto));
+    
+    // convierte la primera letra de cada parte en mayúscula
+    $partes = array_map('ucfirst', $partes);
+    $resultado = implode('', $partes);
+    
+    // retorna Pascal case o camel case
+    return $pascal? $resultado : lcfirst($resultado);
+}
+
+
+/** Pasa de camel case a snake case
+ * 
+ * @param string $texto texto a convertir
+ * @return string textoo en snake case
+ */
+function camelToSnake(string $texto): string {
+    
+    // inserta guiones bajos antes de cada mayúscula (excepto la primera)
+    $resultado = preg_replace('/(?<!^)[A-Z]/', '_$0', $texto);
+    
+    // convierte todo a minúsculas
+    return strtolower($resultado);
+}
+
+
+/** Pasa un texto de kebab case a camel case
+ *
+ * @param string $texto texto en kebab-case
+ * @param bool $pascal opcional, true si queremos el texto en Pascal case
+ * @return string texto en camel case
+ */
+function kebabToCamel(
+    string $texto,
+    bool $pascal = false
+) {
+    $resultado = lcfirst(str_replace(' ', '', ucwords(str_replace('-', ' ', $texto))));
+    return $pascal? ucfirst($resultado) : $resultado;
+}
+
+
+/** Pasa un texto de camel a kebab kase
+ *
+ * Ojo, alfabeto inglés sin acentos ni diéresis ni "ñ" ni "ç"...
+ *
+ * @param string $texto texto en camel case
+ * @param bool $pascal opcional, true si queremos el texto en Pascal case
+ * @return string texto en kebab case
+ */
+function camelToKebab(
+    string $texto,
+    bool $pascal = false
+) {
+    $resultado = strtolower(preg_replace('/([a-z])([A-Z])/', '$1-$2', $texto));
+    return $pascal? ucfirst($resultado) : $resultado;
+}
+
+
+
+/** Pasa de snake case a texto
+ * 
+ * @param string $texto texto a convertir
+ * @param bool $capitalize si queremos las iniciales de cada palabra en mayúsculas
+ * @return string resultado
+ */
+function fromSnake(
+    string $texto,
+    bool $capitalize = false
+): string {
+    
+    // quita los guiones bajos
+    $resultado = str_replace('_', ' ', strtolower($texto));
+    
+    // retorna el resultado
+    return $capitalize ? ucwords($resultado) : $resultado;
+}
+
+
+/** Pasa de kebab case a texto
+ *
+ * @param string $texto texto a convertir
+ * @param bool $capitalize si queremos las iniciales de cada palabra en mayúsculas
+ * @return string resultado
+ */
+function fromKebab(
+    string $texto,
+    bool $capitalize = false
+): string {
+    
+    // quita los guiones bajos
+    $resultado = str_replace('-', ' ', strtolower($texto));
+    
+    // retorna el resultado
+    return $capitalize ? ucwords($resultado) : $resultado;
+}
+
+
+/** Pasa de camel case a texto
+ *
+ * @param string $texto texto a convertir
+ * @param bool $capitalize si queremos las iniciales de cada palabra en mayúsculas
+ * @return string resultado
+ */
+
+function fromCamel(
+    string $texto,
+    bool $capitalizar = false
+): string {
+    
+    // separa palabras antes de cada mayúscula
+    $resultado = preg_replace('/(?<!^)[A-Z]/', ' $0', $texto);
+    
+    // pasa a minúsculas
+    $resultado = strtolower($resultado);
+    
+    // capitaliza si se indica
+    return $capitalizar ? ucfirst($resultado) : $resultado;
+}
+
+/*
+ |--------------------------------------------------------------------------
+ | FORMATEANDO HTML
+ |--------------------------------------------------------------------------
+ */
 /**
  * Normaliza los saltos de línea en \n. 
  * 
@@ -214,8 +401,6 @@ function makeLists(string $html) {
 
 
 
-
-
 /**
  * Convierte los enlaces de texto en enlaces HTML
  * 
@@ -285,8 +470,38 @@ function toHTML(
 }
 
 
+/**
+ * Decodifica el html_entities en las cadenas de texto de objetos.
+ *
+ * Útil para respuestas de APIS.
+ *
+ * @param mixed $obj
+ * @return mixed
+ */
+function decodeStringFields(mixed $obj):mixed{
+    
+    foreach ($obj as $key => $value)
+        if (is_string($value)){
+            // Primero decodificamos entidades HTML normales
+            $decoded = html_entity_decode($value, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+            // Luego reemplazamos los &#13; por salto de línea
+            $decoded = str_replace(["\r", "\n", "&#13;"], " ", $decoded);
+            // También podemos limpiar múltiples espacios
+            $decoded = preg_replace('/\s+/', ' ', $decoded);
+            $obj->$key = $decoded;
+    }
+    
+    // retorna el objeto con las html_entities decodificadas
+    return $obj;
+}
 
 
+
+/*
+ |--------------------------------------------------------------------------
+ | FORMATEO DE NÚMEROS
+ |--------------------------------------------------------------------------
+ */
 
 /**
  * Formatea un número entero para poner el separador de miles
@@ -313,73 +528,6 @@ function formatFloat(float $number, int $decimal = 0):string{
 }
 
 
-/**
- * Convierte un texto a snake case
- * 
- * @param string $texto el texto a convertir
- * 
- * @return string el texto convertido
- */
-function toSnakeCase(string $texto): string {
-    // reemplaza espacios o guiones por guiones bajos
-    $texto = preg_replace('/[\s\-]+/', '_', $texto);
-    
-    // inserta guiones bajos antes de mayúsculas (de camel case a snake case)
-    $texto = preg_replace('/([a-z])([A-Z])/', '$1_$2', $texto);
-    
-    // convierte todo a minúsculas
-    return strtolower($texto);
-}
-
-
-
-/**
- * Convierte de snake case a camel o Pascal case
- * 
- * @param string $texto texto a convertir
- * @param bool $pascal si está a true retornará Pascal Case (inicial en mayúsculas). Opcional, por defecto false
- * 
- * @return string el resultado de pasar de snake a camel case o Pascal case
- */
-function snakeToCamelCase(string $texto, bool $pascal = false): string {
-    
-    // divide la cadena en partes separadas por guiones bajos
-    $partes = explode('_', strtolower($texto));
-    
-    // convierte la primera letra de cada parte en mayúscula
-    $partes = array_map('ucfirst', $partes);   
-    $resultado = implode('', $partes);
-    
-    // retorna Pascal case o camel case
-    return $pascal? $resultado : lcfirst($resultado);
-}
-
-
-
-/**
- * Decodifica el html_entities en las cadenas de texto de objetos.
- *
- * Útil para respuestas de APIS.
- *
- * @param mixed $obj
- * @return mixed
- */
-function decodeStringFields(mixed $obj):mixed{
-    
-    foreach ($obj as $key => $value)
-        if (is_string($value)){
-            // Primero decodificamos entidades HTML normales
-            $decoded = html_entity_decode($value, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-            // Luego reemplazamos los &#13; por salto de línea
-            $decoded = str_replace(["\r", "\n", "&#13;"], " ", $decoded);
-            // También podemos limpiar múltiples espacios
-            $decoded = preg_replace('/\s+/', ' ', $decoded);
-            $obj->$key = $decoded;
-    }
-    
-    // retorna el objeto con las html_entities decodificadas
-    return $obj;
-}
 
 /*
  |--------------------------------------------------------------------------
@@ -531,8 +679,6 @@ function redirect(
 
 
 
-
-
 /*
  |--------------------------------------------------------------------------
  | USUARIOS
@@ -611,6 +757,13 @@ function oldChecked(
     return $oldValue == $value ? ' checked ' : '';
 }
 
+
+
+/*
+ |--------------------------------------------------------------------------
+ | TOKENS Y SEGURIDAD
+ |--------------------------------------------------------------------------
+ */
 
 
 /**

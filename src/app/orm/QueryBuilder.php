@@ -80,7 +80,35 @@ class QueryBuilder{
     }
      
     
-    // Métodos estáticos para creación sencilla de sentencias
+    // ---------------------------------------------------------------------------
+    // MÉTODOS PRIVADOS
+    // ---------------------------------------------------------------------------
+   
+    /** Pasa de snake case a camel case
+     * 
+     * @param string $texto
+     * @param bool $pascal
+     * @return string
+     */
+    private static function snakeToCamel( 
+        string $texto,
+        bool $pascal = false
+    ): string {   
+        // divide la cadena en partes separadas por guiones bajos
+        $partes = explode('_', strtolower($texto));
+        
+        // convierte la primera letra de cada parte en mayúscula
+        $partes = array_map('ucfirst', $partes);
+        $resultado = implode('', $partes);
+        
+        // retorna Pascal case o camel case
+        return $pascal? $resultado : lcfirst($resultado);
+    }
+    
+    
+    // ---------------------------------------------------------------------------
+    // MÉTODOS PÚBLICOS
+    // ---------------------------------------------------------------------------
     
     /**
      * Crea una instancia del QueryBuilder para una consulta SELECT
@@ -456,7 +484,7 @@ class QueryBuilder{
 
         for($i = 0; $i < count($options); $i++){
             $fieldName = trim($fields[$i]) == '*' ? 'all' : $fields[$i];
-            $this->fields[] = "{$options[$i]}({$fields[$i]}) AS ".snakeToCamelCase($fieldName).ucfirst(strtolower($options[$i]));
+            $this->fields[] = "{$options[$i]}({$fields[$i]}) AS ".self::snakeToCamel($fieldName).ucfirst(strtolower($options[$i]));
         }
         return $this;
     }

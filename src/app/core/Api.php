@@ -4,12 +4,13 @@
  *
  * Núcleo para el desarrollo de APIs Restful en FastLight
  *
- * Última revisión: 23/03/2025
+ * Última revisión: 24/03/2026
  * 
- * @author Robert Sallent <robertsallent@gmail.com>
+ * @author Robert Sallent <robert@fastlight.org>
  * 
  * @since v1.5.0 el método boot() retorna un objeto de tipo Response.
  * @since v1.5.2 el método boot() usa el helper request() para mejor tolerancia a los cambios.
+ * @since v2.5.0 se aceptan URLs en kebab-case, convirtiendo a camelCase.
  */
 
 class Api extends Kernel{
@@ -52,21 +53,28 @@ class Api extends Kernel{
             
             // si no se ha indicado el formato...
             if(empty($url[0]))
-                throw new ApiException("No se indicó el formato (JSON, XML o CSV) en la URL.");
+                throw new ApiException("No se indicó el formato (JSON, XML, CSV...) en la URL.");
             
-            // en caso contrario, toma el formato    
-            $this->formato = ucfirst(strtolower(array_shift($url)));
+            // Toma el formato
+            // SE DEBE USAR KEBAB CASE, QUE SERÁ MAPEADO A PASCAL CASE
+            // EJEMPLO: /json/libro             => el formato es Json
+            // EJEPMLO: /strange-format/libro   => el formato es StrangeFormat
+            $this->formato = kebabToCamel(strtolower(array_shift($url)),true);
              
             // si no se ha indicado la entidad...
             if(empty($url[0]))
                 throw new ApiException("No se indicó la entidad en la URL.");
             
-            $this->entidad = ucfirst(strtolower(array_shift($url)));
+            // Toma la entidad
+            // SE DEBE USAR KEBAB CASE, QUE SERÁ MAPEADO A PASCAL CASE
+            // EJEMPLO: /json/libro        => la entidad es Libro
+            // EJEMPLO: /xml/libro-raro    => la entidad es LibroRaro
+            $this->entidad = kebabToCamel(strtolower(array_shift($url)), true);
             
-            // en caso contrario, toma la entidad
+            // prepara el nombre del controlador a instanciar
             $controller =  $this->formato.$this->entidad.'Controller';
              
-            // Comprueba que el controlador (XmlLibroController por ejemplo) existe.
+            // Comprueba que el controlador (JsonLibroController por ejemplo) existe.
             // En caso de que no exista, se lanza una excepción.
             if(!is_readable("../mvc/controllers/$controller.php"))
                 throw new NotFoundException("No existe ENDPOINT para $this->entidad en $this->formato.");

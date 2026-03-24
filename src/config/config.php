@@ -20,8 +20,8 @@
  * 
  * Todas las directivas se encuentran documentadas en el mismo fichero config.php.
  * 
- * Última revisión: 23/03/26
- * @author Robert Sallent <robertsallent@gmail.com>
+ * Última revisión: 24/03/26
+ * @author Robert Sallent <robert@fastlight.org>
  * @since v0.1.0
  * @since v1.0.0 se pueden configurar las vistas de error personalizadas
  * @since v1.1.5 añadidos los parámetros de configuración de subida de ficheros
@@ -70,7 +70,7 @@ define('AUTOLOAD_DIRECTORIES',  [
  * -------------------------------------------------------------*/
 
 define('APP_NAME', 'FastLight Framework 2'); // Título de la aplicación.
-define('APP_TYPE', 'WEB');       // Tipo de aplicación: WEB o API. 
+define('APP_TYPE', 'APP');       // Tipo de aplicación: WEB o API. 
 
 // para las etiquetas META de autor (en el template)
 define('APP_AUTHOR', 'Robert Sallent');  
@@ -89,7 +89,7 @@ define('APP_PASSWORD', '1234');
 define('HTML_CHARSET', 'UTF-8'); // codificación de caracteres para el HTML (para la etiqueta meta charset, en el template)
 define('LANGUAGE_CODE', 'es');   // código de idioma (para poner como atributo del elemento html en las vistas)
 
-define('APP_VERSION', '2.4.2');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '2.5.0');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);    // muestra la versión de la app en el footer (templates/Base.php)
 
 // Controlador y método por defecto (solamente para APP_TYPE WEB).

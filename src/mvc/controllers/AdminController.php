@@ -54,7 +54,7 @@ class AdminController extends Controller{
         
         // nombre del archivo de descarga
         $fecha = date('Y_m_d_H_i_s');
-        $name = toSnakeCase(APP_NAME)."_backup_{$fecha}.sql";
+        $name = snake(APP_NAME)."_backup_{$fecha}.sql";
         
         // cabeceras HTTP para forzar la descarga
         header('Content-Type: application/sql');
@@ -84,7 +84,7 @@ class AdminController extends Controller{
         
         // nombre base del archivo
         $fecha = date('Y_m_d_H_i_s');
-        $baseName = toSnakeCase(APP_NAME) . "_backup_{$fecha}";
+        $baseName = snake(APP_NAME) . "_backup_{$fecha}";
         
         // cálculo de la ruta para el fichero SQL
         $sqlPath = "../tmp/{$baseName}.sql";
