@@ -6,14 +6,15 @@
  * Facilita el trabajo con ficheros. Dispone de métodos interesantes
  * para trabajar con ficheros y para comprobar tipos MIME.
  *
- * Última mofidicación: 09/10/2025.
+ * Última modificación: 25/03/2026.
  * 
- * @author Robert Sallent
+ * @author Robert Sallent <robert@fastlight.org>
  * 
  * @since v1.1.4 añadidos métodos para copiar y mover ficheros.
  * @since v1.3.7 añadido el método getSize() y su alias size().
  * @since v1.7.4 añadido el método append().
  * @since v2.1.2 añadido el método zip()
+ * @since v2.5.1 añadidos los métodos estáticos doExist(), canRead() y canWrite()
  */
 
     class File{
@@ -406,6 +407,38 @@
         /* -----------------------------------------------------------------
          * MÉTODOS DE CLASE (alternativos al uso de los métodos de objeto)
          * ----------------------------------------------------------------- */
+       
+        /** Alternativa estática al método exists()
+         *
+         * @param string $path
+         * @return bool
+         */
+        public static function doExist(string $path):bool{
+            return (new File($path))->exists();
+        }
+        
+        
+        
+        /** Alternativa estática al método isReadable()
+         *
+         * @param string $path
+         * @return bool
+         */
+        public static function canRead(string $path):bool{
+            return (new File($path))->isReadable();
+        }
+        
+        
+        
+        /** Alternativa estática al método isWritable()
+         *
+         * @param string $path
+         * @return bool
+         */
+        public static function canWrite(string $path):bool{
+            return (new File($path))->isWritable();
+        }
+        
         
         
         /**

@@ -3,6 +3,8 @@
 /**
  * Clase UploadedImage, para realizar operaciones con imágenes subidas
  * 
+ * Última modificación: 25/03/2026
+ * 
  * @author Robert Sallent <robert@fastlight.org>
  * @since v2.3.1
  *
@@ -17,13 +19,13 @@ class UploadedImage extends UploadedFile{
      * @param float $ratio relación de aspecto deseada (ej: 4/3)
      * @param bool $respectAspect si es true, se ajustará el ratio para que se adapte mejor a la orientación de la imagen (horizontal o vertical)
      * 
-     * @return void
+     * @return UploadedImage 
      */
     public function scale(        
         int $maxValue           = 1024,
         float $ratio            = 4/3,
         bool $respectAspect     = true
-    ){
+    ):UploadedImage{
 
         // Obtener tamaño de la imagen original
         [$width, $height] = getimagesize($this->tmp);
@@ -45,7 +47,7 @@ class UploadedImage extends UploadedFile{
         }
 
         Image::scaleAndCrop($this->tmp, $anchoFinal, $altoFinal);
+        
+        return $this;
     }
-
-
 }

@@ -97,8 +97,15 @@ class AdminController extends Controller{
             system($comando, $resultado);
                       
             // si no ha funcionado...
-            if ($resultado !== 0 || !file_exists($sqlPath))
-                throw new FileException("Error al crear el backup de la base de datos en SQL.");
+            if ($resultado !== 0 || !file_exists($sqlPath)){
+                
+                // si el error es 127 significa que no ha encontrado el comando mysqldump
+                if($resultado == 127)
+                    throw new OSException("Tu sistema operativo no encuentra el comando mysqldump, por favor añádelo al PATH del sistema.");
+                   
+                // para cualquier otro error, mostraremos el código    
+                throw new OSException("Error al crear el backup de la base de datos en SQL. Código {$resultado} para {$sqlPath}.");
+            }
             
             // crea el objeto File a partir del fichero SQL generado    
             $sqlFile = new File($sqlPath);
@@ -106,16 +113,14 @@ class AdminController extends Controller{
             // crea el fichero zip comprimido y con el password
             $zipFile = $sqlFile->zip(null, '../tmp', APP_PASSWORD);
             
-            // genera y envía la nueva respuesta, no se puede hacer el return porque hay 
-            // que borrar los ficheros tras enviar la respuesta
-            $response = new FileResponse($zipFile, true);
-            $response->send();
-            
-            // Limpieza de los ficheros creados (importante)
+            // borra el fichero SQL
             $sqlFile->delete();
-            $zipFile->delete();
             
-            die();
+            // genera la respuesta con el fichero comprimido
+            $response = new FileResponse($zipFile, true);
+            
+            // envía la respuesta y elimina el fichero tras hacerlo
+            $response->send(true);
           
         // en caso de error
         }catch(Throwable $t){
@@ -131,7 +136,7 @@ class AdminController extends Controller{
             
             return redirect("/Admin/panel");
         }
-     }            
+     }          
 }
 
 
