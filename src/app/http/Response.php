@@ -6,7 +6,7 @@
  *
  * Última modificación: 06/10/2025
  *
- * @author Robert Sallent <robertsallent@gmail.com>
+ * @author Robert Sallent <robert@fastlight.org>
  * @since v0.9.13
  * @since v1.5.0 eliminados los métodos toXmlResponse y toJsonResponse (ya no son necesarios).
  * 
@@ -263,7 +263,7 @@ class Response{
      */
     public function evaluateError(Throwable $t):Response{
 
-            // Prepara el código y status en función del tipo de error
+        // Prepara el código y status en función del tipo de error
         switch(get_class($t)){
             
             case 'JsonException':

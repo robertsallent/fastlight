@@ -22,6 +22,7 @@
     		<form class="w50 centered-block my2" method="POST" autocomplete="off" id="login" action="/Login/enter">
     			
     			<?= csrf() ?>
+    			<input type="hidden" name="login" value="1">
     			
     			<h2 class="centered">Acceso a <?= APP_NAME ?></h2>
 				<p class="info">Introduce tus datos para identificarte.</p>
@@ -47,17 +48,12 @@
     			</div>
     			
     			<div class="centered m3">
-    				<input type="submit" class="button" name="login" value="LogIn">
+    				<input type="submit" class="button" value="LogIn">
     			</div>
     			<div class="centered">
-    				<a class="button-light" href="/Forgotpassword">Olvidé mi clave</a>
-    			</div>
-    			
-    		</form>
-
-	
-
-    		
+    				<a class="button-light" href="/forgot-password">Olvidé mi clave</a>
+    			</div>	
+    		</form>	
 		</main>
 		
 		<?= $template->footer() ?>

@@ -13,9 +13,10 @@
  * - Envia la Response final, invocando al método send().
  * - Si se produce algún error en la fase de arranque, carga una vista de  error genérica (código 500).
  * 
- * Última revisión: 06/10/2025
+ * Última revisión: 27/03/2026
  * 
- * @author Robert Sallent <robertsallent@gmail.com>
+ * @author Robert Sallent <robert@fastlight.org>
+ * 
  * @since v0.1.0
  * @since v1.4.5 se puede comprobar que la versión de PHP sea la adecuada
  * @since v1.7.6 se gestiona el nombre y duración de la sesión
@@ -86,6 +87,7 @@ try{
         
         // para las aplicaciones WEB
         // Crea la instancia del Kernel App y llama al método boot()
+        case 'APP' :
         case 'WEB' :  $response = (new App())->boot();
                       break;
         

@@ -99,9 +99,9 @@ class Request{
     /**
      * Método que retorna la petición recibida.
      * 
-     * @return Request la petición recibida
+     * @return ?Request la petición recibida
      */
-    public static function retrieve():Request{
+    public static function retrieve():?Request{
         return self::$request;
     }
     

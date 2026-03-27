@@ -4,9 +4,9 @@
  * 
  * Controlador para gestionar errores. Trabaja con el modelo AppError.
  * 
- * Última revisión: 23/03/2025
+ * Última revisión: 25/03/2026
  * 
- * @author Robert Sallent <robertsallent@gmail.com>
+ * @author Robert Sallent <robert@fastlight.org>
  * 
  * @since v1.5.1 se pueden exportar los errores
  */
@@ -81,14 +81,14 @@ class ErrorController extends Controller{
         
         try{
             AppError::delete($id);
-            Session::success("Error borrado.");
+            Session::success("Se ha quitado el error del listado de errores.");
             return redirect("/Error/list");
             
         }catch(SQLException $e){
             Session::error("No se pudo borrar el error.");
 
-            if(DEBUG)
-                throw new ControllerException($e->getMessage());
+            // si estamos en modo DEBUG, relanzamos la excepción hacia el Kernel
+            if(DEBUG) throw $e;
             
             return redirect("/Error/list");
         }
@@ -142,8 +142,8 @@ class ErrorController extends Controller{
         }catch(SQLException $e){
             Session::error("No se pudo vaciar la lista de errores.");
            
-            if(DEBUG)
-                throw new ControllerException($e->getMessage());
+            // si estamos en modo DEBUG, relanzamos la excepción hacia el Kernel
+            if(DEBUG) throw $e;
             
             return redirect("/Error/list");
         }

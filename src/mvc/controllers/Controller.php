@@ -6,7 +6,7 @@
  *
  * Última revisión: 20/01/2025
  * 
- * @author Robert Sallent <robertsallent@gmail.com>
+ * @author Robert Sallent <robert@fastlight.org>
  * 
  */
 abstract class Controller{
@@ -15,6 +15,7 @@ abstract class Controller{
     protected ?Request $request = null;
     
        
+    
     /** Constructor. */
     public function __construct(){
         $this->request = request();

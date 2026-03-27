@@ -6,7 +6,7 @@
  *
  * Última revisión: 24/09/2025
  * 
- * @author Robert Sallent <robertsallent@gmail.com>
+ * @author Robert Sallent <robert@fastlight.org>
  * @since v1.2.2
  * @since v2.0.9 añadido método policy(), que carga la vista con la política de cookies.
  */

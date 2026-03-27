@@ -111,8 +111,8 @@ class StatController extends Controller{
         }catch(SQLException $e){
             Session::error("No se pudo borrar la estadística.");
 
-            if(DEBUG)
-                throw new ControllerException($e->getMessage());
+            // si estamos en modo DEBUG, relanzamos la excepción hacia el Kernel
+            if(DEBUG) throw $e;
             
             return redirect("/Stat/list");
         }
@@ -139,8 +139,8 @@ class StatController extends Controller{
         }catch(SQLException $e){
             Session::error("No se pudo vaciar la lista de estadísticas.");
             
-            if(DEBUG)
-                throw new ControllerException($e->getMessage());
+            // si estamos en modo DEBUG, relanzamos la excepción hacia el Kernel
+            if(DEBUG) throw $e;
                 
             return redirect("/Stat/list");
         }

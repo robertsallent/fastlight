@@ -6,14 +6,20 @@ Lista de mecanismos y herramientas que se irán incorporando (o no) en próximas
 versiones del framework FastLight.
 
 Autor: Robert Sallent
-Última revisión: 22/10/25
+Última revisión: 25/03/2026
 
 Los cambios marcados con un ? están en fase de evaluación, no es seguro
 que se implementen.
 
+Añadir cambiar el password cada cierto tiempo, mediante un nuevo campo
+en la bdd password_changed_at. Esto podría implementarse mediante un middleware.
+constantes de configuración: CHANGE_PASSWORD_EVERY  int, número de dias
+
+Implementar los middlewares a modo de array en el config
+
 -------------------------------------------------------------------------------------------------------------
-- CAMBIOS IMPORTANTES
-	- Separar la creación de APIs a un nuevo proyecto (FastLight API).
+- GRANDES CAMBIOS
+	- ?Separar la creación de APIs a un nuevo proyecto (FastLight API).
 
 - CONFIG
 	- (v2.x) Ficheros de configuración de entorno.
@@ -31,13 +37,13 @@ que se implementen.
 - ORM
 	- El método create() de Model invoca a validate() antes de guardar (si el objeto dispone del mismo). Esto permitirá hacer validaciones aunque usemos el método create() en una sola línea.
 	- Seguir trabajando en el Query builder.
-	- Mantener tan solo una clase DB que haga uso de sentencias preparadas sobre PDO
+	- Actualizar la clase DB para que trabaje mediante sentencias preparadas sobre PDO
 
 - MODELO
 	- ? Nuevo método Model::insertRelated(entidadA, entidadB, ?tabla) que inserta en la tabla intermedia en relaciones N a N.
 	- (v3.x) Trabajar con snake case en la BDD en lugar de lowercase
 	- (v2.x) Trabajar con sentencias preparadas, para mejorar la seguridad 
-	- (v2.x) Query Builder (WIP)
+	- (v2.x) Adaptar la clase Model al nuevo Query Builder y la clase DB haciendo uso de sentencias preparadas (WIP)
 		
 - TEMPLATES Y VISTAS
 	- Añadir herramientas JS para formularios
@@ -54,7 +60,7 @@ que se implementen.
 		- Otros componentes...
 
 - TEST Y DOCUMENTACIÓN
-	- (En proceso): Mejorar la documentación online y sacar los test.
+	- (En proceso): Mejorar la documentación online y sacar los test del proyecto.
 	- Crear una documentación web a partir de los docblocks con phpdocumentor.
 	
 - HELPERS

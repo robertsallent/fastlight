@@ -4,9 +4,9 @@
  *
  * Gestiona la operación de LogIn.
  * 
- * Última revisión: 25/09/2025
+ * Última revisión: 27/03/2026
  * 
- * @author Robert Sallent <robertsallent@gmail.com>
+ * @author Robert Sallent <robert@fastlight.org>
  * 
  * @since v1.8.4 se comprueba que el usuario no tenga ROLE_BLOCKED.
  */
@@ -18,14 +18,13 @@ class LoginController extends Controller{
     /**
      * Muestra el formulario de LogIn
      * 
-     * @return ViewResponse
+     * En caso de que el usuario ya estuviera identificado, hace una redirección hacia
+     * la operación configurada tras login en el fichero config.php
+     * 
+     * @return Response la vista de login o una redirección
      */
-    public function index():ViewResponse{
-        // solo para usuarios no identificados
-        Auth::guest();  
-        
-        // carga la vista con el fomulario de login
-        return view('login');        
+    public function index():Response{
+        return Login::guest() ? view('login') : redirect(REDIRECT_AFTER_LOGIN);
     }
     
     
@@ -40,8 +39,8 @@ class LoginController extends Controller{
         // esta operación tan solo la pueden realizar los usuarios no identificados
         Auth::guest();  
         
-        // comprueba que llega el formulario de Login
-        if(!$this->request->has('login')){
+        // comprueba que llega el formulario de Login via POST
+        if(!$this->request->post('login')){
             Session::error("No se recibió el formulario de LogIn.");
             return redirect('/Login');
         }

@@ -1,15 +1,15 @@
 <?php
 
-/** ForgotpasswordController
+/** ForgotPasswordController
  *
  * Se usa para regenerar la clave del usuario en caso de que lo solicite.
  *
- * Última revisión: 10/10/2025
+ * Última revisión: 27/03/2026
  * 
- * @author Robert Sallent <robertsallent@gmail.com>
+ * @author Robert Sallent <robert@fastlight.org>
  */   
 
-class ForgotpasswordController extends Controller{
+class ForgotPasswordController extends Controller{
     
     /** Muestra el formulario que solicita una nueva clave. */
     public function index():Response{
@@ -25,8 +25,8 @@ class ForgotpasswordController extends Controller{
      */
     public function send():Response{
         
-       // comprueba que llega el formulario 
-       if(!$this->request->has('nueva'))
+       // comprueba que llega el formulario vía POST
+       if(!$this->request->post('nueva'))
            throw new FormException("No se recibió el formulario.");
        
        // comprueba que llega el token CSRF y que es válido
@@ -43,7 +43,7 @@ class ForgotpasswordController extends Controller{
        // Si los datos no eran correctos, vuelve al formulario
        if(!$user){
             Session::error("Los datos no son válidos.");
-            return redirect('/Forgotpassword');
+            return redirect('/forgot-password');
        }
        
        // si todo fue bien, genera un nuevo password
@@ -74,8 +74,8 @@ class ForgotpasswordController extends Controller{
        }catch(SQLException $e){
            Session::error("No se pudo actualizar el password.");
         
-           if(DEBUG)
-               throw new SQLException($e->getMessage());
+           // si estamos en modo DEBUG, relanzamos la excepción hacia el Kernel
+           if(DEBUG) throw $e;
            
            return redirect("/Login");
            
@@ -83,8 +83,8 @@ class ForgotpasswordController extends Controller{
        }catch(EmailException $e){
            Session::error("No se pudo enviar el email, contacta con el administrador.");
            
-           if(DEBUG)
-               throw new EmailException($e->getMessage());
+           // si estamos en modo DEBUG, relanzamos la excepción hacia el Kernel
+           if(DEBUG) throw $e;
            
            return redirect("/Login");       
        }

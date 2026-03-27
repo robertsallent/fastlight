@@ -70,7 +70,7 @@ define('AUTOLOAD_DIRECTORIES',  [
  * -------------------------------------------------------------*/
 
 define('APP_NAME', 'FastLight Framework 2'); // Título de la aplicación.
-define('APP_TYPE', 'APP');       // Tipo de aplicación: WEB o API. 
+define('APP_TYPE', 'WEB');       // Tipo de aplicación: WEB o API. 
 
 // para las etiquetas META de autor (en el template)
 define('APP_AUTHOR', 'Robert Sallent');  

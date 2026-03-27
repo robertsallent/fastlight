@@ -4,9 +4,9 @@
  *
  * Controlador para las operaciones del administrador
  *
- * Última revisión: 09/10/2025
+ * Última revisión: 25/03/2026
  * 
- * @author Robert Sallent <robertsallent@gmail.com>
+ * @author Robert Sallent <robert@fastlight.org>
  * @since v1.9.4
  * @since v2.1.0 cambia el nombre de PanelController por AdminController
  * @since v2.1.0 se añade el método exportdb()
@@ -131,8 +131,8 @@ class AdminController extends Controller{
             @unlink($sqlFile);
             @unlink($zipFile);
             
-            if(DEBUG)
-                throw new Exception($t->getMessage());
+            // si estamos en modo DEBUG, relanzamos la excepción hacia el Kernel
+            if(DEBUG) throw $t;
             
             return redirect("/Admin/panel");
         }

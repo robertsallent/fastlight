@@ -18,7 +18,7 @@
 		
 		<main>
 			
-        		<form class="w50 bloque-centrado my2" method="POST" autocomplete="off" id="login" action="/Forgotpassword/send">
+        		<form class="w50 bloque-centrado my2" method="POST" autocomplete="off" id="login" action="/forgot-password/send">
         			
         			<?= csrf() ?>
         			
