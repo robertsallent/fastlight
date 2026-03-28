@@ -136,11 +136,11 @@
                         				<span data-label="Nivel"><?= $line->level ?></span>
                         				<span data-label="Recuento"><?= $line->idcount ?></span>
                         				<span data-label="Operaciones">
-                        						<input type="hidden" name="campo" value="level">
-                        						<input type="hidden" name="texto" value="<?= $line->level ?>">
-                        						<input type="hidden" name="campoOrden" value="date">
-                        						<input type="hidden" name="sentidoOrden" value="DESC">
-                        						<input type="submit" class="button-light" name="filtrar" value="Filtrar por clase">
+                        						<input type="hidden" name="_campo" value="level">
+                        						<input type="hidden" name="_texto" value="<?= $line->level ?>">
+                        						<input type="hidden" name="_campoOrden" value="date">
+                        						<input type="hidden" name="_sentidoOrden" value="DESC">
+                        						<input type="submit" class="button-light" name="_filtrar" value="Filtrar por clase">
                         					
                         				</span>
                     				</form>
@@ -159,11 +159,11 @@
                         				<span data-label="Tipo"><?= $line->type ?></span>
                         				<span data-label="Recuento"><?= $line->idcount ?></span>
                         				<span data-label="Operaciones">
-                       						<input type="hidden" name="campo" value="type">
-                    						<input type="hidden" name="texto" value="<?= $line->type ?>">
-                    						<input type="hidden" name="campoOrden" value="date">
-                    						<input type="hidden" name="sentidoOrden" value="DESC">
-                    						<input type="submit" class="button-light" name="filtrar" value="Filtrar por tipo">
+                       						<input type="hidden" name="_campo" value="type">
+                    						<input type="hidden" name="_texto" value="<?= $line->type ?>">
+                    						<input type="hidden" name="_campoOrden" value="date">
+                    						<input type="hidden" name="_sentidoOrden" value="DESC">
+                    						<input type="submit" class="button-light" name="_filtrar" value="Filtrar por tipo">
                         				</span>
                         			</form>   
                         			<?php } ?>

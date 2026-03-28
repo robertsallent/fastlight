@@ -6,6 +6,9 @@
                 "Esta aplicación se encuentra en MODO MANTENIMIENTO"
         ) ?>           
         <?= $template->css() ?>
+        
+        <!-- JS -->
+        <script src="/js/Modal.js"></script>
 	</head>
 	<body>
 		<?= $template->login() ?>
@@ -17,8 +20,8 @@
 		<main>
     		<h2>Modo mantenimiento</h2>
     		
-    		<div class="flex-container">
-        		<section class='p2 m2 flex2'>
+    		<div class="flex-container gap2 flex-wrap-reverse">
+        		<section class='p2 my2 flex2'>
                     <h3>¡Estamos trabajando para ti!</h3>
                     
                     <p>En este momento nuestro sitio web se encuentra en mantenimiento programado. 
@@ -30,6 +33,13 @@
                     
                     <p class="bold">El equipo de FastLight (Robert Sallent)</p>
     			</section>
+    			
+    			<figure class="flex1 card p2 my2">
+        			<img src="/images/template/obras.jpg" class="fit with-modal" alt="En obras"
+        			     data-description="Estamos en obras, volveremos pronto"
+        			     data-caption="En obras">
+        			<figcaption>Estamos en obras, paciencia.</figcaption>
+        		</figure>
 			</div>
     		
     	</main>
