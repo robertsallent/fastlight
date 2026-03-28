@@ -104,30 +104,6 @@ define('DEFAULT_METHOD', 'index');
 define('EMPTY_STRINGS_TO_NULL', true);
 
 
-
-/* -------------------------------------------------------------
- * MIDDLEWARES
- * -------------------------------------------------------------*/
-
-// Listado de middlewares a aplicar a la Request y filtros antes de pasar la petición a los controladores.
-// Se pueden comentar o descomentar los existentes o añadir nuevos a la carpeta app/middleware
-// El orden importa, se ejecutan de arriba a abajo
-define('MIDDLEWARES', [
-    'Mantenimiento' => Maintenance::class, 
-]);
-
-// CONFIGURACIÓN DE LOS MIDDLEWARES
-
-// Activa o desactiva el modo mantenimiento (app/middleware/Maintenance.php)
-define('MAINTENANCE_MODE', false);
-
-// Password para saltarse el modo mantenimiento y poder ver el resultado durante la sesión.
-// Se usa el parámetro passkey vía GET:
-//  EJEMPLO: https://fastlight.org/Example/modal?passkey=1234
-define('MAINTENANCE_PASSKEY', '1234');
-
-
-
 /* ---------------------------------------------------------------------------
  * EMAIL
  * ---------------------------------------------------------------------------*/

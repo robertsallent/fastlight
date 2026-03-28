@@ -44,7 +44,5 @@ abstract class Kernel{
     }
         
     /** Método de arranque que deben implementar obligatoriamente los núcleos App y Api. */
-    public abstract function boot():Response; 
-    
+    public abstract function boot():Response;    
 }
-

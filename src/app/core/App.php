@@ -72,9 +72,11 @@ class App extends Kernel{
             if(!is_callable([$controllerInstance, $method]))
                 throw new NotFoundException("La operación indicada no existe.");
             
-            
+            // recupera los middlewares a aplicar
+            $middlewares = defined('MIDDLEWARES') ? MIDDLEWARES : [];
+                
             // Pipeline para la ejecución de los middlewares
-            return $this->runPipeline($request, MIDDLEWARES, 
+            return $this->runPipeline($request, $middlewares, 
                 function ($request) use ($controllerInstance, $method, $url) {
                     
                     // Tras sacar controlador y método, lo que queda en el array $url son los parámetros.

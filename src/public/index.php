@@ -29,8 +29,9 @@
  * carga de ficheros necesarios y comprobación de versión de PHP
  */
 
-// carga el fichero de configuración
-require '../config/config.php';         
+// carga los ficheros de configuración
+require  '../config/config.php';        // obligatorio
+@include '../config/middleware.php';
 
 // si no se deben mostrar errores sobre la web, asegura que estén desactivados
 // si está configurado a true (en config.php), los mostrará o no dependiendo de la configuración del servidor 
