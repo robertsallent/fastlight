@@ -4,11 +4,11 @@
 	FICHERO BASE PARA LOS ESTILOS DE FASTLIGHT
 	
 	Autor: Robert Sallent
-	Última revisión: 09/03/2026
+	Última revisión: 27/03/2026
 
 	Estructura del documento CSS:
 	- Colores
-	- Regla para todos los elementos
+	- Reglas para todos los elementos
 	- Clases para los elementos HTML (columnas, anchos genéricos, textos, elementos ocultos...)
 	- Reglas para los elementos básicos HTML
 	- Grupos de reglas para:
@@ -42,68 +42,70 @@
 /* =========================  VARIABLES ======================= */
 
 :root {
-  --primary-bg-color: rgb(60, 100, 160);
-  --primary-font-color: rgb(255, 255, 255);
-  --primary-soft-color: rgb(120, 160, 220);
+  --primary-bg-color:		 rgb(85, 119, 153);
+  --primary-font-color:		 rgb(255, 255, 255);
+  --primary-soft-color:		 rgb(120, 160, 220);
   
-  --secondary-bg-color: rgb(60, 160, 100);
-  --secondary-font-color: rgb(255, 255, 255);
-  --secondary-soft-color: rgb(100, 200, 140);
-  
-  --alternative-bg-color: rgb(160, 180, 220);
+  --secondary-bg-color:		 rgb(60, 160, 100);
+  --secondary-font-color:	 rgb(255, 255, 255);
+  --secondary-soft-color:	 rgb(100, 200, 140);
 
-  --shadow-color: rgba(100, 100, 100, 0.25);
-  --font-shadow-color: rgba(0, 0, 0, 0.3);
+  --bg-color:				 white;  
+  --alternative-bg-color:	 rgb(160, 180, 220);
+
+  --shadow-color:			 rgba(100, 100, 100, 0.25);
+  --font-shadow-color:		 rgba(0, 0, 0, 0.3);
   
-  --bg-color: white;
-  --font-color: rgb(100, 100, 120);
-  --border-color:  rgb(200, 200, 200);
-  --border-color-light:  rgb(230, 230, 230);
+  --font-color:				 rgb(100, 100, 120);
+  --border-color: 			 rgb(200, 200, 200);
+  --border-color-light: 	 rgb(230, 230, 230);
   
-  --a-color: rgb(60, 100, 180);
+  --a-color:				 rgb(60, 100, 180);
   
-  --main-bg-color: rgb(240, 240, 243); 
+  --main-bg-color:			 rgb(240, 240, 243); 
   
-  --th-bg-color: rgb(60, 100, 160);
-  --th-font-color: rgb(255, 255, 255);
+  --th-bg-color:			 rgb(60, 100, 160);
+  --th-font-color:			 rgb(255, 255, 255);
   
-  --td-odd-bg-color: rgb(255, 255, 255);
-  --td-even-bg-color: rgb(245, 245, 250);
+  --td-odd-bg-color:		 rgb(255, 255, 255);
+  --td-even-bg-color:		 rgb(245, 245, 250);
     
-  --tfoot-bg-color: rgb(160, 180, 220);
-  --tfoot-font-color: rgb(255, 255, 255);
+  --tfoot-bg-color:			 rgb(160, 180, 220);
+  --tfoot-font-color:		 rgb(255, 255, 255);
     
-  --form-bg-color: rgb(255, 255, 255);
-  --input-bg-color: rgb(250, 250, 250);
+  --form-bg-color:			 rgb(255, 255, 255);
+  --input-bg-color:			 rgb(250, 250, 250);
   
-  --footer-bg-color: rgba(255, 255, 255, 0.85);
-  --modal-bg-color: rgba(120, 120, 120, 0.85);
+  --footer-bg-color:		 rgba(255, 255, 255, 0.85);
+  --modal-bg-color:			 rgba(120, 120, 120, 0.85);
     
-  --success-bg-color: rgb(40, 167, 69);
-  --success-font-color: rgb(255,255,255);
-  --success-btn-color: rgb(60, 180, 60);
+  --success-bg-color:		 rgb(40, 167, 69);
+  --success-font-color:		 rgb(255,255,255);
+  --success-btn-color:		 rgb(60, 180, 60);
   --success-btn-hover-color: rgb(110, 250, 110);
   
-  --warning-bg-color: rgb(255, 211, 0);
-  --warning-font-color: rgb(34, 34, 34);
-  --warning-btn-color: rgb(250, 200, 50);
+  --warning-bg-color:		 rgb(255, 211, 0);
+  --warning-font-color:		 rgb(34, 34, 34);
+  --warning-btn-color:		 rgb(250, 200, 50);
   --warning-btn-hover-color: rgb(200, 200, 110);
   
   
-  --danger-bg-color: rgb(217, 0, 0);
-  --danger-font-color: rgb(255, 255, 255);
-  --danger-btn-color: rgb(180, 60, 60);
-  --danger-btn-hover-color: rgb(250, 120, 120); 
+  --danger-bg-color:		 rgb(217, 0, 0);
+  --danger-font-color:		 rgb(255, 255, 255);
+  --danger-btn-color:		 rgb(180, 60, 60);
+  --danger-btn-hover-color:	 rgb(250, 120, 120); 
   
-  --code-color: rgb(40, 70, 180);
+  --code-color:				 rgb(40, 70, 180);
   
-  --selected-bg-color: rgb(230, 230, 240);
+  --selected-bg-color:		 rgb(230, 230, 240);
+  
   
   --min-width: 280px; 
 }
 
 
 /* ===================  ELEMENTOS IMPRIMIBLES U OCULTOS ====================== */
+
 .print{ display: none !important; }
 .phone{ display: none !important; }
 
@@ -1174,7 +1176,7 @@ body{
 #main-menu{
 	position: relative;
 	display: flex;
-	background-color: #DDDC;
+	background-color: rgba(85, 119, 153, 0.7);
 }
 
 #burger {

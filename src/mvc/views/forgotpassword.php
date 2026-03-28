@@ -18,7 +18,7 @@
 		
 		<main>
 			
-        		<form class="w50 bloque-centrado my2" method="POST" autocomplete="off" id="login" action="/forgot-password/send">
+        		<form class="w50 phone100 bloque-centrado my2" method="POST" autocomplete="off" id="login" action="/forgot-password/send">
         			
         			<?= csrf() ?>
         			
@@ -35,15 +35,15 @@
         			</div>
         			
         			
-        			<div class="centered m2">
-        				<input type="submit" class="button" name="nueva" value="Nueva clave">
+        			<div class="centered my3">
+        				<input type="submit" class="button phone75" name="nueva" value="Nueva clave">
         			</div>  
         			
-        			<p class="justificado info">Recuerda que deberás cambiarla lo antes posible desde tu espacio personal.</p>
+        			<p class="caution">Debes cambiarla lo antes posible desde tu espacio personal.</p>
     		
     		
-        			<div class="centered">
-        				<a class="button-light" href="/Login">Volver a Login</a>
+        			<div class="right phone-centered">
+        				<a class="button-light phone75" href="/Login">Volver a Login</a>
         			</div>      			
         		</form>
         		

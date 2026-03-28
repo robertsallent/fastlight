@@ -35,7 +35,7 @@
  * @since v1.8.3 eliminada la constante ADMIN_ROLE, no aportaba nada y complicaba la comprensión del código
  * @since v1.8.4 añadida la constante BLOCKED_MESSAGE con el mensaje a mostrar cuando haga login un usuario bloqueado
  * @since v1.8.4 añadida la constante BLOCKED_REDIRECT para configurar la redirección cuando haga login un usuario bloqueado
- * @since v1.9.8 añadida la consttante TEST_ENABLED, que permite habilitar o deshabilitar los test.
+ * @since v1.9.8 añadida la constante TEST_ENABLED, que permite habilitar o deshabilitar los test.
  * @since v1.9.10 añadida la constante LANGUAGE_CODE, para indicar el código de idioma de la aplicación.
  * @since v2.0.2 añadida la constante DISPLAY_ERRORS, que permite mostrar errores en pantalla (en producción debe estar a false).
  * @since v2.0.6 añadidas nuevas directivas de configuración de correo
@@ -43,6 +43,7 @@
  * @since v2.1.1 añadida la constante APP_PASSWORD para definir un password para las herramientas del framework que lo necesiten
  * @since v2.2.0 añadidas HTML_CHARSET, APP_AUTHOR, APP_URL, APP_LOGO, LOGIN_FIELD y ALLOW_OTHER_LOGIN_FIELD
  * @since v2.4.3 añadida APP_COLOR, que permite definir el color del tema para mejor integración de aspecto en el teléfono móvil.
+ * @since v2.6.0 añadidos MIDDLEWARES y su configuración
  */
    
 
@@ -55,6 +56,7 @@
 define('AUTOLOAD_DIRECTORIES',  [
     '../app/core',          // core
     '../app/http',          // peticiones y respuestas
+    '../app/middleware',    // middleware
     '../app/libraries',     // librerías
     '../mvc/controllers',   // controladores
     '../mvc/models',        // modelos
@@ -89,7 +91,7 @@ define('APP_PASSWORD', '1234');
 define('HTML_CHARSET', 'UTF-8'); // codificación de caracteres para el HTML (para la etiqueta meta charset, en el template)
 define('LANGUAGE_CODE', 'es');   // código de idioma (para poner como atributo del elemento html en las vistas)
 
-define('APP_VERSION', '2.5.0');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '2.6.0');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);    // muestra la versión de la app en el footer (templates/Base.php)
 
 // Controlador y método por defecto (solamente para APP_TYPE WEB).
@@ -100,6 +102,29 @@ define('DEFAULT_METHOD', 'index');
 // se aplica al recuperar los datos de la petición mediante el objeto Request,
 // tanto si llegan por GET, POST, COOKIE...
 define('EMPTY_STRINGS_TO_NULL', true);
+
+
+
+/* -------------------------------------------------------------
+ * MIDDLEWARES
+ * -------------------------------------------------------------*/
+
+// Listado de middlewares a aplicar a la Request y filtros antes de pasar la petición a los controladores.
+// Se pueden comentar o descomentar los existentes o añadir nuevos a la carpeta app/middleware
+// El orden importa, se ejecutan de arriba a abajo
+define('MIDDLEWARES', [
+    'Mantenimiento' => Maintenance::class, 
+]);
+
+// CONFIGURACIÓN DE LOS MIDDLEWARES
+
+// Activa o desactiva el modo mantenimiento (app/middleware/Maintenance.php)
+define('MAINTENANCE_MODE', false);
+
+// Password para saltarse el modo mantenimiento y poder ver el resultado durante la sesión.
+// Se usa el parámetro passkey vía GET:
+//  EJEMPLO: https://fastlight.org/Example/modal?passkey=1234
+define('MAINTENANCE_PASSKEY', '1234');
 
 
 

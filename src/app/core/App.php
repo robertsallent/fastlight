@@ -4,7 +4,7 @@
  *
  * Núcleo para el desarrollo de aplicaciones web en FastLight.
  *
- * Última revisión: 24/03/2026
+ * Última revisión: 28/03/2026
  * 
  * @author Robert Sallent <robert@fastlight.org>
  * @since v0.1.0
@@ -12,6 +12,7 @@
  * @since v1.5.0 el método boot() retorna un objeto de tipo Response.
  * @since v1.5.2 el método boot() usa el helper request() para mejor tolerancia a los cambios.
  * @since v2.5.0 se aceptan URLs en kebab-case, convirtiendo a camelCase.
+ * @since v2.6.0 se añade el pipeline para la ejecución de los middleware.
  */
  
 class App extends Kernel{
@@ -28,10 +29,13 @@ class App extends Kernel{
      */
     public function boot():Response{
         try{
+            $request = request();
             
-            // Evalua la URL de la petición y la convierte en un array
+            // toma la operación que llega por parámetro via Query String
+            $url = $request->get('url') ?? NULL;
+                      
+            // Descompone la operación y la convierte en un array
             // por ejemplo: /libro/show/3 se convierte en ['libro','show','3']
-            $url = request()->get('url') ?? NULL;
             $url = $url ? explode('/', rtrim($url, '/')) : [];
             
             
@@ -68,9 +72,17 @@ class App extends Kernel{
             if(!is_callable([$controllerInstance, $method]))
                 throw new NotFoundException("La operación indicada no existe.");
             
-            // Tras sacar controlador y método, lo que queda en el array $url son los parámetros.
-            // Invoca el método del controlador pasándole los parámetros.
-            return $controllerInstance->$method(...$url);
+            
+            // Pipeline para la ejecución de los middlewares
+            return $this->runPipeline($request, MIDDLEWARES, 
+                function ($request) use ($controllerInstance, $method, $url) {
+                    
+                    // Tras sacar controlador y método, lo que queda en el array $url son los parámetros.
+                    // Invoca el método del controlador pasándole los parámetros.
+                    return $controllerInstance->$method(...$url);
+                });
+                
+
 
         
         // EVALUACIÓN DE ERROES Y EXCEPCIONES 
