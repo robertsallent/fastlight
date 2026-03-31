@@ -117,9 +117,7 @@ class DebugInformation{
             $mensaje .= "<p><span class='label'>Fichero</span> <b>".$this->throwable->getFile()."</b></p>";
             $mensaje .= "<p><span class='label'>Línea</span> <b>".$this->throwable->getLine()."</b></p>";
             $mensaje .= "<p><span class='label'>Error Trace</span></p>";
-            $mensaje .= "<p>".arrayToString($this->throwable->getTrace(), true, true, ", ").".</p>";
-            
-           
+            $mensaje .= "<p>".$this->throwable->getTraceAsString().".</p>";
             
             $mensaje .= "</section>";
         }

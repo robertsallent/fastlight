@@ -9,6 +9,7 @@
         
         <!-- JS -->
         <script src="/js/Modal.js"></script>
+        <script src="/js/TextReader.js"></script>
 	</head>
 	<body>
 		<?= $template->login() ?>
@@ -21,13 +22,13 @@
     		<h2>Modo mantenimiento</h2>
     		
     		<div class="flex-container gap2 flex-wrap-reverse">
-        		<section class='p2 my2 flex2'>
+        		<section class='readable p2 my2 flex2'>
                     <h3>¡Estamos trabajando para ti!</h3>
                     
                     <p>En este momento nuestro sitio web se encuentra en mantenimiento programado. 
                     Estamos realizando mejoras para ofrecerte una mejor experiencia.</p>
                     
-                    <p>Por favor, vuelve a visitarnos más tarde.</p>
+                    <p class="caution">Vuelve a visitarnos más tarde.</p>
                     
                     <p>Gracias por tu paciencia y comprensión.</p>
                     

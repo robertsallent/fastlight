@@ -20,8 +20,9 @@ Como todo framework, dispone de herramientas para facilitar las tareas necesaria
 - Integración con Docker.
 - Patrón de diseño MVC con kernels distintos para aplicaciones web y apis restful. 
 - Dispatcher con mapeo directo de URL a controlador y metodo.
-- ORM con Query builder y clase base para los modelos, que hace uso de PDO e implementa "magia".
+- ORM con Query builder y clase base para los modelos, que hace uso de PDO con sentencias preparadas y "magia".
 - Autoload mediante mapa de clases.
+- Middleware.
 - Gestión integrada de errores y herramientas de depuración.
 - Registo en ficheros (log).
 - Motor de plantillas con templates intercambiables.
@@ -55,7 +56,6 @@ Como todo framework, dispone de herramientas para facilitar las tareas necesaria
 - API Keys.
 - Router.
 - Configuración de entorno .env.
-- Middleware.
 - ...
     				
   

@@ -210,7 +210,7 @@ class QueryBuilder{
      * @param string $table tabla a usar
      * @return QueryBuilder La instancia actual para encadenamiento
      */
-    public function setTable(sring $strable): QueryBuilder{
+    public function setTable(string $table): QueryBuilder{
         $this->table = $table;
         return $this;
     }
