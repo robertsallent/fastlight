@@ -21,6 +21,7 @@
  * @since v1.4.5 se puede comprobar que la versión de PHP sea la adecuada
  * @since v1.7.6 se gestiona el nombre y duración de la sesión
  * @since v2.0.7 se añaden parámetros de seguridad a la cookie de sesión
+ * @since v2.6.0 se incorpora la carga del fichero de configuración del middleware
  */
 
 

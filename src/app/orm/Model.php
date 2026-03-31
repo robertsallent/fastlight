@@ -171,7 +171,7 @@ abstract class Model{
         
         // si no hay ID, estamos creando una nueva entidad
         // si hay id, pretendemos hacer una actualización, así que recuperaremos el objeto
-        $entity = $id ? new $class() : $class::findOrFail($id);        
+        $entity = $id ? $class::findOrFail($id) : new $class();        
 
         // mapea los datos del array asociativo en las propiedades del objeto
         foreach($data as $property => $value)
