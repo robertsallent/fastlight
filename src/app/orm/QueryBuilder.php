@@ -10,7 +10,7 @@
  * los métodos de la clase DB.
  * 
  * DEPENDENCIAS: helpers.php
- * Última modificación: 12/03/2026
+ * Última modificación: 09/04/2026
  * 
  * @author Robert Sallent <robert@fastlight.org>
  * @since v2.4.0
@@ -246,7 +246,7 @@ class QueryBuilder{
     */
     public function field(string $field, $value = null): QueryBuilder{
         $this->fields[] = $field;
-        if($value !== null && ($this->type === self::INSERT || $this->type === self::UPDATE || $this->type === self::CALL)){     
+        if($this->type === self::INSERT || $this->type === self::UPDATE || $this->type === self::CALL){     
             $this->values[] = $value;
         }
         return $this;
@@ -675,7 +675,7 @@ class QueryBuilder{
      */
     public function store(?PDO $pdo = null): int{
         $this->prepare($pdo ?? $this->pdo)->executeWithBindings();
-        return $this->pdo->lastInsertId();
+        return $pdo ? $pdo->lastInsertId() : $this->pdo->lastInsertId();
     }
     
     
@@ -782,6 +782,6 @@ class QueryBuilder{
      * @return string La consulta SQL generada
     */
     public function __toString(): string{
-        return $this->getSQL();
+        return "SQL: ".$this->getSQL()."\nValues: ".arrayToString($this->values);
     }
 }

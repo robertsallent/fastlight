@@ -33,8 +33,6 @@
  * @since v1.7.6 añadidas SESSION_NAME, SESSION_TIME y SESSION_COOKIE_EXPIRE
  * @since v1.8.3 añadida la posibilidad de indicar la carpeta para las fotos de perfil de usuario y su imagen por defecto.
  * @since v1.8.3 eliminada la constante ADMIN_ROLE, no aportaba nada y complicaba la comprensión del código
- * @since v1.8.4 añadida la constante BLOCKED_MESSAGE con el mensaje a mostrar cuando haga login un usuario bloqueado
- * @since v1.8.4 añadida la constante BLOCKED_REDIRECT para configurar la redirección cuando haga login un usuario bloqueado
  * @since v1.9.8 añadida la constante TEST_ENABLED, que permite habilitar o deshabilitar los test.
  * @since v1.9.10 añadida la constante LANGUAGE_CODE, para indicar el código de idioma de la aplicación.
  * @since v2.0.2 añadida la constante DISPLAY_ERRORS, que permite mostrar errores en pantalla (en producción debe estar a false).
@@ -91,7 +89,7 @@ define('APP_PASSWORD', '1234');
 define('HTML_CHARSET', 'UTF-8'); // codificación de caracteres para el HTML (para la etiqueta meta charset, en el template)
 define('LANGUAGE_CODE', 'es');   // código de idioma (para poner como atributo del elemento html en las vistas)
 
-define('APP_VERSION', '2.6.0');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '2.7.0');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);    // muestra la versión de la app en el footer (templates/Base.php)
 
 // Controlador y método por defecto (solamente para APP_TYPE WEB).
@@ -194,15 +192,6 @@ define('TEST_ROLES', ['ROLE_ADMIN', 'ROLE_TEST']);
 
 // roles que tienen autorización para ver las estadísticas de visitas
 define('STATS_ROLES', ['ROLE_ADMIN', 'ROLE_TEST']);
-
-// redirección tras el intento de Login de un usuario bloqueado
-// será '/Contacto' una vez implementado el formulario de contacto (en clase)
-define('BLOCKED_REDIRECT', '/');
-
-// mensaje que se mostrará al usuario bloqueado cuando intenta hacer Login
-define('BLOCKED_MESSAGE', "Has sido bloqueado por un administrador, si consideras
-                           que es un error puedes contactar mediante el formulario de contacto.");
-
 
 // carpeta para las imágenes de los usuarios
 define('USER_IMAGE_FOLDER','/images/users');

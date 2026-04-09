@@ -25,13 +25,15 @@ class CSV{
      * @return string el texto con los datos codificados en CSV.
      */
     public static function encode(
-        array $datos, 
+        array|object $datos, 
         string $fieldSeparator   = ",",
         string $entitySeparator   = "\n",
         bool $columnHeaders = true
     ):string{
         
         $csv = "";
+        
+        if(!is_array($datos)) $datos = [$datos];
         
         // si queremos generar la fila de encabezados (y hay datos)
         if($columnHeaders && sizeof($datos)){
@@ -42,6 +44,7 @@ class CSV{
             $csv .= $entitySeparator;               // añade el separador de entidades
         }
         
+              
         // para cada entidad a añadir al CSV...
         foreach($datos as $entidad){
 

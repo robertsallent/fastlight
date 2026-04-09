@@ -6,11 +6,12 @@
   * Implementa las operaciones de login/logout y también permite hacer comprobaciones
   * sobre los distintos roles de que dispone el usuario identificado. 
   *
-  * Última revisión: 14/10/2025
+  * Última revisión: 31/03/2026
   * 
-  * @author Robert Sallent <robertsallent@gmail.com>
+  * @author Robert Sallent <robert@fastlight.org>
   * 
   * @since v2.2.0 se trabaja directamente con objetos User
+  * @since v2.6.5 método unset() para eliminar el usuario de la sesión pero no el resto de datos
   */
 
 
@@ -64,6 +65,19 @@ class Login{
         
         // guarda en sesión el usuario para que sea recordado (hace login)
 	    Session::set('user', $user);
+	}
+	
+	
+	
+	/**
+	 * Elimina el usuario de la sesión, pero no el resto de datos.
+	 *
+	 * Se usa desde el middleware BlockedUser, para echar al usuario.
+	 *
+	 */
+	public static function unset(){
+	    self::$activeUser = NULL;
+	    Session::forget('user');
 	}
 	
 	

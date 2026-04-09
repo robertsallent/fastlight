@@ -42,7 +42,7 @@ class XML{
     /**
      * Convierte listas de elementos a XML.
      * 
-     * @param array $lista lista de elementos a convertir.
+     * @param array $data lista de elementos a convertir.
      * @param string $root nombre para el elemento raíz.
      * @param string $name nombre para cada uno de los elementos contenidos directamente dentro del elemento raíz.
      * @param string $namespace espacio de nombres a usar.
@@ -50,10 +50,10 @@ class XML{
      * @return string el XML con el resultado.
      */
     public static function encode(
-        array  $list     = [],
+        array|object  $data     = [],
         string $root      = 'root',
         string $name      = null,
-        string $namespace = "https://xml.robertsallent.com"       
+        string $namespace = "https://fastlight.org"       
     ):string{
            
         // crea el documento XML con las opciones adecuadas
@@ -63,8 +63,10 @@ class XML{
      
         $raiz = $xml->createElement($root); // crea el elemento raíz
         $raiz->setAttribute('xmlns', $namespace); // pone el namespace
+        
+        if(!is_array($data)) $data = [$data];
 
-        foreach($list as $objeto){ // para cada objeto de la lista
+        foreach($data as $objeto){ // para cada objeto de la lista
             // crea un nuevo elemento con el nombre indicado
             // si no estaba indicado, usará el nombre de la clase en minúscula
             $nombre = $name ?? strtolower(get_class($objeto));

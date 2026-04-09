@@ -5,9 +5,9 @@
  *
  *   Herramientas para trabajar con JSON desde PHP.
  *
- *   Última mofidicación: 05/04/2024
+ *   Última mofidicación: 08/04/2026
  *
- *   @author Robert Sallent <robertsallent@gmail.com>
+ *   @author Robert Sallent <robert@fastlight.org>
  */
 
 class JSON{
@@ -22,12 +22,11 @@ class JSON{
      * @return string el texto con los datos codificados en JSON.
      */
     public static function encode(
-        $datos, 
+        mixed $datos, 
         bool $exceptions = true, 
         bool $pretty = false 
     ):string{
         
-        // FIXME: he quitado el JSON_NUMERIC_CHECK por problemas con los códigos postales, hay que comprobar si funciona bien todo lo demás
         return json_encode(
             $datos, 
             JSON_UNESCAPED_UNICODE |  JSON_UNESCAPED_SLASHES | ($exceptions ? JSON_THROW_ON_ERROR : 0) |  ($pretty ? JSON_PRETTY_PRINT : 0)

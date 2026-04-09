@@ -13,7 +13,7 @@
  * protected static array $jsonFields: para indicar los campos JSON que se deben 
  * convertir automáticamente en arrays PHP.
  *
- * Última revisión 31/03/2026
+ * Última revisión 09/04/2026
  * 
  * @author Robert Sallent <robert@fastlight.org>
  * @since v0.1.0
@@ -27,6 +27,7 @@
  * @since v1.8.0 se puede usar el método create() tanto para crear como para actualizar
  * @since v1.8.7 se implementa el método validate() de forma genérica
  * @since v2.2.2 se añade los métodos getNext() y getPrevious()
+ * @since v2.6.5 se añaden los métodos toXML(), toJSON(), toCSV(), allToJSON(), filteredToJSON()
  */
 
 #[\AllowDynamicProperties]
@@ -182,6 +183,7 @@ abstract class Model{
             
         // una vez tiene el objeto preparado, lo guarda o lo actualiza en la BDD  
         // si hay ID hará una actualización, sino un guardado
+        
         $id ? $entity->update() : $entity->save();
                 
         return $entity;
@@ -582,40 +584,25 @@ abstract class Model{
      * @return int el autonumérico asignado en la base de datos o 0 si la tabla no dispone de autonumérico.
      */
     public function save():int{
-        
-        // antes de guardar, hay que validar (si el modelo tiene el método validate())
+               
+        // Hay que validar (si el modelo tiene el método validate())
         if(is_callable([$this, 'validate']))
             if($errors = $this->validate())
                 throw new ValidationException(arrayToString($errors, false, false));  
         
-        // FIXME: hacer esto con el QueryBuilder
-        $tabla = self::getTable(); // recupera el nombre de la tabla
         
-        // prepara la consulta de inserción (esta es más compleja)
-        $consulta="INSERT INTO $tabla (";
+        // recupera el nombre de la tabla
+        $table = self::getTable(); 
         
-        // nombres de los campos
-        foreach($this as $propiedad=>$valor)
-            $consulta .= "$propiedad, ";
+        // crea la istancia del QueryBuilder para hacer el insert
+        $qb = QueryBuilder::insert($table, DB::get());
+         
+        // prepara cada uno de los campos a insertar
+        foreach(get_object_vars($this) as $propiedad=>$valor)
+            $qb->field($propiedad, is_array($valor) | is_object($valor) ? json_encode($valor) : $valor);
             
-        $consulta = rtrim($consulta, ', '); // quita la última coma
-        $consulta .= ") VALUES (";
-        
-        // valores
-        foreach($this as $valor)
-            // pone comillas en el SQL solo para los string
-            // también controla los valores nulos
-            switch(gettype($valor)){
-                case "string" : $consulta .= "'$valor', "; break;
-                case "NULL"   : $consulta .= "NULL, "; break;
-                case "array"  : $consulta .= "'".json_encode($valor)."', "; break;  
-                default       : $consulta .= "$valor, ";
-        }
-        
-        $consulta = rtrim($consulta, ', '); // quita la última coma
-        $consulta .= ")";
-        
-        $this->id = DB::insert($consulta); // guarda el nuevo objeto
+        // ejecuta la consulta de insert
+        $this->id = $qb->store(); // guarda el nuevo objeto
         
         // retorna el id del nuevo objeto
         return $this->id;
@@ -628,34 +615,29 @@ abstract class Model{
      * @return int el número de filas afectadas.
      */
     public function update():int{
-        
-        // antes de guardar, hay que validar (si el modelo tiene el método validate())
+           
+        // Hay que validar (si el modelo tiene el método validate())
         if(is_callable([$this, 'validate']))
             if($errors = $this->validate())
                 throw new ValidationException(arrayToString($errors, false, false));
         
-        // FIXME: hacer esto con el QueryBuilder
-        $tabla = self::getTable(); // recupera el nombre de la tabla
+        // recupera el nombre de la tabla
+        $table = self::getTable(); 
         
-        unset($this->updated_at);  // para que se actualice automáticamente el "updated_at" en la BDD, no le podemos enviar 'null'.
+        // crea la istancia del QueryBuilder para hacer el update
+        $qb = QueryBuilder::update($table, DB::get());
         
-        // prepara la consulta
-        $consulta="UPDATE $tabla SET ";
+        // desinstancia el updated_at para que se actualice automáticamente en la BDD, no le podemos enviar 'null'.
+        unset($this->updated_at); 
         
-        // pone comillas en el SQL solo para los string
-        foreach($this as $propiedad=>$valor)
-            switch(gettype($valor)){
-                case "string" : $consulta .= "$propiedad='$valor', "; break;
-                case "NULL"   : $consulta .= "$propiedad=NULL, "; break;
-                case "array"  : $consulta .= "$propiedad='".json_encode($valor)."', "; break;  
-                default       : $consulta .= "$propiedad=$valor, ";
-        }
+        // prepara cada uno de los campos a actualizar
+        foreach(get_object_vars($this) as $propiedad=>$valor)
+            $qb->field($propiedad, is_array($valor) | is_object($valor) ? json_encode($valor) : $valor);
         
-        $consulta = rtrim($consulta, ', '); // quita la última coma
-        $consulta .= " WHERE id=$this->id";
-
+        $qb->where('id = ?', $this->id);
+        
         // lanza la consulta y retorna el número de filas afectadas
-        return DB::update($consulta);
+        return $qb->edit();
     }
     
         
@@ -758,11 +740,14 @@ abstract class Model{
      * Sanea las propiedades de tipo string de un modelo
      * 
      * @param bool $entities convertir entidades HTML.
+     * 
      * @return mixed el modelo con los strings saneados.
      */
-    public function saneate(bool $entities = true):mixed{
+    public function saneate(
+        bool $entities = true
+    ):mixed{
         
-        foreach($this as $propiedad => $valor)
+        foreach(get_object_vars($this) as $propiedad => $valor)
             if(gettype($valor) == 'string')
                 $this->$propiedad = DB::escape($valor, $entities);
            
@@ -1004,8 +989,103 @@ abstract class Model{
     
     
     
+    /* --------------------------------------------------------------------------------------
+     * MÉTODOS PARA EXPORTACIÓN DE DATOS
+     * --------------------------------------------------------------------------------------  */
+        
     /**
-     * Método __toString()
+     * Convierte la entidad actual a JSON
+     * 
+     * Tiene dependencias de la librería JSON
+     * 
+     * @param bool $exceptions si debe lanzar excepciones ante un error (JsonException)
+     * @param bool $pretty si debe añadir saltos de línea y tabuladores para que se vea bien
+     * 
+     * @return string cadena de texto con la entidad pasada a JSON
+     */
+    public function toJSON(
+        bool $exceptions = true,
+        bool $pretty = false 
+    ):string{
+        return JSON::encode($this);
+    }
+    
+    
+    /**
+     * Convierte todas las entidades de este tipo desde la BDD a JSON
+     * 
+     * @param bool $exceptions
+     * @param bool $pretty
+     * @return string
+     */
+    public static function allToJSON(
+        bool $exceptions = true,
+        bool $pretty = false
+    ):string{
+        return JSON::encode(get_called_class()::all());
+    }
+    
+    
+    
+    /**
+     * Convierte todas las entidades de este tipo, que cumplan el filtro, desde la BDD a JSON
+     
+     * @param Filter $filter filtro a aplicar
+     * @param bool $exceptions
+     * @param bool $pretty
+     * @return string
+     */
+    public static function filteredToJSON(
+        Filter $filter,
+        bool $exceptions = true,
+        bool $pretty     = false
+    ):string{
+        return JSON::encode(get_called_class()::filter($filter));
+    }
+    
+    
+    
+    /**
+     * Convierte a XML la entidad actual
+     * 
+     * Tiene dependencias con la librería XML
+     * 
+     * @param string $root etiqueta para el elemento raíz
+     * @param string $name etiqueta para el elemento actual
+     * @param string $namespace espacio de nombres
+     * 
+     * @return string una cadena de texto con la entidad pasada a XML
+     */
+    public function toXML(
+        string $root      = 'root',
+        string $name      = null,
+        string $namespace = "https://fastlight.org"
+    ):string{
+        return XML::encode($this, $root, $name, $namespace);
+    }
+    
+        
+    
+   /**
+    * Convierte la entidad a CSV
+    * 
+    * Tiene dependencias con la librería CSV
+    * 
+    * @param string $fieldSeparator separador de campos
+    * @param bool $columnHeaders si se desean cabeceras o no
+    * @return string
+    */
+    public function toCSV(
+        string $fieldSeparator   = ",",
+        bool $columnHeaders = true
+    ):string{
+        return CSV::encode($this, $fieldSeparator, "\n", $columnHeaders);
+    }
+    
+    
+    
+    /**
+     * Convierte la entidad a cadena de texto
      * 
      * @return string
      */

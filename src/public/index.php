@@ -13,7 +13,7 @@
  * - Envia la Response final, invocando al método send().
  * - Si se produce algún error en la fase de arranque, carga una vista de  error genérica (código 500).
  * 
- * Última revisión: 27/03/2026
+ * Última revisión: 09/04/2026
  * 
  * @author Robert Sallent <robert@fastlight.org>
  * 
@@ -98,10 +98,10 @@ try{
         case 'API' : $response = (new Api())->boot();
                      
                      // cabeceras para CORS
-                     Response::addHeader("Access-Control-Allow-Origin: ".ALLOW_ORIGIN);
-                     Response::addHeader("Access-Control-Allow-Methods: ".ALLOW_METHODS);
-                     Response::addHeader("Access-Control-Allow-Headers: ".ALLOW_HEADERS);
-                     Response::addHeader("Access-Control-Allow-Credentials: ".ALLOW_CREDENTIALS);
+                     $response->addHeader("Access-Control-Allow-Origin: ".ALLOW_ORIGIN);
+                     $response->addHeader("Access-Control-Allow-Methods: ".ALLOW_METHODS);
+                     $response->addHeader("Access-Control-Allow-Headers: ".ALLOW_HEADERS);
+                     $response->addHeader("Access-Control-Allow-Credentials: ".ALLOW_CREDENTIALS);
                      break;
         
         // para cualquier otro tipo de aplicación...
