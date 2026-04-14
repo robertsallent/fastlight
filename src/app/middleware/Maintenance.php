@@ -6,7 +6,7 @@
  * a la operación de mantenimiento
  * 
  * Se puede saltar el modo mantenimiento indicando un parámetro ?passkey=xxx en la URL
- * con la clave definida en el fichero config.php. Este paso saltándose el modo mantenimiento
+ * con la clave definida en el fichero config/middleware.php. Este paso saltándose el modo mantenimiento
  * tiene duración de sesión.
  *
  * Última revisión: 31/03/2026

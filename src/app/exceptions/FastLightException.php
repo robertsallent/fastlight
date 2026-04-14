@@ -7,9 +7,9 @@
  * Es responsable de guardar los mensajes de error en base de datos y 
  * ficheros de LOG.
  *
- * Última revisión: 23/03/2025
+ * Última revisión: 12/04/2026
  * 
- * @author Robert Sallent <robertsallent@gmail.com>
+ * @author Robert Sallent <robert@fastlight.org>
  * @since v1.9.0
  */
 
@@ -33,7 +33,7 @@ class FastLightException extends Exception{
      */
     public function __construct(
         string $message         = "", 
-        int $code               = 0, 
+        int|string $code        = 0, 
         ?Throwable $previous    = null,
         string $type            = null
     ){
@@ -79,7 +79,7 @@ class FastLightException extends Exception{
             $message = substr($message, 0, $pos);
         
         // crea una instancia de FstLightExcepcion a partir de los datos del Throwable
-        $fe = new self($message, $t->getCode(), $t->getPrevious(), get_class($t));
+        $fe = new self($message, intval($t->getCode()), $t->getPrevious(), get_class($t));
                 
         // toma la línea y fichero correctos, para los mensajes de depuración
         $fe->line = $t->getLine();
