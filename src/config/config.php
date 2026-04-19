@@ -16,11 +16,10 @@
  * - Mensaje de "aceptar cookies"
  * - Herramientas de depuración (web)
  * - Tests
- * - API
  * 
  * Todas las directivas se encuentran documentadas en el mismo fichero config.php.
  * 
- * Última revisión: 24/03/26
+ * Última revisión: 19/04/2026
  * @author Robert Sallent <robert@fastlight.org>
  * @since v0.1.0
  * @since v1.0.0 se pueden configurar las vistas de error personalizadas
@@ -70,7 +69,6 @@ define('AUTOLOAD_DIRECTORIES',  [
  * -------------------------------------------------------------*/
 
 define('APP_NAME', 'FastLight Framework 2'); // Título de la aplicación.
-define('APP_TYPE', 'WEB');       // Tipo de aplicación: WEB o API. 
 
 // para las etiquetas META de autor (en el template)
 define('APP_AUTHOR', 'Robert Sallent');  
@@ -89,7 +87,7 @@ define('APP_PASSWORD', '1234');
 define('HTML_CHARSET', 'UTF-8'); // codificación de caracteres para el HTML (para la etiqueta meta charset, en el template)
 define('LANGUAGE_CODE', 'es');   // código de idioma (para poner como atributo del elemento html en las vistas)
 
-define('APP_VERSION', '2.7.0');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '2.8.0');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);    // muestra la versión de la app en el footer (templates/Base.php)
 
 // Controlador y método por defecto (solamente para APP_TYPE WEB).
@@ -310,7 +308,7 @@ define('ACCEPT_COOKIES_EXPIRATION', time()+604800);
 
 
 /* -------------------------------------------------------------
- * HERRAMIENTAS DE DEPURACIÓN (PARA APP_TYPE WEB)
+ * HERRAMIENTAS DE DEPURACIÓN
  * -------------------------------------------------------------*/
     
 define('DISPLAY_ERRORS', true); // Muestra errores en pantalla. En producción debe estar a false.
@@ -362,26 +360,4 @@ define('SAVE_STATS', true);
 // nombre de la tabla para las estadísticas de visitas en la BDD
 define('STATS_TABLE', 'stats');
 
-
-
-/* -------------------------------------------------------------
- * API
- * -------------------------------------------------------------*/
-
-// CABECERAS CORS:
-// Orígenes aceptados para peticiones.
-define('ALLOW_ORIGIN', 'http://localhost');
-
-// Métodos HTTP aceptados.
-define('ALLOW_METHODS', 'POST, GET, PUT, DELETE, OPTIONS');
-
-// Cabeceras permitidas
-define('ALLOW_HEADERS', 'csrf_token');
-
-// ¿Se permite el envío de credenciales?
-define('ALLOW_CREDENTIALS', 'true');
-
-// Método de autenticación para las peticiones a la API.
-// Puede ser COOKIE (implementado) o KEY (no implementado aún)
-define('API_AUTHENTICATION', 'COOKIE'); 
 

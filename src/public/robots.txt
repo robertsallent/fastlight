@@ -2,6 +2,7 @@ User-agent: *
 
 Disallow: /js/
 Disallow: /css/
+Disallow: /gui/
 Disallow: /images/
 
 Sitemap: sitemap.xml

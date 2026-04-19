@@ -6,7 +6,7 @@ Lista de mecanismos y herramientas que se irán incorporando (o no) en próximas
 versiones del framework FastLight.
 
 Autor: Robert Sallent
-Última revisión: 25/03/2026
+Última revisión: 19/04/2026
 
 Los cambios marcados con un ? están en fase de evaluación, no es seguro
 que se implementen.
@@ -18,32 +18,25 @@ constantes de configuración: CHANGE_PASSWORD_EVERY  int, número de dias
 Implementar los middlewares a modo de array en el config
 
 -------------------------------------------------------------------------------------------------------------
-- GRANDES CAMBIOS
-	- ?Separar la creación de APIs a un nuevo proyecto (FastLight API).
-
 - CONFIG
 	- (v2.x) Ficheros de configuración de entorno.
 	- (v2.x) helper env()
 
 - CORE/HTTP
 	- (v2.x) Router que combine bien con el dispatcher actual (rutas por defecto).
-	- (v3.x) Middleware.
-	- (v3.x) Nuevos middlewares: CSRF, modo mantenimiento, usuario bloqueado.
+	- (v3.x) Nuevos middlewares: CSRF, trimStrings, emptyStringsToNull.
 	
 - LIBRARIES
 	- Mejorar el método XML::encode() para que sea recursivo y testearlo a fondo. Probarlo con APIs.
 	- Implementar el método CSV::decode()
 
 - ORM
-	- El método create() de Model invoca a validate() antes de guardar (si el objeto dispone del mismo). Esto permitirá hacer validaciones aunque usemos el método create() en una sola línea.
 	- Seguir trabajando en el Query builder.
-	- Actualizar la clase DB para que trabaje mediante sentencias preparadas sobre PDO
-
+	
 - MODELO
 	- ? Nuevo método Model::insertRelated(entidadA, entidadB, ?tabla) que inserta en la tabla intermedia en relaciones N a N.
 	- (v3.x) Trabajar con snake case en la BDD en lugar de lowercase
-	- (v2.x) Trabajar con sentencias preparadas, para mejorar la seguridad 
-	- (v2.x) Adaptar la clase Model al nuevo Query Builder y la clase DB haciendo uso de sentencias preparadas (WIP)
+	- (v2.x) Seguir adaptando las clases Model y DB al nuevo Query Builder.
 		
 - TEMPLATES Y VISTAS
 	- Añadir herramientas JS para formularios
@@ -62,15 +55,10 @@ Implementar los middlewares a modo de array en el config
 - TEST Y DOCUMENTACIÓN
 	- (En proceso): Mejorar la documentación online y sacar los test del proyecto.
 	- Crear una documentación web a partir de los docblocks con phpdocumentor.
-	
-- HELPERS
-	- ? helper json() que retorna una JsonResponse
-	- ? helper xml() que retorna una XmlResponse
-	- ? helper csv() que retorna una CsvResponse
-		
+			
 - INTEGRACIÓN CON DOCKER
 	- Hacer que funcione correctamente la exportación de BDD en entorno de desarrollo (mysqldump)
-	- Añadir un servidor de correo		
+	- Conseguir que funcione correctamente el servidor de correo, POSTFIX está dando problemas.		
 		
 - API
 	- Implementar mecanismo de API Keys	
@@ -82,7 +70,6 @@ Implementar los middlewares a modo de array en el config
 - MISCELANEA
 	- ? En la vista del listado de errores, mostrar algunos gráficos de totales con chart.js (usándolo desde el CND)
 	- Mejorar el mecanismo de password hashing para hacerlo más seguro.
-	- Permitir configurar el idioma del paginador en config.php
 
 
 -------------------------------------------------------------------------------------------------------------

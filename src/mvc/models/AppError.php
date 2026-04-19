@@ -4,11 +4,10 @@
  * Clase AppError.
  *
  * Modelo responsable de guardar los errores en base de datos.
- *
- * @author: Robert Sallent <robert@juegayestudia.com>
  * 
- * Última revisión: 23/03/2025
+ * Última revisión: 19/04/2026
  * 
+ * @author: Robert Sallent <robert@fastlight.org>
  */
 
 class AppError extends Model{
@@ -16,10 +15,27 @@ class AppError extends Model{
     /** @var string $table nombre de la tabla en la base de datos */ 
     protected static string $table = ERROR_DB_TABLE;
     
+    /** @var string $type typo de error, WEB para aplicaciones web y API para apis */
+    protected string $type      = '';
     
+    /** @var string $level nivel del error */
+    protected string $level     = '';
+    
+    /** @var string $message mensaje de error */
+    protected string $message   = '';
+    
+    /** @var string $url ruta en la que se ha producido el error */
+    protected string $url       = '';
+    
+    /** @var ?string $user displayname del usuario identificado */
+    protected ?string $user     = NULL;
+    
+    /** @var ?string $ip dirección IP desde donde llega la petición */
+    protected ?string $ip       = NULL;
+  
     
     /**
-     * Permite crear un nuevo objeto AppError y guardarlo en base de datos.
+     * Constructor.
      * 
      * @static  
      * @param string $level     nivel de severidad o tipo de error
@@ -27,29 +43,19 @@ class AppError extends Model{
      * 
      * @return void
      */
-    public static function new(
-        string $level = 'Error', 
+    public function __construct(
+        string $level   = 'Error', 
         string $message = ''     
     ){
-        // crea un nuevo objeto AppError
-        $e = new self();
-        
         // prepara el nivel y el mensaje de error
-        $e->type    = APP_TYPE;
-        $e->level   = $level;
-        $e->message = DB::escape($message);
+        $this->type    = 'WEB';
+        $this->level   = $level;
+        $this->message = $message;
         
-        // recupera la URL, usuario e IP de la Request
-        $request    = request();
-        $e->url     = $request->url;
-        $e->user    = $request->user ? $request->user->email : NULL;
-        $e->ip      = $request->ip;
-        
-        // guarda el error en base de datos
-        $e->save();
+        // recupera la URL, usuario e IP desde la Request
+        $request       = request();
+        $this->url     = $request->url;
+        $this->user    = $request->user ? $request->user->email : NULL;
+        $this->ip      = $request->ip;
     }    
 }
-
-
-
-

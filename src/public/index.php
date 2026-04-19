@@ -13,7 +13,7 @@
  * - Envia la Response final, invocando al método send().
  * - Si se produce algún error en la fase de arranque, carga una vista de  error genérica (código 500).
  * 
- * Última revisión: 09/04/2026
+ * Última revisión: 19/04/2026
  * 
  * @author Robert Sallent <robert@fastlight.org>
  * 
@@ -22,23 +22,21 @@
  * @since v1.7.6 se gestiona el nombre y duración de la sesión
  * @since v2.0.7 se añaden parámetros de seguridad a la cookie de sesión
  * @since v2.6.0 se incorpora la carga del fichero de configuración del middleware
+ * @since v2.8.0 se separa la creacion de APIs RESTFUL al proyecto FastLightAPI
  */
 
 
-/*
- * Tareas de inicialización: 
- * carga de ficheros necesarios y comprobación de versión de PHP
- */
+/* -------------------------------------------------------------------------------------
+ * INICIALIZACIÓN 
+ * -------------------------------------------------------------------------------------*/
 
-// carga los ficheros de configuración
-require  '../config/config.php';        // obligatorio
-@include '../config/middleware.php';
+// carga el fichero de configuración
+require  '../config/config.php';    
 
 // si no se deben mostrar errores sobre la web, asegura que estén desactivados
 // si está configurado a true (en config.php), los mostrará o no dependiendo de la configuración del servidor 
 if(!DISPLAY_ERRORS)
     ini_set('display_errors', 0);
-
     
 // comprueba la versión de PHP (según lo especificado en config.php)
 if (CHECK_PHP_VERSION && version_compare(PHP_VERSION, MIN_PHP_VERSION, '<')) 
@@ -46,82 +44,64 @@ if (CHECK_PHP_VERSION && version_compare(PHP_VERSION, MIN_PHP_VERSION, '<'))
          versión de PHP en el servidor o modificar el parámetro MIN_PHP_VERSION en el fichero de configuración 
          (pero no se garantiza el correcto funcionamiento).");
 
-
-
+// carga la configuración de los middlewares (si existiera)
+@include '../config/middleware.php'; 
+    
 // carga el autoload y las funciones helper globales
 require '../app/autoload.php';          
 require '../app/helpers/helpers.php';   
 
-
-// ajusta el nombre y tiempo de sesión (se configura en config.php)
-session_name(SESSION_NAME);
-ini_set('session.gc_maxlifetime', SESSION_TIME);
-
-
-// parámetros de la cookie de sesión (se configuran en config.php)
-session_set_cookie_params([
-    'lifetime'  => SESSION_COOKIE_EXPIRE,   // duración de la cookie
-    'path'      => '/',                     // disponible en todo el dominio
-    'domain'    => '',                      // por defecto el dominio actual
-    'secure'    => SESSION_COOKIE_SECURE,   // solo sobre HTTPS
-    'httponly'  => SESSION_COOKIE_HTTPONLY, // no accesible desde JavaScript 
-    'samesite'  => 'Lax'                    // evita el envío en peticiones cross-site 
-]);
     
-
-// inicia la gestión de sesiones
-session_start();                        
-    
-    
-    /*
-     * A partir de este punto: 
-     * 
-     *  - Se crea una instancia del Kernel adecuada al tipo de aplicación.
-     *  - Se llama al método boot() del Kernel, que retorna la Response a enviar al cliente.
-     *  - Se envía la respuesta al cliente mediante el método send() de Response.
-     *  - Se comprueba si se produjo algún error en el proceso.
-     * 
-     */
-
+/*
+ * A partir de este punto: 
+ * 
+ *  - Se ajustan los parámetros de sesión.
+ *  - Se crea una instancia del Kernel adecuada al tipo de aplicación.
+ *  - Se llama al método boot() del Kernel, que retorna la Response a enviar al cliente.
+ *  - Se envía la respuesta al cliente mediante el método send() de Response.
+ *  - Se comprueba si se produjo algún error en el proceso.
+ * 
+ */
 try{
-    // Se comprueba si el proyecto es una WEB o una API.
-    switch(strtoupper(APP_TYPE)){
-        
-        // para las aplicaciones WEB
-        // Crea la instancia del Kernel App y llama al método boot()
-        case 'APP' :
-        case 'WEB' :  $response = (new App())->boot();
-                      break;
-        
-        // para APIs
-        // Crea la instancia del Kernel Api y llama al método boot()
-        case 'API' : $response = (new Api())->boot();
-                     
-                     // cabeceras para CORS
-                     $response->addHeader("Access-Control-Allow-Origin: ".ALLOW_ORIGIN);
-                     $response->addHeader("Access-Control-Allow-Methods: ".ALLOW_METHODS);
-                     $response->addHeader("Access-Control-Allow-Headers: ".ALLOW_HEADERS);
-                     $response->addHeader("Access-Control-Allow-Credentials: ".ALLOW_CREDENTIALS);
-                     break;
-        
-        // para cualquier otro tipo de aplicación...
-        default:     $response = abort(500, 'INTERNAL SERVER ERROR', 'El proyecto solamente puede ser WEB o API.');
-    }
     
-    // envía la respuesta al cliente.
-    $response->send();   
+    // ajusta el nombre y tiempo de sesión (se configura en config.php)
+    session_name(SESSION_NAME);
+    ini_set('session.gc_maxlifetime', SESSION_TIME);
+    
+    
+    // parámetros de la cookie de sesión (se configuran en config.php)
+    session_set_cookie_params([
+        'lifetime'  => SESSION_COOKIE_EXPIRE,   // duración de la cookie
+        'path'      => '/',                     // disponible en todo el dominio
+        'domain'    => '',                      // por defecto el dominio actual
+        'secure'    => SESSION_COOKIE_SECURE,   // solo sobre HTTPS
+        'httponly'  => SESSION_COOKIE_HTTPONLY, // no accesible desde JavaScript
+        'samesite'  => 'Lax'                    // evita el envío en peticiones cross-site
+    ]);
+    
+    // inicia la gestión de sesiones
+    session_start();
+     
+    // Crea la instancia del Kernel App y llama al método boot()
+    $response = (new App())->boot();
     
 
 // gestión de errores de esta parte.
 }catch(Throwable $t){
     
-    // prepara el mensaje.
+    // prepara el mensaje de error.
     $mensaje = DEBUG ? 
         'Error en el proceso de incialización, el mensaje es: '.$t->getMessage() : 
         'Se produjo un error, contacte con el administrador '.ADMIN_EMAIL.' si lo considera necesario.';
     
-    // aborta, cargando la vista personalizada de error 500.
-    abort(500, 'INTERNAL SERVER ERROR', $mensaje, $t)->send();
-} 
+    // prepara la respuesta de error.
+    $response = abort(500, 'INTERNAL SERVER ERROR', $mensaje, $t);
+   
+
+}finally{
+    
+    // tanto si hay error como si no, se envía la respuesta al cliente
+    $response->send();
+}
     
 

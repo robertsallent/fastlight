@@ -3,9 +3,17 @@
     		
 <h2>Bienvenido!</h2>
         		
-<a href="https://fastlight.org">FastLight</a> es un framework rápido y ligero para desarrollar aplicaciones web en PHP o APIs RESTFUL.
+<a href="https://fastlight.org">FastLight</a> es un framework rápido y ligero para desarrollar aplicaciones web en PHP.
 
-Está planteado como framework para docencia, pero se puede utilizar para desarrollos profesionales pequeños y medianos. Incorpora las características esenciales para crear aplicaciones web rápidas, sólidas y fiables, pero no incluye algunas funcionalidades que desarrollamos en clase (las encontraréis detalladas en la documentación y tutoriales). 
+La creación de APIs RESTFUL ha sido separada a un proyecto distinto, llamado FastLightAPI.
+
+Los repositorios en GitHub de ambos proyectos son:
+
+- https://github.com/robertsallent/fastlight.git
+- https://github.com/robertsallent/fastlightapi.git
+
+
+FastLight está planteado como framework para docencia, pero se puede utilizar para desarrollos profesionales pequeños y medianos. Incorpora las características esenciales para crear aplicaciones web rápidas, sólidas y fiables, pero no incluye algunas funcionalidades que desarrollamos en clase (las encontraréis detalladas en la documentación y tutoriales). 
 
 Todas las herramientas que incorpora han sido creadas expresamente para él, aunque está basado en frameworks PHP anteriores que he implementado desde 2013, cogiendo las ideas más interesantes en cada caso.
 
@@ -18,13 +26,13 @@ Como todo framework, dispone de herramientas para facilitar las tareas necesaria
 <h3>Lo que incorpora de serie:</h3>
 
 - Integración con Docker.
-- Patrón de diseño MVC con kernels distintos para aplicaciones web y apis restful. 
+- Patrón de diseño MVC con kernel / controlador frontal. 
 - Dispatcher con mapeo directo de URL a controlador y metodo.
 - ORM con Query builder y clase base para los modelos, que hace uso de PDO con sentencias preparadas y "magia".
 - Autoload mediante mapa de clases.
 - Middleware.
 - Gestión integrada de errores y herramientas de depuración.
-- Registo en ficheros (log).
+- Registo en ficheros (LOG).
 - Motor de plantillas con templates intercambiables.
 - CSS con multitud de clases para facilitar la tarea de maquetación.
 - Mecanismos para diseños adaptables con flex layout 
@@ -35,7 +43,6 @@ Como todo framework, dispone de herramientas para facilitar las tareas necesaria
 - Librerias para trabajar con XML, JSON y CSV.
 - Herramientas de exportacion de datos a múltiples formatos.
 - Protección CSRF para formularios y APIs.
-- Herramientas para generación rápida de APIs restful.
 - Multitud de librerías para las funcionalidades habituales: trabajo con ficheros y directorios, subida de ficheros, bases de datos...
 - Ejemplos, documentación, tutoriales y manuales para clase.
 - ...
@@ -60,13 +67,13 @@ Como todo framework, dispone de herramientas para facilitar las tareas necesaria
     				
   
 <h2>IMPORTANTE</h2>
-En unos meses se hará pública la documentación sobre cómo implementar proyectos web completos haciendo uso de este framework. Estad atentos a mi <a href='https://www.linkedin.com/in/robert-sallent-l%C3%B3pez-4187a866'>LinkedIn</a>.
+Estoy trabajando en la documentación sobre cómo implementar proyectos web completos haciendo uso de este framework. Estad atentos a mi <a href='https://www.linkedin.com/in/robert-sallent-l%C3%B3pez-4187a866'>LinkedIn</a>.
  
 <h2>Requisitos</h2>
 
 En docencia trabajamos cada año con las últimas versiones de PHP. En este sentido, el código del framework se va adaptando para funcionar en versiones nuevas, eliminando el soporte para las antiguas.
 
-Actualmente, la versión 2.0.0 del framework ha sido testeada en PHP 8.2 con MySQL 8.0. Esto no quiere decir que no funcione en versiones ligeramente anteriores o posteriores, pero no se garantiza que lo haga.
+Actualmente, la versión 2.8.0 del framework ha sido testeada en PHP 8.2 con MySQL 8.0. Esto no quiere decir que no funcione en versiones ligeramente anteriores o posteriores, pero no se garantiza que lo haga.
 
 
 <h2>Integración con Docker</h2>
