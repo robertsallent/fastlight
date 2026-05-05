@@ -2,14 +2,16 @@
 
 /** Funciones helper para realizar tareas habituales.
  * 
- * Última revisión: 23/03/2026
+ * Última revisión: 26/04/2026
  * 
  * @author Robert Sallent <robert@fastlight.org>
+ * 
  * @since v1.4.2 añadidos request() y user().
  * @since v1.7.4 añadidos helpers formatInt() y formatFloat()
  * @since v2.0.0 añadido el helper humanDate()
  * @since v2.1.0 añadidas snakeToCamel() y snake()
  * @since v2.4.3 nuevas funciones kebab(), camel(), fromKebab(), fromCamel(), fromSnake(), kebabToCamel() y camelToKebab()
+ * @sicne v2.9.0 nueva función pascalToSnake()
 */
 
 
@@ -169,19 +171,41 @@ function snakeToCamel(
 }
 
 
+
 /** Pasa de camel case a snake case
  * 
  * @param string $texto texto a convertir
- * @return string textoo en snake case
+ * @return string texto en snake case
  */
 function camelToSnake(string $texto): string {
     
-    // inserta guiones bajos antes de cada mayúscula (excepto la primera)
-    $resultado = preg_replace('/(?<!^)[A-Z]/', '_$0', $texto);
+    // separa transición minúscula número a mayúscula
+    $resultado = preg_replace('/([a-z0-9])([A-Z])/', '$1_$2', $texto);
     
-    // convierte todo a minúsculas
-    return strtolower($resultado);
+    // separa bloques de mayúsculas seguidas (HTTPResponse → HTTP_Response)
+    $resultado = preg_replace('/([A-Z]+)([A-Z][a-z])/', '$1_$2', $resultado);
+    
+    return mb_strtolower($resultado, 'UTF-8');
 }
+
+
+
+/** Pasa de Pascal case a snake case
+ *
+ * @param string $texto texto a convertir
+ * @return string texto en snake case
+ */
+function pascalToSnake(string $texto): string
+{
+    // separa transición: minúscula/número → mayúscula
+    $resultado = preg_replace('/([a-z0-9])([A-Z])/', '$1_$2', $texto);
+    
+    // separa bloques de mayúsculas (HTTPResponse → HTTP_Response)
+    $resultado = preg_replace('/([A-Z]+)([A-Z][a-z])/', '$1_$2', $resultado);
+    
+    return mb_strtolower($resultado, 'UTF-8');
+}
+
 
 
 /** Pasa un texto de kebab case a camel case

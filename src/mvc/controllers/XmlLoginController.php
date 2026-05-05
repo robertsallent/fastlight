@@ -49,7 +49,7 @@ class XmlLoginController extends Controller{
                 Log::addMessage(LOGIN_ERRORS_FILE, 'API_ERROR', "Intento de identificación API incorrecto para $user.");
                 
             if(DB_LOGIN_ERRORS)
-                AppError::new('API Login', "Intento de identificación API incorrecto para $user.");
+                (new AppError('API Login', "Intento de identificación API incorrecto para $user."))->save();
 
             throw new LoginException('Los datos de identificación no son correctos');
             

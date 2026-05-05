@@ -70,7 +70,7 @@ class LoginController extends Controller{
             
             // Guarda el error de login en BDD (si está activado en el config)
             if(DB_LOGIN_ERRORS)
-                AppError::new('Login', "Intento de identificación incorrecto para $user.");
+                (new AppError('Login', "Intento de identificación incorrecto para $user."))->save();
             
             // redirecciona de nuevo al formulario de login
             return redirect('/Login');

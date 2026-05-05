@@ -4,9 +4,9 @@
  * 
  * Permitirá acceder a los datos de la petición fácilmente desde los controladores.
  * 
- * Última modificación: 09/03/2026.
+ * Última modificación: 05/05/2026.
  * 
- * @author Robert Sallent <robertsallent@gmail.com>
+ * @author Robert Sallent <robert@fastlight.org>
  * @since v0.6.5
  * @since v0.9.4 añadida propiedad $previousUrl y método sameAsPrevious()
  * @since v1.0.2 añadido métodos fromJson() y fromXML()
@@ -15,10 +15,11 @@
  * @since v1.4.2 añadido el método headers()
  * @since v1.5.2 añadida la propiedad estática $request, con una instancia de Request generada a partir de la petición recibida.
  * @since v2.1.0 añadido el parámetro $default a los métodos: get(), post(), cookie() y header()
- * @since v2.2.0 la propiedad $user es ahora de tipo ?User
  * @since v2.3.0 añadido nuevo método imageFile(), que recupera un fichero subido a modo de UploadedImage
+ * @since v2.8.1 añadido el método forget() que permite olvidar datos de una superglobal o vaciarla completamente
+ * @since v2.8.1 los métodos posts() y gets() pasan a ser de objeto y no estáticos.
+ * @since v2.9.0 añadidos los métodos scheme(), host() y uri().
  */
-
 
 class Request{
     
@@ -33,6 +34,15 @@ class Request{
     
     /** @var string $method método de la petición */
     public string $method;
+    
+    /** @var string $scheme http o https */
+    public string $scheme;
+    
+    /** @var string $host nombre de host */
+    public string $host;
+    
+    /** @var string $uri URI completa */
+    public string $uri;
     
     /** @var string|null $previousUrl url de la petición anterior. */
     public ?string $previousUrl;
@@ -57,27 +67,30 @@ class Request{
     /** Constructor de Request. */
     public function __construct(){
         
-        $this->user         = Login::user();                          // usuario identificado
-        $this->url          = URL::get();                             // URL solicitada
-        $this->method       = strtoupper($_SERVER['REQUEST_METHOD']); // método HTTP de la petición
-        $this->ip           = $_SERVER['REMOTE_ADDR'];                // IP del cliente
-        $this->userAgent    = $_SERVER['HTTP_USER_AGENT'];            // cliente
+        $this->user         = Login::user();
+        $this->url          = URL::get();
+        $this->method       = strtoupper($_SERVER['REQUEST_METHOD']);
+        $this->scheme       = URL::scheme();
+        $this->host         = URL::host();
+        $this->uri          = URL::uri();
+        $this->ip           = $_SERVER['REMOTE_ADDR'];
+        $this->userAgent    = $_SERVER['HTTP_USER_AGENT'];
         
         // token CSRF que llega en los headers (o no)
         $this->csrfToken = HttpHeader::get('csrf_token');  
         
         // recupera los inputs de la petición anterior.
-        $this->previousInputs = Session::get('flashed_input') ?? [];
+        $this->previousInputs = Session::get('_flashed_input') ?? [];
         
         // recupera la URL de la petición anterior.
-        $this->previousUrl = Session::get('previousUrl');
+        $this->previousUrl = Session::get('_previousUrl');
         
         // Guarda en sesión los inputs de la nueva petición que llegan por POST desde un formulario.
         // En la próxima petición podrán ser recuperados mediante el helper old().
-        Session::set('flashed_input', self::posts()); 
+        Session::set('_flashed_input', self::posts()); 
         
         // guarda en sesión la URL actual (para conocerla en la próxima petición)
-        Session::set('previousUrl', $this->url);        
+        Session::set('_previousUrl', $this->url);        
     }
     
     
@@ -99,6 +112,9 @@ class Request{
     /**
      * Método que retorna la petición recibida.
      * 
+     * Para recuperar la petición, se puede usar Request::retrieve() o directamente 
+     * usar el helper request(), que es más cómodo
+     * 
      * @return ?Request la petición recibida
      */
     public static function retrieve():?Request{
@@ -108,7 +124,7 @@ class Request{
  
  
     /**
-     * Retorna si se está repitiendo la misma petición que antes (refresh).
+     * Retorna si se está repitiendo una petición a la misma URL que antes (refresh).
      * 
      * @return boolean true si la petición actual es a la misma ruta que la petición anterior.
      */  
@@ -119,7 +135,7 @@ class Request{
     
     
     /**
-     * Busca una cadena de texto en la url.
+     * Busca una cadena de texto en la URL.
      * 
      * @param string $url cadena de texto a buscar.
      * @return bool si la url contiene la cadena de texto buscada.
@@ -131,7 +147,7 @@ class Request{
     
     
     /**
-     * Comprueba si una ruta comienza por un texto determinado.
+     * Comprueba si la URL comienza por un texto determinado.
      * 
      * @param string $url cadena de texto a buscar al inicio de la ruta.
      * @return bool true si la url comienza por la cadena de texto indicada.
@@ -139,7 +155,17 @@ class Request{
     public function urlBeginsWith(string $url):bool{
         return strpos($this->url, $url) === 0;
     }
+        
     
+    
+    /**
+     * URL
+     *
+     * @return string
+     */
+    public function url():string{
+        return $this->url;
+    }
     
     
     /**
@@ -151,6 +177,34 @@ class Request{
         return $this->method;
     }
     
+    
+    /** Retorna si el protocolo es http o https
+     * 
+     * @return string
+     */
+    public function scheme(){
+        return $this->scheme;
+    }
+    
+    
+    
+    /** Retorna el nombre de host
+     * 
+     * @return string
+     */
+    public function host(){
+        return $this->host;
+    }
+    
+    
+    /** Retorna la URI completa
+     * 
+     * @return string
+     */
+    public function uri(){
+        return $this->uri;
+    }
+
     
     /**
      * comprueba si el método de la petición será permitido por las directivas CORS, 
@@ -193,6 +247,38 @@ class Request{
     }
     
     
+    /**
+     * Elimina una clave de una variable superglobal o la vacía completamente
+     * 
+     * Está pensada en el contexto de la Request, con lo que lo normal sería borrar en
+     * de POST, GET o COOKIE, aunque se podría usar para cualquier superglobal.
+     * 
+     * @param string $method método por el que llega el dato a borrar (normalmente GET, POST o COOKIE) 
+     * @param ?string $key clave del dato a borrar, se permite null para vaciar completamente la superglobal
+     * 
+     * @return Request la propia instancia de Request, para permitir el chaining
+     */
+    public function forget(
+        string $method = 'POST',
+        string $key    = null
+    ):Request{
+        
+        // calcula la variable superglobal correspondiente
+        $superGlobal = "$_{$method}";
+        
+        // si se indica la clave, desinstancia esa clave de la superglobal
+        if(isset($superGlobal) && $key)
+            unset($$superGlobal[$key]);
+        
+        // si no se indica la clave, vacía la superglobal
+        if(isset($superGlobal) && !$key)
+            $$superGlobal = [];
+    
+        // retorna la propia Request para permitir el chaining
+        return $this;
+    }
+    
+    
     
     /**
      * Recupera parámetros que llegan por POST.
@@ -205,14 +291,19 @@ class Request{
     public function post(
         string $name,
         ?string $default = null
-    ): ?string{
-        
+    ):?string {
+            
         $data = filter_input(INPUT_POST, $name, FILTER_SANITIZE_SPECIAL_CHARS);
         
-        if(!$data || EMPTY_STRINGS_TO_NULL && trim($data === ''))
+        if ($data === null)
             return $default;
-            
-        return trim($data);
+        
+        $data = trim($data);
+        
+        if (EMPTY_STRINGS_TO_NULL && $data === '')
+            return $default;
+        
+        return $data;
     }
     
     
@@ -228,14 +319,19 @@ class Request{
     public function get(
         string $name,
         ?string $default = null
-    ): ?string{
+    ): ?string {
         
         $data = filter_input(INPUT_GET, $name, FILTER_SANITIZE_SPECIAL_CHARS);
         
-        if(!$data || EMPTY_STRINGS_TO_NULL && trim($data === ''))
+        if ($data === null)
             return $default;
-            
-        return trim($data);
+        
+        $data = trim($data);
+        
+        if (EMPTY_STRINGS_TO_NULL && $data === '')
+            return $default;
+        
+        return $data;
     }
     
     
@@ -292,22 +388,28 @@ class Request{
      * @return array un array asociativo con las mismas claves que la
      * variable superglobal $_POST y los valores saneados
      */
-    public static function posts():array{
+    public function posts(): array{
         $all = [];
         
-        foreach($_POST as $property => $value){
+        foreach ($_POST as $property => $_) {
             
             $value = filter_input(INPUT_POST, $property, FILTER_SANITIZE_SPECIAL_CHARS);
             
-            // si hay que pasar la cadena vacía a NULL...
-            if(!$value || EMPTY_STRINGS_TO_NULL && trim($value) === ''){
-                $all[$property] = NULL;
+            if ($value === null) {
+                $all[$property] = null;
                 continue;
             }
             
-            $all[$property] =  trim($value);
+            $value = trim($value);
+            
+            if (EMPTY_STRINGS_TO_NULL && $value === '') {
+                $all[$property] = null;
+                continue;
+            }
+            
+            $all[$property] = $value;
         }
-           
+        
         return $all;
     }
     
@@ -319,22 +421,28 @@ class Request{
      * @return array un array asociativo con las mismas claves que la
      * variable superglobal $_GET y los valores saneados
      */
-    public static function gets():array{
+    public function gets():array{
         $all = [];
         
-        foreach($_GET as $property => $value){
+        foreach ($_POST as $property => $_) {
             
-            $value = filter_input(INPUT_GET, $property, FILTER_SANITIZE_SPECIAL_CHARS);
+            $value = filter_input(INPUT_POST, $property, FILTER_SANITIZE_SPECIAL_CHARS);
             
-            // si hay que pasar la cadena vacía a NULL...
-            if(!$value || EMPTY_STRINGS_TO_NULL && trim($value) === ''){
-                $all[$property] = NULL;
+            if ($value === null) {
+                $all[$property] = null;
                 continue;
             }
             
-            $all[$property] =  trim($value);
-        }
+            $value = trim($value);
             
+            if (EMPTY_STRINGS_TO_NULL && $value === '') {
+                $all[$property] = null;
+                continue;
+            }
+            
+            $all[$property] = $value;
+        }
+        
         return $all;
     }
     
@@ -346,7 +454,7 @@ class Request{
      * @return array un array asociativo con las mismas claves que la
      * variable superglobal $_COOKIE y los valores saneados
      */
-    public static function cookies():array{
+    public function cookies():array{
         return HttpCookie::all();
     }
     
@@ -358,7 +466,7 @@ class Request{
      * @return array un array asociativo con las mismas claves que la
      * variable superglobal $_REQUEST y los valores saneados
      */
-    public static function all():array{
+    public function all():array{
         return self::posts()+self::gets()+self::cookies();
     }
     

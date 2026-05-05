@@ -9,7 +9,7 @@
 	
 	
 	<section id="create">
-		<h2>AppError::new()</h2>
+		<h2>Constructor</h2>
 		
 		<p>El método estático <code>new()</code> de <i>AppError</i> crea el error y lo guarda en BDD. 
 		<b>No lo invocaremos directamente</b>, ya lo hace automáticamente la gestión de errores y excepciones
@@ -19,15 +19,15 @@
 		
 		<pre>
 			<code>
-    AppError::new('NOTICE', 'Esto es un test');
-    AppError::new('DEPRECATED', 'El penúltimo test');
-    AppError::new('WARNING', "Esto '<b>es</b>\'texto\n&nbsp;&gt;&lt;especial.");
+    (new AppError('NOTICE', 'Esto es un test'))->save();
+    (new AppError('DEPRECATED', 'El penúltimo test');
+    (new AppError('WARNING', "Esto '<b>es</b>\'texto\n&nbsp;&gt;&lt;especial.");
 			</code>
 		</pre>
 		<?php
-            AppError::new('NOTICE', 'Esto es un test');
-            AppError::new('DEPRECATED', 'El penúltimo test');
-            AppError::new('WARNING', "Esto '<b>es</b>\'texto\n&nbsp;&gt;&lt;especial.");
+    		(new AppError('NOTICE', 'Esto es un test'))->save();
+    		(new AppError('DEPRECATED', 'El penúltimo test'))->save();
+    		(new AppError('WARNING', "Esto '<b>es</b>\'texto\n&nbsp;&gt;&lt;especial."))->save();
         ?>  
 	</section>
   

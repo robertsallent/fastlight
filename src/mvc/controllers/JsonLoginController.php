@@ -4,9 +4,9 @@
  *
  * Controlador para el login en JSON mediante API
  *
- * Última revisión: 15/01/2025
+ * Última revisión: 05/05/2026
  * 
- * @author Robert Sallent <robertsallent@gmail.com>
+ * @author Robert Sallent <robert@fastlight.org>
  */
 
 class JsonLoginController extends Controller{
@@ -42,7 +42,7 @@ class JsonLoginController extends Controller{
                 Log::addMessage(LOGIN_ERRORS_FILE, 'API_ERROR', "Intento de identificación API incorrecto para $user.");
                 
             if(DB_LOGIN_ERRORS)
-                AppError::new('API Login', "Intento de identificación API incorrecto para $user.");
+                (new AppError('API Login', "Intento de identificación API incorrecto para $user."))->save();
         
             throw new LoginException('Los datos de identificación no son correctos');
         }

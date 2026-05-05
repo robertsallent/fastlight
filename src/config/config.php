@@ -87,7 +87,7 @@ define('APP_PASSWORD', '1234');
 define('HTML_CHARSET', 'UTF-8'); // codificación de caracteres para el HTML (para la etiqueta meta charset, en el template)
 define('LANGUAGE_CODE', 'es');   // código de idioma (para poner como atributo del elemento html en las vistas)
 
-define('APP_VERSION', '2.8.0');  // versión actual del framework o aplicación desarrollada
+define('APP_VERSION', '2.9.0');  // versión actual del framework o aplicación desarrollada
 define('SHOW_VERSION', true);    // muestra la versión de la app en el footer (templates/Base.php)
 
 // Controlador y método por defecto (solamente para APP_TYPE WEB).
@@ -152,8 +152,8 @@ define('SGDB','mysql');             // Driver que debe usar PDO.
 // define('DB_HOST','localhost');      // Host (configuración habitual)
 define('DB_HOST','mysql');          // Host (configuración para Docker)
 
-define('DB_USER','fastlight_user'); // Usuario para identificarse con la BDD.
-define('DB_PASS','fastlight_pass'); // Password para identificarse con la BDD.
+define('DB_USER','root'); // Usuario para identificarse con la BDD.
+define('DB_PASS','root'); // Password para identificarse con la BDD.
 define('DB_NAME','fastlight');      // Nombre de la base de datos.
 define('DB_PORT',  3306);           // Puerto.
 define('DB_CHARSET','utf8');        // Codificación de caracteres para la conexión.

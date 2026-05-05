@@ -13,7 +13,7 @@
  * protected static array $jsonFields: para indicar los campos JSON que se deben 
  * convertir automáticamente en arrays PHP.
  *
- * Última revisión 09/04/2026
+ * Última revisión 27/04/2026
  * 
  * @author Robert Sallent <robert@fastlight.org>
  * @since v0.1.0
@@ -32,19 +32,50 @@
 
 #[\AllowDynamicProperties]
 abstract class Model{
-             
+    
+    
+    /** Pasa de Pascal case a snake case
+     * 
+     * Este método estático es necesario para calcular de nombre de clase en Pascal Case
+     * a nombre de tabla en la BDD en snake case. Se usa desde el método getTable()
+     *
+     * @return string texto en snake case
+     */
+    public static function classToTable(): string{
+        $class = static::class;
+        
+        // quitar namespace
+        $class = substr($class, strrpos($class, '\\') + 1);
+        
+        // contorlar las secuencias de números
+        $resultado = preg_replace('/([a-z0-9])([A-Z])/', '$1_$2', $class);
+        
+        // controlar las secuencias de mayúsculas
+        $resultado = preg_replace('/([A-Z]+)([A-Z][a-z])/', '$1_$2', $resultado);
+        
+        return mb_strtolower($resultado, 'UTF-8');
+    }
+    
+    
     /**
      * Retorna el nombre de la tabla asociada al modelo.
      * 
      * El nombre de la tabla será el nombre indicado en la propiedad
-     * estática $table de la clase hija. En caso de no existir esta propiedad, 
-     * será el nombre de la clase en lowercase con una s al final
-     * Ejemplo: Libro --> libros
+     * estática $table de la clase hija. 
+     * 
+     * Si no existe esta propiedad, FastLight tratará de determinar el nombre automáticamente, 
+     * para ello convertirá el nombre de la clase, que debe estar en Pascal case al nombre de la tabla en
+     * snake case y con una s adicional al final.
+     * 
+     * Ejemplos: 
+     * - Libro          --> libros
+     * - Producto       --> productos
+     * - RecambioCoche  --> recambio_coches
      * 
      * @return string nombre de la tabla correspondiente con el modelo actual.
      */
     public static function getTable():string{
-        return get_called_class()::$table ?? strtolower(get_called_class()).'s';
+        return isset(static::$table) ? static::$table : static::classToTable().'s';
     }
     
     
@@ -55,7 +86,7 @@ abstract class Model{
      * @return array lista de campos JSON.
      */
     protected static function getJsonFields():array{
-        return get_called_class()::$jsonFields ?? [];
+        return static::$jsonFields ?? [];
     }
     
     
@@ -66,7 +97,7 @@ abstract class Model{
      * @return array lista de propiedades en las que se permite la asignación masiva.
      */
     protected static function getFillables():array{
-        return get_called_class()::$fillable ?? [];
+        return static::$fillable ?? [];
     }
     
     
@@ -80,12 +111,32 @@ abstract class Model{
      * 
      * @return object el mismo objeto sobre el que se aplica el método.
      */
-    public function parseJsonFields():object{
+    public function parseJsonFields(): object{
         
-        $properties = self::getJsonFields();
-                    
-        foreach($properties as $property)
-            $this->$property = array_unique(json_decode($this->$property, JSON_OBJECT_AS_ARRAY));
+        $properties = static::getJsonFields();
+        
+        foreach ($properties as $property) {
+            
+            if (!isset($this->$property)) 
+                continue;
+            
+            $value = $this->$property;
+            
+            // si ya es array, no decodificar
+            if (is_array($value))
+                continue;
+           
+            
+            $decoded = json_decode($value, true);
+            
+            // si falla, lo dejamos como está
+            if (!is_array($decoded))
+                continue;
+           
+            
+            // limpiar duplicados solo si es array plano
+            $this->$property = array_values(array_unique($decoded, SORT_REGULAR));
+        }
         
         return $this;
     }
@@ -98,11 +149,14 @@ abstract class Model{
      */
     public function getNext():?Model{
         
-        $class = get_called_class();    // recupera el nombre de la clase del modelo
-        $table = self::getTable();      // recupera el nombre de la tabla
+        $class = static::class;       // recupera el nombre de la clase del modelo
+        $table = static::getTable();  // recupera el nombre de la tabla
         
-        $consulta = "SELECT * FROM {$table} WHERE id > {$this->id} ORDER BY ID ASC LIMIT 1";
-        return DB::select($consulta, $class);
+        return QueryBuilder::select($table, DB::get())
+            ->where('id = >', $this->id)
+            ->order('id', 'ASC')
+            ->limit(1)
+            ->getAndFetch($class);
     }
     
     
@@ -163,28 +217,32 @@ abstract class Model{
      * 
      * @param array $data lista de propiedades de la entidad a modo de array asociativo.
      * @param int si se trata de una actualización, id del objeto a actualizar
+     * @param bool $validate permite indicar si queremos aplicar la validación de la entidad automáticamente o no
      * 
      * @return object la instancia del modelo creada.
      */
-    public static function create(array $data, $id = null):object{
+    public static function create(
+        array $data, 
+        ?int $id         = null,
+        bool $validate   = true
+    ):object{
         
         $class = get_called_class();    // recupera el nombre de la clase del modelo
         
         // si no hay ID, estamos creando una nueva entidad
         // si hay id, pretendemos hacer una actualización, así que recuperaremos el objeto
-        $entity = $id ? $class::findOrFail($id) : new $class();        
+        $entity = $id !== null  ? $class::findOrFail($id) : new $class();        
 
         // mapea los datos del array asociativo en las propiedades del objeto
         foreach($data as $property => $value)
             // pero solamente lo hace si el nombre de la propiedad permite la asignación masiva,
             // esto es, está incluida en en el array $fillable del modelo
-            if(in_array($property, $class::getFillables())) 
+            if(in_array($property, $class::getFillables(), true)) 
                 $entity->$property = $value;
             
         // una vez tiene el objeto preparado, lo guarda o lo actualiza en la BDD  
         // si hay ID hará una actualización, sino un guardado
-        
-        $id ? $entity->update() : $entity->save();
+        $id !== null  ? $entity->update($validate) : $entity->save($validate);
                 
         return $entity;
     }
@@ -581,12 +639,16 @@ abstract class Model{
     /**
      * Guarda una entidad en la base de datos.
      * 
+     * @param bool $validate permite indicar si queremos aplicar la validación de la entidad automáticamente o no
+     * 
      * @return int el autonumérico asignado en la base de datos o 0 si la tabla no dispone de autonumérico.
      */
-    public function save():int{
+    public function save(
+        bool $validate = true
+    ):int{
                
         // Hay que validar (si el modelo tiene el método validate())
-        if(is_callable([$this, 'validate']))
+        if($validate && is_callable([$this, 'validate']))
             if($errors = $this->validate())
                 throw new ValidationException(arrayToString($errors, false, false));  
         
@@ -612,12 +674,16 @@ abstract class Model{
     /**
      * Actualiza los datos de una entidad en la base de datos.
      * 
+     * @param bool $validate permite indicar si queremos aplicar la validación de la entidad automáticamente o no
+     * 
      * @return int el número de filas afectadas.
      */
-    public function update():int{
+    public function update(
+        bool $validate = true
+    ):int{
            
         // Hay que validar (si el modelo tiene el método validate())
-        if(is_callable([$this, 'validate']))
+        if($validate && is_callable([$this, 'validate']))
             if($errors = $this->validate())
                 throw new ValidationException(arrayToString($errors, false, false));
         

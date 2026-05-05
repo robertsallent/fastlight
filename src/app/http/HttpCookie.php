@@ -69,14 +69,19 @@ class HttpCookie{
     public static function get(
         string $name,
         ?string $default = null
-    ):?string{
-            
+    ): ?string {
+        
         $data = filter_input(INPUT_COOKIE, $name, FILTER_SANITIZE_SPECIAL_CHARS);
         
-        if(!$data || EMPTY_STRINGS_TO_NULL && trim($data === ''))
+        if ($data === null)
             return $default;
-            
-        return trim($data);
+        
+        $data = trim($data);
+        
+        if (EMPTY_STRINGS_TO_NULL && $data === '')
+            return $default;
+        
+        return $data;
     }
     
     
