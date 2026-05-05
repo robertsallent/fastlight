@@ -13,25 +13,25 @@
 class AppError extends Model{
     
     /** @var string $table nombre de la tabla en la base de datos */ 
-    protected static string $table = ERROR_DB_TABLE;
+    public static string $table = ERROR_DB_TABLE;
     
     /** @var string $type typo de error, WEB para aplicaciones web y API para apis */
-    protected string $type      = '';
+    public string $type      = '';
     
     /** @var string $level nivel del error */
-    protected string $level     = '';
+    public string $level     = '';
     
     /** @var string $message mensaje de error */
-    protected string $message   = '';
+    public string $message   = '';
     
     /** @var string $url ruta en la que se ha producido el error */
-    protected string $url       = '';
+    public string $url       = '';
     
     /** @var ?string $user displayname del usuario identificado */
-    protected ?string $user     = NULL;
+    public ?string $user     = NULL;
     
     /** @var ?string $ip dirección IP desde donde llega la petición */
-    protected ?string $ip       = NULL;
+    public ?string $ip       = NULL;
   
     
     /**
@@ -57,5 +57,21 @@ class AppError extends Model{
         $this->url     = $request->url;
         $this->user    = $request->user ? $request->user->email : NULL;
         $this->ip      = $request->ip;
-    }    
+    }   
+
+    
+    /** Alternativa al uso del constructor
+     * 
+     * @param string $level     nivel de severidad o tipo de error
+     * @param string $message   mensaje
+     * 
+     * @return AppError el propio objeto para permitir chaining
+     */
+    public static function new(
+        string $level   = 'Error',
+        string $message = ''
+    ):AppError{
+        
+        return new self($level, $message);
+    }
 }
