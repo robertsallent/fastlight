@@ -34,26 +34,33 @@
 abstract class Model{
     
     
-    /** Pasa de Pascal case a snake case
-     * 
-     * Este método estático es necesario para calcular de nombre de clase en Pascal Case
-     * a nombre de tabla en la BDD en snake case. Se usa desde el método getTable()
+    /**
+     * Convierte un nombre de clase en PascalCase a snake_case.
      *
-     * @return string texto en snake case
+     * Ejemplos:
+     * - UserProfile       => user_profile
+     * - XMLParser         => xml_parser
+     * - UserXMLParser     => user_xml_parser
+     * - Version2Manager   => version2_manager
+     *
+     * @param string|null $class Nombre de la clase. Si es null usa la clase actual.
+     * @return string Nombre en snake_case.
      */
-    public static function classToTable(): string{
-        $class = static::class;
+    public static function classToTable(?string $class = null): string{
+        $class ??= static::class;
         
-        // quitar namespace
-        $class = substr($class, strrpos($class, '\\') + 1);
+        // Quitar namespace si existe
+        if (($pos = strrpos($class, '\\')) !== false) {
+            $class = substr($class, $pos + 1);
+        }
         
-        // contorlar las secuencias de números
-        $resultado = preg_replace('/([a-z0-9])([A-Z])/', '$1_$2', $class);
+        // XMLParser => XML_Parser
+        $class = preg_replace('/([A-Z]+)([A-Z][a-z])/', '$1_$2', $class);
         
-        // controlar las secuencias de mayúsculas
-        $resultado = preg_replace('/([A-Z]+)([A-Z][a-z])/', '$1_$2', $resultado);
+        // UserProfile => User_Profile
+        $class = preg_replace('/([a-z0-9])([A-Z])/', '$1_$2', $class);
         
-        return mb_strtolower($resultado, 'UTF-8');
+        return mb_strtolower($class, 'UTF-8').'s';
     }
     
     
@@ -75,7 +82,7 @@ abstract class Model{
      * @return string nombre de la tabla correspondiente con el modelo actual.
      */
     public static function getTable():string{
-        return isset(static::$table) ? static::$table : static::classToTable().'s';
+        return isset(static::$table) ? static::$table : static::classToTable();
     }
     
     

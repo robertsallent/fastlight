@@ -195,12 +195,11 @@ function camelToSnake(string $texto): string {
  * @param string $texto texto a convertir
  * @return string texto en snake case
  */
-function pascalToSnake(string $texto): string
-{
-    // separa transición: minúscula/número → mayúscula
+function pascalToSnake(string $texto): string{
+    // separa transición: minúscula/número a mayúscula
     $resultado = preg_replace('/([a-z0-9])([A-Z])/', '$1_$2', $texto);
     
-    // separa bloques de mayúsculas (HTTPResponse → HTTP_Response)
+    // separa bloques de mayúsculas (HTTPResponse a HTTP_Response)
     $resultado = preg_replace('/([A-Z]+)([A-Z][a-z])/', '$1_$2', $resultado);
     
     return mb_strtolower($resultado, 'UTF-8');
@@ -559,22 +558,46 @@ function formatFloat(float $number, int $decimal = 0):string{
  |--------------------------------------------------------------------------
  */
 
-function humanDate(string $date, bool $time = true):string{
+/**
+ * Formatea las fechas a modo texto, por ejemplo: 11 de septiembre de 2025
+ * 
+ * @param string $date fecha a formatear
+ * @param bool $time permite indicar si se debe mostrar también la hora en formato hh:mm:ss
+ * @param string $lang código de idioma 
+ * 
+ * @return string fecha formateada a modo de texto
+ */
+function humanDate(
+    string $date, 
+    bool $time      = true,
+    string $lang    = 'ES'   
+):string{
     
-    $months = [
-        "enero",
-        "febrero",
-        "marzo",
-        "abril",
-        "mayo",
-        "junio",
-        "julio",
-        "agosto",
-        "septiembre",
-        "octubre",
-        "noviembre",
-        "diciembre"
-    ];
+    // tomar el idioma del config.php (si está definido)
+    $lang = defined('LANGUAGE_CODE') ? LANGUAGE_CODE : $lang;
+    
+    switch(strtoupper($lang)){
+        case 'ES':
+            $months = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+            break;
+            
+        case 'CA':
+            $months = ["gener", "febrer", "març", "abril", "maig", "juny", "juliol", "agost", "setembre", "octubre", "novembre", "desembre"];
+            break;
+            
+        case 'FR':
+            $months = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+            break;
+            
+        case 'DE':
+            $months = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+            break;
+            
+        default:
+            $months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            break;
+    }
+    
     
     $dateTime = explode(" ", $date);
     $dateArray = explode("-", $dateTime[0]);
