@@ -73,7 +73,7 @@ class HttpCookie{
         
         $data = filter_input(INPUT_COOKIE, $name, FILTER_SANITIZE_SPECIAL_CHARS);
         
-        if ($data === null)
+        if ($data === null || $data === false) 
             return $default;
         
         $data = trim($data);
@@ -94,22 +94,10 @@ class HttpCookie{
      */
     public static function all():array{
         $all = [];
-        
-        foreach($_COOKIE as $property => $value){
-            
-            $value = filter_input(INPUT_COOKIE, $property, FILTER_SANITIZE_SPECIAL_CHARS);
-            
-            // si hay que pasar la cadena vacía a NULL...
-            if(!$value || EMPTY_STRINGS_TO_NULL && trim($value) === ''){
-                $all[$property] = NULL;
-                continue;
-            }
-            
-            $all[$property] =  trim($value);
-        }
-        
-        return $all;
-    }
-      
-}
 
+        foreach (array_keys($_COOKIE) as $key) 
+            $all[$key] = self::get($key);
+
+        return $all;
+    }    
+}

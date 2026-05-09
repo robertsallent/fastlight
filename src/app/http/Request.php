@@ -4,7 +4,7 @@
  * 
  * Permitirá acceder a los datos de la petición fácilmente desde los controladores.
  * 
- * Última modificación: 05/05/2026.
+ * Última modificación: 09/05/2026.
  * 
  * @author Robert Sallent <robert@fastlight.org>
  * @since v0.6.5
@@ -18,14 +18,20 @@
  * @since v2.3.0 añadido nuevo método imageFile(), que recupera un fichero subido a modo de UploadedImage
  * @since v2.8.1 añadido el método forget() que permite olvidar datos de una superglobal o vaciarla completamente
  * @since v2.8.1 los métodos posts() y gets() pasan a ser de objeto y no estáticos.
- * @since v2.9.0 añadidos los métodos scheme(), host() y uri().
+ * @since v2.9.0 añadidos los métodos getScheme(), getHost(), getIP(), getUserAgent(), getUrl() y getUri().
  */
 
 class Request{
-    
+
+    // Propiedades de la Request
+
     /** @var Request petición recibida */
     private static ?Request $request = null;
+   
     
+     // TODO: pasar las propiedades a protegidas y permitir solamente el uso de los getters, para evitar que se modifiquen desde fuera de la clase. De momento se dejan públicas para facilitar el acceso a ellas desde los controladores.
+    
+        
     /** @var User|null $user usuario identificado en la aplicación */
     public ?User $user;
     
@@ -77,13 +83,13 @@ class Request{
         $this->userAgent    = $_SERVER['HTTP_USER_AGENT'];
         
         // token CSRF que llega en los headers (o no)
-        $this->csrfToken = HttpHeader::get('csrf_token');  
+        $this->csrfToken        = HttpHeader::get('csrf_token');  
         
         // recupera los inputs de la petición anterior.
-        $this->previousInputs = Session::get('_flashed_input') ?? [];
+        $this->previousInputs   = Session::get('_flashed_input') ?? [];
         
         // recupera la URL de la petición anterior.
-        $this->previousUrl = Session::get('_previousUrl');
+        $this->previousUrl      = Session::get('_previousUrl');
         
         // Guarda en sesión los inputs de la nueva petición que llegan por POST desde un formulario.
         // En la próxima petición podrán ser recuperados mediante el helper old().
@@ -94,6 +100,7 @@ class Request{
     }
     
     
+
     /**
      * Crea una request a partir de los datos recibidos en la petición.
      * 
@@ -108,7 +115,8 @@ class Request{
         return self::$request;
     }
     
-        
+       
+    
     /**
      * Método que retorna la petición recibida.
      * 
@@ -121,8 +129,120 @@ class Request{
         return self::$request;
     }
     
- 
- 
+    
+    
+    /**
+     * método de la petición HTTP.
+     * 
+     * @return string
+     */
+    public function getMethod():string{
+        return $this->method;
+    }
+    
+    
+    /** Retorna si el protocolo es http o https
+     * 
+     * @return string
+     */
+    public function getScheme(){
+        return $this->scheme;
+    }
+    
+    
+    
+    /** Retorna el nombre de host
+     * 
+     * @return string
+     */
+    public function getHost(){
+        return $this->host;
+    }
+
+
+
+    /** Retorna la IP del cliente
+     * 
+     * @return string
+     */
+    public function getIP(){
+        return $this->ip;
+    }
+
+    
+    
+    /** Retorna los datos del navegador u otro cliente que hace la petición.
+     * 
+     * @return string
+     */
+    public function getUserAgent(){
+        return $this->userAgent;
+    }
+
+
+
+     /**
+     * Retorna el usuario identificado en la aplicación, o null si no hay ningún usuario identificado. 
+     * 
+     * @return User|null el usuario identificado en la aplicación, o null si no hay ningún usuario identificado.
+     */
+    public function getUser():?User{
+        return $this->user;     
+    }
+
+
+    
+    /** Retorna el token CSRF
+     * 
+     * @return string|null
+     */
+    public function getCSRFToken():?string{
+        return $this->csrfToken;        
+    }
+
+
+    
+    /** Retorna los inputs de la petición anterior
+     * 
+     * @return array
+     */
+    public function getPreviousInputs():array{
+        return $this->previousInputs;
+    }
+    
+
+
+    /**
+     * URL
+     *
+     * @return string
+     */
+    public function getUrl():string{
+        return $this->url;
+    }
+    
+
+
+    /** Retorna la URL de la petición anterior
+     * 
+     * @return string
+     */
+    public function getPreviousUrl():string{
+        return $this->previousUrl;
+    }
+
+
+
+    /** Retorna la URI completa
+     * 
+     * @return string
+     */
+    public function getUri(){
+        return $this->uri;
+    }
+
+
+
     /**
      * Retorna si se está repitiendo una petición a la misma URL que antes (refresh).
      * 
@@ -159,54 +279,6 @@ class Request{
     
     
     /**
-     * URL
-     *
-     * @return string
-     */
-    public function url():string{
-        return $this->url;
-    }
-    
-    
-    /**
-     * método de la petición HTTP.
-     * 
-     * @return string
-     */
-    public function method():string{
-        return $this->method;
-    }
-    
-    
-    /** Retorna si el protocolo es http o https
-     * 
-     * @return string
-     */
-    public function scheme(){
-        return $this->scheme;
-    }
-    
-    
-    
-    /** Retorna el nombre de host
-     * 
-     * @return string
-     */
-    public function host(){
-        return $this->host;
-    }
-    
-    
-    /** Retorna la URI completa
-     * 
-     * @return string
-     */
-    public function uri(){
-        return $this->uri;
-    }
-
-    
-    /**
      * comprueba si el método de la petición será permitido por las directivas CORS, 
      * dependiendo de la configuración en config.php
      * 
@@ -214,12 +286,11 @@ class Request{
      */
     public function allowedByCors():bool{
         
-        $permitidos = explode(',', ALLOW_METHODS);
+        // toma ALLOW_METHODS del fichero de configuración, la divide por comas y elimina los espacios en blanco de cada método permitido
+        $permitidos = array_map('trim', explode(',', ALLOW_METHODS));
         
-        for($i = 0; $i<count($permitidos); $i++)
-            $permitidos[$i] = trim($permitidos[$i]);
-        
-        return in_array(strtoupper($this->method()), $permitidos);
+        // comprueba si el método de la petición está entre los métodos permitidos por CORS
+        return in_array(strtoupper($this->method), $permitidos);
     }
     
     
@@ -233,25 +304,26 @@ class Request{
      * @return bool true si el parámetro llega, false en caso contrario.
      */
     public function has(
-        string $name, 
-        string $method = 'POST'  // POST, GET o COOKIE
-            
-    ):bool{
-        switch(strtoupper($method)){
-            case 'POST' : return isset($_POST[$name]);
-            case 'GET' : return isset($_GET[$name]);
-            case 'COOKIE' : return isset($_COOKIE[$name]);
-        }
-        
-        return false; 
+        string $name,
+        string $method = 'POST'
+    ): bool {
+
+        $sources = [
+            'POST'   => $_POST,
+            'GET'    => $_GET,
+            'COOKIE' => $_COOKIE
+        ];
+
+        $method = strtoupper($method);
+
+        return isset($sources[$method][$name]);
     }
     
     
+
     /**
      * Elimina una clave de una variable superglobal o la vacía completamente
      * 
-     * Está pensada en el contexto de la Request, con lo que lo normal sería borrar en
-     * de POST, GET o COOKIE, aunque se podría usar para cualquier superglobal.
      * 
      * @param string $method método por el que llega el dato a borrar (normalmente GET, POST o COOKIE) 
      * @param ?string $key clave del dato a borrar, se permite null para vaciar completamente la superglobal
@@ -259,27 +331,34 @@ class Request{
      * @return Request la propia instancia de Request, para permitir el chaining
      */
     public function forget(
-        string $method = 'POST',
-        string $key    = null
-    ):Request{
+        string $method  = 'POST',
+        ?string $key    = null
+    ): Request {
+
+        $method = strtoupper($method);
+
+        $sources = [
+            'POST'   => &$_POST,
+            'GET'    => &$_GET,
+            'COOKIE' => &$_COOKIE
+        ];
+
+        // evita métodos no permitidos
+        if (!isset($sources[$method]))
+            return $this;
         
-        // calcula la variable superglobal correspondiente
-        $superGlobal = "$_{$method}";
+
+        if ($key !== null)
+            unset($sources[$method][$key]);
+        else 
+            $sources[$method] = [];
         
-        // si se indica la clave, desinstancia esa clave de la superglobal
-        if(isset($superGlobal) && $key)
-            unset($$superGlobal[$key]);
-        
-        // si no se indica la clave, vacía la superglobal
-        if(isset($superGlobal) && !$key)
-            $$superGlobal = [];
-    
-        // retorna la propia Request para permitir el chaining
+
         return $this;
     }
     
     
-    
+
     /**
      * Recupera parámetros que llegan por POST.
      *
@@ -295,8 +374,9 @@ class Request{
             
         $data = filter_input(INPUT_POST, $name, FILTER_SANITIZE_SPECIAL_CHARS);
         
-        if ($data === null)
+        if ($data === null || $data === false) 
             return $default;
+    
         
         $data = trim($data);
         
@@ -305,8 +385,26 @@ class Request{
         
         return $data;
     }
+
+
+
+     /**
+     * Retorna un array con todas las entradas de $_POST saneadas.
+     *
+     * @return array un array asociativo con las mismas claves que la
+     * variable superglobal $_POST y los valores saneados
+     */
+    public function posts(): array{
+        $all = [];
+
+        foreach (array_keys($_POST) as $key) 
+            $all[$key] = $this->post($key);
+        
+        return $all;
+    }
     
-    
+        
+
     
     /**
      * Recupera parámetros que llegan por GET.
@@ -323,7 +421,7 @@ class Request{
         
         $data = filter_input(INPUT_GET, $name, FILTER_SANITIZE_SPECIAL_CHARS);
         
-        if ($data === null)
+        if ($data === null || $data === false) 
             return $default;
         
         $data = trim($data);
@@ -334,7 +432,24 @@ class Request{
         return $data;
     }
     
+
+
+     /**
+     * Retorna un array con todas las entradas de $_GET saneadas.
+     *
+     * @return array un array asociativo con las mismas claves que la
+     * variable superglobal $_GET y los valores saneados
+     */
+    public function gets():array{
+        $all = [];
+
+        foreach (array_keys($_GET) as $key) 
+            $all[$key] = $this->get($key);
+        
+        return $all;
+    }
     
+
     
     /**
      * Recupera valores que llegan por COOKIE.
@@ -350,9 +465,32 @@ class Request{
     ):?string{  
         return HttpCookie::get($name, $default);
     }
+         
      
     
+    /**
+     * Retorna un array con todas las entradas de $_COOKIE saneadas.
+     *
+     * @return array un array asociativo con las mismas claves que la
+     * variable superglobal $_COOKIE y los valores saneados
+     */
+    public function cookies():array{
+        return HttpCookie::all();
+    }
     
+
+
+    /**
+     * Retorna un array con todas las entradas de $_REQUEST saneadas.
+     *
+     * @return array un array asociativo con las mismas claves que la
+     * variable superglobal $_REQUEST y los valores saneados
+     */
+    public function all():array{
+        return $this->posts()+$this->gets()+$this->cookies();
+    }
+  
+  
     
     /**
      * Recupera valores de los encabezados.
@@ -380,96 +518,6 @@ class Request{
         return HttpHeader::all();
     }
       
-    
-    
-    /**
-     * Retorna un array con todas las entradas de $_POST saneadas.
-     *
-     * @return array un array asociativo con las mismas claves que la
-     * variable superglobal $_POST y los valores saneados
-     */
-    public function posts(): array{
-        $all = [];
-        
-        foreach ($_POST as $property => $_) {
-            
-            $value = filter_input(INPUT_POST, $property, FILTER_SANITIZE_SPECIAL_CHARS);
-            
-            if ($value === null) {
-                $all[$property] = null;
-                continue;
-            }
-            
-            $value = trim($value);
-            
-            if (EMPTY_STRINGS_TO_NULL && $value === '') {
-                $all[$property] = null;
-                continue;
-            }
-            
-            $all[$property] = $value;
-        }
-        
-        return $all;
-    }
-    
-    
-    
-    /**
-     * Retorna un array con todas las entradas de $_GET saneadas.
-     *
-     * @return array un array asociativo con las mismas claves que la
-     * variable superglobal $_GET y los valores saneados
-     */
-    public function gets():array{
-        $all = [];
-        
-        foreach ($_POST as $property => $_) {
-            
-            $value = filter_input(INPUT_POST, $property, FILTER_SANITIZE_SPECIAL_CHARS);
-            
-            if ($value === null) {
-                $all[$property] = null;
-                continue;
-            }
-            
-            $value = trim($value);
-            
-            if (EMPTY_STRINGS_TO_NULL && $value === '') {
-                $all[$property] = null;
-                continue;
-            }
-            
-            $all[$property] = $value;
-        }
-        
-        return $all;
-    }
-    
-    
-    
-    /**
-     * Retorna un array con todas las entradas de $_COOKIE saneadas.
-     *
-     * @return array un array asociativo con las mismas claves que la
-     * variable superglobal $_COOKIE y los valores saneados
-     */
-    public function cookies():array{
-        return HttpCookie::all();
-    }
-    
-    
-    
-    /**
-     * Retorna un array con todas las entradas de $_REQUEST saneadas.
-     *
-     * @return array un array asociativo con las mismas claves que la
-     * variable superglobal $_REQUEST y los valores saneados
-     */
-    public function all():array{
-        return self::posts()+self::gets()+self::cookies();
-    }
-    
     
     
     /**
@@ -516,6 +564,10 @@ class Request{
         return NULL;
     }
     
+
+    // TODO: seguir revisando y documentando a partir de este punto
+
+
     /**
      * Recupera los datos en el body de la petición. Los datos no son
      * saneados puesto que tendríamos problemas si son en JSON o XML.
@@ -523,9 +575,11 @@ class Request{
      * @return string información recuperada del cuerpo de la petición.
      */
     public function body():string{
-        return file_get_contents('php://input');
+        return file_get_contents('php://input') ?: '';
     }   
-    
+
+
+        
     /**
      * recupera los datos contenidos en una petición con datos en JSON y los retorna a modo de array de objetos.
      *
@@ -539,12 +593,13 @@ class Request{
             
         // recupera los datos contenidos en el cuerpo de la petición
         if(empty($json = $this->body())) 
-            throw new ApiException('No se recibieron datos en la petición.');
+            throw new JsonException('No se recibieron datos en la petición.');
             
         // convierte los datos en una lista de objetos del tipo deseado    
         return JSON::decode($json, $class); 
     }
     
+
     
     /**
      * recupera los datos contenidos en una petición con datos en XML y los retorna a modo de array de objetos.
@@ -559,7 +614,7 @@ class Request{
             
         // recupera los datos contenidos en el cuerpo de la petición
         if(empty($xml = $this->body()))
-            throw new ApiException('No se recibieron datos en la petición.');
+            throw new XmlException('No se recibieron datos en la petición.');
             
         // convierte los datos en una lista de objetos del tipo deseado
         return XML::decode($xml, $class);

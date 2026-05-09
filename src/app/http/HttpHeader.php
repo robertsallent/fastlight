@@ -5,7 +5,7 @@
  *
  *   Facilita la tarea de enviar y recuperar cabeceras HTTP.
  *
- *   Última mofidicación: 06/10/2025
+ *   Última mofidicación: 09/05/2026
  *
  *   @author Robert Sallent <robertsallent@gmail.com>
  *   @since v1.3.0
@@ -19,12 +19,12 @@ class HttpHeader{
      * 
      * @param string $header
      * @param bool $replace
-     * @param int $responseCode
+     * @param ?int $responseCode
      */
     public function __construct(
         private string $header,
-        private bool $replace     = true,
-        private int $responseCode = 0
+        private bool $replace      = true,
+        private ?int $responseCode = null
     ){}
     
 
@@ -39,9 +39,12 @@ class HttpHeader{
      */
     public static function get(
         string $name,
-        ?string $default = null    
-    ):?string{
-        return apache_request_headers()[$name] ?? $default;
+        ?string $default = null
+    ): ?string {
+
+        $headers = array_change_key_case(getallheaders() ?: [], CASE_LOWER);
+
+        return $headers[strtolower($name)] ?? $default;
     }
     
     
@@ -53,21 +56,26 @@ class HttpHeader{
      * @return array lista de todas las cabeceras HTTP
      */
     public static function all():array{
-        return apache_request_headers();
+        return array_change_key_case(getallheaders() ?: [], CASE_LOWER);
     }
     
     
     /**
      * Adjunta una cabecera HTTP
      */
-    public function send(){
-        header(
-            $this->header,
-            $this->replace,
-            $this->responseCode
-        );
+    public function send():void{
+
+        // TODO: añadir HTTPException a las excepciones de FastLight
+        if (headers_sent($file, $line)) {
+            throw new FastLightException(
+                "No se pueden enviar cabeceras HTTP. " .
+                "La salida ya comenzó en {$file}:{$line}"
+            );
+        }
+
+        if ($this->responseCode !== null)
+            header($this->header, $this->replace, $this->responseCode);
+        else
+            header($this->header, $this->replace);
     }
-    
 }
-
-

@@ -159,11 +159,20 @@ abstract class Model{
         $class = static::class;       // recupera el nombre de la clase del modelo
         $table = static::getTable();  // recupera el nombre de la tabla
         
-        return QueryBuilder::select($table, DB::get())
+        /* return QueryBuilder::select($table, DB::get())
             ->where('id = >', $this->id)
             ->order('id', 'ASC')
             ->limit(1)
             ->getAndFetch($class);
+            
+            */
+        
+        $consulta = "SELECT *
+                     FROM {$table}
+                     WHERE id > {$this->id}
+                     ORDER BY ID DESC
+                     LIMIT 1";
+        return DB::select($consulta, $class);
     }
     
     

@@ -279,6 +279,8 @@ class QueryBuilder{
         mixed $value = null
     ): QueryBuilder{
         $this->where[] = $condition;
+        
+        // FIXME: revisar si el valor null es correcto (creo que podría serlo)
         if($value !== null){
             $this->values[] = $value;
         }
@@ -308,10 +310,10 @@ class QueryBuilder{
             return $this->where($condition, $value);
         }
 
-        $lastCondition = array_pop($this->where);
-        $newCondition = "($lastCondition OR $condition)";
-        $this->where[] = $newCondition;
-        $this->values[] = $value;
+        $lastCondition   = array_pop($this->where);
+        $newCondition    = "($lastCondition OR $condition)";
+        $this->where[]   = $newCondition;
+        $this->values[]  = $value;
 
         return $this;
     }
@@ -354,7 +356,7 @@ class QueryBuilder{
         mixed $value1,
         mixed $value2
     ): QueryBuilder {
-        $this->where[] = "$field BETWEEN ? AND ?";
+        $this->where[]  = "$field BETWEEN ? AND ?";
         $this->values[] = $value1;
         $this->values[] = $value2;
         return $this;
