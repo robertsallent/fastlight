@@ -65,9 +65,8 @@ class HttpHeader{
      */
     public function send():void{
 
-        // TODO: añadir HTTPException a las excepciones de FastLight
         if (headers_sent($file, $line)) {
-            throw new FastLightException(
+            throw new HTTPException(
                 "No se pueden enviar cabeceras HTTP. " .
                 "La salida ya comenzó en {$file}:{$line}"
             );
