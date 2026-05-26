@@ -4,9 +4,9 @@
  *
  * Se usa para generar las partes comunes de todas las vistas
  *
- * Última revisión: 20/01/2026
+ * Última revisión: 21/05/2026
  * 
- * @author Robert Sallent <robertsallent@gmail.com>
+ * @author Robert Sallent <robert@fastlight.org>
  *
  */
 class Base{
@@ -371,76 +371,74 @@ class Base{
     }
       
           
-    /* ****************************************************************************
-     * MENSAJES FLASHEADOS DE ÉXITO, ADVERTENCIA Y ERROR
+          
+     /* ****************************************************************************
+     * MENSAJES FLASHEADOS QUE APARECEN EN MODALES
      *****************************************************************************/
-    
-    
+
     /**
-     * Retorna el HTML para los mensajes de éxito flasheados en sesión.
      * 
-     * @return string HTML con el mensaje de éxito.
+     * @param string $type
+     * @return string
      */
-    public function successMessage(){
+    public function showMessage(?string $type = 'message'):string{
         
-        return ($mensaje = Session::getFlash('success')) ?
-            "<div class='modal' onclick='this.remove()'>
-            	<div class='message success'>
-            		<h2>Operación realizada con éxito</h2>
-            		<p>$mensaje</p>
-            		<p class='mini cursiva'>-- Clic para cerrar --</p>
-        		</div>
-            </div>"
-            : '';  
-    } 
-
-    
-    /**
-     * Retorna el HTML para los mensajes de warning flasheados en sesión.
-     *
-     * @return string HTML con el mensaje de warning.
-     */
-    public function warningMessage(){
-            
-        return ($mensaje = Session::getFlash('warning')) ?
-            "<div class='modal' onclick='this.remove()'>
-            	<div class='message warning'>
-            		<h2>Hay advertencias:</h2>
-            		<p>$mensaje</p>
-            		<p class='mini cursiva'>-- Clic para cerrar --</p>
-        		</div>
-            </div>"
-            : '';
+        // recupera el tipo de mensaje
+        $mensaje = Session::getFlash($type);
+        
+        // si no hay mensaje no retorna nada
+        if(!$mensaje)
+            return '';
+        
+        // títulos para los modales
+        $titles = [
+            'success' => 'Operación realizada con éxito',
+            'warning' => 'Atención',
+            'danger'  => 'Peligro',
+            'error'   => 'Se ha producido un error',
+            'message'  => 'Mensaje'
+        ];
+        
+        // iconos
+        $icons = [
+            'success' => '✓',
+            'warning' => '⚠',
+            'danger'  => '💀',
+            'error'  => '✕',
+            'message'  => 'ℹ'
+        ];
+        
+        // HTML resultante
+        return "
+            <div class='modal' onclick='this.remove()'>
+                <div class='message {$type} perfect-centered' onclick='event.stopPropagation()'>
+                    <div class='message-icon'>{$icons[$type]}</div>
+                    <h2>{$titles[$type]}</h2>
+                    
+                    <p class='message-text'>{$mensaje}</p>
+                    
+                    <button class='button w200px phone100' onclick='this.closest(\".modal\").remove()'>
+                        Cerrar
+                    </button>            
+                </div>
+            </div>";
     }
+   
                 
-    
-    
-    /**
-     * Retorna el HTML para los mensajes de error flasheados en sesión.
-     *
-     * @return string HTML con el mensaje de error.
-     */
-    public function errorMessage(){
-
-        return ($mensaje = Session::getFlash('error')) ?
-            "<div class='modal' onclick='this.remove()'>
-            	<div class='message danger'>
-            		<h2>Se ha producido un error</h2>
-            		<p>$mensaje</p>
-            		<p class='mini cursiva'>-- Clic para cerrar --</p>
-        		</div>
-            </div>"
-            : '';
-    } 
-	
+ 
         
     /**
      * Retorna el HTML para los mensajes de éxito, advertencia y error flasheados en sesión.
      *
-     * @return string HTML con mensajes de éxito, advertencia y/o error.
+     * @return string HTML con mensajes.
      */
     public function messages(){
-        return $this->successMessage().$this->warningMessage().$this->errorMessage();
+        return 
+            $this->showMessage('success').
+            $this->showMessage('message').
+            $this->showMessage('warning').
+            $this->showMessage('error').
+            $this->showMessage('danger');
     }
         
     

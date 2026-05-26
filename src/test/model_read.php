@@ -74,7 +74,7 @@ class Sale extends Model{};
     	try{
     	    dump(Product::findOrFail(3000)); 
     	}catch(NotFoundException $e){
-    	       echo "<p class='danger p1'>".$e->getMessage()."</p>"; 
+    	       echo "<p class='error p1'>".$e->getMessage()."</p>"; 
     	}?>  	    	
     </section>
     

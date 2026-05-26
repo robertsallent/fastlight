@@ -54,9 +54,9 @@ class AppError extends Model{
         
         // recupera la URL, usuario e IP desde la Request
         $request       = request();
-        $this->url     = $request->url;
-        $this->user    = $request->user ? $request->user->email : NULL;
-        $this->ip      = $request->ip;
+        $this->url     = $request->getUrl();
+        $this->user    = $request->getUser() ? $request->getUser()->email : NULL;
+        $this->ip      = $request->getIP();
     }   
 
     

@@ -19,7 +19,7 @@
     		<h2 class="http-code">403</h2>
     		<p class="http-message centrado">Forbidden</p>
     
-    		<section class='danger p2 m2'>
+    		<section class='error p2 m2'>
     			<h2>Información adicional</h2>
     			<?= $message ?? $mensaje ?? '' ?>
 			</section>

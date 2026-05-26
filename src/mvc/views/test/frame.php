@@ -21,7 +21,7 @@
     		    @require $file;
     		}catch(Error $e){
 	    ?>
-			<div class="danger my2 p2 w75 centered centered-block box-shadow">
+			<div class="error my2 p2 w75 centered centered-block box-shadow">
 				<h2>ERROR</h2>
 				<p>Se produjo un error en el test <b><i><?= $test ?></i></b> con el siguiente mensaje: 
 				<i><?= $e->getMessage() ?></i></p>

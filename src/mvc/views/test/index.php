@@ -58,7 +58,7 @@
             	</ul>
         	</section>
         	
-        	<section class="danger p2">
+        	<section class="warning p2">
             	<h2>IMPORTANTE</h2>
             	<p>La presencia de estos ejemplos en producción <b class='uppercase'>puede provocar
             	   problemas de seguridad</b>.</p>

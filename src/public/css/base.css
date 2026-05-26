@@ -98,8 +98,7 @@
   --code-color:				 rgb(40, 70, 180);
   
   --selected-bg-color:		 rgb(230, 230, 240);
-  
-  
+   
   --min-width: 280px; 
 }
 
@@ -155,26 +154,15 @@
   align-items: center;
 }
 
-.valign-up   		{   align-self: flex-start 				}
-.valign-bottom   	{   align-self: flex-end 					}
-.valign-center   	{   align-self: center 						}
-.valign-stretch   	{   align-self: stretch 					}
+.valign-up   			{ align-self: flex-start 		}
+.valign-bottom   		{ align-self: flex-end 			}
+.valign-center   		{ align-self: center 			}
+.valign-stretch   		{ align-self: stretch 			}
 
-.flex-reverse{
-	flex-direction: row-reverse;
-}
-
-.flex-column{
-	flex-direction: column;
-}
-
-.flex-column-reverse{
-	flex-direction: column-reverse;
-}
-
-.flex-wrap-reverse{
-	flex-wrap: wrap-reverse;
-}
+.flex-reverse			{ flex-direction: row-reverse 	}
+.flex-column			{ flex-direction: column 		}
+.flex-column-reverse	{ flex-direction: column-reverse}
+.flex-wrap-reverse		{ flex-wrap: wrap-reverse 		}
 
 
 /* Elementos flotantes ---------------------------------------------------- */
@@ -183,8 +171,14 @@
 .float-left 			{float: left  }
 .clear-both 			{clear: both  }
 
-/* Texto y párrafos ------------------------------------------------------- */
+/* Posicionamientos --------------------------------------------------------*/
+.position-relative	{ position: relative }
+.position-absolute	{ position: absolute }
+.position-fixed		{ position: fixed 	 }
+.position-static	{ position: static 	 }
+.position-sticky	{ position: sticky   }
 
+/* Texto y párrafos ------------------------------------------------------- */
 .centrado, .centered    { text-align: center  }
 .justificado, .justified{ text-align: justify }
 .izquierda, .left       { text-align: left    }
@@ -204,13 +198,7 @@
 .scroll-y				{ overflow-y: scroll  }
 .scroll-x				{ overflow-x: scroll  }
 
-/* br{
-	line-height: 2.5rem;
-} */
-
-.url {
-	font-style: italic;
-}
+.url {font-style: italic}
 
 .bloque-centrado, .centered-block{
 	margin-left: auto;
@@ -220,7 +208,14 @@
 .two-columns			{ column-count: 2 }
 .three-columns			{ column-count: 3 }
 .four-columns			{ column-count: 4 }
+.auto-columns			{ column-count: auto }
 
+.two-columns>*:first-child,
+.three-columns>*:first-child,
+.four-columns>*:first-child,
+.auto-columns>*:first-child{
+  margin-top: 0;
+}
 
 .inline-block			{display: inline-block 	}
 .block					{display: block 		}
@@ -445,13 +440,20 @@ code {
 .code-block { 
 	font-family: "Lucida Console", "Courier New", "Monaco";
 	font-size: 1rem;
+	margin: 0.8rem 0;
 	border: solid 1px var(--border-color);
 	white-space: pre-wrap;
 	word-break: break-word;
+	line-height: 1.25rem;
 	background-color: var(--main-bg-color);
 	border-radius: 5px;
 	padding: 8px 0px 10px;
 	tab-size: 1rem;
+}
+
+.code-block .comment {
+  color: #3A3;
+  font-size: 0.85rem;
 }
 
 .code-execution { 
@@ -940,6 +942,15 @@ form label, .form label{
 	border-radius: 3px;
 }
 
+label:has(+ input[required])::before, 
+label:has(+ select[required])::before, 
+label:has(+ textarea[required])::before, 
+label.mandatory::before {
+  content: "* ";       /* agrega el símbolo */
+  font-weight: bold;   /* lo resalta */
+  margin-left: 4px;    /* pequeño espacio con el texto */
+}
+
 input[type="checkbox"], input[type="radio"]{
 	min-width: 0;
 	margin-left: 10px;
@@ -1406,23 +1417,25 @@ div.http-error{
 /* Contenedor externo del modal con el fondo semistransparente */
 .modal{
 	position: fixed;
+	inset: 0;
+	
 	display:flex;
 	justify-content: center;
     align-items: center;
     text-align: center;
   
-	margin:   0;
-	padding:  20px;
+	margin:   0 !important;
+	padding:  0 !important;
+	top: 	  0 !important;
+	left: 	  0 !important;
 	
-	top: 0px;
-	left: 0px;
-	
-	width: 100vw;
-	height: 100vh;
+	width:    100vw !important;
+	height:   100vh !important;
 	
 	background-color: var(--modal-bg-color);
+	z-index: 9999;
 	
-	z-index: 100;
+	animation: fadeIn .2s ease;
 }
 
 /* figuras directamente dentro del modal */
@@ -1470,19 +1483,112 @@ div.http-error{
 	cursor: zoom-in;
 }
 
-/* ----------------- MENSAJES DE ERROR Y ÉXITO ----------------- */
+/* ----------------- MENSAJES EN MODALES ----------------- */
 
 .message{
-	height: 70%;
-	width: 70%;
-	padding: 50px;
-	border-radius: 5px;
-	margin: auto auto;
-	font-size: 1.2em;
+    width: min(500px, 90%);
+    height: 80% !important;
+    
+    padding: 40px 35px;
+    border-radius: 20px;
+    background: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,.15);
+    text-align: center;
+    animation: popUp .25s ease;
+    position: relative;
 }
 
+/* icono de la parte superior */
+.message-icon{
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    border:solid 3px var(--primary-bg-color);
+   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 3.5rem;
+    font-weight: bold;
+}
+
+.message.success .message-icon{
+	border:solid 3px var(--success-font-color);
+}
+
+.message.warning .message-icon{
+	border: none;
+}
+
+.message.error .message-icon,
+.message.danger .message-icon{
+	border:solid 3px white;
+}
+
+/* Título */
+.message h2{
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+}
+
+/* Texto del mensaje */
+.message-text{
+    font-size: 1.05rem;
+    line-height: 1.5;
+    opacity: .9;
+    margin-bottom: 30px;
+}
+
+/* Botones */
+.message.success .button{
+	color: white;
+	background: var(--success-bg-color);
+	outline: solid 2px white;
+}
+
+.message.success .button:hover{
+	background: white;
+	color: var(--success-btn-color);
+}
+
+.message.warning .button{
+	color: var(--font-color);
+	background: var(--warning-bg-color);
+	outline: solid 2px var(--font-color);
+}
+
+.message.warning .button:hover{
+	background: white;
+}
+
+.message.error .button{
+	background: var(--danger-bg-color);
+	color: white;	
+	outline: solid 2px white;
+}
+
+.message.error .button:hover{
+	background: white;	
+	color: var(--danger-bg-color);	
+}
+
+.message.danger .button{
+	background: black;
+	color: white;
+	outline: solid 2px white;
+}
+
+.message.danger .button:hover{
+	background: white;
+	color: black;
+}
+
+
+/* Colores genéricos */
 .success{
-	background-color: var(--success-bg-color);;
+	background-color: var(--success-bg-color);
 	color: var(--success-font-color);
 }
 
@@ -1491,14 +1597,14 @@ div.http-error{
 	color: var(--warning-font-color);
 }
 
-.error, .danger{
+.error{
 	background-color: var(--danger-bg-color);
 	color: var(--danger-font-color);
 }
 
-
-.error a, .danger a{
-	color: #89c !important;
+.danger{
+	background-color: black;
+	color: white;
 }
 
 /* ----------------- ACEPTAR COOKIES ----------------- */

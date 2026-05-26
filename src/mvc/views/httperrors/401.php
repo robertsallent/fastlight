@@ -18,7 +18,7 @@
     		<h2 class="http-code">401</h2>
     		<p class="http-message centrado">Unauthorized</p>
     
-    		<section class='danger p2 m2'>
+    		<section class='error p2 m2'>
     			<h2>Información adicional</h2>
     			<?= $message ?? $mensaje ?? '' ?>
 			</section>

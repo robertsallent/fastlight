@@ -5,13 +5,19 @@
  *
  * Herramientas para manejo de variables de sesión y flasheo de mensajes
  *
- * Última revisión: 08/03/2023
- * @author Robert Sallent <robertsallent@gmail.com>
+ * Última revisión: 22/05/2026
+ * 
+ * @author Robert Sallent <robert@fastlight.org>
+ * 
  */
 
 class Session{
 
+    /** @var string prefijo para las variables flasheadas   */
+    private const FLASH_PREFIX = '_flash_';
      
+    
+    
     /**
      * Flashea un mensaje en sesión.
      * 
@@ -21,8 +27,8 @@ class Session{
     public static function flash(
         string $categoria = 'message',  // categoria, por ejemplo success o error
         string $mensaje = ''            // mensaje a flashear
-    ){
-        $_SESSION['flash_'.$categoria] = $mensaje;            
+    ):void{
+        $_SESSION[self::FLASH_PREFIX.$categoria] = $mensaje;            
     }
     
     
@@ -34,18 +40,32 @@ class Session{
      * @return string|NULL retorna el mensaje si existe o null si no existe.
      */
     public static function getFlash(
-        string $categoria = 'message'  // categoria, por ejemplo success o error
-    ):?string{
+        string $categoria = 'message'
+    ): ?string {
         
-        // recupera el mensaje o null
-        $mensaje = $_SESSION['flash_'.$categoria] ?? NULL;
+        // determina la variable de sesión a recuperar
+        $key = self::FLASH_PREFIX.$categoria;
         
-        // elimina la variable dde sesión asociada
-        if($mensaje) 
-            unset($_SESSION['flash_'.$categoria]);
+        // recupera el mensaje flasheado
+        $mensaje = $_SESSION[$key] ?? null;
+        
+        // si existe la variable de sesión la elimina
+        if(isset($_SESSION[$key]))
+            unset($_SESSION[$key]);
             
-        // retorna el mensaje
+        // retorna el mensaje recuperado o null
         return $mensaje;
+    }
+    
+    
+    
+    /**
+     * Forma abreviada de flashear un mensaje genérico.
+     *
+     * @param string $mensaje el mensaje a flashear.
+     */
+    public static function message(string $mensaje):void{
+        self::flash('message', $mensaje);
     }
     
     
@@ -55,7 +75,7 @@ class Session{
      * 
      * @param string $mensaje el mensaje a flashear.
      */
-    public static function success(string $mensaje){
+    public static function success(string $mensaje):void{
         self::flash('success', $mensaje);
     }
     
@@ -66,7 +86,7 @@ class Session{
      *
      * @param string $mensaje el mensaje a flashear.
      */
-    public static function warning(string $mensaje){
+    public static function warning(string $mensaje):void{
         self::flash('warning', $mensaje);
     }
     
@@ -77,8 +97,18 @@ class Session{
      *
      * @param string $mensaje el mensaje a flashear.
      */
-    public static function error(string $mensaje){
+    public static function error(string $mensaje):void{
         self::flash('error', $mensaje);
+    }
+    
+    
+    /**
+     * Forma abreviada de flashear un mensaje de peligro.
+     *
+     * @param string $mensaje el mensaje a flashear.
+     */
+    public static function danger(string $mensaje):void{
+        self::flash('danger', $mensaje);
     }
     
     
@@ -87,13 +117,12 @@ class Session{
      * Establece una nueva variable de sesión.
      * 
      * @param string $name nombre de la variable.
-     * 
      * @param mixed $value valor de la variable.
      */
     public static function set(
         string $name,    // nombre de la variable de sesión a crear
-        $value           // valor a guardar
-    ){
+        mixed $value     // valor a guardar
+    ):void{
         $_SESSION[$name] = $value;
     }
     
@@ -104,10 +133,10 @@ class Session{
      * 
      * @param string $name nombre de la variable a recuperar
      * 
-     * @return NULL|mixed el valor de la variable recuperada o NULL si no existe.
+     * @return mixed el valor de la variable recuperada o NULL si no existe.
      */
-    public static function get(string $name){
-        return $_SESSION[$name] ?? NULL;
+    public static function get(string $name):mixed{
+        return $_SESSION[$name] ?? null;
     }
     
     
@@ -117,7 +146,7 @@ class Session{
      * 
      * @return array 
      */
-    public static function all(){
+    public static function all():array{
         return $_SESSION;
     }
     
@@ -141,7 +170,7 @@ class Session{
      * 
      * @param string $name nombre de la variable a olvidar.
      */
-    public static function forget(string $name){
+    public static function forget(string $name):void{
         unset($_SESSION[$name]);
     }
     
@@ -150,7 +179,7 @@ class Session{
     /**
      * Elimina todas las variables de sesión.
      */
-    public static function clear(){
+    public static function clear():void{
         $_SESSION = [];
     } 
     
@@ -158,7 +187,7 @@ class Session{
      * Limpia la sesión, eliminando
      * la cookie de sesión y destruyendo los datos en el servidor.
      */
-    public static function destroy(){
+    public static function destroy():void{
         
         self::clear();   // borra todas las variables de sesión
         
