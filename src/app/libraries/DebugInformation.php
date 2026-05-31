@@ -85,8 +85,8 @@ class DebugInformation{
             }else
                 $mensaje .= "<p>No hay usuario identificado</p>";
             
-            $mensaje .= "<p><span class='label'>IP remota</span> <b>".request()->ip."</b></p>";
-            $mensaje .= "<p><span class='label'>User Agent</span> <i>".request()->userAgent."</i>.</p>";
+            $mensaje .= "<p><span class='label'>IP remota</span> <b>".request()->getIp()."</b></p>";
+            $mensaje .= "<p><span class='label'>User Agent</span> <i>".request()->getUserAgent()."</i>.</p>";
             
             $mensaje .= "</section>";
         }

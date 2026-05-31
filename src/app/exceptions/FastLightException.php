@@ -97,7 +97,7 @@ class FastLightException extends Exception{
     protected function saveToDatabase(){
         
         // crea la instancia de AppError
-        $error = new AppError($this->type, $this->message);
+        $error = AppError::new($this->type, $this->message);
         
         // lo guarda en BDD
         $error->save();

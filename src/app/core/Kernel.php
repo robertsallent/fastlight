@@ -3,19 +3,25 @@
 /**
  * Clase de la que heredan las clases del núcleo como App o Api.
  * 
- * Última revisión: 28/03/2026
+ * Última revisión: 31/05/2026
+ * 
  * @author Robert Sallent <robert@fastlight.org>
+ * 
  * @since v0.9.3
- * @since v1.5.2 ahora el objeto Request se guarda en Request::$request y no en el Kernel.
  * @since v2.6.0 método runPipeline() para la ejecución de middleware
+ * @since v2.11.1 se guarda una referencia a la Request.
+ * @since v2.11.1 el método boot() se ha renombrado a handle()
  */
 
 abstract class Kernel{
     
+    /** @var Request instancia de la petición*/
+    protected Request $request;
+    
     /** Constructor del nucleo de la aplicación. */
     public function __construct(){
-        Login::init();                          // inicializa el sistema de autenticación (login)
-        Request::createFromGlobals();           // crea un objeto Request a partir de los datos de la petición del cliente
+        // crea un objeto Request a partir de los datos de la petición del cliente
+        $this->request = Request::createFromGlobals();           
     }
     
     
@@ -43,6 +49,11 @@ abstract class Kernel{
         )($request);
     }
         
-    /** Método de arranque que deben implementar obligatoriamente los núcleos App y Api. */
-    public abstract function boot():Response;    
+    
+    /** 
+     * Manejador del núcleo. 
+     * 
+     * @return Response
+     * */
+    public abstract function handle():Response;    
 }

@@ -31,10 +31,12 @@ class Login{
      * - Recupera el usuario desde la variable de sesión. 
      * - Borra la operación pendiente. 
      * 
-     * Este método es invocado desde el constructor del Kernel, no
+     * Este método es invocado desde el Kernel, no
      * es necesario usarlo explícitamente desde ningún otro lugar.
+     * 
+     * @return ?User el usuario identificado en el sistema o NULL
      */
-    public static function init(){
+    public static function init():?User{
         
         // recupera el usuario activo de la variable de sesión
         self::$activeUser = Session::get('user') ??  NULL;
@@ -47,6 +49,9 @@ class Login{
          */
         if(Session::has('_pending_operation') && !URL::beginsWith('/Login'))
             Session::forget('_pending_operation');
+        
+        // retorna el usuario activo
+        return self::$activeUser;
     }
 
     

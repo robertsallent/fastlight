@@ -53,7 +53,6 @@ class ErrorController extends Controller{
         $errores = $filtro ?                                            // hay filtro?
               AppError::filter($filtro, $limit, $paginator->getOffset()):         // filtrados
               AppError::orderBy('date', 'DESC', $limit, $paginator->getOffset()); // sin filtrar
-        
               
         // cargamos la vista y le pasamos la lista de entidades, el paginador y el filtro
         return view('error/list', [

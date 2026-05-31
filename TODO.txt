@@ -6,7 +6,7 @@ Lista de mecanismos y herramientas que se irán incorporando (o no) en próximas
 versiones del framework FastLight.
 
 Autor: Robert Sallent
-Última revisión: 19/04/2026
+Última revisión: 26/05/2026
 
 Los cambios marcados con un ? están en fase de evaluación, no es seguro
 que se implementen.
@@ -15,7 +15,14 @@ Añadir cambiar el password cada cierto tiempo, mediante un nuevo campo
 en la bdd password_changed_at. Esto podría implementarse mediante un middleware.
 constantes de configuración: CHANGE_PASSWORD_EVERY  int, número de dias
 
-Implementar los middlewares a modo de array en el config
+
+-------------------------------------------------------------------------------------------------------------
+BUGFIXES
+
+-------------------------------------------------------------------------------------------------------------
+CHANGES
+
+- Cambiar el nombre de AppError a FastLightError y revisar el modelo con calma
 
 -------------------------------------------------------------------------------------------------------------
 - CONFIG
@@ -35,10 +42,10 @@ Implementar los middlewares a modo de array en el config
 	
 - MODELO
 	- ? Nuevo método Model::insertRelated(entidadA, entidadB, ?tabla) que inserta en la tabla intermedia en relaciones N a N.
-	- (v3.x) Trabajar con snake case en la BDD en lugar de lowercase
 	- (v2.x) Seguir adaptando las clases Model y DB al nuevo Query Builder.
 		
 - TEMPLATES Y VISTAS
+    - Añadir más heramientas de formateo de textos (negrita, cursiva, fragmentos de texto comentados)
 	- Añadir herramientas JS para formularios
 	- Añadir herramientas para videos (lista de reproducción...)
 	- ? Hacer uso de <dialog> para modales
@@ -57,7 +64,6 @@ Implementar los middlewares a modo de array en el config
 	- Crear una documentación web a partir de los docblocks con phpdocumentor.
 			
 - INTEGRACIÓN CON DOCKER
-	- Hacer que funcione correctamente la exportación de BDD en entorno de desarrollo (mysqldump)
 	- Conseguir que funcione correctamente el servidor de correo, POSTFIX está dando problemas.		
 		
 - API

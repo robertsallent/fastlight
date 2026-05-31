@@ -38,7 +38,7 @@ class Maintenance{
             
             // si no está activado el passthroug, echamos al usuario a la vista mantenimiento    
             if(!$pass = Session::get('_maintenance_passthrough'))    
-                return view('error/maintenance');
+                return view('maintenance');
         }
                 
         // deja avanzar la petición por el pipeline

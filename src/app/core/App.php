@@ -4,36 +4,60 @@
  *
  * Núcleo para el desarrollo de aplicaciones web en FastLight.
  *
- * Última revisión: 28/03/2026
+ * Última revisión: 31/05/2026
  * 
  * @author Robert Sallent <robert@fastlight.org>
+ * 
  * @since v0.1.0
  * @since v0.9.1 se ha cambiado el nombre de FrontController a App.
- * @since v1.5.0 el método boot() retorna un objeto de tipo Response.
- * @since v1.5.2 el método boot() usa el helper request() para mejor tolerancia a los cambios.
+ * @since v1.5.0 el método handle() retorna un objeto de tipo Response.
+ * @since v1.5.2 el método handle() usa el helper request() para mejor tolerancia a los cambios.
  * @since v2.5.0 se aceptan URLs en kebab-case, convirtiendo a camelCase.
  * @since v2.6.0 se añade el pipeline para la ejecución de los middleware.
  */
  
 class App extends Kernel{
     
+    
     /**
-     * Método principal del controlador frontal.
+     * Inicialización de la sesión
+     */
+    protected function bootSession(): void{
+        // ajusta el nombre y tiempo de sesión (se configura en config.php)
+        session_name(SESSION_NAME);
+        ini_set('session.gc_maxlifetime', SESSION_TIME);
+        
+        
+        // parámetros de la cookie de sesión (se configuran en config.php)
+        session_set_cookie_params([
+            'lifetime'  => SESSION_COOKIE_EXPIRE,   // duración de la cookie
+            'path'      => '/',                     // disponible en todo el dominio
+            'domain'    => '',                      // por defecto el dominio actual
+            'secure'    => SESSION_COOKIE_SECURE,   // solo sobre HTTPS
+            'httponly'  => SESSION_COOKIE_HTTPONLY, // no accesible desde JavaScript
+            'samesite'  => 'Lax'                    // evita el envío en peticiones cross-site
+        ]);
+        
+        // inicia la gestión de sesiones
+        session_start();
+    }
+    
+    
+    
+    /**
+     * Dispatcher 
      * 
-     * Es invocado desde el index.php y realiza las tareas de inicialización y arranque de la aplicación.
-     * Actúa como un dispatcher, que enruta la petición hacia el método y controlador adecuado.
+     * Enruta la petición hacia el método y controlador adecuado.
      * Además trata los errores que se puedan producir, abortando hacia las páginas 
      * de error y registrando los mensajes en LOG y BDD (según lo configurado en config.php).
      * 
-     * @return Response la respuesta que será enviada al cliente.
+     * @return Response
      */
-    public function boot():Response{
+    protected function dispatch():Response{
         try{
-            $request = request();
-            
             // toma la operación que llega por parámetro via Query String
-            $url = $request->get('url') ?? NULL;
-                      
+            $url = $this->request->get('url') ?? NULL;
+            
             // Descompone la operación y la convierte en un array
             // por ejemplo: /libro/show/3 se convierte en ['libro','show','3']
             $url = $url ? explode('/', rtrim($url, '/')) : [];
@@ -46,82 +70,99 @@ class App extends Kernel{
             // EJEMPLO: la URL /libro       => controlador LibroController
             // EJEMPLO: la URL /test-suite  => controlador TestSuiteController
             
-            $controller = empty($url[0]) ? 
-                DEFAULT_CONTROLLER : 
-                kebabToCamel(array_shift($url),true).'Controller';
-     
-                
+            $controller = empty($url[0]) ?
+            DEFAULT_CONTROLLER :
+            kebabToCamel(array_shift($url),true).'Controller';
+            
+            
             // Recupera el método a invocar, que se corresponde con la segunda posición del array.
             // Si no se indicó, el método es index() (DEFAULT_METHOD en config.php)
             
             // SE DEBE USAR KEBAB CASE, QUE SERA CONVERTIDO A CAMEL CASE
             // EJEMPLO: para la URL /libro/create       => método create()
             // EJEMPLO: para la URL /libro/add-ejemplar => método addEjemplar()
-            $method = empty($url[0]) ? 
-                DEFAULT_METHOD : 
-                kebabToCamel(array_shift($url));         
-                
+            $method = empty($url[0]) ?
+            DEFAULT_METHOD :
+            kebabToCamel(array_shift($url));
+            
             // si el controlador calculado anteriormente no existe...
             if(!class_exists($controller))
                 throw new NotFoundException("La URL indicada no existe.");
-            
+                
             // crea una instancia del controlador.
             $controllerInstance = new $controller();
             
             // comprueba si ese controlador tiene ese método y éste puede ser invocado
             if(!is_callable([$controllerInstance, $method]))
                 throw new NotFoundException("La operación indicada no existe.");
-            
+                
             // recupera los middlewares a aplicar
             $middlewares = defined('MIDDLEWARES') ? MIDDLEWARES : [];
-                
+            
             // Pipeline para la ejecución de los middlewares
-            return $this->runPipeline($request, $middlewares, 
+            return $this->runPipeline($this->request, $middlewares,
                 function ($request) use ($controllerInstance, $method, $url) {
                     
                     // Tras sacar controlador y método, lo que queda en el array $url son los parámetros.
                     // Invoca el método del controlador pasándole los parámetros.
                     return $controllerInstance->$method(...$url);
                 });
-                
-
-
-        
-        // EVALUACIÓN DE ERROES Y EXCEPCIONES 
+            
+        // EVALUACIÓN DE ERROES Y EXCEPCIONES
         // si es un problema de identificación...
-        }catch(NotIdentifiedException $e){ 
+        }catch(NotIdentifiedException $e){
             
             // recuperamos la operación para la redirección tras login, que puede ser (por orden de prioridad):
             // - la indicada en la excepción
             // - la operación que se estaba intentando hacer
             // - lo que diga el fichero de config
             // - la portada del sitio
-            $redirectUrl = $e->getUrl() ?? request()->get('url') ?? REDIRECT_AFTER_LOGIN ?? '/';
+            $redirectUrl = $e->getUrl() ?? $this->request->get('url') ?? REDIRECT_AFTER_LOGIN ?? '/';
             
             // guardamos en sesión la operación a la que queramos redirigir tras login
             Session::set('_pending_operation', "/{$redirectUrl}");
             
             // ... y redirigimos a login (tras el login recuperaremos la operación pendiente).
             return redirect('/Login');
-      
             
-        // si se produce algún otro tipo de error...
-        }catch(Throwable $t){ 
+            
+            // si se produce algún otro tipo de error...
+        }catch(Throwable $t){
             
             // lo convertimos a una excepción de FastLight (si no lo era ya)
             if(!($t instanceof FastLightException))
                 $t = FastLightException::fromThrowable($t);
-            
+                
             // Prepara el mensaje de error en formato HTML.
             // En modo DEBUG, se añade información adicional al mensaje de error.
-            $message = DEBUG ||  user() && user()->hasRole('ROLE_DEBUG')? 
+            $message = DEBUG ||  user() && user()->hasRole('ROLE_DEBUG')?
                 (new DebugInformation($t, $controller, $method, $url))->toHtml() :
                 "No se pudo realizar la operación solicitada.";
             
             // retorna una respuesta de error (ViewErrorResponse)
             return abort(500, 'INTERNAL SERVER ERROR', $message, $t);
-        } 
-    }  
+        }
+    }
+    
+    
+    
+    /**
+     * Método handle
+     * 
+     * @return Response la respuesta que será enviada al cliente.
+     */
+    public function handle():Response{
+        
+        // inicializa los parámetros de sesión y la sesión
+        $this->bootSession();
+        
+        // inicializa el sistema de identificación
+        // actualiza los datos de la Request con el usuario identificado
+        $this->request->user = Login::init();
+        
+        // despacha, ejecuta y trata excepciones
+        return $this->dispatch();
+    }
 }
 
 

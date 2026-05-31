@@ -5,7 +5,7 @@
  *
  * Modelo responsable de guardar los errores en base de datos.
  * 
- * Última revisión: 19/04/2026
+ * Última revisión: 31/05/2026
  * 
  * @author: Robert Sallent <robert@fastlight.org>
  */
@@ -33,31 +33,6 @@ class AppError extends Model{
     /** @var ?string $ip dirección IP desde donde llega la petición */
     public ?string $ip       = NULL;
   
-    
-    /**
-     * Constructor.
-     * 
-     * @static  
-     * @param string $level     nivel de severidad o tipo de error
-     * @param string $message   mensaje
-     * 
-     * @return void
-     */
-    public function __construct(
-        string $level   = 'Error', 
-        string $message = ''     
-    ){
-        // prepara el nivel y el mensaje de error
-        $this->type    = 'WEB';
-        $this->level   = $level;
-        $this->message = $message;
-        
-        // recupera la URL, usuario e IP desde la Request
-        $request       = request();
-        $this->url     = $request->getUrl();
-        $this->user    = $request->getUser() ? $request->getUser()->email : NULL;
-        $this->ip      = $request->getIP();
-    }   
 
     
     /** Alternativa al uso del constructor
@@ -72,6 +47,19 @@ class AppError extends Model{
         string $message = ''
     ):AppError{
         
-        return new self($level, $message);
+        $error = new self($level, $message);
+        
+        // prepara el nivel y el mensaje de error
+        $error->type    = 'WEB';
+        $error->level   = $level;
+        $error->message = $message;
+        
+        // recupera la URL, usuario e IP desde la Request
+        $request      = request();
+        $error->url   = $request->getUrl();
+        $error->user  = $request->getUser() ? $request->getUser()->email : NULL;
+        $error->ip    = $request->getIP();
+        
+        return $error;
     }
 }

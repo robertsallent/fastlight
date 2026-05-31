@@ -2,7 +2,7 @@
 
 /** Funciones helper para realizar tareas habituales.
  * 
- * Última revisión: 26/04/2026
+ * Última revisión: 31/05/2026
  * 
  * @author Robert Sallent <robert@fastlight.org>
  * 
@@ -11,7 +11,8 @@
  * @since v2.0.0 añadido el helper humanDate()
  * @since v2.1.0 añadidas snakeToCamel() y snake()
  * @since v2.4.3 nuevas funciones kebab(), camel(), fromKebab(), fromCamel(), fromSnake(), kebabToCamel() y camelToKebab()
- * @sicne v2.9.0 nueva función pascalToSnake()
+ * @since v2.9.0 nueva función pascalToSnake()
+ * @since v2.12.0 nuevo helper e()
 */
 
 
@@ -347,19 +348,6 @@ function makeParagraphs(string $text    = ''):string{
 
 
 /**
- * Función obsoleta que será eliminada con el tiempo
- * 
- * @param string $text
- * @return string
- * 
- * @deprecated ahora se usa toHTML()
- */
-function paragraph(string $text    = ''):string{
-    return makeParagraphs(makeEndLines($text));
-}
-
-
-/**
  * Convierte líneas que comienzan por guión en listas HTML.
  * Cada línea se considera un "párrafo".
  * 
@@ -518,6 +506,25 @@ function decodeStringFields(mixed $obj):mixed{
     return $obj;
 }
 
+
+
+    
+/**
+ * Escapa texto para salida segura en HTML.
+ *
+ * @param mixed $value
+ * @param bool $doubleEncode evita re-escape si ya está escapado
+ * @return string
+ */
+function e(mixed $value, bool $doubleEncode = false): string{
+    if ($value === null)
+        return '';
+    
+    if (is_object($value) && !method_exists($value, '__toString'))
+        return '';
+    
+    return htmlspecialchars((string) $value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8', $doubleEncode);
+}
 
 
 /*

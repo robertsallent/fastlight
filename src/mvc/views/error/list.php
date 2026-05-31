@@ -62,7 +62,7 @@
         		    );
 
         			     
-        			if($errores) { ?>
+        			if(!empty($errores)) { ?>
         				<div class="right">
         					<?= $paginator->stats()?>
         				</div>
@@ -77,7 +77,8 @@
                               	<span class="right">Acciones</span>
                     		</div>
                     		                    		
-                    		<?php foreach($errores as $error){ ?>
+                    		<?php 
+                    		foreach($errores as $error){ ?>
                 				<div class="grid-list-item">
                 					<span data-label="Tipo" class="bold"><?=$error->type?></span>
                 					<span data-label="URL" class='url span3'>

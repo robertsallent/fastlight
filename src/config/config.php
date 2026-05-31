@@ -361,3 +361,25 @@ define('SAVE_STATS', true);
 define('STATS_TABLE', 'stats');
 
 
+
+/* -------------------------------------------------------------
+ * CORS
+ * -------------------------------------------------------------*/
+
+// CABECERAS CORS:
+// Orígenes aceptados para peticiones.
+define('ALLOW_ORIGIN', 'http://localhost');
+
+// Métodos HTTP aceptados.
+define('ALLOW_METHODS', 'POST, GET, PUT, DELETE, OPTIONS');
+
+// Cabeceras permitidas
+define('ALLOW_HEADERS', 'csrf_token');
+
+// ¿Se permite el envío de credenciales?
+define('ALLOW_CREDENTIALS', 'true');
+
+// Método de autenticación para las peticiones a la API.
+// Puede ser COOKIE (implementado) o KEY (no implementado aún)
+define('API_AUTHENTICATION', 'COOKIE');
+

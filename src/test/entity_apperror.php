@@ -19,15 +19,15 @@
 		
 		<pre>
 			<code>
-    (new AppError('NOTICE', 'Esto es un test'))->save();
-    (new AppError('DEPRECATED', 'El penúltimo test');
-    (new AppError('WARNING', "Esto '<b>es</b>\'texto\n&nbsp;&gt;&lt;especial.");
+    (AppError::new('NOTICE', 'Esto es un test'))->save();
+    (AppError::new('DEPRECATED', 'El penúltimo test');
+    (AppError::new('WARNING', "Esto '<b>es</b>\'texto\n&nbsp;&gt;&lt;especial.");
 			</code>
 		</pre>
 		<?php
-    		(new AppError('NOTICE', 'Esto es un test'))->save();
-    		(new AppError('DEPRECATED', 'El penúltimo test'))->save();
-    		(new AppError('WARNING', "Esto '<b>es</b>\'texto\n&nbsp;&gt;&lt;especial."))->save();
+    		(AppError::new('NOTICE', 'Esto es un test'))->save();
+    		(AppError::new('DEPRECATED', 'El penúltimo test'))->save();
+    		(AppError::new('WARNING', "Esto '<b>es</b>\'texto\n&nbsp;&gt;&lt;especial."))->save();
         ?>  
 	</section>
   
