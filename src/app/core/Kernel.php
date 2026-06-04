@@ -17,13 +17,7 @@ abstract class Kernel{
     
     /** @var Request instancia de la petición*/
     protected Request $request;
-    
-    /** Constructor del nucleo de la aplicación. */
-    public function __construct(){
-        // crea un objeto Request a partir de los datos de la petición del cliente
-        $this->request = Request::createFromGlobals();           
-    }
-    
+
     
     /**
      * Pipeline para la ejecución de middlewares

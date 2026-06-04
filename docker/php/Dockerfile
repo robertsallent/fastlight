@@ -5,6 +5,9 @@
 ARG PHP_VERSION=8.2-apache
 FROM php:${PHP_VERSION}
 
+# Activar configuración PHP
+RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
+
 # Instalar dependencias del sistema
 RUN apt-get update && apt-get install -y \
     git \

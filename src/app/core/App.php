@@ -4,7 +4,7 @@
  *
  * Núcleo para el desarrollo de aplicaciones web en FastLight.
  *
- * Última revisión: 31/05/2026
+ * Última revisión: 04/06/2026
  * 
  * @author Robert Sallent <robert@fastlight.org>
  * 
@@ -155,6 +155,9 @@ class App extends Kernel{
         
         // inicializa los parámetros de sesión y la sesión
         $this->bootSession();
+        
+        // crea un objeto Request a partir de los datos de la petición del cliente
+        $this->request = Request::createFromGlobals(); 
         
         // inicializa el sistema de identificación
         // actualiza los datos de la Request con el usuario identificado
