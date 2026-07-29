@@ -187,11 +187,37 @@ figure.card{
 }
 
 
+
+
 .code-block{
 	padding: 5px;
 	font-size: 0.75rem;
 	tab-size: 0.8rem;
 }
+
+
+.card-gallery{
+	grid-template-columns: 1fr;
+	gap: 15px;
+	justify-items: center;
+}
+
+.content-card.horizontal .card-body{
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+}
+
+.content-card.horizontal .card-body img{
+	width: 100%;
+	height: auto;
+	aspect-ratio: 16 / 9;
+}
+
+.card-footer{
+	flex-wrap: wrap;
+}
+
 
 
  /* ------------------------------ MAPA WEB --------------------------------*/

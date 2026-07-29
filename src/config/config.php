@@ -106,11 +106,11 @@ define('EMPTY_STRINGS_TO_NULL', true);
 
 // ubicación del servidor de correo saliente SMTP
 // se puede comentar o borrar para usar la configuración por defecto en php.ini
-define('SMTP', 'localhost');
+define('SMTP', 'mailpit');
 
 // puerto para el servidor de correo saliente SMTP
 // se puede comentar o borrar para usar la configuración por defecto en php.ini
-define('SMTP_PORT', '25');
+define('SMTP_PORT', '1025');
 
 // Email y nombre del administrador.
 define('ADMIN_EMAIL', 'admin@fastlight.test.local');

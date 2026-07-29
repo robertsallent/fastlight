@@ -26,7 +26,7 @@ services:
     build:
       context: ./docker/php
       args:
-        php_version: 8.2-apache
+        php_version: 8.4-apache
     container_name: ${PROJECT_NAME}-php-apache
     ports:
       - "8080:80"
@@ -34,9 +34,9 @@ services:
       - ./src/:/var/www/html/
     depends_on:
       - mysql
-      - postfix
+      - mailpit
     restart: "no"
- 
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: ${PROJECT_NAME}-phpmyadmin
@@ -50,13 +50,11 @@ services:
       - "8081:80"
     depends_on:
       - mysql
- 
-  postfix:
-    image: boky/postfix
-    container_name: ${PROJECT_NAME}-postfix
+
+  mailpit:
+    image: axllent/mailpit
+    container_name: ${PROJECT_NAME}-mailpit
     restart: "no"
-    environment:
-      ALLOWED_SENDER_DOMAINS: ${MAIL_DOMAIN}
-      HOSTNAME: mail.${MAIL_DOMAIN}
     ports:
-      - "25:25"
+      - "1025:1025"   # SMTP
+      - "8025:8025"   # Interfaz web
