@@ -140,12 +140,22 @@ class View{
             
         }catch(Throwable $e){
             
-            $message = DEBUG ?
-            "<p>ERROR en la vista <b>".VIEWS_FOLDER."/$this->name.php</b>.</p>
-             <p>INFORMACIÓN ADICIONAL: ".$e->getMessage()."</p>" :
-             "Error al cargar la página.";
+            $user = user();
             
-             throw new ViewException($message);
+            $message = "<h2>500 - Error/h2>";
+            
+            if(DEBUG || $user && $user->hasRole('ROLE_DEBUG')){
+                $message .= "<p>ERROR en la vista <b>";
+                $message .= VIEWS_FOLDER."/$this->name.php</b>.</p>";
+                $message .= "<p class='info'>INFORMACIÓN ADICIONAL: ".$e->getMessage()."</p>";
+                $message .= "<p class='caution'>".toHTML($e)."</p>";
+            }else{
+                $message .= "<p class='caution'>Error al cargar la página.</p>";
+            }
+            
+            $message .= "<a class='button' href='/contacto'>Reportar el error</a>";
+            
+            throw new ViewException($message);
         }
     }  
 }
