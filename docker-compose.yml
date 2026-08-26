@@ -46,6 +46,7 @@ services:
       PMA_PORT: 3306
       PMA_USER: root
       PMA_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      UPLOAD_LIMIT: 128M
     ports:
       - "8081:80"
     depends_on:

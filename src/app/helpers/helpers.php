@@ -449,16 +449,40 @@ function makeHeaders(string $html = '') {
 
 
 /**
- * Procesa el texto para ser mostrado como HTML
- * 
- * @param string $text
- * @param bool $endlines
- * @param bool $lists
- * @param bool $headers
- * @param bool $links
- * @param bool $paragraphs
- * 
+ * Convierte las direcciones de correo en enlaces HTML.
+ *
+ * @param string $html Texto donde realizar la sustitución.
  * @return string
+ */
+function makeEmails(string $html): string{
+    return preg_replace_callback(
+        '/(?<![="\'])\b([A-Z0-9._%+\-]+@[A-Z0-9.\-]+\.[A-Z]{2,})\b/i',
+        function ($match) {
+            $email = $match[1];
+            
+            return "<a href=\"mailto:{$email}\">{$email}</a>";
+        },
+        $html
+    );
+}
+
+/**
+ * Convierte _b...b_ en texto en negrita.
+ *
+ * @param string $html Texto donde realizar la sustitución.
+ * @return string
+ */
+function makeBold(string $html): string{
+    return preg_replace(
+        '/_b(.*?)b_/s',
+        '<strong>$1</strong>',
+        $html
+    );
+}
+
+
+/**
+ * Procesa un texto para mostrarlo como HTML.
  */
 function toHTML(
     ?string $text    = null,
@@ -466,19 +490,35 @@ function toHTML(
     bool $lists      = true,
     bool $headers    = true,
     bool $links      = true,
-    bool $paragraphs = true
-    
+    bool $paragraphs = true,
+    bool $bold       = true,
+    bool $emails     = true
 ): string {
     
-    if($text){
-        $text = $endLines   ? makeEndLines($text)   : $text;
-        $text = $lists      ? makeLists($text)      : $text;
-        $text = $headers    ? makeHeaders($text)    : $text;
-        $text = $links      ? makeLinks($text)      : $text;
-        $text = $paragraphs ? makeParagraphs($text) : $text;       
-    }
-    return $text ?? '';
+    // si no hay texto...
+    if ($text === null || $text === '')
+        return '';
+   
+    // lista de transformaciones a aplicar
+    $transformations = [
+        'makeEndLines'   => $endLines,
+        'makeLists'      => $lists,
+        'makeHeaders'    => $headers,
+        'makeParagraphs' => $paragraphs,
+        'makeBold'       => $bold,
+        'makeEmails'     => $emails,
+        'makeLinks'      => $links,
+    ];
+
+    // aplicar las transformaciones
+    foreach ($transformations as $function => $enabled) 
+        if ($enabled) 
+            $text = $function($text);
+
+    // retorna el resultado
+    return $text;
 }
+
 
 
 /**
@@ -731,6 +771,14 @@ function redirect(
 }
 
 
+/**
+ * Redirección a la URL anterior
+ *
+ * @return RedirectResponse
+ */
+function back(){
+    return redirect(request()->previousUrl ?? '/');
+}
 
 
 /*

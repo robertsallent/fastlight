@@ -28,6 +28,7 @@
  * @since v1.8.7 se implementa el método validate() de forma genérica
  * @since v2.2.2 se añade los métodos getNext() y getPrevious()
  * @since v2.6.5 se añaden los métodos toXML(), toJSON(), toCSV(), allToJSON(), filteredToJSON()
+ * @since v2.13.1 se añaden los métodos whereIsNull() y whereIsNotNull()
  */
 
 #[\AllowDynamicProperties]
@@ -170,14 +171,14 @@ abstract class Model{
         $consulta = "SELECT *
                      FROM {$table}
                      WHERE id > {$this->id}
-                     ORDER BY ID DESC
+                     ORDER BY id ASC
                      LIMIT 1";
         return DB::select($consulta, $class);
     }
     
     
     /**
-     * Recupera la entidad con el id siguiente a la actual
+     * Recupera la entidad con el id anterior al actual
      *
      * @return Model la instancia o null si no existe
      */
@@ -186,7 +187,10 @@ abstract class Model{
         $class = get_called_class();    // recupera el nombre de la clase del modelo
         $table = self::getTable();      // recupera el nombre de la tabla
         
-        $consulta = "SELECT * FROM {$table} WHERE id < {$this->id} ORDER BY ID DESC LIMIT 1";
+        $consulta = "SELECT * FROM {$table} 
+                     WHERE id < {$this->id} 
+                     ORDER BY id DESC 
+                     LIMIT 1";
         return DB::select($consulta, $class);
     }
     
@@ -578,19 +582,25 @@ abstract class Model{
      * @param array $condiciones array asociativo campo => valor con las condiciones.
      * @param string $orden orden para los resultados.
      * @param string $sentido sentido ascendente o descendente.
+     * @param int $limit límite de resultados
+     * @param int $offset offset
      * 
      * @return array lista de entidades con los filtros aplicados.
      */
     public static function where(
-        array $condiciones = [],    
-        string $orden = 'id',    
-        string $sentido = 'ASC'  
+        array $condiciones  = [],    
+        string $orden       = 'id',    
+        string $sentido     = 'ASC',
+        ?int $limit         = null,
+        ?int $offset        = null
     ):array{
         
         $tabla = self::getTable(); // recupera el nombre de la tabla
         
+        // preparación de la consulta
         $consulta="SELECT * FROM $tabla ";
         
+        // se añaden las condiciones, siempre comprueba con LIKE
         if(sizeof($condiciones)){
             $consulta .= "WHERE ";
             
@@ -600,13 +610,77 @@ abstract class Model{
             $consulta = substr($consulta, 0, strlen($consulta)-4);
         }
         
-        $consulta .= "ORDER BY $orden $sentido";
+        // ordenación
+        $consulta .= "ORDER BY $orden $sentido ";
+        
+        // si hay límite, añade el limite
+        if($limit)
+            $consulta .= "LIMIT {$limit} ";
+        
+        // si hay offset añade el offset
+        if($offset)
+            $consulta .= "OFFSET {$offset}";
        
+        // lanza la consulta y recupera los resultados
         $entities = DB::selectAll($consulta, get_called_class());
         
+        // por si hubieran campos en JSON, los pasa a PHP
         foreach($entities as $entity)
             $entity->parseJsonFields();
             
+        // retorna los resultados recuperados
+        return $entities;
+    }
+    
+    
+    
+    /**
+     * Retorna una colección de entidades cuyo campo pasado por parámetro tiene valor nulo
+     * 
+     * @param string $field campo donde se buscan los valores nulos
+     * 
+     * @return array<Model> lista de resultados
+     */
+    public function whereNull(string $field):array{
+        
+        $tabla = self::getTable(); // recupera el nombre de la tabla
+        
+        $consulta = "SELECT * FROM {$table} WHERE {$field} IS NULL";
+        
+        // lanza la consulta y recupera los resultados
+        $entities = DB::selectAll($consulta, get_called_class());
+        
+        // por si hubieran campos en JSON, los pasa a PHP
+        foreach($entities as $entity)
+            $entity->parseJsonFields();
+            
+        // retorna los resultados recuperados
+        return $entities;  
+    }
+    
+    
+    
+    /**
+     * Retorna una colección de entidades cuyo campo pasado por parámetro tiene valor no nulo
+     *
+     * @param string $field campo donde se buscan los valores no nulos
+     *
+     * @return array<Model> lista de resultados
+     */
+    public function whereNotNull(string $field):array{
+        
+        $tabla = self::getTable(); // recupera el nombre de la tabla
+        
+        $consulta = "SELECT * FROM {$table} WHERE {$field} IS NOT NULL";
+        
+        // lanza la consulta y recupera los resultados
+        $entities = DB::selectAll($consulta, get_called_class());
+        
+        // por si hubieran campos en JSON, los pasa a PHP
+        foreach($entities as $entity)
+            $entity->parseJsonFields();
+            
+        // retorna los resultados recuperados
         return $entities;
     }
     

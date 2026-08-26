@@ -202,6 +202,10 @@ figure.card{
 	justify-items: center;
 }
 
+.content-card{
+	max-width: initial;	
+}
+
 .content-card.horizontal .card-body{
 	display: flex;
 	flex-direction: column;
