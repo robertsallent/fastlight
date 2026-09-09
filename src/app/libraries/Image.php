@@ -6,6 +6,7 @@
  * @author Robert Sallent 
  * 
  * @since v2.0.5 nuevo método scaleAndCrop() que escala y recorta una imagen a la resolución deseada, desde el centro y manteniendo la proporción
+ * @since v2.14.0 nuevo método rotate() que permite rotar una imagen un número determinado de grados.
  *
  */
 class Image{
@@ -114,6 +115,54 @@ class Image{
         imagedestroy($imagenFinal);
         
         return true;
+    }
+    
+    
+    /**
+     * Rota una imagen el número de grados indicado.
+     *
+     * Los valores positivos rotan en sentido antihorario
+     * y los negativos en sentido horario.
+     *
+     * @param string $file ruta del fichero
+     * @param float $degrees grados de rotación
+     *
+     * @return void
+     */
+    public static function rotate(string $file, float $degrees): void{
+        
+        // recupera el tipo MIME real del fichero
+        $finfo = new finfo(FILEINFO_MIME_TYPE);
+        $mime  = $finfo->file($file);
+        
+        // carga la imagen
+        $image = match ($mime) {
+            'image/jpeg' => imagecreatefromjpeg($file),
+            'image/png'  => imagecreatefrompng($file),
+            'image/gif'  => imagecreatefromgif($file),
+            'image/webp' => imagecreatefromwebp($file),
+            default => throw new FileException("Formato de imagen '$mime' no soportado.")
+        };
+        
+        // rota la imagen
+        $rotated = imagerotate($image, $degrees, 0);
+        
+        if ($rotated === false) {
+            imagedestroy($image);
+            throw new FileException("No se pudo rotar la imagen.");
+        }
+        
+        // guarda la imagen
+        match ($mime) {
+            'image/jpeg' => imagejpeg($rotated, $file, 90),
+            'image/png'  => imagepng($rotated, $file),
+            'image/gif'  => imagegif($rotated, $file),
+            'image/webp' => imagewebp($rotated, $file, 90),
+        };
+        
+        // libera memoria
+        imagedestroy($image);
+        imagedestroy($rotated);
     }
 
 

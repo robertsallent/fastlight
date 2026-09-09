@@ -735,7 +735,7 @@ function abort(
     int $code           = 500,
     string $status      = 'INTERNAL SERVER ERROR',
     string $message     = '',
-    Throwable $t        = null
+    ?Throwable $t        = null
 ):Response{
     return new ViewErrorResponse($t, $code, $status, $message);
 }
@@ -806,56 +806,73 @@ function user(){
  */
 
 /**
- * Recupera los valores de los inputs flasheados en sesión (de la petición anterior).
- * Solamente los retorna si estamos en la misma URL, para evitar cruzar inputs
- * entre formularios en distintas URLs.
- * 
- * @param string $inputName nombre del input a recuperar.
- * @param string $dbValue para las operaciones de edición, valor antiguo de la BDD.
-
- * @return string valor del input recuperado.
+ * Recupera el valor de un input flasheado en sesión (de la petición anterior).
+ *
+ * Si no existe un valor anterior, retorna el valor almacenado en la BDD,
+ * si se ha proporcionado. En caso contrario, retorna una cadena vacía.
+ *
+ * @param string      $inputName Nombre del input a recuperar.
+ * @param string|null $dbValue Valor actual almacenado en la BDD.
+ *
+ * @return string Valor que debe mostrarse en el input.
  */
-function old(string $inputName, string $dbValue = NULL):string{
+function old(
+    string $inputName,
+    ?string $dbValue = null
+): string {
     return request()->previousInputs[$inputName] ?? $dbValue ?? '';
 }
 
 
 /**
- * Selecciona una opción en un input, dependiendo del valor.
- * 
- * @param string $inputName nombre del input.
- * @param string $value valor a comprobar.
- * 
- * @return string selected o cadena vacía.
+ * Selecciona una opción dependiendo del valor.
+ *
+ * Prioriza el valor de la petición anterior. Si no existe,
+ * utiliza el valor almacenado en la BDD.
+ *
+ * @param string      $inputName Nombre del input.
+ * @param string      $value Valor a comprobar.
+ * @param string|null $dbValue Valor actual almacenado en la BDD.
+ *
+ * @return string "selected" o cadena vacía.
  */
 function oldSelected(
-    string $inputName, 
-    string $value
-):string{
-    return request()->previousInputs[$inputName] == $value ? ' selected ' : '';
+    string $inputName,
+    string $value,
+    ?string $dbValue = null
+): string {
+
+    $oldValue = request()->previousInputs[$inputName] ?? $dbValue;
+
+    return $oldValue == $value ? ' selected ' : '';
 }
 
 
 /**
  * Marca un checkbox o botón de radio, dependiendo del valor.
- * 
- * @param string $inputName nombre del input.
- * @param string $value valor a comprobar.
- * @param bool $default si debe estar marcado por defecto.
- * 
- * @return string checked o cadena vacía.
+ *
+ * Prioriza el valor de la petición anterior. Si no existe,
+ * utiliza el valor almacenado en la BDD.
+ *
+ * @param string      $inputName Nombre del input.
+ * @param string      $value Valor a comprobar.
+ * @param bool        $default Si debe estar marcado por defecto.
+ * @param string|null $dbValue Valor actual almacenado en la BDD.
+ *
+ * @return string "checked" o cadena vacía.
  */
 function oldChecked(
-    string $inputName, 
+    string $inputName,
     string $value,
-    bool $default = false
-):string{
-    
-    $oldValue = request()->previousInputs[$inputName];
-    
-    if(!$oldValue && $default)
-        return ' checked';
-    
+    bool $default    = false,
+    ?string $dbValue = null
+): string {
+
+    $oldValue = request()->previousInputs[$inputName] ?? $dbValue;
+
+    if ($oldValue === null)
+        return $default ? ' checked ' : '';
+
     return $oldValue == $value ? ' checked ' : '';
 }
 
