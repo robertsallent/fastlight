@@ -5,12 +5,12 @@
  *
  *   Facilita la tarea de enviar emails.
  *  
- * Consulta la documentación y ejemplos en:
+ *   Consulta la documentación y ejemplos en:
  *   https://fastlight.org/Backend/email
  *
- *   Última mofidicación: 22/09/2025
+ *   Última mofidicación: 17/09/2026
  *
- *   @author Robert Sallent <robertsallent@gmail.com>
+ *   @author Robert Sallent <robert@fastlight.org>
  */
 class Email{
     
@@ -79,28 +79,53 @@ class Email{
         // preparando el cuerpo del mensaje
         $this->prepareMessage($message);
     }
-    
-    
+           
     
     /**
-     * Texto del mensaje, personalizar al gusto. 
+     * Estructura del mensaje, personalizar al gusto. 
      * 
      * @param string mensaje
      */
     protected function prepareMessage(string $message){
-    
-        $this->message = "
-            <h2>MENSAJE</h2>
-            <p>
-                De ".($this->realName ?? $this->name)." (".($this->realFrom ?? $this->from)."). 
-                Recibido el $this->date.
-            </p>
-                <h2>$this->subject</h2>
+        
+        // carga el fichero con los estilos para el email
+        $css = file_get_contents('../public/css/email.css');
+        $css = '<head>
+                    <!-- Codificación de caracteres -->
+                    <meta charset="UTF-8">
                 
-                <p>$message</p> 
-                <hr>
-                <p>Enviado desde $this->name
-            </p>";
+                    <!-- Adaptación a dispositivos móviles -->
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                
+                    <!-- Compatibilidad con Outlook -->
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                
+                    <!-- Evitar modificaciones automáticas en Apple Mail -->
+                    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+                
+                    <!-- Título del documento -->
+                    <title>'.$this->subject.'</title>
+
+                    <!- Estilos en linea -->
+                    <style>'.$css.'</style>
+                </head>';
+        
+        $this->message = $css."
+            <body>
+                <section class='mail-header'>
+                    <h2>$this->subject</h2>
+                    <p>De ".($this->realName ?? $this->name)." (".($this->realFrom ?? $this->from).").</p> 
+                    <p>Recibido el $this->date.</p>
+                </section>  
+    
+                <section class='mail-body'>
+                $message 
+                </section>
+                
+                <section class='mail-footer'>
+                    <p>Enviado desde <a href='".APP_URL."'>".APP_NAME."</a></p>
+                </section>
+           </body>";     
     }
       
 

@@ -22,10 +22,10 @@ class ViewErrorResponse extends ViewResponse{
      * @param string $message mensaje personalizado, que susituiría al que viene con la excepción
      */
     public function __construct(
-        Throwable $t        = null, 
+        ?Throwable $t        = null, 
         int $httpCode       = 500,
         string $status      = 'INTERNAL SERVER ERROR',
-        string $message     = null
+        ?string $message     = null
     ){    
         // llama al constructor de la clase padre
         parent::__construct(

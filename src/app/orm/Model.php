@@ -947,7 +947,7 @@ abstract class Model{
      */
     public function hasMany(
         string $related, 
-        string $foreignKey = null,
+        ?string $foreignKey = null,
         string $localKey = 'id'
     ):array{
         
@@ -978,7 +978,7 @@ abstract class Model{
      */
     public function hasAny(
         string $related,
-        string $foreignKey = null,
+        ?string $foreignKey = null,
         string $localKey = 'id'
     ):bool{
         
@@ -1015,7 +1015,7 @@ abstract class Model{
      */
     public function belongsTo(
         string $related,
-        string $foreignKey = null,
+        ?string $foreignKey = null,
         string $ownerKey = 'id'
     ):?object{
         
@@ -1046,7 +1046,7 @@ abstract class Model{
      */
     public function belongsToAny(
         string $related,
-        string $foreignKey = null,
+        ?string $foreignKey = null,
         string $ownerKey = 'id'
     ):bool{
             
@@ -1092,9 +1092,9 @@ abstract class Model{
      */
     public function belongsToMany(
         string $related,
-        string $intermediateTable = NULL,
-        string $foreign1 = NULL,
-        string $foreign2 = NULL,
+        ?string $intermediateTable = NULL,
+        ?string $foreign1 = NULL,
+        ?string $foreign2 = NULL,
         string $owner1 = 'id',
         string $owner2 = 'id'
     ):array{
@@ -1214,7 +1214,7 @@ abstract class Model{
      */
     public function toXML(
         string $root      = 'root',
-        string $name      = null,
+        ?string $name      = null,
         string $namespace = "https://fastlight.org"
     ):string{
         return XML::encode($this, $root, $name, $namespace);

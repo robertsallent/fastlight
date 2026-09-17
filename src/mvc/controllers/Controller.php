@@ -51,7 +51,7 @@ abstract class Controller{
      * 
      * @param string $token token CSRF.
      */
-    public function checkCsrfToken(string $token = null){
+    public function checkCsrfToken(?string $token = null){
         CSRF::check($token);   
     }
     
