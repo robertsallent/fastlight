@@ -2,7 +2,7 @@
 
 /** Funciones helper para realizar tareas habituales.
  * 
- * Última revisión: 31/05/2026
+ * Última revisión: 21/09/2026
  * 
  * @author Robert Sallent <robert@fastlight.org>
  * 
@@ -855,7 +855,7 @@ function oldSelected(
  * utiliza el valor almacenado en la BDD.
  *
  * @param string      $inputName Nombre del input.
- * @param string      $value Valor a comprobar.
+ * @param string|int      $value Valor a comprobar.
  * @param bool        $default Si debe estar marcado por defecto.
  * @param string|null $dbValue Valor actual almacenado en la BDD.
  *
@@ -863,9 +863,9 @@ function oldSelected(
  */
 function oldChecked(
     string $inputName,
-    string $value,
-    bool $default    = false,
-    ?string $dbValue = null
+    string|int $value   = 1,
+    bool $default       = false,
+    ?string $dbValue    = null
 ): string {
 
     $oldValue = request()->previousInputs[$inputName] ?? $dbValue;

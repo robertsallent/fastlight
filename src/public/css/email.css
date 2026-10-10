@@ -19,7 +19,7 @@ body {
 
 .mail-header {
     padding: 28px 30px;
-    background-color: #1e293b;
+    background-color: #579;
     color: #ffffff;
     border-radius: 16px 16px 0 0;
 }
@@ -57,9 +57,9 @@ body {
 .mail-body h2 {
     margin: 0 0 25px;
     padding: 0 0 12px;
-    color: #2563eb;
+    color: #579;
     background: transparent;
-    border-bottom: 3px solid #38bdf8;
+    border-bottom: 3px solid #579;
     border-radius: 0;
     font-size: 21px;
     font-weight: bold;
@@ -69,7 +69,7 @@ body {
 .mail-body h3 {
     margin: 30px 0 12px;
     padding-bottom: 8px;
-    color: #1d4ed8;
+    color: #579;
     border-bottom: 2px solid #dbeafe;
     font-size: 17px;
     font-weight: bold;
@@ -88,12 +88,12 @@ body {
 
 .mail-body p b,
 .mail-body p strong {
-    color: #2563eb;
+    color: #579;
     font-weight: bold;
 }
 
 .mail-body a {
-    color: #2563eb;
+    color: #579;
     text-decoration: underline;
 }
 
@@ -104,7 +104,7 @@ body {
 .mail-footer {
     padding: 20px 30px;
     background-color: #e2e8f0;
-    border-top: 4px solid #38bdf8;
+    border-top: 4px solid #579;
     border-radius: 0 0 16px 16px;
     text-align: center;
 }
@@ -120,7 +120,7 @@ body {
 }
 
 .mail-footer a {
-    color: #2563eb;
+    color: #579;
     font-weight: bold;
     text-decoration: none;
 }

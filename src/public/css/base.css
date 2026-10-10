@@ -516,6 +516,20 @@ span.path::before{
 	box-shadow: 0 0px 4px var(--shadow-color);
 }
 
+.button:disabled,
+.button-light:disabled,
+.button-success:disabled,
+.button-success-light:disabled,
+.button-warning:disabled,
+.button-warning-light:disabled,
+.button-danger:disabled,
+.button-danger-light:disabled{
+	opacity: 0.5;
+	cursor: not-allowed;
+	box-shadow: none;
+	filter: grayscale(60%);
+}
+
 td .button, td .button-light, 
 td .button-success, td .button-success-light,
 td .button-warning, td .button-warning-light, 

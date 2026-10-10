@@ -2,10 +2,15 @@
 
 /*
  *   Clase: CSRF
- *   Autor: Robert Sallent
- *   Última mofidicación: 13/04/2023
+ * 
+ *   Gestiona la creación y validación de tokens CSRF para proteger los formularios
+ *   de ataques de falsificación de solicitudes entre sitios (Cross-Site Request Forgery).
+ * 
+ *   Autor: Robert Sallent <robert@fastlight.org>
+ * 
+ *   Última modificación: 10/10/2026
  *
- *   Para trabajar con tokens CSRF
+ * 
 */
 
 class CSRF{
@@ -13,10 +18,11 @@ class CSRF{
     // crea un nuevo token CSRF y lo guarda en sesión
     public static function create():string{
         
-        $value = md5(uniqid());              // calcula un nuevo token
-        // $value = base64_encode(openssl_random_pseudo_bytes(16));
+        // genera un token criptográficamente seguro de 256 bits
+        $value = bin2hex(random_bytes(32));
         
-        Session::set('csrf_token', $value);  // lo guarda en sesión
+        // guarda el token en sesión
+        Session::set('csrf_token', $value);
         
         return $value;                      
     }
@@ -24,35 +30,48 @@ class CSRF{
     
     // método que compara el token que se le pasa con el guardado en sesión
     public static function check(
-        string $token = null,
-        bool $forget  = true
-    ){
-        
+        ?string $token = null,
+        bool $forget   = false
+    ):void{
+        // si no se le pasa el token, intenta recuperarlo por POST
+        $token = $token ?? request()->post('csrf_token');
+
+        // si aún así no hay token, lanza una excepción
         if(!$token)
             throw new CsrfException("No se recibió el token CSRF.");
         
-        if(!Session::has('csrf_token'))
+        // recupera el token almacenado en sesión
+        $storedToken = Session::get('csrf_token');
+
+        // si no había token en sesión, lanza una excepción
+        if(!$storedToken)
             throw new CsrfException("No existe el token CSRF.");
-            
-        if($token != Session::get('csrf_token'))
+        
+        // compara ambos tokens de forma segura
+        if(!hash_equals($storedToken, $token))
             throw new CsrfException("No se pudo validar el token CSRF.");
               
+        // si todo es correcto, borra el token de sesión (si se indica)
         if($forget)
             self::forget();
     }
     
     
     // método que añade un token CSRF al formulario
-    public static function createInput():string{
+    public static function createInput(): string{
+    
+        // si ya hay un token en sesión, lo recupera; si no, crea uno nuevo
+        $token = Session::has('csrf_token')
+            ? Session::get('csrf_token')
+            : self::create();
 
-        return Session::has('csrf_token') ? 
-            "<input type='hidden' name='csrf_token' value='".Session::get('csrf_token')."'>" :
-            "";
+        // devuelve un input oculto con el token CSRF
+        return "<input type='hidden' name='csrf_token' value='{$token}'>";
     }
     
     
     // método que olvida un token CSRF
-    public static function forget(){
+    public static function forget():void{
         Session::forget('csrf_token');
     }
     

@@ -10,7 +10,7 @@
  * los métodos de la clase DB.
  * 
  * DEPENDENCIAS: helpers.php
- * Última modificación: 09/04/2026
+ * Última modificación: 19/09/2026
  * 
  * @author Robert Sallent <robert@fastlight.org>
  * @since v2.4.0
@@ -274,16 +274,14 @@ class QueryBuilder{
      * @param mixed|null $value Valor para el parámetro (opcional)
      * @return QueryBuilder La instancia actual para encadenamiento
     */
-    public function where(
-        string $condition, 
-        mixed $value = null
-    ): QueryBuilder{
+    public function where(string $condition, mixed $value = null): QueryBuilder{
         $this->where[] = $condition;
         
-        // FIXME: revisar si el valor null es correcto (creo que podría serlo)
-        if($value !== null){
+        // Si se pasó el segundo argumento, se enlaza incluso cuando es null.
+        if (func_num_args() >= 2) {
             $this->values[] = $value;
         }
+        
         return $this;
     }
 
@@ -294,8 +292,8 @@ class QueryBuilder{
      * @param mixed|null $value Valor para el parámetro (opcional)
      * @return QueryBuilder La instancia actual para encadenamiento
     */
-    public function whereAnd(string $condition, $value = null): QueryBuilder{
-        return $this->where($condition, $value);
+    public function whereAnd(string $condition, mixed $value = null): QueryBuilder{
+        return func_num_args() >= 2 ? $this->where($condition, $value) : $this->where($condition);
     }
 
 
@@ -305,16 +303,22 @@ class QueryBuilder{
      * @param mixed|null $value Valor para el parámetro (opcional)
      * @return QueryBuilder La instancia actual para encadenamiento
     */
-    public function whereOr(string $condition, $value = null): QueryBuilder{
-        if(empty($this->where)){
-            return $this->where($condition, $value);
+    public function whereOr(string $condition, mixed $value = null): QueryBuilder{
+        
+        // para que nos funcione también con valores null
+        $hasValue = func_num_args() >= 2;
+        
+        if (empty($this->where)) {
+            return $hasValue ? $this->where($condition, $value) : $this->where($condition);
         }
-
-        $lastCondition   = array_pop($this->where);
-        $newCondition    = "($lastCondition OR $condition)";
-        $this->where[]   = $newCondition;
-        $this->values[]  = $value;
-
+        
+        $lastCondition = array_pop($this->where);
+        $this->where[] = "($lastCondition OR $condition)";
+        
+        if ($hasValue) {
+            $this->values[] = $value;
+        }
+        
         return $this;
     }
 
@@ -423,6 +427,7 @@ class QueryBuilder{
         string $field, 
         array $values
     ): QueryBuilder {
+        
         if (empty($values)) {
             // Si está vacío, la condición siempre será cierta
             $this->where[] = "1 = 1";
@@ -451,7 +456,35 @@ class QueryBuilder{
     }
 
 
-    // TODO: orders()
+    /**
+     * Añade varias cláusulas ORDER BY a la consulta.
+     *
+     * @param array $orders Campos a ordenar. Formatos:
+     *                      ['nombre', 'fecha']
+     *                      ['nombre' => 'ASC', 'fecha' => 'DESC']
+     * @return QueryBuilder La instancia actual para encadenamiento
+     */
+    public function orders(array $orders): QueryBuilder{
+        
+        foreach ($orders as $field => $direction) {
+            if (is_int($field)) {
+                $field      = $direction;
+                $direction  = 'ASC';
+            }
+            
+            $direction = strtoupper(trim($direction));
+            
+            if (!in_array($direction, ['ASC', 'DESC'], true)) {
+                throw new InvalidArgumentException(
+                    "Dirección de ordenación no válida para '$field': $direction"
+                );
+            }
+            
+            $this->order($field, $direction);
+        }
+        
+        return $this;
+    }
     
     
     /** Establece el límite y desplazamiento de la consulta
@@ -599,11 +632,9 @@ class QueryBuilder{
      * @return QueryBuilder La instancia actual para encadenamiento
     */
     public function prepare(?PDO $pdo = null): QueryBuilder{
-        $stm = $pdo ? 
-            $pdo->prepare($this->getSQL()) : 
-            $this->pdo->prepare($this->getSQL());
-
-        $this->pdoStatement = $stm;
+        $this->pdo = $pdo ?? $this->pdo ?? DB::get();
+        $this->pdoStatement = $this->pdo->prepare($this->getSQL());
+        
         return $this;
     }
 
@@ -784,6 +815,6 @@ class QueryBuilder{
      * @return string La consulta SQL generada
     */
     public function __toString(): string{
-        return "SQL: ".$this->getSQL()."\nValues: ".arrayToString($this->values);
+        return "SQL: ".$this->getSQL()."; \n Values: ".arrayToString($this->values);
     }
 }

@@ -4,7 +4,7 @@
  *
  * Gestiona la operación de LogIn.
  * 
- * Última revisión: 20/05/2026
+ * Última revisión: 10/10/2026
  * 
  * @author Robert Sallent <robert@fastlight.org>
  * 
@@ -23,7 +23,14 @@ class LoginController extends Controller{
      * @return Response la vista de login o una redirección
      */
     public function index():Response{
-        return Login::guest() ? view('login') : redirect(REDIRECT_AFTER_LOGIN);
+        
+        // recupera el tiempo restante de bloqueo (si lo hay) y lo borra de sesión
+        $blockSeconds = (int) Session::get('_login_block_seconds');
+        Session::forget('_login_block_seconds');
+        
+        return Login::guest() ? view('login', [
+            'blockSeconds' => $blockSeconds
+        ]) : redirect(REDIRECT_AFTER_LOGIN);
     }
     
     
@@ -46,21 +53,54 @@ class LoginController extends Controller{
         }
         
         // comprueba que llega el token CSRF y que es válido
-        CSRF::check($this->request->post('csrf_token'));
+        CSRF::check();
             
         // recupera el usuario (email)
-        $user       = $this->request->post('user');
+        $user  = $this->request->post('user');
+        $ip    = $_SERVER['REMOTE_ADDR'] ?? '';
+        
         
         // recupera el password, no se sanea para no cambiar los caracteres 
         // especiales por otros ni eliminar los espacios de los extremos. 
         // TODO: sustituir el mecanismo de encriptado por otro más seguro (bcrypt)
-        $password   = md5($_POST['password']);          
-        
+        $password = md5($_POST['password']);   
+              
         // recupera el usuario con los datos enviados desde el formulario de LogIn
         $identificado = User::authenticate($user, $password); 
         
         // si la identificación no es correcta...
         if(!$identificado){
+            
+            // si está activado el middleware de limitación de intentos de login, registra el intento fallido
+            if(LOGIN_THROTTLE){
+                
+                // recuperaremos los intentos fallidos anteriores
+                $attempt = LoginAttempt::attemptsByUserAndIp($user, $ip);
+                
+                // si todavía no existe registro, lo crea
+                if(!$attempt){
+                    
+                    $attempt = new LoginAttempt();
+                    
+                    $attempt->user          = $user;
+                    $attempt->ip            = $ip;
+                    $attempt->attempts      = 0;
+                    $attempt->last_attempt  = date('Y-m-d H:i:s');
+                    $attempt->blocked_until = null;
+                    
+                    $attempt->save();
+                }
+                
+                // registra el intento fallido
+                $attempt->failed();
+                
+                // si el usuario está bloqueado, guarda el tiempo restante en sesión
+                if($attempt->isBlocked())
+                    Session::set('_login_block_seconds', $attempt->remainingBlockTime());
+                    
+            }
+            
+            
             Session::error("Los datos de identificación no son correctos para {$user}.");
             
             // registra el error de Login en el fichero de Log (si está activado en el config)

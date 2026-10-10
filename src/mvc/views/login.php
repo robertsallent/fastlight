@@ -48,7 +48,8 @@
     			</div>
     			
     			<div class="centered my3">
-    				<input type="submit" class="button phone75" value="LogIn">
+    				<p id="loginBlockMessage" class="pt2"></p>
+    				<input type="submit" id="loginButton" class="button phone75" value="LogIn">
     			</div>
     			<div class="right phone-centered">
     				<a class="button-light phone75" href="/forgot-password">Olvidé mi clave</a>
@@ -58,6 +59,36 @@
 		
 		<?= $template->footer() ?>
 		<?= $template->version() ?>
+		
+		<script>
+			let blockSeconds = <?= $blockSeconds ?>;
+
+			if(blockSeconds > 0){
+
+				const button  = document.getElementById('loginButton');
+				const message = document.getElementById('loginBlockMessage');
+
+				button.disabled = true;
+
+				function updateLoginCounter(){
+
+					if(blockSeconds <= 0){
+						button.disabled = false;
+						message.textContent = '';
+						return;
+					}
+
+					message.textContent =
+						`Inténtalo de nuevo en ${blockSeconds} segundos.`;
+
+					blockSeconds--;
+
+					setTimeout(updateLoginCounter, 1000);
+				}
+
+				updateLoginCounter();
+			}
+		</script>
 	</body>
 </html>
 

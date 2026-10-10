@@ -4,7 +4,7 @@
  *
  * Configuración de los middlewares
  *
- * Última actualización: 31/03/2026
+ * Última actualización: 10/10/2026
  *
  * @author Robert Sallent <robert@fastlight.org>
  * @since v2.6.1
@@ -22,8 +22,9 @@
  * El orden importa, se ejecutan en orden del primero al último
  */
 define('MIDDLEWARES', [
-    'Mantenimiento'             => Maintenance::class,
-    'Usuarios bloqueados'       => BlockedUser::class,
+    'Mantenimiento'          => Maintenance::class,
+    'Login Throttle'         => LoginThrottle::class,
+    'Usuarios bloqueados'    => BlockedUser::class,   
 ]);
 
 
@@ -38,6 +39,28 @@ define('MAINTENANCE_MODE', false);
 // Se usa el parámetro passkey vía GET:
 //  EJEMPLO: https://fastlight.org/Example/modal?passkey=1234
 define('MAINTENANCE_PASSKEY', '1234');
+
+
+
+/* -------------------------------------------------------------
+ * LOGIN THROTTLE
+ * -------------------------------------------------------------*/
+
+// activa o desactiva el middleware de limitación de intentos de login
+// debe estar también añadido a la lista de MIDDLEWARES para que funcione
+define('LOGIN_THROTTLE', true);
+
+// Número máximo de intentos fallidos para una combinación usuario + IP.
+define('LOGIN_MAX_ATTEMPTS', 3);
+
+// Tiempo de bloqueo, en segundos, para usuario + IP.
+define('LOGIN_BLOCK_SECONDS', 60);
+
+// Número máximo de intentos fallidos globales desde una misma IP.
+define('LOGIN_IP_MAX_ATTEMPTS', 25);
+
+// Tiempo de bloqueo global de una IP, en segundos.
+define('LOGIN_IP_BLOCK_SECONDS', 600);
 
 
 /* -------------------------------------------------------------

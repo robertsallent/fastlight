@@ -698,7 +698,9 @@ abstract class Model{
     public static function whereExactMatch(
         array $condiciones = [],
         string $orden = 'id',
-        string $sentido = 'ASC'
+        string $sentido = 'ASC',
+        int $limit = 0,
+        int $offset = 0
     ):array{
             
         $tabla = self::getTable(); // recupera el nombre de la tabla
@@ -715,6 +717,12 @@ abstract class Model{
         }
         
         $consulta .= "ORDER BY $orden $sentido";
+        
+        if($limit)
+            $consulta .= " LIMIT $limit";
+            
+        if($offset)
+            $consulta .= " OFFSET $offset";
         
         $entities = DB::selectAll($consulta, get_called_class());
         

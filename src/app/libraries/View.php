@@ -142,7 +142,7 @@ class View{
             
             $user = user();
             
-            $message = "<h2>500 - Error/h2>";
+            $message = "<h2>500 - Error</h2>";
             
             if(DEBUG || $user && $user->hasRole('ROLE_DEBUG')){
                 $message .= "<p>ERROR en la vista <b>";

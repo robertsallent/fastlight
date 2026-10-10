@@ -19,7 +19,7 @@ USE fastlight;
 -- tabla users
 -- se pueden crear campos adicionales o relaciones con otras entidades si es necesario
 CREATE TABLE users(
-	id INT PRIMARY KEY auto_increment,
+	id INT PRIMARY KEY AUTO_INCREMENT,
 	displayname VARCHAR(32) NOT NULL,
 	email VARCHAR(255) NOT NULL UNIQUE KEY,
 	phone VARCHAR(32) NOT NULL UNIQUE KEY,
@@ -49,7 +49,7 @@ INSERT INTO users(id, displayname, email, phone, picture, password, roles) VALUE
 -- tabla errors
 -- por si queremos registrar los errores en base de datos.
 CREATE TABLE errors(
-	id INT PRIMARY KEY auto_increment,
+	id INT PRIMARY KEY AUTO_INCREMENT,
     date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     type CHAR(3) NOT NULL DEFAULT 'WEB',
     level VARCHAR(32) NOT NULL DEFAULT 'ERROR',
@@ -63,12 +63,26 @@ CREATE TABLE errors(
 -- tabla stats
 -- por si queremos registrar las estadísticas de visitas a las disintas URLs de nuestra aplicación.
 CREATE TABLE stats(
-	id INT PRIMARY KEY auto_increment,
+	id INT PRIMARY KEY AUTO_INCREMENT,
     url VARCHAR(250) NOT NULL UNIQUE KEY,
 	count INT NOT NULL DEFAULT 1,
 	user VARCHAR(128) DEFAULT NULL,
-	ip CHAR(15) NOT NULL, 
+	ip CHAR(45) NOT NULL, 
 	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+-- tabla para registrar los intentos erróneos de login para el LOGIN THROTTLE
+CREATE TABLE login_attempts (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user VARCHAR(255) NOT NULL,
+    ip VARCHAR(45) NOT NULL,
+    attempts TINYINT UNSIGNED NOT NULL DEFAULT 0,
+    last_attempt DATETIME NOT NULL,
+    blocked_until DATETIME NULL,
+
+    UNIQUE KEY login_attempt_user_ip (user, ip)
+);
 
